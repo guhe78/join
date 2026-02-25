@@ -17,7 +17,7 @@ Du kannst dir eigenständig Aufgaben picken oder neue hinzufügen, wenn dir etwa
 
 Kommunikation: Unser täglicher Austausch findet auf Discord statt. Schau regelmäßig rein für Updates oder Fragen.
 
-💻 Tech Stack
+💻 Tech  Stack
 Wir setzen das Projekt mit folgenden Technologien um:
 
 HTML5 für die Grundstruktur.
