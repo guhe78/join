@@ -1,0 +1,20 @@
+:root {
+    --primary-color:#2a3647;
+    --secondary-color:#f5f6f7;
+    --sidebar-bg-hover:#091930;
+    --side-bar-icon: #cccccc;
+    --side-bar-icon-hover:#ffffff;
+    --side-bar-privacy-legal:#a8a8a8;
+    --urgent-icon:#ff3c00;
+    --greeting-name-and-hover:#29abe3;
+    --medium-btn:#ffaa00;
+    --urgent-arrow:#ff3c00;
+    --low-arrow:#79e329;
+    --user-storys:#0037ff;
+    --technical-task:#1fd7c1;
+    --user-icon:#d1d1d1;
+}
+
+body {
+    font-family: 'Inter Variable', sans-serif;
+}
