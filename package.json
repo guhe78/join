@@ -1,0 +1,24 @@
+{
+  "name": "join",
+  "version": "1.0.0",
+  "description": "> Basierend auf der offiziellen Figma-Vorlage v1.0.",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guhe78/join.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/guhe78/join/issues"
+  },
+  "homepage": "https://github.com/guhe78/join#readme",
+  "devDependencies": {
+    "jsdoc": "^4.0.5"
+  }
+}

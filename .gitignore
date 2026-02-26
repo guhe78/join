@@ -1,1 +1,16 @@
+# Dependencies
+node_modules/
+
+# JSDoc Documentation (locally generated)
+out/
+docs/
+
+# Environment variables & Secrets
 .env
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IDE-specific settings
+.vscode/
