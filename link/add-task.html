@@ -1,86 +1,205 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Join</title>
-    <link rel="stylesheet" href="./styles/font.css" />
-    <link rel="stylesheet" href="./styles/variables.css" />
-    <link rel="stylesheet" href="./styles/standard.css" />
-    <link rel="stylesheet" href="./style.css" />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="assets/favicon/favicon-16x16.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="assets/favicon/favicon-32x32.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="192x192"
-      href="assets/favicon/android-chrome-192x192.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="512x512"
-      href="assets/favicon/android-chrome-512x512.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      size="180x180"
-      href="assets/favicon/apple-touch-icon.png"
-    />
-    <link
-      rel="shortcut icon"
-      sizes="any"
-      href="assets/favicon/favicon.ico"
-      type="image/x-icon"
-    />
-    <link rel="manifest" href="assets/favicon/site.webmanifest" />
-  </head>
-  <body>
-    <aside>
-      <img src="assets/imgs/join-logo-white.png" alt="logo" class="logo" />
-      <nav class="side-nav">
-        <div class="page-links">
-          <a href="#"
-            ><img src="assets/imgs/summary.png" alt="Summary" />Summary</a
-          >
-          <a href="#"
-            ><img src="assets/imgs/add-task.png" alt="Add Task" />Add Task</a
-          >
-          <a href="#"><img src="assets/imgs/board.png" alt="Board" />Board</a>
-          <a href="#"
-            ><img src="assets/imgs/contacts.png" alt="Contacts" />Contacts</a
-          >
-        </div>
-        <div class="police-links-container">
-          <a href="#">Privacy Policy</a>
-          <a href="#">Legal notice</a>
-        </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Join - Add Task</title>
+  <link rel="stylesheet" href="../styles/font.css" />
+  <link rel="stylesheet" href="../styles/variables.css" />
+  <link rel="stylesheet" href="../styles/standard.css" />
+  <link rel="stylesheet" href="../styles/addtask.css" />
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon/favicon-32x32.png" />
+</head>
+
+<body>
+
+  
+  <aside>
+    <img src="../assets/imgs/join-logo-white.png" alt="logo" class="logo" />
+
+    <nav class="side-nav">
+      <div class="page-links">
+        <a href="summary.html">
+          <img src="../assets/imgs/summary.png" alt="Summary" />
+          Summary
+        </a>
+
+        <a href="add-task.html" class="active">
+          <img src="../assets/imgs/add-task.png" alt="Add Task" />
+          Add Task
+        </a>
+
+        <a href="board.html">
+          <img src="../assets/imgs/board.png" alt="Board" />
+          Board
+        </a>
+
+        <a href="contacts.html">
+          <img src="../assets/imgs/contacts.png" alt="Contacts" />
+          Contacts
+        </a>
+      </div>
+
+      <div class="police-links-container">
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="legal-notice.html">Legal notice</a>
+      </div>
+    </nav>
+  </aside>
+
+  
+  <main>
+
+    
+    <header>
+      <p class="headline">Kanban Project Management Tool</p>
+
+      <nav class="header-nav">
+        <button class="button help-button">
+          <img src="../assets/imgs/help.png" alt="help" />
+        </button>
+
+        <button class="button profil-button">SM</button>
       </nav>
-    </aside>
-    <main>
-      <header>
-        <p class="headline">Kanban Project Management Tool</p>
-        <nav class="header-nav">
-          <button class="button help-button">
-            <img src="assets/imgs/help.png" alt="search" />
-          </button>
-          <button class="button profil-button">SM</button>
-        </nav>
-      </header>
-      <section>
-        <h1>Test</h1>
-      </section>
-    </main>
-  </body>
-  <script src="script.js"></script>
+    </header>
+
+    
+    <section class="addtask">
+
+      <h1 class="addtask-title">Add Task</h1>
+
+      <form class="addtask-form">
+
+        
+        <div class="addtask-col">
+
+          <div class="field">
+            <label class="label" for="title">
+              Title<span class="req">*</span>
+            </label>
+
+            <input id="title" class="input input-error" type="text" placeholder="Enter a title" />
+            <p class="error-msg">This field is required</p>
+          </div>
+
+          <div class="field">
+            <label class="label" for="desc">Description</label>
+
+            <textarea id="desc" class="textarea" rows="5"
+              placeholder="Create a contact form and imprint page !"></textarea>
+          </div>
+
+          <div class="field">
+            <label class="label" for="due">
+              Due date<span class="req">*</span>
+            </label>
+
+            <div class="input-icon">
+              <input id="due" class="input" type="text" placeholder="dd/mm/yyyy" />
+              <img class="icon-right" src="../assets/imgs/event.png" alt="calendar" />
+            </div>
+          </div>
+
+        </div>
+
+        
+        <div class="addtask-divider"></div>
+
+        
+        <div class="addtask-col">
+
+          
+          <div class="field">
+            <label class="label">Priority</label>
+
+            <div class="prio-row">
+              <button type="button" class="prio-btn">
+                Urgent
+                <img src="../assets/imgs/Capa 2.png" alt="" />
+              </button>
+
+              <button type="button" class="prio-btn prio-btn-active">
+                Medium
+                <img src="../assets/imgs/equals.png" alt="" />
+              </button>
+
+              <button type="button" class="prio-btn">
+                Low
+                <img src="../assets/imgs/prio-low.png" alt="" />
+              </button>
+            </div>
+          </div>
+
+          
+          <div class="field">
+            <label class="label" for="assigned">Assigned to</label>
+
+            <div class="select">
+              <select id="assigned">
+                <option selected disabled>Select contacts to assign</option>
+                <option>Max Mustermann</option>
+                <option>Erika Musterfrau</option>
+              </select>
+              <img class="icon-right" src="../assets/imgs/arrow_drop_downaa.png" alt="" />
+            </div>
+          </div>
+
+          
+          <div class="field">
+            <label class="label" for="cat">
+              Category<span class="req">*</span>
+            </label>
+
+            <div class="select">
+              <select id="cat">
+                <option selected disabled>Select task category</option>
+                <option>Technical Task</option>
+                <option>User Story</option>
+              </select>
+              <img class="icon-right" src="../assets/imgs/arrow_drop_downaa.png" alt="" />
+            </div>
+          </div>
+
+          
+          <div class="field">
+            <label class="label" for="subtask">Subtasks</label>
+
+            <div class="input-icon">
+              <input id="subtask" class="input" type="text" placeholder="Add new subtask" />
+              <img class="icon-right" src="../assets/imgs/add.png" alt="add" />
+            </div>
+          </div>
+
+        </div>
+
+        
+        <div class="addtask-foot">
+
+          <p class="required-hint">
+            <span class="req">*</span> This field is required
+          </p>
+
+          <div class="addtask-actions">
+            <button type="button" class="secondary-btn">
+              Clear 
+              <img src="../assets/imgs/close.png" alt="clear" />
+            </button>
+
+            <button type="button" class="primary-btn">
+              Create Task
+              <img src="../assets/imgs/check.png" alt="create" />
+            </button>
+          </div>
+
+        </div>
+
+      </form>
+
+    </section>
+
+  </main>
+
+  <script src="../script.js"></script>
+</body>
 </html>
