@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../styles/variables.css" />
     <link rel="stylesheet" href="../styles/standard.css" />
     <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="../styles/board.css" />
     <link
       rel="icon"
       type="image/png"
@@ -56,7 +57,9 @@
           <a href="#"
             ><img src="../assets/imgs/add-task.png" alt="Add Task" />Add Task</a
           >
-          <a href="#"><img src="../assets/imgs/board.png" alt="Board" />Board</a>
+          <a href="#"
+            ><img src="../assets/imgs/board.png" alt="Board" />Board</a
+          >
           <a href="#"
             ><img src="../assets/imgs/contacts.png" alt="Contacts" />Contacts</a
           >
@@ -68,7 +71,7 @@
       </nav>
     </aside>
     <main>
-      <header>
+      <header class="main-header">
         <p class="headline">Kanban Project Management Tool</p>
         <nav class="header-nav">
           <button class="button help-button">
@@ -77,10 +80,67 @@
           <button class="button profil-button">SM</button>
         </nav>
       </header>
-      <section>
-        <h1>Test</h1>
+      <section class="board-section">
+        <header>
+          <h1 class="headline-board">Board</h1>
+          <div class="board-header-right">
+            <div class="search-container">
+              <input type="text" placeholder="Find Task" />
+              <div class="divider"></div>
+              <button type="submit">
+                <img src="../assets/imgs/search.svg" alt="Search" />
+              </button>
+            </div>
+            <button class="primary-btn">
+              Add task<img src="../assets/imgs/add.svg" alt="add new task" />
+            </button>
+          </div>
+        </header>
+        <div class="board-content">
+          <section class="to-do-column">
+            <header>
+              <h2 class="column-title">To Do</h2>
+              <button class="add-new-task-button">
+                <img
+                  src="../assets/imgs/plus button.png"
+                  alt="add new task to To Do column"
+                />
+              </button>
+            </header>
+            <div id="toDoContent" class="to-do-content"></div>
+          </section>
+          <section class="in-progress-column">
+            <header>
+              <h2 class="column-title">In Progress</h2>
+              <button class="add-new-task-button">
+                <img
+                  src="../assets/imgs/plus button.png"
+                  alt="add new task to In Progress column"
+                />
+              </button>
+            </header>
+            <div id="inProgressContent" class="in-progress-content"></div>
+          </section>
+          <section class="review-column">
+            <header>
+              <h2 class="column-title">Await feedback</h2>
+              <button class="add-new-task-button">
+                <img
+                  src="../assets/imgs/plus button.png"
+                  alt="add new task to Await feedback column"
+                />
+              </button>
+            </header>
+            <div id="reviewContent" class="review-content"></div>
+          </section>
+          <section class="done-column">
+            <header>
+              <h2 class="column-title">Done</h2>
+            </header>
+            <div id="doneContent" class="done-content"></div>
+          </section>
+        </div>
       </section>
     </main>
   </body>
-  <script src="script.js"></script>
 </html>
