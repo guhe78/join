@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,9 +13,51 @@
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon/favicon-32x32.png" />
 </head>
 
-<body>
+<script>//test script nicht final 
+  document.addEventListener("DOMContentLoaded", () => {
+    const custom = document.querySelector("#assignedSelect");
+    if (!custom) return;
+
+    const trigger = custom.querySelector(".select-trigger");
+    const dropdown = custom.querySelector(".select-dropdown");
+    const textEl = custom.querySelector(".trigger-text");
+
+   
+    trigger.addEventListener("click", (e) => {
+      e.stopPropagation();
+      custom.classList.toggle("open");
+    });
+
+   
+    document.addEventListener("click", (e) => {
+      if (!custom.contains(e.target)) custom.classList.remove("open");
+    });
+
+ 
+    dropdown.addEventListener("click", (e) => {
+      const option = e.target.closest(".select-option");
+      if (!option) return;
+
+      const cb = option.querySelector('input[type="checkbox"]');
+      if (!cb) return;
 
   
+      if (e.target !== cb) cb.checked = !cb.checked;
+
+      
+      option.classList.toggle("active", cb.checked);
+
+     
+      const checkedCount = dropdown.querySelectorAll('input[type="checkbox"]:checked').length;
+      textEl.textContent = checkedCount === 0
+        ? "Select contacts to assign"
+        : `${checkedCount} selected`;
+    });
+  });
+</script>
+<body>
+
+
   <aside>
     <img src="../assets/imgs/join-logo-white.png" alt="logo" class="logo" />
 
@@ -48,10 +91,10 @@
     </nav>
   </aside>
 
-  
+
   <main>
 
-    
+
     <header>
       <p class="headline">Kanban Project Management Tool</p>
 
@@ -64,14 +107,14 @@
       </nav>
     </header>
 
-    
+
     <section class="addtask">
 
       <h1 class="addtask-title">Add Task</h1>
 
       <form class="addtask-form">
 
-        
+
         <div class="addtask-col">
 
           <div class="field">
@@ -103,49 +146,95 @@
 
         </div>
 
-        
+
         <div class="addtask-divider"></div>
 
-        
+
         <div class="addtask-col">
 
-          
-          <div class="field">
-            <label class="label">Priority</label>
 
-            <div class="prio-row">
-              <button type="button" class="prio-btn">
-                Urgent
-                <img src="../assets/imgs/Capa 2.png" alt="" />
-              </button>
+          <div class="prio-row">
+            <button type="button" class="prio-btn prio-urgent is-active">    <!-- is-active für JS -->
+              Urgent
+              <svg class="prio-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M7 14l5-5 5 5" />
+                <path d="M7 19l5-5 5 5" />
+              </svg>
+            </button>
 
-              <button type="button" class="prio-btn prio-btn-active">
-                Medium
-                <img src="../assets/imgs/equals.png" alt="" />
-              </button>
+            <button type="button" class="prio-btn prio-medium ">
+              Medium
+              <svg class="prio-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M7 10h10" />
+                <path d="M7 14h10" />
+              </svg>
+            </button>
 
-              <button type="button" class="prio-btn">
-                Low
-                <img src="../assets/imgs/prio-low.png" alt="" />
-              </button>
-            </div>
+            <button type="button" class="prio-btn prio-low">
+              Low
+              <svg class="prio-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M7 10l5 5 5-5" />
+                <path d="M7 5l5 5 5-5" />
+              </svg>
+            </button>
           </div>
 
-          
-          <div class="field">
-            <label class="label" for="assigned">Assigned to</label>
 
-            <div class="select">
-              <select id="assigned">
-                <option selected disabled>Select contacts to assign</option>
-                <option>Max Mustermann</option>
-                <option>Erika Musterfrau</option>
-              </select>
-              <img class="icon-right" src="../assets/imgs/arrow_drop_downaa.png" alt="" />
-            </div>
-          </div>
+<div class="field">
+  <label class="label" for="assigned">Assigned to</label>
 
-          
+  <div class="custom-select" id="assignedSelect">
+    <div class="select-trigger">
+      <span class="trigger-text">Select contacts to assign</span>
+      <img class="trigger-arrow" src="../assets/imgs/arrow_drop_downaa.png" alt="">
+    </div>
+
+    <div class="select-dropdown">
+
+    <div class="select-option">
+      <div class="contact-info">
+        <div class="avatar blue">SM</div>
+        <span>Sofia Müller (You)</span>
+      </div>
+      <input type="checkbox">
+    </div>
+
+    <div class="select-option">
+      <div class="contact-info">
+        <div class="avatar orange">AM</div>
+        <span>Anton Mayer</span>
+      </div>
+      <input type="checkbox">
+    </div>
+
+    <div class="select-option active">
+      <div class="contact-info">
+        <div class="avatar purple">AS</div>
+        <span>Anja Schulz</span>
+      </div>
+      <input type="checkbox">
+    </div>
+
+    <div class="select-option">
+      <div class="contact-info">
+        <div class="avatar violet">BZ</div>
+        <span>Benedikt Ziegler</span>
+      </div>
+      <input type="checkbox">
+    </div>
+
+    <div class="select-option">
+      <div class="contact-info">
+        <div class="avatar pink">DE</div>
+        <span>David Eisenberg</span>
+      </div>
+      <input type="checkbox">
+    </div>
+
+  </div>
+</div>
+
+
           <div class="field">
             <label class="label" for="cat">
               Category<span class="req">*</span>
@@ -161,19 +250,18 @@
             </div>
           </div>
 
-          
+
           <div class="field">
             <label class="label" for="subtask">Subtasks</label>
 
             <div class="input-icon">
               <input id="subtask" class="input" type="text" placeholder="Add new subtask" />
-              <img class="icon-right" src="../assets/imgs/add.png" alt="add" />
             </div>
           </div>
 
         </div>
 
-        
+
         <div class="addtask-foot">
 
           <p class="required-hint">
@@ -182,12 +270,17 @@
 
           <div class="addtask-actions">
             <button type="button" class="secondary-btn">
-              Clear 
-              <img src="../assets/imgs/iconoir_cancel.svg" alt="clear" />
+              Clear
+              <svg class="icon icon-cancel" width="16" height="16" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path
+                  d="M12.0011 11.9998L17.2441 17.2428M6.75806 17.2428L12.0011 11.9998L6.75806 17.2428ZM17.2441 6.75684L12.0001 11.9998L17.2441 6.75684ZM12.0001 11.9998L6.75806 6.75684L12.0001 11.9998Z"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
             </button>
 
             <button type="button" class="primary-btn">
-              Create Task 
+              Create Task
               <img src="../assets/imgs/check.svg" alt="create" />
             </button>
           </div>
@@ -200,6 +293,8 @@
 
   </main>
 
-  <script src="../script.js"></script>
+  <script src="../script.js">
+  </script>
 </body>
+
 </html>
