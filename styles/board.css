@@ -99,6 +99,12 @@ h1 {
   flex-grow: 1;
 }
 
+.done-content,.review-content,.to-do-content,.in-progress-content {
+  border-radius: 10px;
+  flex: 1;
+  overflow: auto;
+}
+
 .board-content section header {
   display: flex;
   align-items: center;
@@ -144,7 +150,6 @@ h1 {
   background: white;
   border-radius: 24px;
   padding: 18px;
-  width: 280px;
   box-shadow: var(--card-shadow);
   display: flex;
   flex-direction: column;
@@ -249,4 +254,9 @@ h1 {
 .priority-icon {
   font-weight: bold;
   color: #ffa800;
+}
+
+.highlight {
+  background-color: #a0a0a0;
+  color: #666;
 }
