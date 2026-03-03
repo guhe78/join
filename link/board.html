@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../styles/variables.css" />
     <link rel="stylesheet" href="../styles/standard.css" />
     <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="../styles/board.css" />
     <link
       rel="icon"
       type="image/png"
@@ -50,25 +51,27 @@
       <img src="../assets/imgs/join-logo-white.png" alt="logo" class="logo" />
       <nav class="side-nav">
         <div class="page-links">
-          <a href="#"
+          <a href="summary.html" class="page-link-button"
             ><img src="../assets/imgs/summary.png" alt="Summary" />Summary</a
           >
-          <a href="#"
+          <a href="add-task.html" class="page-link-button"
             ><img src="../assets/imgs/add-task.png" alt="Add Task" />Add Task</a
           >
-          <a href="#"><img src="../assets/imgs/board.png" alt="Board" />Board</a>
-          <a href="#"
+          <a href="board.html" class="page-link-button"
+            ><img src="../assets/imgs/board.png" alt="Board" />Board</a
+          >
+          <a href="contacts.html" class="page-link-button"
             ><img src="../assets/imgs/contacts.png" alt="Contacts" />Contacts</a
           >
         </div>
         <div class="police-links-container">
-          <a href="#">Privacy Policy</a>
-          <a href="#">Legal notice</a>
+          <a href="privacy-policy.html">Privacy Policy</a>
+          <a href="legal-notice.html">Legal notice</a>
         </div>
       </nav>
     </aside>
     <main>
-      <header>
+      <header class="main-header">
         <p class="headline">Kanban Project Management Tool</p>
         <nav class="header-nav">
           <button class="button help-button">
@@ -77,10 +80,144 @@
           <button class="button profil-button">SM</button>
         </nav>
       </header>
-      <section>
-        <h1>Test</h1>
+      <section class="board-section">
+        <div class="board-header">
+          <h1 class="headline-board">Board</h1>
+          <div class="board-header-right">
+            <div class="search-container">
+              <input type="text" placeholder="Find Task" />
+              <div class="divider"></div>
+              <button type="submit">
+                <img src="../assets/imgs/search.svg" alt="Search" />
+              </button>
+            </div>
+            <button class="primary-btn add-task-button">
+              Add task<img src="../assets/imgs/add.svg" alt="add new task" />
+            </button>
+          </div>
+        </div>
+        <div class="board-content">
+          <section class="to-do-column">
+            <div>
+              <h2 class="column-title">To Do</h2>
+              <button class="add-new-task-button">
+                <img
+                  src="../assets/imgs/plus button.png"
+                  alt="add new task to To Do column"
+                />
+              </button>
+            </div>
+            <div id="toDoContent" class="to-do-content">
+              <div class="empty-state">No tasks To do</div>
+            </div>
+          </section>
+          <section class="in-progress-column">
+            <div>
+              <h2 class="column-title">In Progress</h2>
+              <button class="add-new-task-button">
+                <img
+                  src="../assets/imgs/plus button.png"
+                  alt="add new task to In Progress column"
+                />
+              </button>
+            </div>
+            <div id="inProgressContent" class="in-progress-content">
+              <div class="card">
+                <span class="badge user-story">User Story</span>
+
+                <h3 class="card-title">Kochwelt Page & Recipe Recommender</h3>
+                <p class="card-description">
+                  Build start page with recipe recommendation...
+                </p>
+
+                <div class="progress-container">
+                  <div class="progress-bar">
+                    <div class="progress-fill" style="width: 50%"></div>
+                  </div>
+                  <span class="subtask-count">1/2 Subtasks</span>
+                </div>
+
+                <div class="card-footer">
+                  <div class="avatars">
+                    <div class="avatar orange">AM</div>
+                    <div class="avatar teal">EM</div>
+                    <div class="avatar purple">MB</div>
+                  </div>
+                  <div class="priority-icon low"><img src="../assets/imgs/prio-media.png" alt="priority low icon"></div>
+                </div>
+              </div>
+              <div class="card">
+                <span class="badge user-story">User Story</span>
+
+                <h3 class="card-title">Kochwelt Page & Recipe Recommender</h3>
+                <p class="card-description">
+                  Build start page with recipe recommendation...
+                </p>
+
+                <div class="progress-container">
+                  <div class="progress-bar">
+                    <div class="progress-fill" style="width: 50%"></div>
+                  </div>
+                  <span class="subtask-count">1/2 Subtasks</span>
+                </div>
+
+                <div class="card-footer">
+                  <div class="avatars">
+                    <div class="avatar orange">AM</div>
+                    <div class="avatar teal">EM</div>
+                    <div class="avatar purple">MB</div>
+                  </div>
+                  <div class="priority-icon low"><img src="../assets/imgs/prio-media.png" alt="priority low icon"></div>
+                </div>
+            </div>
+          </section>
+          <section class="review-column">
+            <div>
+              <h2 class="column-title">Await feedback</h2>
+              <button class="add-new-task-button">
+                <img
+                  src="../assets/imgs/plus button.png"
+                  alt="add new task to Await feedback column"
+                />
+              </button>
+            </div>
+            <div id="reviewContent" class="review-content">
+              <div class="empty-state">No tasks To do</div>
+            </div>
+          </section>
+          <section class="done-column">
+            <div>
+              <h2 class="column-title">Done</h2>
+            </div>
+            <div id="doneContent" class="done-content">
+              <div class="card">
+                <span class="badge user-story">User Story</span>
+
+                <h3 class="card-title">Kochwelt Page & Recipe Recommender</h3>
+                <p class="card-description">
+                  Build start page with recipe recommendation...
+                </p>
+
+                <div class="progress-container">
+                  <div class="progress-bar">
+                    <div class="progress-fill" style="width: 50%"></div>
+                  </div>
+                  <span class="subtask-count">1/2 Subtasks</span>
+                </div>
+
+                <div class="card-footer">
+                  <div class="avatars">
+                    <div class="avatar orange">AM</div>
+                    <div class="avatar teal">EM</div>
+                    <div class="avatar purple">MB</div>
+                  </div>
+                  <div class="priority-icon low"><img src="../assets/imgs/prio-media.png" alt="priority low icon"></div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
       </section>
     </main>
   </body>
-  <script src="script.js"></script>
 </html>

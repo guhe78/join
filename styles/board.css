@@ -1,0 +1,252 @@
+.board-section {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  margin: 48px;
+}
+
+.board-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.board-section header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+h1 {
+  font-size: 61px;
+}
+
+.search-container {
+  display: flex;
+  border: 1px solid var(--user-icon);
+  border-radius: 10px;
+}
+
+.board-header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.search-container {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  background-color: white;
+}
+
+.search-container:focus-within {
+  border-color: var(--greeting-name-and-hover);
+}
+
+.search-container .divider {
+  width: 2px;
+  height: 28px;
+  background-color: var(--side-bar-icon);
+}
+
+.search-container input {
+  width: 250px;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 20px;
+  color: black;
+}
+
+.search-container input:focus {
+  outline: none;
+}
+
+.search-container input::placeholder {
+  color: var(--side-bar-icon);
+}
+
+.search-container button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 16px;
+  border-radius: 50%;
+  transition: transform 0.2s ease-in-out;
+  transform-origin: center;
+}
+
+.search-container button:hover {
+  transform: scale(1.1);
+}
+
+.search-container button:hover {
+  background-color: var(--side-bar-icon);
+}
+
+.board-content {
+  margin-top: 32px;
+  min-height: 600px;
+  display: flex;
+  gap: 32px;
+}
+
+.board-content section {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 0;
+  flex-grow: 1;
+}
+
+.board-content section header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.column-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--board-header);
+}
+
+.empty-state {
+  margin-top: 16px;
+  background-color: #ebedef;
+  border: 1px dashed #b0b5bd;
+  border-radius: 12px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #a0a5ad;
+  font-size: 16px;
+}
+
+.add-task-button {
+  padding: 8px 16px !important;
+}
+
+.add-new-task-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-new-task-button img:hover {
+  filter: invert(61%) sepia(52%) saturate(2335%) hue-rotate(167deg)
+    brightness(96%) contrast(91%);
+}
+
+.card {
+  margin-top: 16px;
+  background: white;
+  border-radius: 24px;
+  padding: 18px;
+  width: 280px;
+  box-shadow: var(--card-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.badge {
+  padding: 4px 12px;
+  border-radius: 8px;
+  color: white;
+  font-size: 14px;
+  width: fit-content;
+}
+
+.user-story {
+  background-color: var(--user-storys);
+}
+
+.technical-task {
+  background-color: var(--technical-task);
+}
+
+.card-title {
+  color: var(--primary-color);
+  font-size: 16px;
+  margin: 0;
+}
+
+.card-description {
+  color: var(--side-bar-privacy-legal);
+  font-size: 14px;
+  margin: 0;
+}
+
+.progress-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.progress-bar {
+  flex-grow: 1;
+  height: 8px;
+  background-color: #f4f4f4;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: #4589ff;
+  border-radius: 4px;
+}
+
+.subtask-count {
+  font-size: 12px;
+  color: black;
+  white-space: nowrap;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.avatars {
+  display: flex;
+}
+
+.avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid white;
+  margin-left: -8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  color: white;
+}
+
+.avatar:first-child {
+  margin-left: 0;
+}
+
+.orange {
+  background: #ff8a00;
+}
+
+.teal {
+  background: #1fd7c1;
+}
+
+.purple {
+  background: #462f8a;
+}
+
+.priority-icon {
+  font-weight: bold;
+  color: #ffa800;
+}

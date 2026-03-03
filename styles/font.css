@@ -1,7 +1,12 @@
 @font-face {
+<<<<<<< HEAD
   font-family: "Inter Variable";
   src: url("../assets/fonts/Inter-VariableFont_opsz,wght.ttf")
     format("truetype-variations");
+=======
+  font-family: 'Inter Variable';
+  src: url('../assets/fonts/Inter-VariableFont_opsz,wght.ttf') format('truetype-variations');
+>>>>>>> 79ca454 (feat: add SVG icons for add and search functionalities, update board layout and styles)
   font-weight: 100 900;
   font-stretch: normal;
   font-style: normal;
