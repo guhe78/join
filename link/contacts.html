@@ -80,14 +80,54 @@
           <button class="button profil-button">SM</button>
         </nav>
       </header>
-      <section class="contacts">
-        <aside class="contact-list">
-          <button>Add new contact</button>
-          <div id="contacts-list"></div>
+      <section class="contacts-section">
+        <aside class="contacts">
+          <div class="add-contact">
+            <button class="primary-btn">
+              Add new contact
+              <img src="../assets/imgs/person-add.png" alt="" />
+            </button>
+          </div>
+
+          <div class="contacts-list" id="contacts-list"></div>
         </aside>
-        <h1>Contacts</h1>
-        <p>Better with a team</p>
+        <div class="contact-headline">
+          <h1>Contacts</h1>
+          <p>Better with a team</p>
+        </div>
       </section>
+      <dialog open id="dialog">
+        <section>
+          <div class="left-content">
+            <h1>Add contact</h1>
+            <p>Tasks are better with a team!</p>
+          </div>
+          <div class="right-content">
+            <form action="">
+              <input
+                type="text"
+                name="name"
+                id="input-name"
+                placeholder="Name"
+              />
+              <input
+                type="email"
+                name="email"
+                id="input-email"
+                placeholder="Email"
+              />
+              <input
+                type="tel"
+                name="telephone"
+                id="input-telephone"
+                placeholder="Phone"
+              />
+              <input type="button" value="Cancel" />
+              <input type="button" value="Create contact" />
+            </form>
+          </div>
+        </section>
+      </dialog>
     </main>
   </body>
   <script src="../script.js"></script>
