@@ -45,8 +45,11 @@
       type="image/x-icon"
     />
     <link rel="manifest" href="../assets/favicon/site.webmanifest" />
+    <script src="../script.js" defer></script>
+    <script src="../scripts/board.js" defer></script>
+    <script src="../scripts/board-templates.js" defer></script>
   </head>
-  <body>
+  <body onload="init()">
     <aside>
       <img src="../assets/imgs/join-logo-white.png" alt="logo" class="logo" />
       <nav class="side-nav">
@@ -98,7 +101,7 @@
         </div>
         <div class="board-content">
           <section class="to-do-column">
-            <div>
+            <div class="board-header">
               <h2 class="column-title">To Do</h2>
               <button class="add-new-task-button">
                 <img
@@ -107,12 +110,19 @@
                 />
               </button>
             </div>
-            <div id="toDoContent" class="to-do-content">
-              <div class="empty-state">No tasks To do</div>
-            </div>
+            <div
+              id="open"
+              class="to-do-content"
+              ondrop="moveTo('open')"
+              ondragleave="unhighlight('open')"
+              ondragover="
+                dragover(event);
+                highlight('open');
+              "
+            ></div>
           </section>
           <section class="in-progress-column">
-            <div>
+            <div class="board-header">
               <h2 class="column-title">In Progress</h2>
               <button class="add-new-task-button">
                 <img
@@ -121,58 +131,19 @@
                 />
               </button>
             </div>
-            <div id="inProgressContent" class="in-progress-content">
-              <div class="card">
-                <span class="badge user-story">User Story</span>
-
-                <h3 class="card-title">Kochwelt Page & Recipe Recommender</h3>
-                <p class="card-description">
-                  Build start page with recipe recommendation...
-                </p>
-
-                <div class="progress-container">
-                  <div class="progress-bar">
-                    <div class="progress-fill" style="width: 50%"></div>
-                  </div>
-                  <span class="subtask-count">1/2 Subtasks</span>
-                </div>
-
-                <div class="card-footer">
-                  <div class="avatars">
-                    <div class="avatar orange">AM</div>
-                    <div class="avatar teal">EM</div>
-                    <div class="avatar purple">MB</div>
-                  </div>
-                  <div class="priority-icon low"><img src="../assets/imgs/prio-media.png" alt="priority low icon"></div>
-                </div>
-              </div>
-              <div class="card">
-                <span class="badge user-story">User Story</span>
-
-                <h3 class="card-title">Kochwelt Page & Recipe Recommender</h3>
-                <p class="card-description">
-                  Build start page with recipe recommendation...
-                </p>
-
-                <div class="progress-container">
-                  <div class="progress-bar">
-                    <div class="progress-fill" style="width: 50%"></div>
-                  </div>
-                  <span class="subtask-count">1/2 Subtasks</span>
-                </div>
-
-                <div class="card-footer">
-                  <div class="avatars">
-                    <div class="avatar orange">AM</div>
-                    <div class="avatar teal">EM</div>
-                    <div class="avatar purple">MB</div>
-                  </div>
-                  <div class="priority-icon low"><img src="../assets/imgs/prio-media.png" alt="priority low icon"></div>
-                </div>
-            </div>
+            <div
+              id="inProgress"
+              class="in-progress-content"
+              ondrop="moveTo('inProgress')"
+              ondragleave="unhighlight('inProgress')"
+              ondragover="
+                dragover(event);
+                highlight('inProgress');
+              "
+            ></div>
           </section>
           <section class="review-column">
-            <div>
+            <div class="board-header">
               <h2 class="column-title">Await feedback</h2>
               <button class="add-new-task-button">
                 <img
@@ -181,40 +152,31 @@
                 />
               </button>
             </div>
-            <div id="reviewContent" class="review-content">
-              <div class="empty-state">No tasks To do</div>
-            </div>
+            <div
+              id="review"
+              class="review-content"
+              ondrop="moveTo('review')"
+              ondragleave="unhighlight('review')"
+              ondragover="
+                dragover(event);
+                highlight('review');
+              "
+            ></div>
           </section>
           <section class="done-column">
-            <div>
+            <div class="board-header">
               <h2 class="column-title">Done</h2>
             </div>
-            <div id="doneContent" class="done-content">
-              <div class="card">
-                <span class="badge user-story">User Story</span>
-
-                <h3 class="card-title">Kochwelt Page & Recipe Recommender</h3>
-                <p class="card-description">
-                  Build start page with recipe recommendation...
-                </p>
-
-                <div class="progress-container">
-                  <div class="progress-bar">
-                    <div class="progress-fill" style="width: 50%"></div>
-                  </div>
-                  <span class="subtask-count">1/2 Subtasks</span>
-                </div>
-
-                <div class="card-footer">
-                  <div class="avatars">
-                    <div class="avatar orange">AM</div>
-                    <div class="avatar teal">EM</div>
-                    <div class="avatar purple">MB</div>
-                  </div>
-                  <div class="priority-icon low"><img src="../assets/imgs/prio-media.png" alt="priority low icon"></div>
-                </div>
-              </div>
-            </div>
+            <div
+              id="close"
+              class="done-content"
+              ondrop="moveTo('close')"
+              ondragleave="unhighlight('close')"
+              ondragover="
+                dragover(event);
+                highlight('close');
+              "
+            ></div>
           </section>
         </div>
       </section>
