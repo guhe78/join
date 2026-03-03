@@ -210,7 +210,7 @@
     width: 252px;
     flex-shrink: 0;
   }
-  
+
   .column-header {
     padding: 0;
   }
@@ -223,7 +223,6 @@
     padding-right: 0;
   }
 }
-
 
 @media (max-width: 1100px) {
   .board-section {
@@ -284,5 +283,4 @@
   .search-container-mobile {
     display: flex;
   }
-
 }
