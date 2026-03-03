@@ -1,17 +1,26 @@
-.contacts {
+.contacts-section {
   display: flex;
 }
 
-.contact-list {
+.contacts {
   background-color: #f6f7f8;
   width: 456px;
-  height: 100%;
+  height: 90vh;
+
+  overflow-y: auto;
 }
 
-.contact-list button {
-  background-color: var(--primary-color);
-  color: white;
+.add-contact {
+  width: 440px;
+  height: 101px;
+  position: fixed;
+  background-color: #f6f7f8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+.contacts button {
   font-weight: bold;
   font-size: 21px;
   width: 352px;
@@ -19,6 +28,13 @@
   border-radius: 10px;
 
   padding: 12px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.contacts-list {
+  padding-top: 96px;
+  padding-bottom: 32px;
 }
 
 .contact {
@@ -26,17 +42,27 @@
   display: flex;
   align-items: center;
   gap: 35px;
+  border-radius: 10px;
+}
+
+.contact:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 }
 
 .contact-badge {
   width: 42px;
   height: 42px;
   border-radius: 50%;
-  background-color: rebeccapurple;
+  background-color: blue;
   display: flex;
   justify-content: center;
   align-items: center;
   color: white;
+}
+
+.contact-data {
+  height: 48px;
 }
 
 .contact .name {
@@ -46,4 +72,46 @@
 .contact .email {
   font-size: 16px;
   color: #007cee;
+}
+
+.contact-letter {
+  font-size: 20px;
+  width: 352px;
+  height: 58px;
+  padding: 17px 36px;
+  display: flex;
+  align-items: center;
+}
+
+.contact-seperator {
+  width: 352px;
+  height: 1px;
+  border-top: 1px solid #d1d1d1;
+  margin: 8px 0;
+}
+
+.contact-headline {
+  padding-top: 110px;
+  padding-left: 55px;
+
+  display: flex;
+}
+
+.contact-headline p {
+  font-size: 27px;
+}
+
+.active-contact {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.active-contact:hover {
+  background-color: var(--primary-color);
+}
+
+dialog {
+  background-color: transparent;
+  border-radius: 30px;
+  border: none;
 }
