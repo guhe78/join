@@ -3,6 +3,28 @@
     background-color: var(--background-color);
 }
 
+.pd-top24 {
+    padding-top: 24px;
+}
+
+.pd-bottom24 {
+    padding-bottom: 24px;
+}
+
+.pd-top8 {
+    padding-top: 8px;
+}
+
+.help-list {
+    margin-left: 40px;
+}
+
+.help-list li::marker {
+    font-weight: 700;
+    font-size: 27px;
+    margin-left: 40px;
+}
+
 .summary-title {
     display: flex;
     align-items: center;
@@ -97,6 +119,13 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
+}
+
+.date-prior {
+    font-family: 'Inter Variable', sans-serif;
+    font-weight: 700;
+    font-size: 21px;
+    color: var(--primary-color);
 }
 
 .bg-prio {
