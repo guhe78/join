@@ -1,69 +1,72 @@
-let toDos = [
-  {
-    id: 1,
-    title: "shopping",
-    category: "open",
-  },
-  {
-    id: 2,
-    title: "finish project",
-    category: "inProgress",
-  },
-  {
-    id: 3,
-    title: "car wash",
-    category: "review",
-  },
-  {
-    id: 4,
-    title: "call mom",
-    category: "close",
-  },
-  {
-    id: 5,
-    title: "go to the gym",
-    category: "open",
-  },
-];
+let currentDraggedElement = null;
 
-let currentDraggedElement;
-
-function init() {
-  const openToDos = toDos.filter((toDo) => toDo.category === "open");
-  const inProgressToDos = toDos.filter(
-    (toDo) => toDo.category === "inProgress",
-  );
-  const reviewToDos = toDos.filter((toDo) => toDo.category === "review");
-  const closedToDos = toDos.filter((toDo) => toDo.category === "close");
-  const openToDoContainer = document.getElementById("open");
-  const inProgressToDoContainer = document.getElementById("inProgress");
-  const reviewToDoContainer = document.getElementById("review");
-  const closedToDoContainer = document.getElementById("close");
-  openToDoContainer.innerHTML = "";
-  inProgressToDoContainer.innerHTML = "";
-  reviewToDoContainer.innerHTML = "";
-  closedToDoContainer.innerHTML = "";
-  openToDoContainer.classList.remove("highlight");
-  closedToDoContainer.classList.remove("highlight");
-  inProgressToDoContainer.classList.remove("highlight");
-  reviewToDoContainer.classList.remove("highlight");
-  renderContainer(openToDos, openToDoContainer);
-  renderContainer(inProgressToDos, inProgressToDoContainer);
-  renderContainer(reviewToDos, reviewToDoContainer);
-  renderContainer(closedToDos, closedToDoContainer);
+function updateBoard() {
+  const statusTypes = ["todo", "inProgress", "review", "done"];
+  for (let i = 0; i < statusTypes.length; i++) {
+    const status = statusTypes[i];
+    const container = document.getElementById(status);
+    if (container) {
+      processColumn(status, container);
+    }
+  }
 }
 
-function renderContainer(toDoBox, containerElement) {
-  if (toDoBox.length === 0) {
-    containerElement.innerHTML = nothingToDoTemplate();
-  } else {
-    let html = "";
-    for (let index = 0; index < toDoBox.length; index++) {
-      const element = toDoBox[index];
-      html += toDoTaskTemplate(element);
+function processColumn(status, container) {
+  let filtered = [];
+  for (let i = 0; i < tasks.length; i++) {
+    if (tasks[i].status === status) {
+      filtered.push(tasks[i]);
     }
-    containerElement.innerHTML = html;
   }
+  container.innerHTML = "";
+  container.classList.remove("highlight");
+  fillContainer(filtered, container);
+}
+
+function fillContainer(subset, container) {
+  if (subset.length === 0) {
+    container.innerHTML = nothingToDoTemplate();
+    return;
+  }
+  for (let i = 0; i < subset.length; i++) {
+    const taskData = prepareTaskData(subset[i]);
+    container.innerHTML += toDoTaskTemplate(taskData);
+  }
+}
+
+function prepareTaskData(element) {
+  const stats = getSubtaskStats(element.subtasks);
+  const categoryClass = element.category.toLowerCase().replace(/\s+/g, "-");
+  const avatars = generateAvatarsHtml(element.assigned_to);
+  return {
+    id: element.taskId,
+    title: element.title,
+    description: element.description,
+    category: element.category,
+    categoryClass: categoryClass,
+    priority: element.priority,
+    hasSubtasks: stats.hasSubtasks,
+    subtaskInfo: stats.text,
+    progressWidth: stats.percent,
+    avatarsHtml: avatars,
+  };
+}
+
+function getSubtaskStats(subtasks) {
+  const subtaskArray = subtasks ? Object.values(subtasks) : [];
+  const total = subtaskArray.length;
+  let doneCount = 0;
+  for (let i = 0; i < total; i++) {
+    if (subtaskArray[i].is_done) {
+      doneCount++;
+    }
+  }
+  return {
+    total: total,
+    hasSubtasks: total > 0,
+    percent: total > 0 ? (doneCount / total) * 100 : 0,
+    text: `${doneCount}/${total} Subtasks`,
+  };
 }
 
 function startdragging(id) {
@@ -75,21 +78,34 @@ function dragover(ev) {
 }
 
 function highlight(id) {
-  const element = document.getElementById(id);
-  element.classList.add("highlight");
+  document.getElementById(id).classList.add("highlight");
 }
 
 function unhighlight(id) {
-  const element = document.getElementById(id);
-  element.classList.remove("highlight");
+  document.getElementById(id).classList.remove("highlight");
 }
 
-function moveTo(category) {
-  const toDoIndex = toDos.findIndex(
-    (toDo) => toDo.id === currentDraggedElement,
-  );
-  if (toDoIndex !== -1) {
-    toDos[toDoIndex].category = category;
-    init();
+function moveTo(newStatus) {
+  const index = tasks.findIndex((t) => t.taskId === currentDraggedElement);
+  if (index !== -1) {
+    const movedTask = tasks.splice(index, 1)[0];
+    movedTask.status = newStatus;
+    tasks.push(movedTask);
+    updateBoard();
   }
+}
+
+function generateAvatarsHtml(assignedTo) {
+  if (!assignedTo) return "";
+  let html = "";
+  const contactIds = Object.keys(assignedTo);
+
+  for (let i = 0; i < contactIds.length; i++) {
+    const contact = contacts.find((c) => c.id === contactIds[i]);
+    if (contact) {
+      const initials = (contact.firstName[0] + contact.lastName[0]).toUpperCase();
+      html += avatarTemplate(contact.color, initials);
+    }
+  }
+  return html;
 }

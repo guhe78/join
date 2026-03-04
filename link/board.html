@@ -45,11 +45,11 @@
       type="image/x-icon"
     />
     <link rel="manifest" href="../assets/favicon/site.webmanifest" />
-    <script src="../script.js" defer></script>
-    <script src="../scripts/board.js" defer></script>
+    <script src="../scripts/board-test-arrays.js" defer></script>
     <script src="../scripts/board-templates.js" defer></script>
+    <script src="../scripts/board.js" defer></script>
   </head>
-  <body onload="init()">
+  <body onload="updateBoard()">
     <aside>
       <img src="../assets/imgs/join-logo-white.png" alt="logo" class="logo" />
       <nav class="side-nav">
@@ -111,13 +111,13 @@
               </button>
             </div>
             <div
-              id="open"
+              id="todo"
               class="to-do-content"
-              ondrop="moveTo('open')"
-              ondragleave="unhighlight('open')"
+              ondrop="moveTo('todo')"
+              ondragleave="unhighlight('todo')"
               ondragover="
                 dragover(event);
-                highlight('open');
+                highlight('todo');
               "
             ></div>
           </section>
@@ -168,13 +168,13 @@
               <h2 class="column-title">Done</h2>
             </div>
             <div
-              id="close"
+              id="done"
               class="done-content"
-              ondrop="moveTo('close')"
-              ondragleave="unhighlight('close')"
+              ondrop="moveTo('done')"
+              ondragleave="unhighlight('done')"
               ondragover="
                 dragover(event);
-                highlight('close');
+                highlight('done');
               "
             ></div>
           </section>
