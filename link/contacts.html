@@ -51,16 +51,16 @@
       <img src="../assets/imgs/join-logo-white.png" alt="logo" class="logo" />
       <nav class="side-nav">
         <div class="page-links">
-          <a href="#"
+          <a href="summary.html"
             ><img src="../assets/imgs/summary.png" alt="Summary" />Summary</a
           >
-          <a href="#"
+          <a href="add-task.html"
             ><img src="../assets/imgs/add-task.png" alt="Add Task" />Add Task</a
           >
-          <a href="#"
+          <a href="board.html"
             ><img src="../assets/imgs/board.png" alt="Board" />Board</a
           >
-          <a href="#"
+          <a href="contacts.html"
             ><img src="../assets/imgs/contacts.png" alt="Contacts" />Contacts</a
           >
         </div>
@@ -83,7 +83,7 @@
       <section class="contacts-section">
         <aside class="contacts">
           <div class="add-contact">
-            <button class="primary-btn">
+            <button class="primary-btn" onclick="addNewContact()">
               Add new contact
               <img src="../assets/imgs/person-add.png" alt="" />
             </button>
@@ -91,39 +91,68 @@
 
           <div class="contacts-list" id="contacts-list"></div>
         </aside>
-        <div class="contact-headline">
-          <h1>Contacts</h1>
-          <p>Better with a team</p>
+        <div class="contact-main">
+          <div class="contact-headline">
+            <h1>Contacts</h1>
+            <div class="headline-seperator"></div>
+            <p>Better with a team</p>
+          </div>
+          <div class="contact-overview" id="contact-overview"></div>
         </div>
       </section>
-      <dialog open id="dialog">
-        <section>
+      <dialog id="dialog">
+        <section class="add-edit-contact-section" id="add-edit-contact-section">
           <div class="left-content">
-            <h1>Add contact</h1>
-            <p>Tasks are better with a team!</p>
+            <img src="../assets/imgs/join-logo-white.png" alt="" />
+            <div id="dialog-headline" class="dialog-headline"></div>
           </div>
           <div class="right-content">
+            <div class="person-img-container">
+              <img src="../assets/imgs/person.png" alt="" />
+            </div>
             <form action="">
-              <input
-                type="text"
-                name="name"
-                id="input-name"
-                placeholder="Name"
-              />
-              <input
-                type="email"
-                name="email"
-                id="input-email"
-                placeholder="Email"
-              />
-              <input
-                type="tel"
-                name="telephone"
-                id="input-telephone"
-                placeholder="Phone"
-              />
-              <input type="button" value="Cancel" />
-              <input type="button" value="Create contact" />
+              <div class="textfield-container">
+                <input
+                  type="text"
+                  name="name"
+                  id="input-name"
+                  placeholder="Name"
+                  class="input-field"
+                />
+                <img src="../assets/imgs/person.png" alt="" />
+              </div>
+              <div class="textfield-container">
+                <input
+                  type="email"
+                  name="email"
+                  id="input-email"
+                  placeholder="Email"
+                  class="input-field"
+                />
+                <img src="../assets/imgs/mail.png" alt="" />
+              </div>
+              <div class="textfield-container">
+                <input
+                  type="tel"
+                  name="telephone"
+                  id="input-telephone"
+                  placeholder="Phone"
+                  class="input-field"
+                />
+                <img src="../assets/imgs/call.png" alt="" />
+              </div>
+              <div class="input-buttons">
+                <button
+                  type="button"
+                  class="secondary-btn"
+                  id="no-button"
+                ></button>
+                <button
+                  type="button"
+                  class="primary-btn"
+                  id="ok-button"
+                ></button>
+              </div>
             </form>
           </div>
         </section>
@@ -132,4 +161,5 @@
   </body>
   <script src="../script.js"></script>
   <script src="../scripts/contacts.js"></script>
+  <script src="../scripts/contactsTemplates.js"></script>
 </html>
