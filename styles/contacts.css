@@ -1,3 +1,9 @@
+h3 {
+  font-family: "Inter Variable", sans-serif;
+  font-weight: 700;
+  font-size: 27px;
+}
+
 .contacts-section {
   display: flex;
 }
@@ -309,4 +315,17 @@ dialog::backdrop {
 
 .bold {
   font-weight: bold;
+}
+
+.contact-overview {
+  transform: translateX(100vw);
+  opacity: 0;
+  transition:
+    transform 0.5s ease-out,
+    opacity 0.5s ease-out;
+}
+
+.fade-in {
+  transform: translateX(0);
+  opacity: 1;
 }
