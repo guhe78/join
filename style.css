@@ -74,11 +74,27 @@ header {
     margin-bottom: 64px;
 }
 
+.page-link-button {
+    transition: 0.2s ease;
+}
+
+.page-link-button:hover {
+    background-color: var(--sidebar-bg-hover);
+    color: white;
+}
+
 .police-links-container a {
     color: var(--side-bar-privacy-legal);
     text-decoration: none;
     font-size: 14px;
     padding: 8px 56px;
+    transition: transform 0.2s ease-in-out;
+    transform-origin: center;
+}
+
+.police-links-container a:hover {
+    color: var(--greeting-name-and-hover);
+    transform: scale(1.05);
 }
 
 /* =========================================

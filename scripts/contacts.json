@@ -1,0 +1,62 @@
+[
+  {
+    "firstName": "Max",
+    "lastName": "Mustermann",
+    "email": "max.mustermann@example.com",
+    "phone": "+49 151 12345678"
+  },
+  {
+    "firstName": "Anna",
+    "lastName": "Schneider",
+    "email": "anna.schneider@example.com",
+    "phone": "+49 152 23456789"
+  },
+  {
+    "firstName": "Lukas",
+    "lastName": "Müller",
+    "email": "lukas.mueller@example.com",
+    "phone": "+49 160 34567890"
+  },
+  {
+    "firstName": "Sophie",
+    "lastName": "Weber",
+    "email": "sophie.weber@example.com",
+    "phone": "+49 170 45678901"
+  },
+  {
+    "firstName": "Leon",
+    "lastName": "Wagner",
+    "email": "leon.wagner@example.com",
+    "phone": "+49 171 56789012"
+  },
+  {
+    "firstName": "Marie",
+    "lastName": "Becker",
+    "email": "marie.becker@example.com",
+    "phone": "+49 172 67890123"
+  },
+  {
+    "firstName": "Paul",
+    "lastName": "Hoffmann",
+    "email": "paul.hoffmann@example.com",
+    "phone": "+49 173 78901234"
+  },
+  {
+    "firstName": "Laura",
+    "lastName": "Schulz",
+    "email": "laura.schulz@example.com",
+    "phone": "+49 174 89012345"
+  },
+  {
+    "firstName": "Jonas",
+    "lastName": "Klein",
+    "email": "jonas.klein@example.com",
+    "phone": "+49 175 90123456"
+  },
+  {
+    "firstName": "Emily",
+    "lastName": "Richter",
+    "email": "emily.richter@example.com",
+    "phone": "+49 176 01234567"
+  }
+]

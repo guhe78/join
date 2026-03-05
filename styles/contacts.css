@@ -1,0 +1,49 @@
+.contacts {
+  display: flex;
+}
+
+.contact-list {
+  background-color: #f6f7f8;
+  width: 456px;
+  height: 100%;
+}
+
+.contact-list button {
+  background-color: var(--primary-color);
+  color: white;
+
+  font-weight: bold;
+  font-size: 21px;
+  width: 352px;
+  height: 56px;
+  border-radius: 10px;
+
+  padding: 12px 0;
+}
+
+.contact {
+  padding: 15px 24px;
+  display: flex;
+  align-items: center;
+  gap: 35px;
+}
+
+.contact-badge {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background-color: rebeccapurple;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.contact .name {
+  font-size: 20px;
+}
+
+.contact .email {
+  font-size: 16px;
+  color: #007cee;
+}
