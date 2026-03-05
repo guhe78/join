@@ -1,5 +1,4 @@
-
-   /* RESET */
+/* RESET */
 
 * {
     margin: 0;
@@ -8,7 +7,7 @@
 }
 
 
-   /* BODY */
+/* BODY */
 
 body {
     font-family: 'Inter Variable', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -21,7 +20,7 @@ body {
 }
 
 
-   /* TOP RIGHT SIGN UP */
+/* TOP RIGHT SIGN UP */
 
 .top-bar {
     position: absolute;
@@ -48,7 +47,7 @@ body {
 }
 
 
-   /* WRAPPER */
+/* WRAPPER */
 
 .login-wrapper {
     display: flex;
@@ -58,7 +57,7 @@ body {
 }
 
 
-   /* LOGO */
+/* LOGO */
 
 .login-logo {
     position: absolute;
@@ -68,19 +67,19 @@ body {
 }
 
 
-   /* CARD */
+/* CARD */
 
 .login-card {
     background: white;
     padding: 60px 80px;
     border-radius: 24px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
     text-align: center;
     width: 590px;
 }
 
 
-   /* HEADING */
+/* HEADING */
 
 .login-card h1 {
     font-size: 56px;
@@ -114,7 +113,7 @@ body {
     cursor: pointer;
 }
 
-   /* INPUTS */
+/* INPUTS */
 
 .input-group {
     position: relative;
@@ -123,7 +122,7 @@ body {
 
 input {
     width: 100%;
-    padding: 14px 45px 14px 16px; 
+    padding: 14px 45px 14px 16px;
     border-radius: 10px;
     border: 1px solid #e6e8ee;
     font-size: 16px;
@@ -136,10 +135,10 @@ input {
     right: 15px;
     top: 50%;
     transform: translateY(-50%);
-    width: 18px;   
+    width: 18px;
     height: 18px;
     opacity: 0.6;
-    pointer-events: none; 
+    pointer-events: none;
 }
 
 input::placeholder {
@@ -155,7 +154,7 @@ input:focus {
     cursor: pointer;
 }
 
-   /* BUTTONS */
+/* BUTTONS */
 
 .button-group {
     margin-top: 30px;
@@ -190,14 +189,13 @@ button {
 }
 
 .secondary-btn:hover {
-    box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
     border-color: #29ABE2;
     color: #29ABE2;
-    
+
 }
 
-
-   /* FOOTER LINKS */
+/* FOOTER LINKS */
 
 .footer-links {
     position: absolute;
@@ -216,4 +214,54 @@ button {
 
 .footer-links a:hover {
     color: #2A3647;
+}
+
+/* SPLASH ANIMATION (LOGIN) */
+
+.splash {
+    position: fixed;
+    inset: 0;
+    background: #ffffff;
+    display: grid;
+    place-items: center;
+    z-index: 9999;
+    opacity: 1;
+    pointer-events: all;
+    transition: opacity 450ms ease, background 650ms ease;
+}
+
+.splash-logo {
+    width: 180px;
+    height: auto;
+    transform: translate(0, 0) scale(1);
+    transition: transform 850ms cubic-bezier(.2, .8, .2, 1);
+}
+
+.splash.animate {
+    background: #f4f5f7;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 450ms ease, background 650ms ease;
+}
+
+.splash.animate .splash-logo {
+    transform: translate(-42vw, -36vh) scale(0.55);
+    transition: transform 850ms cubic-bezier(.2, .8, .2, 1);
+}
+
+.login-logo {
+    opacity: 0;
+}
+
+body.logo-early .login-logo {
+    opacity: 1;
+    transition: opacity 120ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .splash,
+    .splash-logo {
+        transition: none !important;
+    }
 }

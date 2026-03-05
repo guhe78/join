@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,8 +15,15 @@
     <link rel="stylesheet" href="../styles/font.css">
     <link rel="stylesheet" href="../styles/login.css">
 </head>
+
 <body>
-    
+
+
+
+    <div class="splash" id="splash" aria-hidden="true">
+        <img class="splash-logo" src="../assets/imgs/join-logo.png" alt="">
+    </div>
+
     <div class="top-bar">
         <span>Not a Join user? </span>
         <a href="#" class="signup-btn">Sign up</a>
@@ -47,10 +55,33 @@
         </div>
 
         <div class="footer-links">
-            <a href="#">Privacy Policy</a>
-            <a href="#">Legal notice</a>
+            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="legal-notice.html">Legal notice</a>
         </div>
 
     </div>
+    <script>
+        function startSplash() {
+            let splash = document.getElementById("splash");
+            if (!splash) return;
+            let splashDelay = 800, animationDuration = 900, logoCornerDelay = 150;
+
+            setTimeout(function () {
+                splash.classList.add("animate");
+
+                setTimeout(function () {
+                    document.body.classList.add("logo-early");
+                }, logoCornerDelay);
+
+                setTimeout(function () {
+                    splash.style.display = "none";
+                }, animationDuration);
+
+            }, splashDelay);
+        }
+
+        window.onload = startSplash;
+    </script>
 </body>
+
 </html>
