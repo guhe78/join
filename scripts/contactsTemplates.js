@@ -36,9 +36,7 @@ function contactDetailTemplate(index) {
   return `
     <div class="contact-detail-view">
       <div class="contact-detail-header">
-        <div class="badge">
-          <div class="contact-detail-badge" style="background-color: ${state.contacts[index].badgeColor}">${state.contacts[index].firstName[0].toUpperCase()}${state.contacts[index].lastName[0].toUpperCase()}</div>
-        </div>
+        <div class="badge">${contactBadgeTemplate(index)}</div>
         <div class="contact-detail-headline">
           <h2 class="name">${state.contacts[index].firstName} ${state.contacts[index].lastName}</h2>
           <div class="contact-detail-buttons">
@@ -58,4 +56,10 @@ function contactDetailTemplate(index) {
         </div>
     </div>
   `;
+}
+
+function contactBadgeTemplate(index) {
+  return `
+  <div class="contact-detail-badge" style="background-color: ${state.contacts[index].badgeColor}">${state.contacts[index].firstName[0].toUpperCase()}${state.contacts[index].lastName[0].toUpperCase()}</div>
+`;
 }

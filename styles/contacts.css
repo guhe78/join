@@ -1,7 +1,18 @@
+html,
+body {
+  overflow-x: hidden;
+}
+
 h3 {
   font-family: "Inter Variable", sans-serif;
   font-weight: 700;
   font-size: 27px;
+}
+
+.icon {
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
 }
 
 .contacts-section {
@@ -185,6 +196,23 @@ dialog::backdrop {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+}
+
+.close-button {
+  position: absolute;
+  top: 48px;
+  right: 48px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.close-button:hover {
+  background-color: #d9d9d9;
+  transform: translateY(-1px);
 }
 
 .person-img-container {

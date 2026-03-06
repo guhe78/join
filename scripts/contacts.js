@@ -9,6 +9,8 @@ const DOM = {
   contactNameEl: document.getElementById("contact-name-input"),
   contactEmailEl: document.getElementById("contact-email-input"),
   contactPhoneEl: document.getElementById("contact-phone-input"),
+  closeButtonEl: document.getElementById("close-button"),
+  personImageEl: document.getElementById("person-image"),
 };
 
 const state = {
@@ -33,6 +35,8 @@ DOM.dialogEl.onclick = (event) => {
     closeDialog();
   }
 };
+
+DOM.closeButtonEl.onclick = closeDialog;
 
 async function init() {
   await fetchContacts();
@@ -84,16 +88,26 @@ function toggleActiveContact(index) {
 function openAddNewContact() {
   DOM.headlineEl.innerHTML = addContactHeadlineTemplate();
   DOM.noButtonEl.innerHTML = `Cancel&nbsp;${cancelIcon()}`;
+  DOM.noButtonEl.onclick = cancelAddContact;
   DOM.okButtonEl.innerHTML = `Add contact&nbsp;${checkIcon()}`;
+  DOM.personImageEl.innerHTML = `<img src="../assets/imgs/person.svg" alt="" />`;
+  DOM.okButtonEl.onclick = () =>
+    addContact(
+      DOM.contactNameEl.value,
+      DOM.contactEmailEl.value,
+      DOM.contactPhoneEl.value,
+    );
   openDialog();
 }
 
 function openEditContact(index) {
+  clearInputs();
   DOM.headlineEl.innerHTML = editContactHeadlineTemplate();
   DOM.noButtonEl.innerHTML = "Delete";
   DOM.noButtonEl.onclick = () => deleteContact(index);
   DOM.okButtonEl.innerHTML = "Save";
   DOM.okButtonEl.onclick = () => saveEditedContact(index);
+  DOM.personImageEl.innerHTML = contactBadgeTemplate(index);
   DOM.contactNameEl.value =
     state.contacts[index].firstName + " " + state.contacts[index].lastName;
   DOM.contactEmailEl.value = state.contacts[index].email;
@@ -113,8 +127,24 @@ function saveEditedContact(index) {
   closeDialog();
 }
 
-function addContact() {
-  const newContact = [];
+function addContact(name, email, phone) {
+  let id = "c" + getIdNumber();
+  let firstName = name.split(" ")[0];
+  let lastName = name.split(" ")[1];
+  let badgeColor = getRandomColor();
+  const newContact = {
+    id: id,
+    firstName: firstName,
+    lastName: lastName,
+    email: email,
+    phone: phone,
+    badgeColor: badgeColor,
+  };
+
+  state.contacts.push(newContact);
+  clearInputs();
+  renderContactsList();
+  closeDialog();
 }
 
 function deleteContact(index) {
@@ -124,12 +154,25 @@ function deleteContact(index) {
   closeDialog();
 }
 
+function cancelAddContact() {
+  clearInputs();
+  closeDialog();
+}
+
+function clearInputs() {
+  DOM.contactNameEl.value = "";
+  DOM.contactEmailEl.value = "";
+  DOM.contactPhoneEl.value = "";
+  DOM.personImageEl.innerHTML = "";
+}
+
 function openDialog() {
   DOM.dialogEl.showModal();
 }
 
 function closeDialog() {
   DOM.dialogEl.close();
+  clearInputs();
 }
 
 function getRandom(max) {
@@ -141,20 +184,17 @@ function getRandomColor() {
 }
 
 function getIdNumber() {
-  let firstNumber = 0;
-  let savedNumber = 0;
   const ids = [];
   for (let i = 0; i < state.contacts.length; i++) {
     ids.push(parseInt(state.contacts[i].id.slice(1)));
-    ids.sort();
+    ids.sort((a, b) => a - b);
   }
-  console.log(ids);
-  for (let i = 0; i < state.contacts.length; i++) {
-    firstNumber = parseInt(state.contacts[i].id.slice(1));
-    console.log("firstNumber: " + firstNumber);
-    if (firstNumber > savedNumber) {
-      savedNumber = firstNumber;
+
+  for (let i = 0; i < ids.length; i++) {
+    if (ids[i] + 1 === ids[i + 1]) {
+      continue;
+    } else {
+      return ids[i] + 1;
     }
-    console.log("savedNumber: " + savedNumber);
   }
 }
