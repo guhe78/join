@@ -242,3 +242,18 @@ function formatPriority(task) {
 function reformatDate(task) {
   return task.due_date.split("-").reverse().join("/");
 }
+
+/**
+ * Deletes a task from the tasks array by its ID and updates the board.
+ * @param {string} id - The ID of the task to be deleted.
+ */
+function deleteTask(id) {
+    const index = tasks.findIndex((t) => t.taskId === id);
+    if (index !== -1) {
+        tasks.splice(index, 1);
+        closeTaskDialog();
+        updateBoard(); 
+    } else {
+        return;
+    }
+}
