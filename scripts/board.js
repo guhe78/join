@@ -257,3 +257,40 @@ function deleteTask(id) {
         return;
     }
 }
+
+/**
+ * Toggles the completion status of a subtask and updates the UI.
+ * @param {string} taskId - The ID of the parent task.
+ * @param {string} subId - The ID of the subtask to toggle.
+ */
+function toggleSubtask(taskId, subId) {
+    const task = tasks.find((t) => t.taskId === taskId);
+    if (task && task.subtasks && task.subtasks[subId]) {
+        task.subtasks[subId].is_done = !task.subtasks[subId].is_done;
+        updateBoard();
+        refreshTaskDetail(taskId);
+    }
+}
+
+/**
+ * Helper function to re-render the detail view content without closing the dialog.
+ * @param {string} taskId - The ID of the task.
+ */
+function refreshTaskDetail(taskId) {
+    const task = tasks.find((t) => t.taskId === taskId);
+    if (task) {
+        const content = document.getElementById("dialogContent");
+        const categoryClass = task.category.toLowerCase().replace(/\s+/g, "-");
+        content.innerHTML = dialogTemplate(task, categoryClass);
+    }
+}
+
+/**
+ * Opens the edit view for a task within the existing dialog.
+ */
+function editTask(taskId) {
+    const task = tasks.find((t) => t.taskId === taskId);
+    if (!task) return;
+    const content = document.getElementById("dialogContent");
+    content.innerHTML = editTaskTemplate(task);
+}

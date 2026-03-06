@@ -83,8 +83,8 @@
           <button class="button profil-button">SM</button>
         </nav>
       </header>
-      <dialog id="taskDialog" class="task-modal">
-        <div id="dialogContent"></div>
+      <dialog id="taskDialog" class="task-modal" onclick="closeTaskDialog()">
+        <div id="dialogContent" onclick="event.stopPropagation()"></div>
       </dialog>
       <section class="board-section">
         <div class="board-header">

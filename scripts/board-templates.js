@@ -110,3 +110,88 @@ function subtaskItemTemplate(taskId, subId, checkImg, sub) {
 function noSubtasksTemplate() {
   return `<p class="no-subtasks">No subtasks available</p>`;
 }
+
+function editTaskTemplate(task) {
+  return `<div
+          class="task-card-detail edit-dialog"
+          onclick="event.stopPropagation()"
+        >
+          <div class="detail-header edit-header">
+            <button class="close-btn" onclick="closeTaskDialog()">
+              <img src="../assets/imgs/close.png" alt="Close" />
+            </button>
+          </div>
+          <div class="edit-container title">
+            <label class="detail-label" for="task-title">Title</label>
+            <input id="task-title" class="edit-input" type="text" required />
+          </div>
+
+          <div class="edit-container description">
+            <label class="detail-label" for="task-desc">Description</label>
+            <div class="area-wrapper">
+              <textarea
+                id="task-desc"
+                placeholder="Enter description..."
+                class="edit-textarea"
+                rows="4"
+              ></textarea>
+              <button><img src="../assets/imgs/recurso.svg" alt="recurso icon"></button>
+            </div>
+          </div>
+
+          <div class="edit-container date">
+            <label class="detail-label" for="due-date">Due date</label>
+            <div class="input-wrapper">
+              <input
+                type="text"
+                id="due-date"
+                value="10/05/2023"
+                placeholder="DD/MM/YYYY"
+              />
+              <button class="calendar-icon">
+                <img src="../assets/imgs/event.png" alt="calender icon" />
+              </button>
+            </div>
+          </div>
+
+          <div class="edit-container priority">
+            <span class="detail-label">Priority</span>
+            <button>
+              Urgent
+              <img src="../assets/imgs/prio-high.png" alt="Urgent icon" />
+            </button>
+            <button>
+              Medium
+              <img src="../assets/imgs/prio-media.png" alt="Medium icon" />
+            </button>
+            <button>
+              Low <img src="../assets/imgs/prio-low.png" alt="Low icon" />
+            </button>
+          </div>
+
+          <div class="edit-container date">
+            <span class="detail-label">Assigned to</span>
+            <div class="involved-contacts"></div>
+          </div>
+
+          <div class="edit-container date">
+            <span class="detail-label">Subtasks</span>
+            <input type="text" />
+            <div class="subtasks-container"></div>
+          </div>
+
+          <div class="detail-footer">
+            <button
+              onclick="saveTaskChanges(taskId)"
+              class="primary-btn edit-button"
+            >
+              Ok
+              <img
+                class="check-img"
+                src="../assets/imgs/check-white.svg
+              "
+              />
+            </button>
+          </div>
+        </div>`;
+}
