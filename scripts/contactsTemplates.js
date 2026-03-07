@@ -63,3 +63,11 @@ function contactBadgeTemplate(index) {
   <div class="contact-detail-badge" style="background-color: ${state.contacts[index].badgeColor}">${state.contacts[index].firstName[0].toUpperCase()}${state.contacts[index].lastName[0].toUpperCase()}</div>
 `;
 }
+
+function contactBadgeDummyTemplate() {
+  return `
+    <div class="person-img-container">
+      <img src="../assets/imgs/person.svg" alt="" />
+    </div>
+  `;
+}

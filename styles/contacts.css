@@ -281,6 +281,7 @@ dialog::backdrop {
 .contact-detail-header {
   display: flex;
   align-items: center;
+  gap: 54px;
 }
 
 .contact-detail-headline {
@@ -298,8 +299,6 @@ dialog::backdrop {
   align-items: center;
   color: white;
   font-size: 47px;
-
-  margin-right: 54px;
 }
 
 .contact-detail-buttons {

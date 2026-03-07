@@ -90,7 +90,7 @@ function openAddNewContact() {
   DOM.noButtonEl.innerHTML = `Cancel&nbsp;${cancelIcon()}`;
   DOM.noButtonEl.onclick = cancelAddContact;
   DOM.okButtonEl.innerHTML = `Add contact&nbsp;${checkIcon()}`;
-  DOM.personImageEl.innerHTML = `<img src="../assets/imgs/person.svg" alt="" />`;
+  DOM.personImageEl.innerHTML = contactBadgeDummyTemplate();
   DOM.okButtonEl.onclick = () =>
     addContact(
       DOM.contactNameEl.value,
@@ -130,7 +130,7 @@ function saveEditedContact(index) {
 function addContact(name, email, phone) {
   let id = "c" + getIdNumber();
   let firstName = name.split(" ")[0];
-  let lastName = name.split(" ")[1];
+  let lastName = name.split(" ")[-1];
   let badgeColor = getRandomColor();
   const newContact = {
     id: id,
