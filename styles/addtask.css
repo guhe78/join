@@ -1,14 +1,16 @@
 
    /* LAYOUT */
 
+   
+
 .addtask {
-  padding: 32px 48px;
+  padding: 24px 48px;
 }
 
 .addtask-title {
   font-size: 61px;
   font-weight: 700;
-  margin: 10px 0 28px;
+  margin: 0 0 20px;
 }
 
 .addtask-form {
@@ -84,26 +86,32 @@
   color: #ff3d3d;
   font-size: 12px;
   margin-top: 2px;
+  display: none;
+}
+
+.custom-select.input-error .select-trigger {
+  border-color: #ff3d3d;
 }
 
    /* INPUT ICON (Due date etc.) */
 
-.input-icon {
+.date-input-wrapper {
   position: relative;
+  width: 100%;
 }
 
-.input-icon .input {
+.date-input-wrapper .input {
   padding-right: 42px;
 }
 
-.icon-right {
+.date-icon-right {
   position: absolute;
   right: 12px;
   top: 50%;
   transform: translateY(-50%);
   width: 18px;
   height: 18px;
-  opacity: .7;
+  opacity: 0.7;
   pointer-events: none;
 }
 
@@ -112,7 +120,7 @@
 button {
   padding: 12px 10px;
   border-radius: 10px;
-  font-size: 16px;
+  font-size: 21px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -134,7 +142,7 @@ button {
   color: #2A3647;
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 5px;
 }
 
 .secondary-btn:hover {
@@ -144,8 +152,8 @@ button {
 }
 
 .secondary-btn svg {
-  width: 16px;
-  height: 16px;
+  width: 32px;
+  height: 32px;
   display: inline-block;
 }
 
@@ -161,7 +169,7 @@ button {
   background: #fff;
   border: 1px solid #e6e8ee;
   border-radius: 10px;
-  padding: 10px 12px;
+  padding: 10px 24px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -171,8 +179,8 @@ button {
 }
 
 .prio-icon {
-  width: 18px;
-  height: 18px;
+  width: 32px;
+  height: 32px;
   display: inline-block;
 }
 
@@ -366,8 +374,8 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 26px;
-  padding-top: 18px;
+  margin-top: 16px;
+  padding-top: 10px;
 }
 
 .required-hint {
@@ -382,8 +390,8 @@ button {
 }
 
 .addtask-actions img {
-  width: 16px;
-  height: 16px;
+  width: 32px;
+  height: 32px;
 }
 
   /* Spacing Tuning */

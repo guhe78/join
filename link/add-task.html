@@ -13,77 +13,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon/favicon-32x32.png" />
 </head>
 
-<script> //<---- Nur zum testen ki generiert
-document.addEventListener("DOMContentLoaded", () => {
-
-  
-  const closeAll = () => {
-    document.querySelectorAll(".custom-select.open").forEach(s => s.classList.remove("open"));
-  };
-
-  
-  document.querySelectorAll(".custom-select .select-trigger").forEach(trigger => {
-    trigger.addEventListener("click", (e) => {
-      e.stopPropagation();
-      const select = trigger.closest(".custom-select");
-      const isOpen = select.classList.contains("open");
-      closeAll();
-      if (!isOpen) select.classList.add("open");
-    });
-  });
-
-  
-  document.addEventListener("click", () => closeAll());
-
-  
-  const assigned = document.querySelector("#assignedSelect");
-  if (assigned) {
-    const dropdown = assigned.querySelector(".select-dropdown");
-    const textEl = assigned.querySelector(".trigger-text");
-
-    dropdown.addEventListener("click", (e) => {
-      const option = e.target.closest(".select-option");
-      if (!option) return;
-
-      const cb = option.querySelector('input[type="checkbox"]');
-      if (!cb) return;
-
-      if (e.target !== cb) cb.checked = !cb.checked;
-      option.classList.toggle("active", cb.checked);
-
-      const count = dropdown.querySelectorAll('input[type="checkbox"]:checked').length;
-      textEl.textContent = count === 0 ? "Select contacts to assign" : `${count} selected`;
-    });
-  }
-
-  
-  const cat = document.querySelector("#catSelect");
-  if (cat) {
-    const dropdown = cat.querySelector(".select-dropdown");
-    const textEl = cat.querySelector(".trigger-text");
-    const hidden = document.querySelector("#catHidden");
-
-    dropdown.addEventListener("click", (e) => {
-      const option = e.target.closest(".select-option");
-      if (!option) return;
-
-      
-      dropdown.querySelectorAll(".select-option").forEach(o => o.classList.remove("active"));
-      option.classList.add("active");
-
-      
-      textEl.textContent = option.textContent.trim();
-      if (hidden) hidden.value = option.dataset.value || option.textContent.trim();
-
-      
-      cat.classList.remove("open");
-    });
-  }
-
-});
-</script>
-
-<body>
+<body onload="initAddTask()">
 
 
   <aside>
@@ -151,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
             </label>
 
             <input id="title" class="input input-error" type="text" placeholder="Enter a title" />
-            <p class="error-msg">This field is required</p>
+            <p class="error-msg" id="titleError">This field is required</p>
           </div>
 
           <div class="field">
@@ -166,10 +96,11 @@ document.addEventListener("DOMContentLoaded", () => {
               Due date<span class="req">*</span>
             </label>
 
-            <div class="input-icon">
+            <div class="date-input-wrapper">
               <input id="due" class="input" type="text" placeholder="dd/mm/yyyy" />
-              <img class="icon-right" src="../assets/imgs/event.png" alt="calendar" />
+              <img class="date-icon-right" src="../assets/imgs/event.png" alt="calendar" />
             </div>
+            <p class="error-msg" id="dueError">This field is required</p>
           </div>
 
         </div>
@@ -180,9 +111,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         <div class="addtask-col">
 
-
           <div class="prio-row">
-            <button type="button" class="prio-btn prio-urgent "> <!-- is-active für JS -->
+            <button type="button" class="prio-btn prio-urgent">
               Urgent
               <svg class="prio-icon" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M7 14l5-5 5 5" />
@@ -190,7 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
               </svg>
             </button>
 
-            <button type="button" class="prio-btn prio-medium  ">
+            <button type="button" class="prio-btn prio-medium">
               Medium
               <svg class="prio-icon" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M7 10h10" />
@@ -207,9 +137,8 @@ document.addEventListener("DOMContentLoaded", () => {
             </button>
           </div>
 
-
           <div class="field">
-            <label class="label" for="assigned">Assigned to</label>
+            <label class="label" for="assignedSelect">Assigned to</label>
 
             <div class="custom-select" id="assignedSelect">
               <div class="select-trigger">
@@ -218,7 +147,6 @@ document.addEventListener("DOMContentLoaded", () => {
               </div>
 
               <div class="select-dropdown">
-
                 <div class="select-option">
                   <div class="contact-info">
                     <div class="avatar blue">SM</div>
@@ -235,8 +163,7 @@ document.addEventListener("DOMContentLoaded", () => {
                   <input type="checkbox">
                 </div>
 
-
-                <div class="select-option active"> <!-- "select-option active" für JS -->
+                <div class="select-option active">
                   <div class="contact-info">
                     <div class="avatar purple">AS</div>
                     <span>Anja Schulz</span>
@@ -259,87 +186,82 @@ document.addEventListener("DOMContentLoaded", () => {
                   </div>
                   <input type="checkbox">
                 </div>
+              </div>
+            </div>
+          </div>
 
+          <div class="field">
+            <label class="label" for="catSelect">
+              Category<span class="req">*</span>
+            </label>
+
+            <div class="custom-select custom-select--single" id="catSelect">
+              <div class="select-trigger">
+                <span class="trigger-text">Select task category</span>
+                <img class="trigger-arrow" src="../assets/imgs/arrow_drop_downaa.png" alt="">
+              </div>
+
+              <div class="select-dropdown">
+                <div class="select-option" data-value="technical">Technical Task</div>
+                <div class="select-option" data-value="userstory">User Story</div>
               </div>
             </div>
 
+            <input type="hidden" name="category" id="catHidden" value="">
 
-            <div class="field">
-              <label class="label" for="catSelect">Category<span class="req">*</span></label>
+            <p class="error-msg" id="categoryError">This field is required</p>
+          </div>
 
-              <div class="custom-select custom-select--single" id="catSelect">
-                <div class="select-trigger">
-                  <span class="trigger-text">Select task category</span>
-                  <img class="trigger-arrow" src="../assets/imgs/arrow_drop_downaa.png" alt="">
-                </div>
+          <div class="field">
+            <label class="label" for="subtask">Subtasks</label>
 
-                <div class="select-dropdown">
-                  <div class="select-option" data-value="technical">Technical Task</div>
-                  <div class="select-option" data-value="userstory">User Story</div>
-                </div>
-              </div>
+            <div class="subtask-input">
+              <input id="subtask" type="text" placeholder="Add new subtask" class="input" />
 
-            
-              <input type="hidden" name="category" id="catHidden" value="">
-            </div>
+              <div class="subtask-actions">
+                <svg class="subtask-icon" viewBox="0 0 24 24">
+                  <path d="M6 6L18 18M6 18L18 6" />
+                </svg>
 
+                <div class="divider"></div>
 
-            <div class="field">
-              <label class="label" for="subtask">Subtasks</label>
-
-              <div class="subtask-input">
-                <input id="subtask" type="text" placeholder="Add new subtask" class="input" />
-
-                <div class="subtask-actions">
-
-                  <svg class="subtask-icon" viewBox="0 0 24 24">
-                    <path d="M6 6L18 18M6 18L18 6" />
-                  </svg>
-
-                  <div class="divider"></div>
-
-                  <svg class="subtask-icon" viewBox="0 0 24 24">
-                    <path d="M5 13l4 4L19 7" />
-                  </svg>
-
-                </div>
+                <svg class="subtask-icon" viewBox="0 0 24 24">
+                  <path d="M5 13l4 4L19 7" />
+                </svg>
               </div>
             </div>
+          </div>
 
+        </div>
 
-            <div class="addtask-foot">
+        <div class="addtask-foot">
+          <p class="required-hint">
+            <span class="req">*</span> This field is required
+          </p>
 
-              <p class="required-hint">
-                <span class="req">*</span> This field is required
-              </p>
+          <div class="addtask-actions">
+            <button type="button" class="secondary-btn">
+              Clear
+              <svg class="icon icon-cancel" width="16" height="16" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path
+                  d="M12.0011 11.9998L17.2441 17.2428M6.75806 17.2428L12.0011 11.9998L6.75806 17.2428ZM17.2441 6.75684L12.0001 11.9998L17.2441 6.75684ZM12.0001 11.9998L6.75806 6.75684L12.0001 11.9998Z"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
 
-              <div class="addtask-actions">
-                <button type="button" class="secondary-btn">
-                  Clear
-                  <svg class="icon icon-cancel" width="16" height="16" viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path
-                      d="M12.0011 11.9998L17.2441 17.2428M6.75806 17.2428L12.0011 11.9998L6.75806 17.2428ZM17.2441 6.75684L12.0001 11.9998L17.2441 6.75684ZM12.0001 11.9998L6.75806 6.75684L12.0001 11.9998Z"
-                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                  </svg>
-                </button>
-
-                <button type="button" class="primary-btn">
-                  Create Task
-                  <img src="../assets/imgs/check.svg" alt="create" />
-                </button>
-              </div>
-
-            </div>
-
+            <button type="button" class="primary-btn">
+              Create Task
+              <img src="../assets/imgs/check.svg" alt="create">
+            </button>
+          </div>
+        </div>
       </form>
-
     </section>
-
   </main>
 
-  <script src="../script.js">
-  </script>
+  <script src="../scripts/addtask-template.js"></script>
+  <script src="../scripts/addtask.js"></script>
 </body>
 
 </html>
