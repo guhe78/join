@@ -4,133 +4,54 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Join - Add Task</title>
-  <link rel="stylesheet" href="../styles/font.css" />
-  <link rel="stylesheet" href="../styles/variables.css" />
-  <link rel="stylesheet" href="../styles/standard.css" />
-  <link rel="stylesheet" href="../styles/addtask.css" />
-  <link rel="stylesheet" href="../style.css" />
+  <title>Join</title>
+
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon/favicon-16x16.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../assets/favicon/android-chrome-192x192.png" />
+  <link rel="icon" type="image/png" sizes="512x512" href="../assets/favicon/android-chrome-512x512.png" />
+  <link rel="apple-touch-icon" size="180x180" href="../assets/favicon/apple-touch-icon.png" />
+  <link rel="shortcut icon" sizes="any" href="../assets/favicon/favicon.ico" type="image/x-icon" />
+  <link rel="manifest" href="../assets/favicon/site.webmanifest" />
+
+  <link rel="stylesheet" href="../styles/standard.css" />
+  <link rel="stylesheet" href="../styles/variables.css" />
+  <link rel="stylesheet" href="../styles/font.css" />
+  <link rel="stylesheet" href="../style.css" />
+
+  <link rel="stylesheet" href="../styles/addtask.css" />
+
+  <script src="../scripts/addtask.js" defer></script>
+
 </head>
 
-<script> //<---- Nur zum testen ki generiert
-document.addEventListener("DOMContentLoaded", () => {
-
-  
-  const closeAll = () => {
-    document.querySelectorAll(".custom-select.open").forEach(s => s.classList.remove("open"));
-  };
-
-  
-  document.querySelectorAll(".custom-select .select-trigger").forEach(trigger => {
-    trigger.addEventListener("click", (e) => {
-      e.stopPropagation();
-      const select = trigger.closest(".custom-select");
-      const isOpen = select.classList.contains("open");
-      closeAll();
-      if (!isOpen) select.classList.add("open");
-    });
-  });
-
-  
-  document.addEventListener("click", () => closeAll());
-
-  
-  const assigned = document.querySelector("#assignedSelect");
-  if (assigned) {
-    const dropdown = assigned.querySelector(".select-dropdown");
-    const textEl = assigned.querySelector(".trigger-text");
-
-    dropdown.addEventListener("click", (e) => {
-      const option = e.target.closest(".select-option");
-      if (!option) return;
-
-      const cb = option.querySelector('input[type="checkbox"]');
-      if (!cb) return;
-
-      if (e.target !== cb) cb.checked = !cb.checked;
-      option.classList.toggle("active", cb.checked);
-
-      const count = dropdown.querySelectorAll('input[type="checkbox"]:checked').length;
-      textEl.textContent = count === 0 ? "Select contacts to assign" : `${count} selected`;
-    });
-  }
-
-  
-  const cat = document.querySelector("#catSelect");
-  if (cat) {
-    const dropdown = cat.querySelector(".select-dropdown");
-    const textEl = cat.querySelector(".trigger-text");
-    const hidden = document.querySelector("#catHidden");
-
-    dropdown.addEventListener("click", (e) => {
-      const option = e.target.closest(".select-option");
-      if (!option) return;
-
-      
-      dropdown.querySelectorAll(".select-option").forEach(o => o.classList.remove("active"));
-      option.classList.add("active");
-
-      
-      textEl.textContent = option.textContent.trim();
-      if (hidden) hidden.value = option.dataset.value || option.textContent.trim();
-
-      
-      cat.classList.remove("open");
-    });
-  }
-
-});
-</script>
-
 <body>
-
-
   <aside>
     <img src="../assets/imgs/join-logo-white.png" alt="logo" class="logo" />
-
     <nav class="side-nav">
       <div class="page-links">
-        <a href="summary.html">
-          <img src="../assets/imgs/summary.png" alt="Summary" />
-          Summary
-        </a>
-
-        <a href="add-task.html" class="active">
-          <img src="../assets/imgs/add-task.png" alt="Add Task" />
-          Add Task
-        </a>
-
-        <a href="board.html">
-          <img src="../assets/imgs/board.png" alt="Board" />
-          Board
-        </a>
-
-        <a href="contacts.html">
-          <img src="../assets/imgs/contacts.png" alt="Contacts" />
-          Contacts
-        </a>
+        <a href="summary.html" class="page-link-button"><img src="../assets/imgs/summary.png"
+            alt="Summary" />Summary</a>
+        <a href="add-task.html" class="page-link-button"><img src="../assets/imgs/add-task.png" alt="Add Task" />Add
+          Task</a>
+        <a href="board.html" class="page-link-button"><img src="../assets/imgs/board.png" alt="Board" />Board</a>
+        <a href="contacts.html" class="page-link-button"><img src="../assets/imgs/contacts.png"
+            alt="Contacts" />Contacts</a>
       </div>
-
       <div class="police-links-container">
-        <a href="privacy-policy.html">Privacy Policy</a>
-        <a href="legal-notice.html">Legal notice</a>
+        <a href="./privacy-policy.html">Privacy Policy</a>
+        <a href="./legal-notice.html">Legal notice</a>
       </div>
     </nav>
   </aside>
 
-
   <main>
-
-
     <header>
       <p class="headline">Kanban Project Management Tool</p>
-
       <nav class="header-nav">
         <button class="button help-button">
-          <img src="../assets/imgs/help.png" alt="help" />
+          <a href="./help-desk.html"><img src="../assets/imgs/help.png" alt="search" /></a>
         </button>
-
         <button class="button profil-button">SM</button>
       </nav>
     </header>
@@ -139,12 +60,8 @@ document.addEventListener("DOMContentLoaded", () => {
     <section class="addtask">
 
       <h1 class="addtask-title">Add Task</h1>
-
       <form class="addtask-form">
-
-
         <div class="addtask-col">
-
           <div class="field">
             <label class="label" for="title">
               Title<span class="req">*</span>
@@ -156,7 +73,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
           <div class="field">
             <label class="label" for="desc">Description</label>
-
             <textarea id="desc" class="textarea" rows="5"
               placeholder="Create a contact form and imprint page !"></textarea>
           </div>
@@ -174,13 +90,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         </div>
 
-
         <div class="addtask-divider"></div>
 
-
         <div class="addtask-col">
-
-
           <div class="prio-row">
             <button type="button" class="prio-btn prio-urgent "> <!-- is-active für JS -->
               Urgent
@@ -279,7 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
               </div>
 
-            
+
               <input type="hidden" name="category" id="catHidden" value="">
             </div>
 
@@ -308,7 +220,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             <div class="addtask-foot">
-
               <p class="required-hint">
                 <span class="req">*</span> This field is required
               </p>
@@ -333,13 +244,9 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
 
       </form>
-
     </section>
 
   </main>
-
-  <script src="../script.js">
-  </script>
 </body>
 
 </html>

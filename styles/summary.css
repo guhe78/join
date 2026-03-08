@@ -3,18 +3,6 @@
     background-color: var(--background-color);
 }
 
-.pd-top24 {
-    padding-top: 24px;
-}
-
-.pd-bottom24 {
-    padding-bottom: 24px;
-}
-
-.pd-top8 {
-    padding-top: 8px;
-}
-
 .help-list {
     margin-left: 40px;
 }
@@ -76,6 +64,7 @@
 .img-card {
     width: 32px;
     height: 32px;
+    filter: brightness(10);
 }
 
 .text-wrapper {

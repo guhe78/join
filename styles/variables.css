@@ -1,19 +1,51 @@
 :root {
-    --primary-color:#2a3647;
-    --secondary-color:#f5f6f7;
-    --sidebar-bg-hover:#2a3d59;
-    --sidebar-bg:#091930;
+    --primary-color: #2a3647;
+    --secondary-color: #f5f6f7;
+    --sidebar-bg-hover: #2a3d59;
+    --sidebar-bg: #091930;
     --side-bar-icon: #cccccc;
-    --side-bar-icon-hover:#ffffff;
-    --side-bar-privacy-legal:#a8a8a8;
-    --urgent-icon:#ff3c00;
-    --greeting-name-and-hover:#29abe3;
-    --medium-btn:#ffaa00;
-    --urgent-arrow:#ff3c00;
-    --low-arrow:#79e329;
-    --user-storys:#0037ff;
-    --technical-task:#1fd7c1;
-    --user-icon:#d1d1d1;
-    --board-header:#42526e;
+    --side-bar-icon-hover: #ffffff;
+    --side-bar-privacy-legal: #a8a8a8;
+    --urgent-icon: #ff3c00;
+    --greeting-name-and-hover: #29abe3;
+    --medium-btn: #ffaa00;
+    --urgent-arrow: #ff3c00;
+    --low-arrow: #79e329;
+    --user-storys: #0037ff;
+    --technical-task: #1fd7c1;
+    --user-icon: #d1d1d1;
+    --board-header: #42526e;
     --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.prio-urgent {
+    --prio: #FF3D00;
+}
+
+.prio-medium {
+    --prio: #FFA800;
+}
+
+.prio-low {
+    --prio: #7AE229;
+}
+
+.blue {
+    background: #00bcd4;
+}
+
+.orange {
+    background: #ff9800;
+}
+
+.purple {
+    background: #673ab7;
+}
+
+.violet {
+    background: #3f51b5;
+}
+
+.pink {
+    background: #fc1260;
 }

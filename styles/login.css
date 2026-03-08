@@ -1,26 +1,9 @@
-/* RESET */
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-
-/* BODY */
 
 body {
-    font-family: 'Inter Variable', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: #f4f5f7;
-    height: 100vh;
-    display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
 }
-
-
-/* TOP RIGHT SIGN UP */
 
 .top-bar {
     position: absolute;
@@ -34,32 +17,12 @@ body {
     
 }
 
-.signup-btn {
-    background: #2A3647;
-    color: white;
-    padding: 10px 18px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 700;
-    transition: 0.2s ease;
-}
-
-.signup-btn:hover {
-    background: #29ABE2;
-}
-
-
-/* WRAPPER */
-
 .login-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 60px;
 }
-
-
-/* LOGO */
 
 .login-logo {
     position: absolute;
@@ -68,9 +31,6 @@ body {
     width: 100px;
     opacity: 1;
 }
-
-
-/* CARD */
 
 .login-card {
     background: white;
@@ -81,14 +41,8 @@ body {
     width: 590px;
 }
 
-
-/* HEADING */
-
 .login-card h1 {
-    font-size: 61px;
-    font-weight: 700;
     margin-bottom: 40px;
-    position: relative;
 }
 
 .login-card h1::after {
@@ -101,35 +55,14 @@ body {
     background: #29ABE2;
 }
 
-.signup-header {
-    position: relative;
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-/* .back-arrow-icon {
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 30px;
-} */
-
 .back-btn {
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    
-    
-    display: flex;
+    position: relative;
+    right: 230px;
+    top: 60px;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-
-    width: 40px;
-    height: 40px;
-
-    border-radius: 50%;
+    text-decoration: none;
     cursor: pointer;
 }
 
@@ -141,41 +74,8 @@ body {
     background: rgba(0,0,0,0.05);
 }
 
-/* INPUTS */
-
 .input-group {
-    position: relative;
-    margin-bottom: 20px;
     width: 100%;
-}
-
-input {
-    width: 100%;
-    padding: 14px 45px 14px 16px;
-    border-radius: 10px;
-    border: 1px solid #e6e8ee;
-    font-size: 16px;
-    outline: none;
-    transition: 0.2s ease;
-}
-
-.input-icon {
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 18px;
-    height: 18px;
-    opacity: 0.6;
-    pointer-events: none;
-}
-
-input::placeholder {
-    color: #b6bcc8;
-}
-
-input:focus {
-    border-color: #29ABE2;
 }
 
 .link-blue {
@@ -188,9 +88,6 @@ form {
     flex-direction: column;
     align-items: center;
 }
-
-
-/* CHECKBOX */
 
 .checkbox-wrapper {
     display: flex;
@@ -216,48 +113,12 @@ form {
     cursor: pointer;
 }
 
-/* BUTTONS */
-
 .button-group {
     margin-top: 30px;
     display: flex;
     justify-content: center;
     gap: 20px;
 }
-
-button {
-    padding: 12px 26px;
-    border-radius: 10px;
-    font-size: 20px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: 0.2s ease;
-}
-
-.primary-btn {
-    background: #2A3647;
-    color: white;
-    border: none;
-}
-
-.primary-btn:hover {
-    background: #29ABE2;
-}
-
-.secondary-btn {
-    background: transparent;
-    border: 1.5px solid #2A3647;
-    color: #2A3647;
-}
-
-.secondary-btn:hover {
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
-    border-color: #29ABE2;
-    color: #29ABE2;
-
-}
-
-/* FOOTER LINKS */
 
 .footer-links {
     position: fixed;
@@ -271,16 +132,12 @@ button {
 }
 
 .footer-links a {
-    text-decoration: none;
-    color: #888;
     transition: 0.2s ease;
 }
 
 .footer-links a:hover {
-    color: #2A3647;
+    color: var(--primary-color);
 }
-
-/* SPLASH ANIMATION (LOGIN) */
 
 .splash {
     position: fixed;
@@ -291,26 +148,26 @@ button {
     z-index: 9999;
     opacity: 1;
     pointer-events: all;
-    transition: opacity 450ms ease, background 650ms ease;
+    transition: opacity 300ms ease, background 300ms ease;
 }
 
 .splash-logo {
     width: 180px;
     height: auto;
     transform: translate(0, 0) scale(1);
-    transition: transform 850ms cubic-bezier(.2, .8, .2, 1);
+    transition: transform 300ms cubic-bezier(.2, .8, .2, 1);
 }
 
 .splash.animate {
     background: #f4f5f7;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 450ms ease, background 650ms ease;
+    transition: opacity 300ms ease, background 300ms ease;
 }
 
 .splash.animate .splash-logo {
     transform: translate(-42vw, -36vh) scale(0.55);
-    transition: transform 850ms cubic-bezier(.2, .8, .2, 1);
+    transition: transform 300ms cubic-bezier(.2, .8, .2, 1);
 }
 
 body.has-splash .login-logo {
