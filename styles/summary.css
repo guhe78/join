@@ -3,6 +3,16 @@
     background-color: var(--background-color);
 }
 
+.help-list {
+    margin-left: 40px;
+}
+
+.help-list li::marker {
+    font-weight: 700;
+    font-size: 27px;
+    margin-left: 40px;
+}
+
 .summary-title {
     display: flex;
     align-items: center;
@@ -54,6 +64,7 @@
 .img-card {
     width: 32px;
     height: 32px;
+    filter: brightness(10);
 }
 
 .text-wrapper {
@@ -97,6 +108,13 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
+}
+
+.date-prior {
+    font-family: 'Inter Variable', sans-serif;
+    font-weight: 700;
+    font-size: 21px;
+    color: var(--primary-color);
 }
 
 .bg-prio {

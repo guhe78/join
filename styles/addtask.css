@@ -1,16 +1,6 @@
 
-   /* LAYOUT */
-
-   
-
 .addtask {
   padding: 24px 48px;
-}
-
-.addtask-title {
-  font-size: 61px;
-  font-weight: 700;
-  margin: 0 0 20px;
 }
 
 .addtask-form {
@@ -31,8 +21,6 @@
   width: 1px;
 }
 
-   /* FIELDS */
-
 .field {
   display: flex;
   flex-direction: column;
@@ -49,51 +37,6 @@
   font-weight: 700;
   margin-left: 4px;
 }
-
-   /* INPUTS / TEXTAREA */
-
-.addtask .input,
-.addtask .textarea {
-  width: 100%;
-  border: 1px solid #e6e8ee;
-  border-radius: 10px;
-  padding: 12px 14px;
-  font-size: 16px;
-  outline: none;
-  background: #fff;
-}
-
-.addtask .textarea {
-  resize: none;
-  min-height: 110px;
-}
-
-.addtask .input::placeholder,
-.addtask .textarea::placeholder {
-  color: #b6bcc8;
-}
-
-.addtask .input:focus,
-.addtask .textarea:focus {
-  border-color: #29ABE2;
-}
-
-.input-error {
-  border-color: #ff3d3d !important;
-}
-
-.error-msg {
-  color: #ff3d3d;
-  font-size: 12px;
-  margin-top: 2px;
-  display: none;
-}
-
-.custom-select.input-error .select-trigger {
-  border-color: #ff3d3d;
-}
-
-   /* INPUT ICON (Due date etc.) */
 
 .date-input-wrapper {
   position: relative;
@@ -114,50 +57,6 @@
   opacity: 0.7;
   pointer-events: none;
 }
-
-   /* BUTTONS (Base/Primary/Secondary) */
-
-button {
-  padding: 12px 10px;
-  border-radius: 10px;
-  font-size: 21px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  border: none;
-}
-
-.primary-btn {
-  background: #2A3647;
-  color: #fff;
-}
-
-.primary-btn:hover {
-  background: #29ABE2;
-}
-
-.secondary-btn {
-  background: transparent;
-  border: 1.5px solid #2A3647;
-  color: #2A3647;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.secondary-btn:hover {
-  border-color: #29ABE2;
-  color: #29ABE2;
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
-}
-
-.secondary-btn svg {
-  width: 32px;
-  height: 32px;
-  display: inline-block;
-}
-
-   /* PRIORITY */
 
 .prio-row {
   display: flex;
@@ -192,10 +91,6 @@ button {
   fill: none;
 }
 
-.prio-urgent { --prio: #FF3D00; }
-.prio-medium { --prio: #FFA800; }
-.prio-low    { --prio: #7AE229; }
-
 .prio-btn:not(.is-active) .prio-icon {
   color: var(--prio);
 }
@@ -206,8 +101,6 @@ button {
   border-color: transparent;
   box-shadow: 0 6px 14px rgba(0,0,0,0.08);
 }
-
-   /* CUSTOM SELECT (Assigned + Category) */
 
 .custom-select {
   position: relative;
@@ -305,19 +198,10 @@ button {
   justify-content: center;
 }
 
-  /* Avatar Colors */
-.blue { background: #00bcd4; }
-.orange { background: #ff9800; }
-.purple { background: #673ab7; }
-.violet { background: #3f51b5; }
-.pink { background: #fc1260; }
-
 .select-option input {
   width: 16px;
   height: 16px;
 }
-
-   /* SUBTASK INPUT */
 
 .subtask-input {
   position: relative;
@@ -367,8 +251,6 @@ button {
   background: #e6e8ee;
 }
 
-   /* FOOTER (Actions) */
-
 .addtask-foot {
   grid-column: 1 / -1;
   display: flex;
@@ -394,8 +276,6 @@ button {
   height: 32px;
 }
 
-  /* Spacing Tuning */
-
 .addtask-col {
   gap: 26px;
 }
@@ -411,8 +291,6 @@ button {
 .prio-row {
   margin-bottom: 6px;
 }
-
-  /* RESPONSIVE */
 
 @media (max-width: 1100px) {
   .addtask-form { grid-template-columns: 1fr; }
