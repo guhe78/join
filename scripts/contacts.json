@@ -1,62 +1,82 @@
 [
   {
+    "id": "c1",
     "firstName": "Max",
     "lastName": "Mustermann",
     "email": "max.mustermann@example.com",
-    "phone": "+49 151 12345678"
+    "phone": "+49 151 12345678",
+    "badgeColor": "#9327ff"
   },
   {
-    "firstName": "Anna",
-    "lastName": "Schneider",
-    "email": "anna.schneider@example.com",
-    "phone": "+49 152 23456789"
+    "id": "c2",
+    "firstName": "Sofia",
+    "lastName": "Rossi",
+    "email": "sofia.rossi@example.com",
+    "phone": "+39 345 6789012",
+    "badgeColor": "#ff7a00"
   },
   {
-    "firstName": "Lukas",
-    "lastName": "Müller",
-    "email": "lukas.mueller@example.com",
-    "phone": "+49 160 34567890"
+    "id": "c3",
+    "firstName": "Elif",
+    "lastName": "Kaya",
+    "email": "elif.kaya@example.com",
+    "phone": "+49 160 34567890",
+    "badgeColor": "#9327ff"
   },
   {
-    "firstName": "Sophie",
-    "lastName": "Weber",
-    "email": "sophie.weber@example.com",
-    "phone": "+49 170 45678901"
+    "id": "c4",
+    "firstName": "Yuki",
+    "lastName": "Tanaka",
+    "email": "yuki.tanaka@example.com",
+    "phone": "+81 90 1234 5678",
+    "badgeColor": "#6e52ff"
   },
   {
+    "id": "c5",
     "firstName": "Leon",
     "lastName": "Wagner",
     "email": "leon.wagner@example.com",
-    "phone": "+49 171 56789012"
+    "phone": "+49 171 56789012",
+    "badgeColor": "#fc71ff"
   },
   {
+    "id": "c6",
     "firstName": "Marie",
     "lastName": "Becker",
     "email": "marie.becker@example.com",
-    "phone": "+49 172 67890123"
+    "phone": "+49 172 67890123",
+    "badgeColor": "#ffbb2b"
   },
   {
-    "firstName": "Paul",
-    "lastName": "Hoffmann",
-    "email": "paul.hoffmann@example.com",
-    "phone": "+49 173 78901234"
+    "id": "c7",
+    "firstName": "Omar",
+    "lastName": "Farsi",
+    "email": "omar.farsi@example.com",
+    "phone": "+971 50 1234567",
+    "badgeColor": "#1fd7c1"
   },
   {
+    "id": "c8",
     "firstName": "Laura",
-    "lastName": "Schulz",
-    "email": "laura.schulz@example.com",
-    "phone": "+49 174 89012345"
+    "lastName": "Smith",
+    "email": "laura.smith@example.com",
+    "phone": "+49 174 89012345",
+    "badgeColor": "#462f8a"
   },
   {
-    "firstName": "Jonas",
-    "lastName": "Klein",
-    "email": "jonas.klein@example.com",
-    "phone": "+49 175 90123456"
+    "id": "c9",
+    "firstName": "Carlos",
+    "lastName": "Gonzalez",
+    "email": "carlos.gonzalez@example.com",
+    "phone": "+34 612 345678",
+    "badgeColor": "#ffbb2b"
   },
   {
+    "id": "c10",
     "firstName": "Emily",
     "lastName": "Richter",
     "email": "emily.richter@example.com",
-    "phone": "+49 176 01234567"
+    "phone": "+44 7700 900123",
+    "badgeColor": "#462f8a"
   }
 ]

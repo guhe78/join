@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Join</title>
+
     <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon/favicon-16x16.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="192x192" href="../assets/favicon/android-chrome-192x192.png">
@@ -11,67 +13,69 @@
     <link rel="apple-touch-icon" size="180x180" href="../assets/favicon/apple-touch-icon.png">
     <link rel="shortcut icon" sizes="any" href="../assets/favicon/favicon.ico" type="image/x-icon">
     <link rel="manifest" href="../assets/favicon/site.webmanifest">
+
+    <link rel="stylesheet" href="../styles/standard.css">
+    <link rel="stylesheet" href="../styles/variables.css">
+    <link rel="stylesheet" href="../styles/font.css">
+    <link rel="stylesheet" href="../style.css">
+
     <link rel="stylesheet" href="../styles/login.css">
+
 </head>
-<body>
-    
 
-
+<body onload="initSignup()">
     <div class="login-wrapper">
-
         <img class="login-logo" src="../assets/imgs/join-logo.png" alt="Join Logo">
-
-<div class="login-card">
-
-    <div class="signup-header">
-        <a href="#"><img src="../assets/imgs/arrow-left-line.png" class="back-arrow-icon" alt=""></a>
-        <h1>Sign up</h1>
-    </div>
+        <div class="login-card">
+            <a class="back-btn" href="../index.html">
+                <img src="../assets/imgs/arrow-left-line.png" alt="Back">
+            </a>
+            <div class="signup-header">
+                <h1>Sign up</h1>
+            </div>
 
             <form>
+                <div class="input-group">
+                    <input type="text" placeholder="Name">
+                    <img class="input-icon" src="../assets/imgs/person.png" alt="">
+                </div>
 
-        <div class="input-group">
-            <input type="text" placeholder="Name">
-            <img class="input-icon" src="../assets/imgs/person.png" alt="">
-        </div>
+                <div class="input-group">
+                    <input type="email" placeholder="Email">
+                    <img class="input-icon" src="../assets/imgs/mail.png" alt="">
+                </div>
 
-        <div class="input-group">
-            <input type="email" placeholder="Email">
-            <img class="input-icon" src="../assets/imgs/mail.png" alt="">
-        </div>
+                <div class="input-group">
+                    <input type="password" placeholder="Password">
+                    <img class="input-icon" src="../assets/imgs/lock.png" alt="">
+                </div>
 
-        <div class="input-group">
-            <input type="password" placeholder="Password">
-            <img class="input-icon" src="../assets/imgs/lock.png" alt="">
-        </div>
+                <div class="input-group">
+                    <input type="password" placeholder="Confirm Password">
+                    <img class="input-icon" src="../assets/imgs/lock.png" alt="">
+                </div>
 
-        <div class="input-group">
-            <input type="password" placeholder="Confirm Password">
-            <img class="input-icon" src="../assets/imgs/lock.png" alt="">
-        </div>
+                <div class="checkbox-wrapper">
+                    <input type="checkbox" id="privacy">
+                    <label for="privacy">
+                        I accept the <a class="link-blue" href="./privacy-policy.html">Privacy Policy</a>
+                    </label>
+                </div>
 
-        <div class="checkbox-wrapper">
-            <input type="checkbox" id="privacy">
-            <label for="privacy">
-                I accept the <a class="link-blue" href="#">Privacy Policy</a>
-            </label>
-        </div>
-
-        <div class="button-group center">
-            <button class="primary-btn signup-btn-main">
-                Sign up
-            </button>
-        </div>
-
-    </form>
+                <div class="button-group center">
+                    <button class="primary-btn signup-btn-main">
+                        <a href="../index.html">Sign up</a>
+                    </button>
+                </div>
+            </form>
 
         </div>
 
         <div class="footer-links">
-            <a href="#">Privacy Policy</a>
-            <a href="#">Legal notice</a>
+            <a href="./privacy-policy.html">Privacy Policy</a>
+            <a href="./legal-notice.html">Legal notice</a>
         </div>
-
     </div>
 </body>
+
 </html>
