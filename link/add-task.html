@@ -1,86 +1,252 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Join</title>
-    <link rel="stylesheet" href="../styles/font.css" />
-    <link rel="stylesheet" href="../styles/variables.css" />
-    <link rel="stylesheet" href="../styles/standard.css" />
-    <link rel="stylesheet" href="../style.css" />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="../assets/favicon/favicon-16x16.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="../assets/favicon/favicon-32x32.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="192x192"
-      href="../assets/favicon/android-chrome-192x192.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="512x512"
-      href="../assets/favicon/android-chrome-512x512.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      size="180x180"
-      href="../assets/favicon/apple-touch-icon.png"
-    />
-    <link
-      rel="shortcut icon"
-      sizes="any"
-      href="../assets/favicon/favicon.ico"
-      type="image/x-icon"
-    />
-    <link rel="manifest" href="../assets/favicon/site.webmanifest" />
-  </head>
-  <body>
-    <aside>
-      <img src="../assets/imgs/join-logo-white.png" alt="logo" class="logo" />
-      <nav class="side-nav">
-        <div class="page-links">
-          <a href="#"
-            ><img src="../assets/imgs/summary.png" alt="Summary" />Summary</a
-          >
-          <a href="#"
-            ><img src="../assets/imgs/add-task.png" alt="Add Task" />Add Task</a
-          >
-          <a href="#"><img src="../assets/imgs/board.png" alt="Board" />Board</a>
-          <a href="#"
-            ><img src="../assets/imgs/contacts.png" alt="Contacts" />Contacts</a
-          >
-        </div>
-        <div class="police-links-container">
-          <a href="#">Privacy Policy</a>
-          <a href="#">Legal notice</a>
-        </div>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Join</title>
+
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon/favicon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../assets/favicon/android-chrome-192x192.png" />
+  <link rel="icon" type="image/png" sizes="512x512" href="../assets/favicon/android-chrome-512x512.png" />
+  <link rel="apple-touch-icon" size="180x180" href="../assets/favicon/apple-touch-icon.png" />
+  <link rel="shortcut icon" sizes="any" href="../assets/favicon/favicon.ico" type="image/x-icon" />
+  <link rel="manifest" href="../assets/favicon/site.webmanifest" />
+
+  <link rel="stylesheet" href="../styles/standard.css" />
+  <link rel="stylesheet" href="../styles/variables.css" />
+  <link rel="stylesheet" href="../styles/font.css" />
+  <link rel="stylesheet" href="../style.css" />
+
+  <link rel="stylesheet" href="../styles/addtask.css" />
+
+  <script src="../scripts/addtask.js" defer></script>
+
+</head>
+
+<body>
+  <aside>
+    <img src="../assets/imgs/join-logo-white.png" alt="logo" class="logo" />
+    <nav class="side-nav">
+      <div class="page-links">
+        <a href="summary.html" class="page-link-button"><img src="../assets/imgs/summary.png"
+            alt="Summary" />Summary</a>
+        <a href="add-task.html" class="page-link-button"><img src="../assets/imgs/add-task.png" alt="Add Task" />Add
+          Task</a>
+        <a href="board.html" class="page-link-button"><img src="../assets/imgs/board.png" alt="Board" />Board</a>
+        <a href="contacts.html" class="page-link-button"><img src="../assets/imgs/contacts.png"
+            alt="Contacts" />Contacts</a>
+      </div>
+      <div class="police-links-container">
+        <a href="./privacy-policy.html">Privacy Policy</a>
+        <a href="./legal-notice.html">Legal notice</a>
+      </div>
+    </nav>
+  </aside>
+
+  <main>
+    <header>
+      <p class="headline">Kanban Project Management Tool</p>
+      <nav class="header-nav">
+        <button class="button help-button">
+          <a href="./help-desk.html"><img src="../assets/imgs/help.png" alt="search" /></a>
+        </button>
+        <button class="button profil-button">SM</button>
       </nav>
-    </aside>
-    <main>
-      <header>
-        <p class="headline">Kanban Project Management Tool</p>
-        <nav class="header-nav">
-          <button class="button help-button">
-            <img src="../assets/imgs/help.png" alt="search" />
-          </button>
-          <button class="button profil-button">SM</button>
-        </nav>
-      </header>
-      <section>
-        <h1>Test</h1>
-      </section>
-    </main>
-  </body>
-  <script src="script.js"></script>
+    </header>
+
+
+    <section class="addtask">
+
+      <h1 class="addtask-title">Add Task</h1>
+      <form class="addtask-form">
+        <div class="addtask-col">
+          <div class="field">
+            <label class="label" for="title">
+              Title<span class="req">*</span>
+            </label>
+
+            <input id="title" class="input input-error" type="text" placeholder="Enter a title" />
+            <p class="error-msg">This field is required</p>
+          </div>
+
+          <div class="field">
+            <label class="label" for="desc">Description</label>
+            <textarea id="desc" class="textarea" rows="5"
+              placeholder="Create a contact form and imprint page !"></textarea>
+          </div>
+
+          <div class="field">
+            <label class="label" for="due">
+              Due date<span class="req">*</span>
+            </label>
+
+            <div class="input-icon">
+              <input id="due" class="input" type="text" placeholder="dd/mm/yyyy" />
+              <img class="icon-right" src="../assets/imgs/event.png" alt="calendar" />
+            </div>
+          </div>
+
+        </div>
+
+        <div class="addtask-divider"></div>
+
+        <div class="addtask-col">
+          <div class="prio-row">
+            <button type="button" class="prio-btn prio-urgent "> <!-- is-active für JS -->
+              Urgent
+              <svg class="prio-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M7 14l5-5 5 5" />
+                <path d="M7 19l5-5 5 5" />
+              </svg>
+            </button>
+
+            <button type="button" class="prio-btn prio-medium  ">
+              Medium
+              <svg class="prio-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M7 10h10" />
+                <path d="M7 14h10" />
+              </svg>
+            </button>
+
+            <button type="button" class="prio-btn prio-low is-active">
+              Low
+              <svg class="prio-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M7 10l5 5 5-5" />
+                <path d="M7 5l5 5 5-5" />
+              </svg>
+            </button>
+          </div>
+
+
+          <div class="field">
+            <label class="label" for="assigned">Assigned to</label>
+
+            <div class="custom-select" id="assignedSelect">
+              <div class="select-trigger">
+                <span class="trigger-text">Select contacts to assign</span>
+                <img class="trigger-arrow" src="../assets/imgs/arrow_drop_downaa.png" alt="">
+              </div>
+
+              <div class="select-dropdown">
+
+                <div class="select-option">
+                  <div class="contact-info">
+                    <div class="avatar blue">SM</div>
+                    <span>Sofia Müller (You)</span>
+                  </div>
+                  <input type="checkbox">
+                </div>
+
+                <div class="select-option">
+                  <div class="contact-info">
+                    <div class="avatar orange">AM</div>
+                    <span>Anton Mayer</span>
+                  </div>
+                  <input type="checkbox">
+                </div>
+
+
+                <div class="select-option active"> <!-- "select-option active" für JS -->
+                  <div class="contact-info">
+                    <div class="avatar purple">AS</div>
+                    <span>Anja Schulz</span>
+                  </div>
+                  <input type="checkbox">
+                </div>
+
+                <div class="select-option">
+                  <div class="contact-info">
+                    <div class="avatar violet">BZ</div>
+                    <span>Benedikt Ziegler</span>
+                  </div>
+                  <input type="checkbox">
+                </div>
+
+                <div class="select-option">
+                  <div class="contact-info">
+                    <div class="avatar pink">DE</div>
+                    <span>David Eisenberg</span>
+                  </div>
+                  <input type="checkbox">
+                </div>
+
+              </div>
+            </div>
+
+
+            <div class="field">
+              <label class="label" for="catSelect">Category<span class="req">*</span></label>
+
+              <div class="custom-select custom-select--single" id="catSelect">
+                <div class="select-trigger">
+                  <span class="trigger-text">Select task category</span>
+                  <img class="trigger-arrow" src="../assets/imgs/arrow_drop_downaa.png" alt="">
+                </div>
+
+                <div class="select-dropdown">
+                  <div class="select-option" data-value="technical">Technical Task</div>
+                  <div class="select-option" data-value="userstory">User Story</div>
+                </div>
+              </div>
+
+
+              <input type="hidden" name="category" id="catHidden" value="">
+            </div>
+
+
+            <div class="field">
+              <label class="label" for="subtask">Subtasks</label>
+
+              <div class="subtask-input">
+                <input id="subtask" type="text" placeholder="Add new subtask" class="input" />
+
+                <div class="subtask-actions">
+
+                  <svg class="subtask-icon" viewBox="0 0 24 24">
+                    <path d="M6 6L18 18M6 18L18 6" />
+                  </svg>
+
+                  <div class="divider"></div>
+
+                  <svg class="subtask-icon" viewBox="0 0 24 24">
+                    <path d="M5 13l4 4L19 7" />
+                  </svg>
+
+                </div>
+              </div>
+            </div>
+
+
+            <div class="addtask-foot">
+              <p class="required-hint">
+                <span class="req">*</span> This field is required
+              </p>
+
+              <div class="addtask-actions">
+                <button type="button" class="secondary-btn">
+                  Clear
+                  <svg class="icon icon-cancel" width="16" height="16" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path
+                      d="M12.0011 11.9998L17.2441 17.2428M6.75806 17.2428L12.0011 11.9998L6.75806 17.2428ZM17.2441 6.75684L12.0001 11.9998L17.2441 6.75684ZM12.0001 11.9998L6.75806 6.75684L12.0001 11.9998Z"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </button>
+
+                <button type="button" class="primary-btn">
+                  Create Task
+                  <img src="../assets/imgs/check.svg" alt="create" />
+                </button>
+              </div>
+
+            </div>
+
+      </form>
+    </section>
+
+  </main>
+</body>
+
 </html>

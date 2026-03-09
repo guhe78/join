@@ -1,188 +1,132 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Join</title>
-    <link rel="stylesheet" href="../styles/font.css" />
-    <link rel="stylesheet" href="../styles/variables.css" />
-    <link rel="stylesheet" href="../styles/standard.css" />
-    <link rel="stylesheet" href="../style.css" />
-    <link rel="stylesheet" href="../styles/board.css" />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="../assets/favicon/favicon-16x16.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="../assets/favicon/favicon-32x32.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="192x192"
-      href="../assets/favicon/android-chrome-192x192.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="512x512"
-      href="../assets/favicon/android-chrome-512x512.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      size="180x180"
-      href="../assets/favicon/apple-touch-icon.png"
-    />
-    <link
-      rel="shortcut icon"
-      sizes="any"
-      href="../assets/favicon/favicon.ico"
-      type="image/x-icon"
-    />
-    <link rel="manifest" href="../assets/favicon/site.webmanifest" />
-    <script src="../scripts/board-test-arrays.js" defer></script>
-    <script src="../scripts/board-templates.js" defer></script>
-    <script src="../scripts/board.js" defer></script>
-  </head>
-  <body onload="updateBoard()">
-    <aside>
-      <img src="../assets/imgs/join-logo-white.png" alt="logo" class="logo" />
-      <nav class="side-nav">
-        <div class="page-links">
-          <a href="summary.html" class="page-link-button"
-            ><img src="../assets/imgs/summary.png" alt="Summary" />Summary</a
-          >
-          <a href="add-task.html" class="page-link-button"
-            ><img src="../assets/imgs/add-task.png" alt="Add Task" />Add Task</a
-          >
-          <a href="board.html" class="page-link-button"
-            ><img src="../assets/imgs/board.png" alt="Board" />Board</a
-          >
-          <a href="contacts.html" class="page-link-button"
-            ><img src="../assets/imgs/contacts.png" alt="Contacts" />Contacts</a
-          >
-        </div>
-        <div class="police-links-container">
-          <a href="privacy-policy.html">Privacy Policy</a>
-          <a href="legal-notice.html">Legal notice</a>
-        </div>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Join</title>
+
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon/favicon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../assets/favicon/android-chrome-192x192.png" />
+  <link rel="icon" type="image/png" sizes="512x512" href="../assets/favicon/android-chrome-512x512.png" />
+  <link rel="apple-touch-icon" size="180x180" href="../assets/favicon/apple-touch-icon.png" />
+  <link rel="shortcut icon" sizes="any" href="../assets/favicon/favicon.ico" type="image/x-icon" />
+  <link rel="manifest" href="../assets/favicon/site.webmanifest" />
+
+  <link rel="stylesheet" href="../styles/standard.css" />
+  <link rel="stylesheet" href="../styles/variables.css" />
+  <link rel="stylesheet" href="../styles/font.css" />
+  <link rel="stylesheet" href="../style.css" />
+
+  <link rel="stylesheet" href="../styles/board.css" />
+
+  <script src="../scripts/board-test-arrays.js" defer></script>
+  <script src="../scripts/board-templates.js" defer></script>
+  <script src="../scripts/board.js" defer></script>
+</head>
+
+<body onload="updateBoard()">
+  <aside>
+    <img src="../assets/imgs/join-logo-white.png" alt="logo" class="logo" />
+    <nav class="side-nav">
+      <div class="page-links">
+        <a href="summary.html" class="page-link-button"><img src="../assets/imgs/summary.png"
+            alt="Summary" />Summary</a>
+        <a href="add-task.html" class="page-link-button"><img src="../assets/imgs/add-task.png" alt="Add Task" />Add
+          Task</a>
+        <a href="board.html" class="page-link-button"><img src="../assets/imgs/board.png" alt="Board" />Board</a>
+        <a href="contacts.html" class="page-link-button"><img src="../assets/imgs/contacts.png"
+            alt="Contacts" />Contacts</a>
+      </div>
+      <div class="police-links-container">
+        <a href="./privacy-policy.html">Privacy Policy</a>
+        <a href="./legal-notice.html">Legal notice</a>
+      </div>
+    </nav>
+  </aside>
+
+  <main>
+    <header>
+      <p class="headline">Kanban Project Management Tool</p>
+      <nav class="header-nav">
+        <button class="button help-button">
+          <a href="./help-desk.html"><img src="../assets/imgs/help.png" alt="search" /></a>
+        </button>
+        <button class="button profil-button">SM</button>
       </nav>
-    </aside>
-    <main>
-      <header class="main-header">
-        <p class="headline">Kanban Project Management Tool</p>
-        <nav class="header-nav">
-          <button class="button help-button">
-            <img src="../assets/imgs/help.png" alt="search" />
-          </button>
-          <button class="button profil-button">SM</button>
-        </nav>
-      </header>
-      <dialog id="taskDialog" class="task-modal" onclick="closeTaskDialog()">
-        <div id="dialogContent" onclick="event.stopPropagation()"></div>
-      </dialog>
-      <section class="board-section">
-        <div class="board-header">
-          <h1 class="headline-board">Board</h1>
-          <div class="board-header-right">
-            <div class="search-container">
-              <input type="text" placeholder="Find Task" />
-              <div class="divider"></div>
-              <button type="submit">
-                <img src="../assets/imgs/search.svg" alt="Search" />
-              </button>
-            </div>
-            <button class="primary-btn add-task-button">
-              Add task<img src="../assets/imgs/add.svg" alt="add new task" />
+    </header>
+
+    <dialog id="taskDialog" class="task-modal" onclick="closeTaskDialog()">
+      <div id="dialogContent" onclick="event.stopPropagation()"></div>
+    </dialog>
+    <section class="board-section">
+      <div class="board-header">
+        <h1 class="headline-board">Board</h1>
+        <div class="board-header-right">
+          <div class="search-container">
+            <input type="text" placeholder="Find Task" />
+            <div class="divider"></div>
+            <button type="submit">
+              <img src="../assets/imgs/search.svg" alt="Search" />
             </button>
           </div>
+          <button class="primary-btn add-task-button">
+            Add task<img src="../assets/imgs/add.svg" alt="add new task" />
+          </button>
         </div>
-        <div class="board-content">
-          <section class="to-do-column">
-            <div class="board-header">
-              <h2 class="column-title">To Do</h2>
-              <button class="add-new-task-button">
-                <img
-                  src="../assets/imgs/plus button.png"
-                  alt="add new task to To Do column"
-                />
-              </button>
-            </div>
-            <div
-              id="todo"
-              class="to-do-content"
-              ondrop="moveTo('todo')"
-              ondragleave="unhighlight('todo')"
-              ondragover="
+      </div>
+      <div class="board-content">
+        <section class="to-do-column">
+          <div class="board-header">
+            <h2 class="column-title">To Do</h2>
+            <button class="add-new-task-button">
+              <img src="../assets/imgs/plus button.png" alt="add new task to To Do column" />
+            </button>
+          </div>
+          <div id="todo" class="to-do-content" ondrop="moveTo('todo')" ondragleave="unhighlight('todo')" ondragover="
                 dragover(event);
                 highlight('todo');
-              "
-            ></div>
-          </section>
-          <section class="in-progress-column">
-            <div class="board-header">
-              <h2 class="column-title">In Progress</h2>
-              <button class="add-new-task-button">
-                <img
-                  src="../assets/imgs/plus button.png"
-                  alt="add new task to In Progress column"
-                />
-              </button>
-            </div>
-            <div
-              id="inProgress"
-              class="in-progress-content"
-              ondrop="moveTo('inProgress')"
-              ondragleave="unhighlight('inProgress')"
-              ondragover="
+              "></div>
+        </section>
+        <section class="in-progress-column">
+          <div class="board-header">
+            <h2 class="column-title">In Progress</h2>
+            <button class="add-new-task-button">
+              <img src="../assets/imgs/plus button.png" alt="add new task to In Progress column" />
+            </button>
+          </div>
+          <div id="inProgress" class="in-progress-content" ondrop="moveTo('inProgress')"
+            ondragleave="unhighlight('inProgress')" ondragover="
                 dragover(event);
                 highlight('inProgress');
-              "
-            ></div>
-          </section>
-          <section class="review-column">
-            <div class="board-header">
-              <h2 class="column-title">Await feedback</h2>
-              <button class="add-new-task-button">
-                <img
-                  src="../assets/imgs/plus button.png"
-                  alt="add new task to Await feedback column"
-                />
-              </button>
-            </div>
-            <div
-              id="review"
-              class="review-content"
-              ondrop="moveTo('review')"
-              ondragleave="unhighlight('review')"
-              ondragover="
+              "></div>
+        </section>
+        <section class="review-column">
+          <div class="board-header">
+            <h2 class="column-title">Await feedback</h2>
+            <button class="add-new-task-button">
+              <img src="../assets/imgs/plus button.png" alt="add new task to Await feedback column" />
+            </button>
+          </div>
+          <div id="review" class="review-content" ondrop="moveTo('review')" ondragleave="unhighlight('review')"
+            ondragover="
                 dragover(event);
                 highlight('review');
-              "
-            ></div>
-          </section>
-          <section class="done-column">
-            <div class="board-header">
-              <h2 class="column-title">Done</h2>
-            </div>
-            <div
-              id="done"
-              class="done-content"
-              ondrop="moveTo('done')"
-              ondragleave="unhighlight('done')"
-              ondragover="
+              "></div>
+        </section>
+        <section class="done-column">
+          <div class="board-header">
+            <h2 class="column-title">Done</h2>
+          </div>
+          <div id="done" class="done-content" ondrop="moveTo('done')" ondragleave="unhighlight('done')" ondragover="
                 dragover(event);
                 highlight('done');
-              "
-            ></div>
-          </section>
-        </div>
-      </section>
-    </main>
-  </body>
+              "></div>
+        </section>
+      </div>
+    </section>
+  </main>
+</body>
+
 </html>
