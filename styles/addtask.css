@@ -38,6 +38,21 @@
   margin-left: 4px;
 }
 
+.addtask .input-error {
+  border-color: #ff3d3d !important;
+}
+
+.addtask .error-msg {
+  color: #ff3d3d;
+  font-size: 12px;
+  margin-top: 2px;
+  display: none;
+}
+
+.addtask .custom-select.input-error .select-trigger {
+  border-color: #ff3d3d;
+}
+
 .date-input-wrapper {
   position: relative;
   width: 100%;
@@ -58,12 +73,13 @@
   pointer-events: none;
 }
 
-.prio-row {
+.addtask .prio-row {
   display: flex;
   gap: 14px;
+  margin-bottom: 6px;
 }
 
-.prio-btn {
+.addtask .prio-btn {
   flex: 1;
   background: #fff;
   border: 1px solid #e6e8ee;
@@ -74,16 +90,19 @@
   justify-content: center;
   gap: 8px;
   color: #2A3647;
+  font-size: 21px;
+  font-weight: 500;
+  cursor: pointer;
   transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-.prio-icon {
+.addtask .prio-icon {
   width: 32px;
   height: 32px;
   display: inline-block;
 }
 
-.prio-icon path {
+.addtask .prio-icon path {
   stroke: currentColor;
   stroke-width: 2.6;
   stroke-linecap: round;
@@ -91,11 +110,11 @@
   fill: none;
 }
 
-.prio-btn:not(.is-active) .prio-icon {
+.addtask .prio-btn:not(.is-active) .prio-icon {
   color: var(--prio);
 }
 
-.prio-btn.is-active {
+.addtask .prio-btn.is-active {
   background: var(--prio);
   color: #fff;
   border-color: transparent;
@@ -191,6 +210,26 @@
   height: 32px;
   border-radius: 50%;
   color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.assigned-badges {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.assigned-badge {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: #ffffff;
   font-size: 13px;
   font-weight: 600;
   display: flex;

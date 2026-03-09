@@ -37,6 +37,7 @@ function initAssignedSelect() {
         options[i].onclick = assignedOptionClicked;
     }
     updateAssignedText();
+    updateAssignedBadges();
 }
 
 function toggleAssignedDropdown(event) {
@@ -67,6 +68,7 @@ function assignedOptionClicked(event) {
     }
     event.stopPropagation();
     updateAssignedText();
+    updateAssignedBadges();
 }
 
 function updateAssignedText() {
@@ -218,6 +220,7 @@ function clearAssignedSelect() {
     }
 
     updateAssignedText();
+    updateAssignedBadges();
     assignedSelect.classList.remove("open");
 }
 
@@ -342,4 +345,32 @@ function validateCategoryField() {
     catSelect.classList.remove("input-error");
     categoryError.style.display = "none";
     return true;
+}
+
+function updateAssignedBadges() {
+    let assignedSelect = document.getElementById("assignedSelect");
+    let badgesContainer = document.getElementById("assignedBadges");
+    if (assignedSelect === null) {
+        return;
+    }
+    if (badgesContainer === null) {
+        return;
+    }
+    let dropdown = assignedSelect.getElementsByClassName("select-dropdown")[0];
+    let options = dropdown.getElementsByClassName("select-option");
+    let badgesHTML = "";
+    for (let i = 0; i < options.length; i++) {
+        let checkbox = options[i].getElementsByTagName("input")[0];
+        if (checkbox.checked === true) {
+            let contactInfo = options[i].getElementsByClassName("contact-info")[0];
+            let avatar = contactInfo.getElementsByClassName("avatar")[0];
+            let classes = avatar.className;
+            let letters = avatar.textContent;
+            badgesHTML = badgesHTML + 
+                '<div class="' + classes.replace("avatar", "assigned-badge") + '">' +
+                letters +
+                '</div>';
+        }
+    }
+    badgesContainer.innerHTML = badgesHTML;
 }
