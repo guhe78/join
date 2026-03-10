@@ -222,7 +222,7 @@ function generateDetailedContactsHtml(assignedTo) {
  * @returns {string} Combined HTML string for the subtask list.
  */
 function generateDetailedSubtasksHtml(taskId, subtasks) {
-    const subtaskArray = Object.entries(subtasks);
+    const subtaskArray = subtasks ? Object.entries(subtasks) : [];
     if (subtaskArray.length === 0) {
         return noSubtasksTemplate();
     }

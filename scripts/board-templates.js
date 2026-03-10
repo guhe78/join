@@ -121,6 +121,7 @@ function editTaskTemplate(task) {
               <img src="../assets/imgs/close.png" alt="Close" />
             </button>
           </div>
+          <div class="edit-scroll-content">
           <div class="edit-container title">
             <label class="detail-label" for="task-title">Title</label>
             <input id="task-title" class="edit-input" type="text" required />
@@ -155,34 +156,57 @@ function editTaskTemplate(task) {
           </div>
 
           <div class="edit-container priority">
-            <span class="detail-label">Priority</span>
-            <button>
-              Urgent
-              <img src="../assets/imgs/prio-high.png" alt="Urgent icon" />
-            </button>
-            <button>
-              Medium
-              <img src="../assets/imgs/prio-media.png" alt="Medium icon" />
-            </button>
-            <button>
-              Low <img src="../assets/imgs/prio-low.png" alt="Low icon" />
-            </button>
+            <span class="detail-label priority-label">Priority</span>
+            <div class="priority-options"> 
+              <button class="urgent-btn">
+                Urgent
+                <img src="../assets/imgs/prio-high.png" alt="Urgent icon" />
+              </button>
+              <button class="medium-btn">
+                Medium
+                <img src="../assets/imgs/prio-media.png" alt="Medium icon" />
+              </button>
+              <button class="low-btn">
+                Low <img src="../assets/imgs/prio-low.png" alt="Low icon" />
+              </button>
+            </div>
           </div>
 
           <div class="edit-container date">
             <span class="detail-label">Assigned to</span>
-            <div class="involved-contacts"></div>
+            <div class="custom-select edit-assigned-select " id="editAssignedSelect">
+              <div class="select-trigger" tabindex="0">
+                <span class="trigger-text">Select contacts to assign</span>
+                <img class="trigger-arrow" src="../assets/imgs/arrow_drop_downaa.png" alt="Toggle contacts" />
+              </div>
+              <div class="select-dropdown" id="editAssignedDropdown">
+              </div>
+            </div>
+            <div class="assigned-preview" id="editAssignedPreview">
+              <div class="assigned-preview-avatar" style="background-color: #4589ff" title="Sofia Mueller">SM</div>
+              <div class="assigned-preview-avatar" style="background-color: #9b51e0" title="Anja Schulz">AS</div>
+            </div>
           </div>
 
           <div class="edit-container date">
             <span class="detail-label">Subtasks</span>
-            <input type="text" />
-            <div class="subtasks-container"></div>
+            <input
+              type="text"
+              class="edit-subtask-input"
+              placeholder="Add new subtask"
+            />
+            <div class="subtasks-container">
+              <ul class="edit-subtasks-list">
+                <li>Implement Recipe Recommendation</li>
+                <li>Start Page Layout</li>
+              </ul>
+            </div>
+          </div>
           </div>
 
           <div class="detail-footer">
             <button
-              onclick="saveTaskChanges(taskId)"
+              onclick="#"
               class="primary-btn edit-button"
             >
               Ok
