@@ -1,6 +1,6 @@
 function toDoTaskTemplate(task) {
   return `
-        <div class="card" onclick="openTaskDetail('${task.id}')" draggable="true" ondragstart="startdragging('${task.id}')" data-id="${task.id}">
+        <div class="card" onclick="openTaskDetail('${task.id}')" draggable="true" ondragstart="startdragging('${task.id}')" ondragend="stopDragging('${task.id}')" data-id="${task.id}">
             <span class="badge ${task.categoryClass}">${task.category}</span>
 
             <h3 class="card-title">${task.title}</h3>
@@ -40,13 +40,15 @@ function nothingToDoTemplate() {
 }
 
 function dialogTemplate(task, categoryClass) {
-  return `<div class="task-card-detail" onclick="event.stopPropagation()">
+  return `<div class="task-card-detail detail-dialog" onclick="event.stopPropagation()">
           <div class="detail-header">
             <div class="category-badge ${categoryClass}">${task.category}</div>
             <button class="close-btn" onclick="closeTaskDialog()">
               <img src="../assets/imgs/close.png" alt="Close" />
             </button>
           </div>
+
+          <div class="detail-scroll-content">
 
           <h1 class="detail-title">${task.title}</h1>
           <p class="detail-description">${task.description}</p>
@@ -76,6 +78,8 @@ function dialogTemplate(task, categoryClass) {
             <div class="detail-subtasks-list">
               ${generateDetailedSubtasksHtml(task.taskId, task.subtasks)}
             </div>
+          </div>
+
           </div>
 
           <div class="detail-footer">

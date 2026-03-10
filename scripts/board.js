@@ -109,6 +109,20 @@ function getSubtaskStats(subtasks) {
  */
 function startdragging(id) {
   currentDraggedElement = id;
+  const card = document.querySelector(`.card[data-id="${id}"]`);
+  if (card) {
+    card.classList.add("is-dragging");
+  }
+}
+
+/**
+ * Removes drag styling from the currently dragged task card.
+ */
+function stopDragging(id) {
+  const draggedCard = document.querySelector(`.card[data-id="${id}"]`);
+  if (draggedCard) {
+    draggedCard.classList.remove("is-dragging");
+  }
 }
 
 /**
