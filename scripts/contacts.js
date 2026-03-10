@@ -128,20 +128,15 @@ function saveEditedContact(index) {
 }
 
 function addContact(name, email, phone) {
-  let id = "c" + getIdNumber();
-  let firstName = name.split(" ")[0];
-  let lastName = name.split(" ")[-1];
-  let badgeColor = getRandomColor();
-  const newContact = {
-    id: id,
-    firstName: firstName,
-    lastName: lastName,
+  let nameParts = name.split(" ");
+  state.contacts.push({
+    id: "c" + getIdNumber(),
+    firstName: nameParts[0],
+    lastName: nameParts[nameParts.length - 1],
     email: email,
     phone: phone,
-    badgeColor: badgeColor,
-  };
-
-  state.contacts.push(newContact);
+    badgeColor: getRandomColor(),
+  });
   clearInputs();
   renderContactsList();
   closeDialog();
