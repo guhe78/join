@@ -4,8 +4,7 @@ let tasks = [];
 
 let users = [];
 
-const BASE_URL =
-  "https://join-ce6f3-default-rtdb.europe-west1.firebasedatabase.app/";
+const BASE_URL = firebaseConfig.databaseURL;
 
 /**
  * Fetches data from the Firebase database using the specified path.
