@@ -10,7 +10,8 @@
 .action-btn:hover,
 .action-btn:hover img {
   color: var(--greeting-name-and-hover);
-  filter: invert(58%) sepia(82%) saturate(1968%) hue-rotate(168deg) brightness(96%) contrast(91%);
+  filter: invert(58%) sepia(82%) saturate(1968%) hue-rotate(168deg)
+    brightness(96%) contrast(91%);
 }
 
 .badge {
@@ -100,13 +101,15 @@
 }
 
 .drag-and-drop-mobile-button:hover {
-  filter: invert(61%) sepia(80%) saturate(2256%) hue-rotate(164deg) brightness(94%) contrast(91%);
+  filter: invert(61%) sepia(80%) saturate(2256%) hue-rotate(164deg)
+    brightness(94%) contrast(91%);
 }
 
 .drag-and-drop-icon {
   width: 20px;
   height: 20px;
-  filter: invert(19%) sepia(13%) saturate(2254%) hue-rotate(176deg) brightness(93%) contrast(92%);
+  filter: invert(19%) sepia(13%) saturate(2254%) hue-rotate(176deg)
+    brightness(93%) contrast(92%);
 }
 
 .task-move-menu {
@@ -131,7 +134,7 @@
 .task-move-option {
   width: 100%;
   text-align: left;
-  font-family: 'Inter Variable', sans-serif;
+  font-family: "Inter Variable", sans-serif;
   font-weight: bold;
   font-size: 14px;
   padding: 4px 8px;
@@ -238,7 +241,7 @@
   justify-content: center;
   align-items: flex-start;
   flex-direction: column;
-} 
+}
 
 .detail-subtask-item {
   display: flex;
@@ -437,7 +440,6 @@
 }
 
 @media (max-width: 440px) {
-
   .task-modal {
     overflow-x: hidden;
   }
@@ -450,5 +452,4 @@
   .detail-header {
     padding-right: 0;
   }
-
 }

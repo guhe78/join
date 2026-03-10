@@ -172,9 +172,9 @@
 }
 
 .edit-textarea {
-  font-family: 'Inter Variable', sans-serif !important;
+  font-family: "Inter Variable", sans-serif !important;
   font-size: 21px !important;
-  font-family: 'Inter Variable', sans-serif !important;
+  font-family: "Inter Variable", sans-serif !important;
   font-size: 21px !important;
 }
 
@@ -222,7 +222,7 @@
   padding: 16px 10px;
   border-radius: 10px;
   background: #ffffff;
-  color: #2A3647;
+  color: #2a3647;
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
   transition: 0.1s ease;
 }
