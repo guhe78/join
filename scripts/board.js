@@ -2,6 +2,16 @@
 let currentDraggedElement = null;
 
 /**
+ * Initializes the application by loading contacts and tasks.
+ * Updates the board with the loaded data afterwards.
+ */
+async function init() {
+  contacts = await getData("contacts");
+  tasks = await getData("tasks");
+  updateBoard();
+}
+
+/**
  * Iterates through all status types and updates the corresponding board columns.
  */
 function updateBoard() {
@@ -129,12 +139,13 @@ function unhighlight(id) {
  * Updates the status of the dragged task and refreshes the board.
  * @param {string} newStatus - The new status to assign to the task.
  */
-function moveTo(newStatus) {
+async function moveTo(newStatus) {
   const index = tasks.findIndex((t) => t.taskId === currentDraggedElement);
   if (index !== -1) {
     const movedTask = tasks.splice(index, 1)[0];
     movedTask.status = newStatus;
     tasks.push(movedTask);
+    await updateData("tasks", tasks);
     updateBoard();
   }
 }
@@ -247,11 +258,12 @@ function reformatDate(task) {
  * Deletes a task from the tasks array by its ID and updates the board.
  * @param {string} id - The ID of the task to be deleted.
  */
-function deleteTask(id) {
+async function deleteTask(id) {
     const index = tasks.findIndex((t) => t.taskId === id);
     if (index !== -1) {
         tasks.splice(index, 1);
         closeTaskDialog();
+        await updateData("tasks", tasks);
         updateBoard(); 
     } else {
         return;
@@ -263,10 +275,11 @@ function deleteTask(id) {
  * @param {string} taskId - The ID of the parent task.
  * @param {string} subId - The ID of the subtask to toggle.
  */
-function toggleSubtask(taskId, subId) {
+async function toggleSubtask(taskId, subId) {
     const task = tasks.find((t) => t.taskId === taskId);
     if (task && task.subtasks && task.subtasks[subId]) {
         task.subtasks[subId].is_done = !task.subtasks[subId].is_done;
+        await updateData("tasks", tasks);
         updateBoard();
         refreshTaskDetail(taskId);
     }
