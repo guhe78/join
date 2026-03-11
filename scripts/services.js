@@ -4,7 +4,6 @@ let contacts = [];
 let tasks = [];
 let users = [];
 
-
 /**
  * Fetches data from the Firebase database using the specified path.
  * @param {string} path - The path to the desired resource in the database.
