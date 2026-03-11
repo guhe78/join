@@ -374,6 +374,17 @@
   background-color: var(--user-storys);
 }
 
+.drag-placeholder {
+  background: transparent;
+  border: 1px dashed var(--side-bar-privacy-legal);
+  width: 100%;
+  padding: 20px;
+  height: 235px;
+  border-radius: 30px;
+  transition: all 0.2s ease;
+  pointer-events: none;
+}
+
 @keyframes slideInRight {
   from {
     transform: translate(100%, -50%);
