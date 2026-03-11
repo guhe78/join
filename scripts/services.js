@@ -35,6 +35,10 @@ async function getData(path) {
   }
 }
 
+/**
+ * Loads contacts from Firebase and stores them in the global contacts array.
+ * @returns {Promise<void>} Resolves when contacts have been loaded and mapped.
+ */
 async function getContacts() {
   const contactsResponse = await getData("contacts");
   if (contactsResponse) {
@@ -49,6 +53,10 @@ async function getContacts() {
   }
 }
 
+/**
+ * Loads tasks from Firebase and stores them in the global tasks array.
+ * @returns {Promise<void>} Resolves when tasks have been loaded and mapped.
+ */
 async function getTasks() {
   const tasksResponse = await getData("tasks");
   if (tasksResponse) {
