@@ -16,7 +16,6 @@ const DOM = {
 const state = {
   contacts: [],
   letterBefore: "",
-  idNumber: null,
 };
 
 const CONTACTS_URL = "../scripts/contacts.json";
@@ -39,16 +38,13 @@ DOM.dialogEl.onclick = (event) => {
 DOM.closeButtonEl.onclick = closeDialog;
 
 async function init() {
-  await fetchContacts();
+  await getContacts();
   renderContactsList();
 }
 
-async function fetchContacts() {
-  // const response = await fetch(CONTACTS_URL);
-  // state.contacts = await response.json();
-  let data = await getDBData();
+async function getContacts() {
+  let data = await fetchData("contacts");
   makeArray(data);
-  // console.log(state.contacts);
 }
 
 function renderContactsList() {
@@ -155,6 +151,16 @@ function deleteContact(index) {
   closeDialog();
 }
 
+async function updateContact(contact) {
+  let updatedContact = {
+    firstName: contact.firstName,
+    lastName: contact.lastName,
+    email: contact.email,
+    phone: contact.phone,
+  };
+  updateData("contacts", contact.id, updatedContact);
+}
+
 function cancelAddContact() {
   clearInputs();
   closeDialog();
@@ -183,21 +189,3 @@ function getRandom(max) {
 function getRandomColor() {
   return DEFAULT_BADGE_COLORS[getRandom(DEFAULT_BADGE_COLORS.length)];
 }
-
-function getIdNumber() {
-  const ids = [];
-  for (let i = 0; i < state.contacts.length; i++) {
-    ids.push(parseInt(state.contacts[i].id.slice(1)));
-    ids.sort((a, b) => a - b);
-  }
-
-  for (let i = 0; i < ids.length; i++) {
-    if (ids[i] + 1 === ids[i + 1]) {
-      continue;
-    } else {
-      return ids[i] + 1;
-    }
-  }
-}
-
-function getContact() {}

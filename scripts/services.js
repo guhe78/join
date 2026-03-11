@@ -41,18 +41,18 @@ async function getData(path) {
 /**
  * Updates data in the Firebase database using a PUT request.
  * @param {string} path - The path to the resource to be updated.
- * @param {Array|Object} updatedArray - The new data to be saved.
+ * @param {Array|Object} data - The new data to be saved.
  * @returns {Promise<Object>} The server response as a JSON object.
  * @throws {Error} Throws an error if the update fails.
  */
-async function updateData(path, updatedArray) {
+async function updateData(path, id, data) {
   try {
-    const response = await fetch(BASE_URL + path + ".json", {
-      method: "PUT",
+    const response = await fetch(BASE_URL + path + "/" + id + ".json", {
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(updatedArray),
+      body: JSON.stringify(data),
     });
     if (!response.ok) {
       throw new Error(`Update failed! Status: ${response.status}`);
