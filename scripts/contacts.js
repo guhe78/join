@@ -44,8 +44,11 @@ async function init() {
 }
 
 async function fetchContacts() {
-  const response = await fetch(CONTACTS_URL);
-  state.contacts = await response.json();
+  // const response = await fetch(CONTACTS_URL);
+  // state.contacts = await response.json();
+  let data = await getDBData();
+  makeArray(data);
+  // console.log(state.contacts);
 }
 
 function renderContactsList() {
@@ -122,6 +125,7 @@ function saveEditedContact(index) {
   contact.lastName = contactNameArray[1];
   contact.email = DOM.contactEmailEl.value;
   contact.phone = DOM.contactPhoneEl.value;
+  updateContact(contact);
   renderContactsList();
   renderContact(index);
   closeDialog();
@@ -129,20 +133,22 @@ function saveEditedContact(index) {
 
 function addContact(name, email, phone) {
   let nameParts = name.split(" ");
-  state.contacts.push({
-    id: "c" + getIdNumber(),
+  let newContact = {
     firstName: nameParts[0],
     lastName: nameParts[nameParts.length - 1],
     email: email,
     phone: phone,
     badgeColor: getRandomColor(),
-  });
+  };
+  postData("contacts", newContact);
+  state.contacts.push(newContact);
   clearInputs();
   renderContactsList();
   closeDialog();
 }
 
 function deleteContact(index) {
+  deleteData("contacts", state.contacts[index].id);
   state.contacts.splice(index, 1);
   DOM.contactOverviewEl.innerHTML = "";
   renderContactsList();
@@ -193,3 +199,5 @@ function getIdNumber() {
     }
   }
 }
+
+function getContact() {}
