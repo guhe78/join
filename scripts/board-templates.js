@@ -76,18 +76,18 @@ function dialogTemplate(task, categoryClass) {
           <div class="detail-subtasks-section">
             <span class="detail-label">Subtasks</span>
             <div class="detail-subtasks-list">
-              ${generateDetailedSubtasksHtml(task.taskId, task.subtasks)}
+              ${generateDetailedSubtasksHtml(task.id, task.subtasks)}
             </div>
           </div>
 
           </div>
 
           <div class="detail-footer">
-            <button onclick="deleteTask('${task.taskId}')" class="action-btn">
+            <button onclick="deleteTask('${task.id}')" class="action-btn">
               <img src="../assets/imgs/delete.png" /> Delete
             </button>
             <div class="footer-divider"></div>
-            <button onclick="editTask('${task.taskId}')" class="action-btn">
+            <button onclick="editTask('${task.id}')" class="action-btn">
               <img src="../assets/imgs/edit.png" /> Edit
             </button>
           </div>
@@ -101,10 +101,10 @@ function contactTemplate(contact, initials) {
                 </div>`;
 }
 
-function subtaskItemTemplate(taskId, subId, checkImg, sub) {
+function subtaskItemTemplate(id, subId, checkImg, sub) {
   return `
             <div class="detail-subtask-item">
-                <button class="subtask-checkbox" onclick="toggleSubtask('${taskId}', '${subId}')">
+                <button class="subtask-checkbox" onclick="toggleSubtask('${id}', '${subId}')">
                     <img src="${checkImg}">
                 </button>
                 <span>${sub.title}</span>
