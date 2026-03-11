@@ -1,115 +1,178 @@
 <!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Join</title>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Join</title>
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="../assets/favicon/favicon-16x16.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="../assets/favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="../assets/favicon/android-chrome-192x192.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="512x512"
+      href="../assets/favicon/android-chrome-512x512.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      size="180x180"
+      href="../assets/favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="shortcut icon"
+      sizes="any"
+      href="../assets/favicon/favicon.ico"
+      type="image/x-icon"
+    />
+    <link rel="manifest" href="../assets/favicon/site.webmanifest" />
 
-  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon/favicon-16x16.png" />
-  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon/favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="192x192" href="../assets/favicon/android-chrome-192x192.png" />
-  <link rel="icon" type="image/png" sizes="512x512" href="../assets/favicon/android-chrome-512x512.png" />
-  <link rel="apple-touch-icon" size="180x180" href="../assets/favicon/apple-touch-icon.png" />
-  <link rel="shortcut icon" sizes="any" href="../assets/favicon/favicon.ico" type="image/x-icon" />
-  <link rel="manifest" href="../assets/favicon/site.webmanifest" />
+    <link rel="stylesheet" href="../styles/standard.css" />
+    <link rel="stylesheet" href="../styles/variables.css" />
+    <link rel="stylesheet" href="../styles/font.css" />
+    <link rel="stylesheet" href="../style.css" />
 
-  <link rel="stylesheet" href="../styles/standard.css" />
-  <link rel="stylesheet" href="../styles/variables.css" />
-  <link rel="stylesheet" href="../styles/font.css" />
-  <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="../styles/contacts.css" />
 
-  <link rel="stylesheet" href="../styles/contacts.css" />
+    <script src="../scripts/contacts.js" defer></script>
+    <script src="../scripts/contactsTemplates.js" defer></script>
+    <script src="../scripts/icons/icons.js" defer></script>
+    <script src="../config.js"></script>
+    <script src="../scripts/services.js"></script>
+    <script src="../scripts/database-operations.js"></script>
+  </head>
 
-  <script src="../scripts/contacts.js" defer></script>
-  <script src="../scripts/contactsTemplates.js" defer></script>
-  <script src="../scripts/icons/icons.js" defer></script>
-</head>
-
-<body onload="init()">
-  <aside>
-    <img src="../assets/imgs/join-logo-white.png" alt="logo" class="logo" />
-    <nav class="side-nav">
-      <div class="page-links">
-        <a href="summary.html" class="page-link-button"><img src="../assets/imgs/summary.png"
-            alt="Summary" />Summary</a>
-        <a href="add-task.html" class="page-link-button"><img src="../assets/imgs/add-task.png" alt="Add Task" />Add
-          Task</a>
-        <a href="board.html" class="page-link-button"><img src="../assets/imgs/board.png" alt="Board" />Board</a>
-        <a href="contacts.html" class="page-link-button"><img src="../assets/imgs/contacts.png"
-            alt="Contacts" />Contacts</a>
-      </div>
-      <div class="police-links-container">
-        <a href="./privacy-policy.html">Privacy Policy</a>
-        <a href="./legal-notice.html">Legal notice</a>
-      </div>
-    </nav>
-  </aside>
-
-  <main>
-    <header>
-      <p class="headline">Kanban Project Management Tool</p>
-      <nav class="header-nav">
-        <button class="button help-button">
-          <a href="./help-desk.html"><img src="../assets/imgs/help.png" alt="search" /></a>
-        </button>
-        <button class="button profil-button">SM</button>
+  <body onload="init()">
+    <aside>
+      <img src="../assets/imgs/join-logo-white.png" alt="logo" class="logo" />
+      <nav class="side-nav">
+        <div class="page-links">
+          <a href="summary.html" class="page-link-button"
+            ><img src="../assets/imgs/summary.png" alt="Summary" />Summary</a
+          >
+          <a href="add-task.html" class="page-link-button"
+            ><img src="../assets/imgs/add-task.png" alt="Add Task" />Add Task</a
+          >
+          <a href="board.html" class="page-link-button"
+            ><img src="../assets/imgs/board.png" alt="Board" />Board</a
+          >
+          <a href="contacts.html" class="page-link-button"
+            ><img src="../assets/imgs/contacts.png" alt="Contacts" />Contacts</a
+          >
+        </div>
+        <div class="police-links-container">
+          <a href="./privacy-policy.html">Privacy Policy</a>
+          <a href="./legal-notice.html">Legal notice</a>
+        </div>
       </nav>
-    </header>
+    </aside>
 
-    <section class="contacts-section">
-      <aside class="contacts">
-        <div class="add-contact">
-          <button class="primary-btn" onclick="openAddNewContact()">
-            Add new contact
-            <img src="../assets/imgs/person-add.png" alt="" />
+    <main>
+      <header>
+        <p class="headline">Kanban Project Management Tool</p>
+        <nav class="header-nav">
+          <button class="button help-button">
+            <a href="./help-desk.html"
+              ><img src="../assets/imgs/help.png" alt="search"
+            /></a>
           </button>
-        </div>
+          <button class="button profil-button">SM</button>
+        </nav>
+      </header>
 
-        <div class="contacts-list" id="contacts-list"></div>
-      </aside>
-      <div class="contact-main">
-        <div class="contact-headline">
-          <h1>Contacts</h1>
-          <div class="headline-seperator"></div>
-          <p>Better with a team</p>
-        </div>
-        <div class="contact-overview" id="contact-overview"></div>
-      </div>
-    </section>
-    <dialog id="dialog">
-      <section class="add-edit-contact-section" id="add-edit-contact-section">
-        <div class="left-content">
-          <img src="../assets/imgs/join-logo-white.png" alt="" />
-          <div id="dialog-headline" class="dialog-headline"></div>
-        </div>
-        <div class="right-content">
-          <button class="close-button" id="close-button">
-            <img src="../assets/imgs/close.png" alt="" />
-          </button>
-          <div id="person-image"></div>
-          <form action="">
-            <div class="textfield-container">
-              <input type="text" name="name" id="contact-name-input" placeholder="Name" class="input-field" />
-              <img src="../assets/imgs/person.png" alt="" />
-            </div>
-            <div class="textfield-container">
-              <input type="email" name="email" id="contact-email-input" placeholder="Email" class="input-field" />
-              <img src="../assets/imgs/mail.png" alt="" />
-            </div>
-            <div class="textfield-container">
-              <input type="tel" name="telephone" id="contact-phone-input" placeholder="Phone" class="input-field" />
-              <img src="../assets/imgs/call.png" alt="" />
-            </div>
-            <div class="input-buttons">
-              <button type="button" class="secondary-btn" id="no-button"></button>
-              <button type="button" class="primary-btn" id="ok-button"></button>
-            </div>
-          </form>
+      <section class="contacts-section">
+        <aside class="contacts">
+          <div class="add-contact">
+            <button class="primary-btn" onclick="openAddNewContact()">
+              Add new contact
+              <img src="../assets/imgs/person-add.png" alt="" />
+            </button>
+          </div>
+
+          <div class="contacts-list" id="contacts-list"></div>
+        </aside>
+        <div class="contact-main">
+          <div class="contact-headline">
+            <h1>Contacts</h1>
+            <div class="headline-seperator"></div>
+            <p>Better with a team</p>
+          </div>
+          <div class="contact-overview" id="contact-overview"></div>
         </div>
       </section>
-    </dialog>
-  </main>
-</body>
-
+      <dialog id="dialog">
+        <section class="add-edit-contact-section" id="add-edit-contact-section">
+          <div class="left-content">
+            <img src="../assets/imgs/join-logo-white.png" alt="" />
+            <div id="dialog-headline" class="dialog-headline"></div>
+          </div>
+          <div class="right-content">
+            <button class="close-button" id="close-button">
+              <img src="../assets/imgs/close.png" alt="" />
+            </button>
+            <div id="person-image"></div>
+            <form action="">
+              <div class="textfield-container">
+                <input
+                  type="text"
+                  name="name"
+                  id="contact-name-input"
+                  placeholder="Name"
+                  class="input-field"
+                />
+                <img src="../assets/imgs/person.png" alt="" />
+              </div>
+              <div class="textfield-container">
+                <input
+                  type="email"
+                  name="email"
+                  id="contact-email-input"
+                  placeholder="Email"
+                  class="input-field"
+                />
+                <img src="../assets/imgs/mail.png" alt="" />
+              </div>
+              <div class="textfield-container">
+                <input
+                  type="tel"
+                  name="telephone"
+                  id="contact-phone-input"
+                  placeholder="Phone"
+                  class="input-field"
+                />
+                <img src="../assets/imgs/call.png" alt="" />
+              </div>
+              <div class="input-buttons">
+                <button
+                  type="button"
+                  class="secondary-btn"
+                  id="no-button"
+                ></button>
+                <button
+                  type="button"
+                  class="primary-btn"
+                  id="ok-button"
+                ></button>
+              </div>
+            </form>
+          </div>
+        </section>
+      </dialog>
+    </main>
+  </body>
 </html>

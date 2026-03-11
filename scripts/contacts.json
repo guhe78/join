@@ -1,6 +1,5 @@
 [
   {
-    "id": "c1",
     "firstName": "Max",
     "lastName": "Mustermann",
     "email": "max.mustermann@example.com",
@@ -8,7 +7,6 @@
     "badgeColor": "#9327ff"
   },
   {
-    "id": "c2",
     "firstName": "Sofia",
     "lastName": "Rossi",
     "email": "sofia.rossi@example.com",
@@ -16,7 +14,6 @@
     "badgeColor": "#ff7a00"
   },
   {
-    "id": "c3",
     "firstName": "Elif",
     "lastName": "Kaya",
     "email": "elif.kaya@example.com",
@@ -24,7 +21,6 @@
     "badgeColor": "#9327ff"
   },
   {
-    "id": "c4",
     "firstName": "Yuki",
     "lastName": "Tanaka",
     "email": "yuki.tanaka@example.com",
@@ -32,7 +28,6 @@
     "badgeColor": "#6e52ff"
   },
   {
-    "id": "c5",
     "firstName": "Leon",
     "lastName": "Wagner",
     "email": "leon.wagner@example.com",
@@ -40,7 +35,6 @@
     "badgeColor": "#fc71ff"
   },
   {
-    "id": "c6",
     "firstName": "Marie",
     "lastName": "Becker",
     "email": "marie.becker@example.com",
@@ -48,7 +42,6 @@
     "badgeColor": "#ffbb2b"
   },
   {
-    "id": "c7",
     "firstName": "Omar",
     "lastName": "Farsi",
     "email": "omar.farsi@example.com",
@@ -56,7 +49,6 @@
     "badgeColor": "#1fd7c1"
   },
   {
-    "id": "c8",
     "firstName": "Laura",
     "lastName": "Smith",
     "email": "laura.smith@example.com",
@@ -64,7 +56,6 @@
     "badgeColor": "#462f8a"
   },
   {
-    "id": "c9",
     "firstName": "Carlos",
     "lastName": "Gonzalez",
     "email": "carlos.gonzalez@example.com",
@@ -72,7 +63,6 @@
     "badgeColor": "#ffbb2b"
   },
   {
-    "id": "c10",
     "firstName": "Emily",
     "lastName": "Richter",
     "email": "emily.richter@example.com",

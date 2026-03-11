@@ -1,11 +1,8 @@
+const BASE_URL = database_url;
+
 let contacts = [];
-
 let tasks = [];
-
 let users = [];
-
-const BASE_URL =
-  "https://join-ce6f3-default-rtdb.europe-west1.firebasedatabase.app/";
 
 /**
  * Fetches data from the Firebase database using the specified path.
@@ -69,14 +66,14 @@ async function updateData(path, updatedArray) {
 
 /**
  * Sends new data to the Firebase database using a POST request.
- * @param {string} url - The URL path for the POST request.
+ * @param {string} path - The URL path for the POST request.
  * @param {Object} data - The data to be sent.
  * @returns {Promise<Object>} The server response as a JSON object.
  * @throws {Error} Throws an error if HTTP errors occur.
  */
-async function postData(url, data) {
+async function postData(path, data) {
   try {
-    const response = await fetch(BASE_URL + url + ".json", {
+    const response = await fetch(BASE_URL + path + ".json", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -90,5 +87,28 @@ async function postData(url, data) {
   } catch (error) {
     console.error(error);
     throw error;
+  }
+}
+
+/**
+ * Deletes data from the Firebase database using a DELETE request.
+ * @param {string} path - The path to the resource to be deleted.
+ * @param {*} id - The ID of the resource to be deleted.
+ * @returns {Promise<boolean|null>} True if the deletion was successful, null otherwise.
+ */
+async function deleteData(path, id) {
+  try {
+    const response = await fetch(BASE_URL + path + "/" + id + ".json", {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      throw new Error(`Delete failed! Status: ${response.status}`);
+    }
+
+    return true;
+  } catch (error) {
+    console.error(`Error deleting ${path}:`, error);
+    return null;
   }
 }
