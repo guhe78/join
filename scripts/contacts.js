@@ -173,6 +173,13 @@ function clearInputs() {
   DOM.personImageEl.innerHTML = "";
 }
 
+function makeArray(data) {
+  state.contacts = Object.entries(data).map(([id, value]) => ({
+    id,
+    ...value,
+  }));
+}
+
 function openDialog() {
   DOM.dialogEl.showModal();
 }
