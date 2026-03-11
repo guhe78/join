@@ -83,7 +83,7 @@ function dialogTemplate(task, categoryClass) {
           </div>
 
           <div class="detail-footer">
-            <button onclick="deleteTask('${task.id}')" class="action-btn">
+            <button onclick="deleteTask('tasks', '${task.id}'), closeTaskDialog()" class="action-btn">
               <img src="../assets/imgs/delete.png" /> Delete
             </button>
             <div class="footer-divider"></div>
@@ -104,8 +104,8 @@ function contactTemplate(contact, initials) {
 function subtaskItemTemplate(id, subId, checkImg, sub) {
   return `
             <div class="detail-subtask-item">
-                <button class="subtask-checkbox" onclick="toggleSubtask('${id}', '${subId}')">
-                    <img src="${checkImg}">
+        <button class="subtask-checkbox" id="subtask-checkbox-${id}-${subId}" onclick="toggleSubtask('${id}', '${subId}')">
+          <img id="subtask-checkbox-icon-${id}-${subId}" src="${checkImg}" alt="Subtask status">
                 </button>
                 <span>${sub.title}</span>
             </div>`;

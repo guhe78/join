@@ -186,7 +186,7 @@ async function moveTo(newStatus) {
     const movedTask = tasks.splice(index, 1)[0];
     movedTask.status = newStatus;
     tasks.push(movedTask);
-    await updateData("tasks", tasks);
+    await updateData("tasks", movedTask.id, { status: newStatus });
     updateBoard();
   }
 }
@@ -297,18 +297,13 @@ function reformatDate(task) {
 
 /**
  * Deletes a task from the tasks array by its ID and updates the board.
+ * @param {string} path - The collection path in Firebase.
  * @param {string} id - The ID of the task to be deleted.
  */
-async function deleteTask(id) {
-    const index = tasks.findIndex((t) => t.id === id);
-    if (index !== -1) {
-        tasks.splice(index, 1);
-        closeTaskDialog();
-        await updateData("tasks", tasks);
-        updateBoard(); 
-    } else {
-        return;
-    }
+async function deleteTask(path, id) {
+    deleteData(path, id);
+    await getTasks();
+    updateBoard();
 }
 
 /**
@@ -317,13 +312,27 @@ async function deleteTask(id) {
  * @param {string} subId - The ID of the subtask to toggle.
  */
 async function toggleSubtask(id, subId) {
-    const task = tasks.find((t) => t.id === id);
-    if (task && task.subtasks && task.subtasks[subId]) {
-        task.subtasks[subId].is_done = !task.subtasks[subId].is_done;
-        await updateData("tasks", tasks);
-        updateBoard();
-        refreshTaskDetail(id);
-    }
+  const task = tasks.find((t) => t.id === id);
+  if (task && task.subtasks && task.subtasks[subId]) {
+    task.subtasks[subId].is_done = !task.subtasks[subId].is_done;
+    updateSubtaskCheckboxIcon(id, subId, task.subtasks[subId].is_done);
+    await updateData("tasks", task.id, { subtasks: task.subtasks });
+    updateBoard();
+  }
+}
+
+/**
+ * Updates only the subtask checkbox icon in the open detail dialog.
+ * @param {string} id - The ID of the parent task.
+ * @param {string} subId - The ID of the subtask.
+ * @param {boolean} isDone - The completion status of the subtask.
+ */
+function updateSubtaskCheckboxIcon(id, subId, isDone) {
+  const icon = document.getElementById(`subtask-checkbox-icon-${id}-${subId}`);
+  if (!icon) return;
+  icon.src = isDone
+    ? "../assets/imgs/checkbox-checked.png"
+    : "../assets/imgs/checkbox-empty.png";
 }
 
 /**

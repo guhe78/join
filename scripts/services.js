@@ -24,21 +24,24 @@ async function fetchData(path) {
 }
 
 /**
- * Loads data from the specified path and converts it to an array.
+ * Loads data from the specified path and returns the raw response object.
  * @param {string} path - The database path (e.g., "contacts" or "tasks").
- * @returns {Promise<Array|null>} An array containing the data or null if an error occurs.
+ * @returns {Promise<Object|null>} The fetched object or null if an error occurs.
  */
 async function getData(path) {
   try {
     const response = await fetchData(path);
-    return response
-      
+    return response;
   } catch (error) {
     console.error(`Error getting data from ${path}:`, error);
     return null;
   }
 }
 
+/**
+ * Loads contacts from Firebase and stores them in the global contacts array.
+ * @returns {Promise<void>} Resolves when contacts have been loaded and mapped.
+ */
 async function getContacts() {
   const contactsResponse = await getData("contacts");
   if (contactsResponse) {
@@ -53,6 +56,10 @@ async function getContacts() {
   }
 }
 
+/**
+ * Loads tasks from Firebase and stores them in the global tasks array.
+ * @returns {Promise<void>} Resolves when tasks have been loaded and mapped.
+ */
 async function getTasks() {
   const tasksResponse = await getData("tasks");
   if (tasksResponse) {
@@ -73,20 +80,21 @@ async function getTasks() {
 }
 
 /**
- * Updates data in the Firebase database using a PUT request.
+ * Updates data in the Firebase database using a PATCH request.
  * @param {string} path - The path to the resource to be updated.
- * @param {Array|Object} updatedArray - The new data to be saved.
+ * @param {string} id - The ID of the resource to update.
+ * @param {Object} data - The partial data to be patched.
  * @returns {Promise<Object>} The server response as a JSON object.
  * @throws {Error} Throws an error if the update fails.
  */
-async function updateData(path, updatedArray) {
+async function updateData(path, id, data) {
   try {
-    const response = await fetch(BASE_URL + path + ".json", {
-      method: "PUT",
+    const response = await fetch(BASE_URL + path + "/" + id + ".json", {
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(updatedArray),
+      body: JSON.stringify(data),
     });
     if (!response.ok) {
       throw new Error(`Update failed! Status: ${response.status}`);
@@ -124,4 +132,45 @@ async function postData(url, data) {
   }
 }
 
+/**
+ * Deletes data from the Firebase database using a DELETE request.
+ * @param {string} path - The path to the resource to be deleted.
+ * @param {*} id - The ID of the resource to be deleted.
+ * @returns {Promise<boolean|null>} True if the deletion was successful, null otherwise.
+ */
+async function deleteData(path, id) {
+  try {
+    const response = await fetch(BASE_URL + path + "/" + id + ".json", {
+      method: "DELETE",
+    });
 
+    if (!response.ok) {
+      throw new Error(`Delete failed! Status: ${response.status}`);
+    }
+
+    return true;
+  } catch (error) {
+    console.error(`Error deleting ${path}:`, error);
+    return null;
+  }
+}
+
+/**
+ * Posts an array of objects and omits `id` in the Firebase payload.
+ * @param {string} url - The URL path for the POST request.
+ * @param {Array<Object>} data - Array of objects to be posted.
+ * @returns {Promise<Array<Object>>} The original array after posting each item.
+ */
+async function postarrayData(url, data) {
+  if (!Array.isArray(data)) return [];
+
+  for (let i = 0; i < data.length; i++) {
+    const item = data[i];
+    if (!item || typeof item !== "object") continue;
+
+    const { id, ...payloadWithoutId } = item;
+    await postData(url, payloadWithoutId);
+  }
+
+  return data;
+}
