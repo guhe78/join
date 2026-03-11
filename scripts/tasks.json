@@ -31,7 +31,6 @@
           "title": "Order catering"
         }
       },
-      "taskId": "4",
       "title": "Project Kick-off"
     },
     {
@@ -45,7 +44,6 @@
       "due_date": "2026-03-30",
       "priority": "low",
       "status": "inProgress",
-      "taskId": "3",
       "title": "API Integration"
     },
     {
@@ -74,7 +72,6 @@
           "title": "Create color palette"
         }
       },
-      "taskId": "1",
       "title": "Design Homepage"
     },
     {
@@ -95,7 +92,6 @@
           "title": "Form validation"
         }
       },
-      "taskId": "2",
       "title": "User Login Flow"
     }
   ]
