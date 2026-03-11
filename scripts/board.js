@@ -38,7 +38,6 @@ function processColumn(status, container) {
     }
   }
   container.innerHTML = "";
-  container.classList.remove("highlight");
   fillContainer(filtered, container);
 }
 
@@ -134,19 +133,47 @@ function dragover(ev) {
 }
 
 /**
- * Adds a visual highlight to a drop zone.
- * @param {string} id - The ID of the container to highlight.
+ * Shows or removes the drag placeholder in a board column.
+ * @param {string} id - The ID of the target column element.
+ * @param {boolean} show - Whether the placeholder should be visible.
  */
-function highlight(id) {
-  document.getElementById(id).classList.add("highlight");
+function highlight(id, show) {
+  const container = document.getElementById(id);
+  if (!container) return;
+  if (show) {
+    addDragPlaceholder(container);
+    return;
+  }
+  removeDragPlaceholder(container);
 }
 
 /**
- * Removes the visual highlight from a drop zone.
- * @param {string} id - The ID of the container to unhighlight.
+ * Adds a drag placeholder to the column and removes the empty-state element.
+ * @param {HTMLElement} container - The target board column.
  */
-function unhighlight(id) {
-  document.getElementById(id).classList.remove("highlight");
+function addDragPlaceholder(container) {
+  const existingPlaceholder = container.querySelector(".drag-placeholder");
+  if (existingPlaceholder) return;
+  const emptyState = container.querySelector(".empty-state");
+  if (emptyState) {
+    emptyState.remove();
+  }
+  const placeholder = document.createElement("div");
+  placeholder.classList.add("drag-placeholder");
+  container.appendChild(placeholder);
+}
+
+/**
+ * Removes the drag placeholder and restores the empty-state template if needed.
+ * @param {HTMLElement} container - The target board column.
+ */
+function removeDragPlaceholder(container) {
+  const existingPlaceholder = container.querySelector(".drag-placeholder");
+  if (!existingPlaceholder) return;
+  existingPlaceholder.remove();
+  if (container.children.length === 0) {
+    container.innerHTML = nothingToDoTemplate();
+  }
 }
 
 /**

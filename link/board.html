@@ -87,10 +87,12 @@
               <img src="../assets/imgs/plus button.png" alt="add new task to To Do column" />
             </button>
           </div>
-          <div id="todo" class="to-do-content" ondrop="moveTo('todo')" ondragleave="unhighlight('todo')" ondragover="
+          <div id="todo" class="to-do-content" ondrop="moveTo('todo')" ondragleave="highlight('todo', false)" ondragover="
                 dragover(event);
-                highlight('todo');
-              "></div>
+                highlight('todo', true);
+              "><div class="drag-placeholder">
+
+              </div></div>
         </section>
         <section class="in-progress-column">
           <div class="board-header">
@@ -100,9 +102,9 @@
             </button>
           </div>
           <div id="inProgress" class="in-progress-content" ondrop="moveTo('inProgress')"
-            ondragleave="unhighlight('inProgress')" ondragover="
+            ondragleave="highlight('inProgress', false)" ondragover="
                 dragover(event);
-                highlight('inProgress');
+                highlight('inProgress', true);
               "></div>
         </section>
         <section class="review-column">
@@ -112,19 +114,19 @@
               <img src="../assets/imgs/plus button.png" alt="add new task to Await feedback column" />
             </button>
           </div>
-          <div id="review" class="review-content" ondrop="moveTo('review')" ondragleave="unhighlight('review')"
+          <div id="review" class="review-content" ondrop="moveTo('review')" ondragleave="highlight('review', false)"
             ondragover="
                 dragover(event);
-                highlight('review');
+                highlight('review', true);
               "></div>
         </section>
         <section class="done-column">
           <div class="board-header">
             <h2 class="column-title">Done</h2>
           </div>
-          <div id="done" class="done-content" ondrop="moveTo('done')" ondragleave="unhighlight('done')" ondragover="
+          <div id="done" class="done-content" ondrop="moveTo('done')" ondragleave="highlight('done', false)" ondragover="
                 dragover(event);
-                highlight('done');
+                highlight('done', true);
               "></div>
         </section>
       </div>

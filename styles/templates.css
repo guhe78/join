@@ -175,7 +175,7 @@
   justify-content: center;
   height: 50px;
   background-color: #ebedef;
-  border: 1px dashed #b0b5bd;
+  border: 1px dashed var(--side-bar-privacy-legal);
   border-radius: 12px;
   color: #a0a5ad;
   font-size: 16px;
@@ -255,6 +255,17 @@
 
 .user-story {
   background-color: var(--user-storys);
+}
+
+.drag-placeholder {
+  background: transparent;
+  border: 1px dashed var(--side-bar-privacy-legal);
+  width: 100%;
+  padding: 20px;
+  height: 235px;
+  border-radius: 30px;
+  transition: all 0.2s ease;
+  pointer-events: none;
 }
 
 @keyframes slideInRight {
