@@ -1,7 +1,11 @@
+let subtasks = [];
+let editSubtaskIndex = -1;
+
 function initAddTask() {
     initPriorityButtons();
     initAssignedSelect();
     initCategorySelect();
+    initSubtaskSection();
     initActionButtons();
     document.onclick = closeAllSelects;
 }
@@ -86,7 +90,6 @@ function updateAssignedText() {
             checkedCount = checkedCount + 1;
         }
     }
-
     if (checkedCount === 0) {
         text.textContent = "Select contacts to assign";
     } else {
@@ -104,7 +107,6 @@ function initCategorySelect() {
     let dropdown = catSelect.getElementsByClassName("select-dropdown")[0];
     let options = dropdown.getElementsByClassName("select-option");
     trigger.onclick = toggleCategoryDropdown;
-
     for (let i = 0; i < options.length; i++) {
         options[i].onclick = categoryOptionClicked;
     }
@@ -128,7 +130,6 @@ function categoryOptionClicked(event) {
     let text = catSelect.getElementsByClassName("trigger-text")[0];
     let hidden = document.getElementById("catHidden");
     let options = dropdown.getElementsByClassName("select-option");
-    
     for (let i = 0; i < options.length; i++) {
         options[i].classList.remove("active");
     }
@@ -136,13 +137,11 @@ function categoryOptionClicked(event) {
     text.textContent = option.textContent.trim();
     hidden.value = option.getAttribute("data-value");
     catSelect.classList.remove("open");
-
     event.stopPropagation();
 }
 
 function closeAllSelects() {
     let selects = document.getElementsByClassName("custom-select");
-
     for (let i = 0; i < selects.length; i++) {
         selects[i].classList.remove("open");
     }
@@ -154,7 +153,6 @@ function initActionButtons() {
         return;
     }
     let buttons = actionArea.getElementsByTagName("button");
-
     if (buttons.length >= 2) {
         buttons[0].onclick = clearAddTaskForm;
         buttons[1].onclick = createTaskClicked;
@@ -168,6 +166,7 @@ function clearAddTaskForm() {
     clearPriorityButtons();
     clearAssignedSelect();
     clearCategorySelect();
+    clearSubtasks();
     clearValidationState();
 }
 
@@ -197,7 +196,6 @@ function clearPriorityButtons() {
     for (let i = 0; i < buttons.length; i++) {
         buttons[i].classList.remove("is-active");
     }
-
     for (let i = 0; i < buttons.length; i++) {
         if (buttons[i].classList.contains("prio-low") === true) {
             buttons[i].classList.add("is-active");
@@ -227,7 +225,6 @@ function clearAssignedSelect() {
 function clearCategorySelect() {
     let catSelect = document.getElementById("catSelect");
     let hidden = document.getElementById("catHidden");
-
     if (catSelect === null || hidden === null) {
         return;
     }
@@ -373,4 +370,146 @@ function updateAssignedBadges() {
         }
     }
     badgesContainer.innerHTML = badgesHTML;
+}``
+
+function initSubtaskSection() {
+    let subtaskInput = document.getElementById("subtask");
+    if (subtaskInput === null) {
+        return;
+    }
+    let subtaskActions = document.getElementsByClassName("subtask-actions")[0];
+    if (subtaskActions === undefined) {
+        return;
+    }
+
+    let actionIcons = subtaskActions.getElementsByClassName("subtask-icon");
+    if (actionIcons.length >= 2) {
+        actionIcons[0].onclick = clearSubtaskInput;
+        actionIcons[1].onclick = saveSubtaskFromInput;
+    }
+    renderSubtasks();
+}
+
+function clearSubtaskInput() {
+    let subtaskInput = document.getElementById("subtask");
+    if (subtaskInput !== null) {
+        subtaskInput.value = "";
+    }
+    editSubtaskIndex = -1;
+}
+
+function saveSubtaskFromInput() {
+    let subtaskInput = document.getElementById("subtask");
+    if (subtaskInput === null) {
+        return;
+    }
+    let subtaskText = subtaskInput.value.trim();
+    if (subtaskText === "") {
+        return;
+    }
+    subtasks.push(subtaskText);
+    subtaskInput.value = "";
+    editSubtaskIndex = -1;
+    renderSubtasks();
+}
+
+function renderSubtasks() {
+    let subtasksList = document.getElementById("subtasksList");
+    if (subtasksList === null) {
+        return;
+    }
+    let subtasksHTML = buildSubtasksHTML();
+    subtasksList.innerHTML = subtasksHTML;
+    bindSubtaskButtons();
+}
+
+function buildSubtasksHTML() {
+    let html = "";
+    for (let i = 0; i < subtasks.length; i++) {
+        if (editSubtaskIndex === i) {
+            html = html + buildEditSubtaskHTML(i);
+        } else {
+            html = html + buildNormalSubtaskHTML(i);
+        }
+    }
+    return html;
+}
+
+function bindSubtaskButtons() {
+    bindEditButtons();
+    bindDeleteButtons();
+    bindEditDeleteButtons();
+    bindSaveButtons();
+}
+
+function bindEditButtons() {
+    let editButtons = document.getElementsByClassName("subtask-edit-btn");
+    for (let i = 0; i < editButtons.length; i++) {
+        editButtons[i].onclick = editSubtaskClicked;
+    }
+}
+
+function bindDeleteButtons() {
+    let deleteButtons = document.getElementsByClassName("subtask-delete-btn");
+    for (let i = 0; i < deleteButtons.length; i++) {
+        deleteButtons[i].onclick = deleteSubtaskClicked;
+    }
+}
+
+function bindEditDeleteButtons() {
+    let deleteButtons = document.getElementsByClassName("subtask-delete-edit-btn");
+    for (let i = 0; i < deleteButtons.length; i++) {
+        deleteButtons[i].onclick = deleteSubtaskInEditModeClicked;
+    }
+}
+
+function bindSaveButtons() {
+    let saveButtons = document.getElementsByClassName("subtask-save-btn");
+    for (let i = 0; i < saveButtons.length; i++) {
+        saveButtons[i].onclick = saveEditedSubtask;
+    }
+}
+
+function editSubtaskClicked(event) {
+    let editButtons = document.getElementsByClassName("subtask-edit-btn");
+    for (let i = 0; i < editButtons.length; i++) {
+        if (editButtons[i] === event.currentTarget) {
+            editSubtaskIndex = i;
+        }
+    }
+    renderSubtasks();
+}
+
+function deleteSubtaskClicked(event) {
+    let deleteButtons = document.getElementsByClassName("subtask-delete-btn");
+    for (let i = 0; i < deleteButtons.length; i++) {
+        if (deleteButtons[i] === event.currentTarget) {
+            subtasks.splice(i, 1);
+        }
+    }
+    renderSubtasks();
+}
+
+function deleteSubtaskInEditModeClicked() {
+    if (editSubtaskIndex >= 0) {
+        subtasks.splice(editSubtaskIndex, 1);
+    }
+    editSubtaskIndex = -1;
+    renderSubtasks();
+}
+
+function saveEditedSubtask() {
+    let editInput = document.getElementById("editSubtaskInput");
+    if (editInput === null) {
+        return;
+    }
+    let newText = editInput.value.trim();
+    if (newText === "") {
+        return;
+    }
+    if (editSubtaskIndex >= 0) {
+        subtasks[editSubtaskIndex] = newText;
+    }
+    editSubtaskIndex = -1;
+    renderSubtasks();
 }
