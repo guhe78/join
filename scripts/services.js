@@ -1,7 +1,7 @@
+const BASE_URL = database_url;
+
 let contacts = [];
-
 let tasks = [];
-
 let users = [];
 
 const BASE_URL = firebaseConfig.databaseURL;
@@ -108,14 +108,14 @@ async function updateData(path, id, data) {
 
 /**
  * Sends new data to the Firebase database using a POST request.
- * @param {string} url - The URL path for the POST request.
+ * @param {string} path - The URL path for the POST request.
  * @param {Object} data - The data to be sent.
  * @returns {Promise<Object>} The server response as a JSON object.
  * @throws {Error} Throws an error if HTTP errors occur.
  */
-async function postData(url, data) {
+async function postData(path, data) {
   try {
-    const response = await fetch(BASE_URL + url + ".json", {
+    const response = await fetch(BASE_URL + path + ".json", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
