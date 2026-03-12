@@ -1,10 +1,9 @@
-const BASE_URL = database_url;
+const BASE_URL = databaseURL;
 
 let contacts = [];
 let tasks = [];
 let users = [];
 
-const BASE_URL = firebaseConfig.databaseURL;
 
 /**
  * Fetches data from the Firebase database using the specified path.
