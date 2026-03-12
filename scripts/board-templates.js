@@ -96,7 +96,7 @@ function dialogTemplate(task, categoryClass) {
 
 function contactTemplate(contact, initials) {
   return `<div class="detail-contact-item">
-                    <div class="avatar-circle" style="background-color: ${contact.color}">${initials}</div>
+                    <div class="avatar-circle" style="background-color: ${contact.badgeColor}">${initials}</div>
                     <span class="contact-name">${contact.firstName} ${contact.lastName}</span>
                 </div>`;
 }

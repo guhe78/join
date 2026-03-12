@@ -243,7 +243,7 @@ function closeTaskDialog() {
 function generateDetailedContactsHtml(assignedTo) {
   if (!assignedTo) return "";
   let html = "";
-  const contactIds = Object.keys(assignedTo);
+  const contactIds = Object.values(assignedTo);
   for (const id of contactIds) {
     const contact = contacts.find((c) => c.id === id);
     if (contact) {
