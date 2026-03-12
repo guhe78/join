@@ -1,0 +1,225 @@
+.area-wrapper {
+  position: relative;
+}
+
+.area-wrapper button {
+  position: absolute;
+  right: 8px;
+  bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.area-wrapper button img {
+  width: 20px;
+  height: 20px;
+}
+
+.assigned-preview {
+  margin-top: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.assigned-preview-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  color: white;
+  font-size: 16px;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.check-img {
+  width: 24px;
+  height: 24px;
+}
+
+.edit-assigned-select {
+  position: relative;
+}
+
+.edit-assigned-select .contact-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.edit-assigned-select .select-option input {
+  width: 16px;
+  height: 16px;
+}
+
+.edit-assigned-select .select-trigger {
+  border: 1px solid var(--user-icon);
+  border-radius: 10px;
+  padding: 12px 14px;
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.edit-assigned-select .select-trigger:focus-visible {
+  outline: 1px solid var(--greeting-name-and-hover);
+}
+
+.edit-assigned-select .trigger-arrow {
+  padding: 5px;
+  border-radius: 50%;
+}
+
+.edit-assigned-select:hover .trigger-arrow {
+  background: var(--secondary-color);
+}
+
+.edit-assigned-select.open .trigger-arrow {
+  transform: rotate(180deg);
+}
+
+.edit-button {
+  padding: 16px;
+  height: 57px;
+  gap: 4px;
+}
+
+.edit-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.edit-dialog {
+  overflow: hidden;
+}
+
+.edit-header {
+  justify-content: flex-end;
+}
+
+.edit-input {
+  font-size: 20px;
+  height: 48px;
+}
+
+.edit-scroll-content {
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.edit-subtask-input {
+  height: 48px;
+  border-radius: 10px;
+  border: 1px solid var(--user-icon);
+  background: white;
+  color: var(--primary-color);
+  font-size: 20px;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.edit-subtask-input::placeholder {
+  color: var(--side-bar-icon);
+}
+
+.edit-subtasks-list {
+  margin-left: 32px;
+  color: var(--primary-color);
+  font-size: 14px;
+}
+
+.edit-subtasks-list li {
+  margin-bottom: 16px;
+}
+
+.edit-textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 10px;
+  border: 1px solid var(--user-icon);
+  padding: 16px;
+  resize: none;
+  outline: none;
+  font-size: 21px;
+  transition: 0.2s ease;
+  height: 120px;
+}
+
+.edit-textarea:focus {
+  border-color: var(--greeting-name-and-hover);
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.input-wrapper input {
+  width: 100%;
+  box-sizing: border-box;
+  padding-right: 44px;
+}
+
+.input-wrapper button {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.low-btn:focus {
+  transform: scale(1.02);
+  background-color: var(--low-arrow);
+}
+
+.medium-btn:focus {
+  transform: scale(1.02);
+  background-color: var(--medium-btn);
+}
+
+.priority-label {
+  font-size: 19px;
+  font-weight: bold;
+}
+
+.priority-options {
+  display: flex;
+  gap: 8px;
+}
+
+.priority-options button {
+  font-size: 20px;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--user-icon);
+  transition: transform 0.2s ease-in-out;
+}
+
+.priority-options button:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.priority-options button:focus img {
+  filter: brightness(0) invert(1);
+}
+
+.urgent-btn:focus {
+  transform: scale(1.02);
+  background-color: var(--urgent-icon);
+}

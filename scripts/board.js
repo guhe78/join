@@ -6,8 +6,8 @@ let currentDraggedElement = null;
  * Updates the board with the loaded data afterwards.
  */
 async function init() {
-  contacts = await getData("contacts");
-  tasks = await getData("tasks");
+  await getContacts();
+  await getTasks();
   updateBoard();
 }
 
@@ -38,7 +38,6 @@ function processColumn(status, container) {
     }
   }
   container.innerHTML = "";
-  container.classList.remove("highlight");
   fillContainer(filtered, container);
 }
 
@@ -68,7 +67,7 @@ function prepareTaskData(element) {
   const categoryClass = element.category.toLowerCase().replace(/\s+/g, "-");
   const avatars = generateAvatarsHtml(element.assigned_to);
   return {
-    id: element.taskId,
+    id: element.id,
     title: element.title,
     description: element.description,
     category: element.category,
@@ -109,6 +108,20 @@ function getSubtaskStats(subtasks) {
  */
 function startdragging(id) {
   currentDraggedElement = id;
+  const card = document.querySelector(`.card[data-id="${id}"]`);
+  if (card) {
+    card.classList.add("is-dragging");
+  }
+}
+
+/**
+ * Removes drag styling from the currently dragged task card.
+ */
+function stopDragging(id) {
+  const draggedCard = document.querySelector(`.card[data-id="${id}"]`);
+  if (draggedCard) {
+    draggedCard.classList.remove("is-dragging");
+  }
 }
 
 /**
@@ -120,19 +133,47 @@ function dragover(ev) {
 }
 
 /**
- * Adds a visual highlight to a drop zone.
- * @param {string} id - The ID of the container to highlight.
+ * Shows or removes the drag placeholder in a board column.
+ * @param {string} id - The ID of the target column element.
+ * @param {boolean} show - Whether the placeholder should be visible.
  */
-function highlight(id) {
-  document.getElementById(id).classList.add("highlight");
+function highlight(id, show) {
+  const container = document.getElementById(id);
+  if (!container) return;
+  if (show) {
+    addDragPlaceholder(container);
+    return;
+  }
+  removeDragPlaceholder(container);
 }
 
 /**
- * Removes the visual highlight from a drop zone.
- * @param {string} id - The ID of the container to unhighlight.
+ * Adds a drag placeholder to the column and removes the empty-state element.
+ * @param {HTMLElement} container - The target board column.
  */
-function unhighlight(id) {
-  document.getElementById(id).classList.remove("highlight");
+function addDragPlaceholder(container) {
+  const existingPlaceholder = container.querySelector(".drag-placeholder");
+  if (existingPlaceholder) return;
+  const emptyState = container.querySelector(".empty-state");
+  if (emptyState) {
+    emptyState.remove();
+  }
+  const placeholder = document.createElement("div");
+  placeholder.classList.add("drag-placeholder");
+  container.appendChild(placeholder);
+}
+
+/**
+ * Removes the drag placeholder and restores the empty-state template if needed.
+ * @param {HTMLElement} container - The target board column.
+ */
+function removeDragPlaceholder(container) {
+  const existingPlaceholder = container.querySelector(".drag-placeholder");
+  if (!existingPlaceholder) return;
+  existingPlaceholder.remove();
+  if (container.children.length === 0) {
+    container.innerHTML = nothingToDoTemplate();
+  }
 }
 
 /**
@@ -140,12 +181,12 @@ function unhighlight(id) {
  * @param {string} newStatus - The new status to assign to the task.
  */
 async function moveTo(newStatus) {
-  const index = tasks.findIndex((t) => t.taskId === currentDraggedElement);
+  const index = tasks.findIndex((t) => t.id === currentDraggedElement);
   if (index !== -1) {
     const movedTask = tasks.splice(index, 1)[0];
     movedTask.status = newStatus;
     tasks.push(movedTask);
-    await updateData("tasks", tasks);
+    await updateData("tasks", movedTask.id, { status: newStatus });
     updateBoard();
   }
 }
@@ -158,7 +199,7 @@ async function moveTo(newStatus) {
 function generateAvatarsHtml(assignedTo) {
   if (!assignedTo) return "";
   let html = "";
-  const contactIds = Object.keys(assignedTo);
+  const contactIds = Object.values(assignedTo);
 
   for (let i = 0; i < contactIds.length; i++) {
     const contact = contacts.find((c) => c.id === contactIds[i]);
@@ -166,7 +207,7 @@ function generateAvatarsHtml(assignedTo) {
       const initials = (
         contact.firstName[0] + contact.lastName[0]
       ).toUpperCase();
-      html += avatarTemplate(contact.color, initials);
+      html += avatarTemplate(contact.badgeColor, initials);
     }
   }
   return html;
@@ -174,10 +215,10 @@ function generateAvatarsHtml(assignedTo) {
 
 /**
  * Opens the detail view for a specific task.
- * @param {string} taskId - The ID of the task to display.
+ * @param {string} id - The ID of the task to display.
  */
-function openTaskDetail(taskId) {
-  const task = tasks.find((t) => t.taskId === taskId);
+function openTaskDetail(id) {
+  const task = tasks.find((t) => t.id === id);
   if (!task) return;
   const dialog = document.getElementById("taskDialog");
   const content = document.getElementById("dialogContent");
@@ -217,12 +258,12 @@ function generateDetailedContactsHtml(assignedTo) {
 
 /**
  * Generates the HTML for subtasks in the task detail view.
- * @param {string} taskId - The ID of the parent task.
+ * @param {string} id - The ID of the parent task.
  * @param {Object} subtasks - The subtasks object.
  * @returns {string} Combined HTML string for the subtask list.
  */
-function generateDetailedSubtasksHtml(taskId, subtasks) {
-    const subtaskArray = Object.entries(subtasks);
+function generateDetailedSubtasksHtml(id, subtasks) {
+    const subtaskArray = subtasks ? Object.entries(subtasks) : [];
     if (subtaskArray.length === 0) {
         return noSubtasksTemplate();
     }
@@ -231,7 +272,7 @@ function generateDetailedSubtasksHtml(taskId, subtasks) {
         const checkImg = sub.is_done
             ? "../assets/imgs/checkbox-checked.png"
             : "../assets/imgs/checkbox-empty.png";
-        html += subtaskItemTemplate(taskId, subId, checkImg, sub);
+        html += subtaskItemTemplate(id, subId, checkImg, sub);
     }
     return html;
 }
@@ -256,41 +297,50 @@ function reformatDate(task) {
 
 /**
  * Deletes a task from the tasks array by its ID and updates the board.
+ * @param {string} path - The collection path in Firebase.
  * @param {string} id - The ID of the task to be deleted.
  */
-async function deleteTask(id) {
-    const index = tasks.findIndex((t) => t.taskId === id);
-    if (index !== -1) {
-        tasks.splice(index, 1);
-        closeTaskDialog();
-        await updateData("tasks", tasks);
-        updateBoard(); 
-    } else {
-        return;
-    }
+async function deleteTask(path, id) {
+    deleteData(path, id);
+    await getTasks();
+    updateBoard();
 }
 
 /**
  * Toggles the completion status of a subtask and updates the UI.
- * @param {string} taskId - The ID of the parent task.
+ * @param {string} id - The ID of the parent task.
  * @param {string} subId - The ID of the subtask to toggle.
  */
-async function toggleSubtask(taskId, subId) {
-    const task = tasks.find((t) => t.taskId === taskId);
-    if (task && task.subtasks && task.subtasks[subId]) {
-        task.subtasks[subId].is_done = !task.subtasks[subId].is_done;
-        await updateData("tasks", tasks);
-        updateBoard();
-        refreshTaskDetail(taskId);
-    }
+async function toggleSubtask(id, subId) {
+  const task = tasks.find((t) => t.id === id);
+  if (task && task.subtasks && task.subtasks[subId]) {
+    task.subtasks[subId].is_done = !task.subtasks[subId].is_done;
+    updateSubtaskCheckboxIcon(id, subId, task.subtasks[subId].is_done);
+    await updateData("tasks", task.id, { subtasks: task.subtasks });
+    updateBoard();
+  }
+}
+
+/**
+ * Updates only the subtask checkbox icon in the open detail dialog.
+ * @param {string} id - The ID of the parent task.
+ * @param {string} subId - The ID of the subtask.
+ * @param {boolean} isDone - The completion status of the subtask.
+ */
+function updateSubtaskCheckboxIcon(id, subId, isDone) {
+  const icon = document.getElementById(`subtask-checkbox-icon-${id}-${subId}`);
+  if (!icon) return;
+  icon.src = isDone
+    ? "../assets/imgs/checkbox-checked.png"
+    : "../assets/imgs/checkbox-empty.png";
 }
 
 /**
  * Helper function to re-render the detail view content without closing the dialog.
- * @param {string} taskId - The ID of the task.
+ * @param {string} id - The ID of the task.
  */
-function refreshTaskDetail(taskId) {
-    const task = tasks.find((t) => t.taskId === taskId);
+function refreshTaskDetail(id) {
+    const task = tasks.find((t) => t.id === id);
     if (task) {
         const content = document.getElementById("dialogContent");
         const categoryClass = task.category.toLowerCase().replace(/\s+/g, "-");
@@ -301,8 +351,8 @@ function refreshTaskDetail(taskId) {
 /**
  * Opens the edit view for a task within the existing dialog.
  */
-function editTask(taskId) {
-    const task = tasks.find((t) => t.taskId === taskId);
+function editTask(id) {
+    const task = tasks.find((t) => t.id === id);
     if (!task) return;
     const content = document.getElementById("dialogContent");
     content.innerHTML = editTaskTemplate(task);
