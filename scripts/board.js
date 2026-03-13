@@ -1,6 +1,9 @@
 /** @type {string|null} Stores the ID of the element currently being dragged */
 let currentDraggedElement = null;
 
+let currentTasks = [];
+let tippTimer;
+
 /**
  * Initializes the application by loading contacts and tasks.
  * Updates the board with the loaded data afterwards.
@@ -8,6 +11,7 @@ let currentDraggedElement = null;
 async function init() {
   await getContacts();
   await getTasks();
+  currentTasks = tasks;
   updateBoard();
 }
 
@@ -26,15 +30,15 @@ function updateBoard() {
 }
 
 /**
- * Filters tasks by status and prepares the column container for new content.
+ * Filters currentTasks by status and prepares the column container for new content.
  * @param {string} status - The status category to filter for.
  * @param {HTMLElement} container - The DOM element representing the column.
  */
 function processColumn(status, container) {
   let filtered = [];
-  for (let i = 0; i < tasks.length; i++) {
-    if (tasks[i].status === status) {
-      filtered.push(tasks[i]);
+  for (let i = 0; i < currentTasks.length; i++) {
+    if (currentTasks[i].status === status) {
+      filtered.push(currentTasks[i]);
     }
   }
   container.innerHTML = "";
@@ -181,11 +185,11 @@ function removeDragPlaceholder(container) {
  * @param {string} newStatus - The new status to assign to the task.
  */
 async function moveTo(newStatus) {
-  const index = tasks.findIndex((t) => t.id === currentDraggedElement);
+  const index = currentTasks.findIndex((t) => t.id === currentDraggedElement);
   if (index !== -1) {
-    const movedTask = tasks.splice(index, 1)[0];
+    const movedTask = currentTasks.splice(index, 1)[0];
     movedTask.status = newStatus;
-    tasks.push(movedTask);
+    currentTasks.push(movedTask);
     await updateData("tasks", movedTask.id, { status: newStatus });
     updateBoard();
   }
@@ -306,15 +310,15 @@ function reformatDate(task) {
 }
 
 /**
- * Deletes a task from the tasks array by its ID and updates the board.
+ * Deletes a task from the currentTasks array by its ID and updates the board.
  * @param {string} path - The collection path in Firebase.
  * @param {string} id - The ID of the task to be deleted.
  */
 async function deleteTask(path, id) {
-  const index = tasks.findIndex((t) => t.id === id);
+  const index = currentTasks.findIndex((t) => t.id === id);
   if (index !== -1) {
     await deleteData(path, id);
-    tasks.splice(index, 1);
+    currentTasks.splice(index, 1);
     closeTaskDialog();
     updateBoard();
   }
@@ -326,7 +330,7 @@ async function deleteTask(path, id) {
  * @param {string} subId - The ID of the subtask to toggle.
  */
 async function toggleSubtask(id, subId) {
-  const task = tasks.find((t) => t.id === id);
+  const task = currentTasks.find((t) => t.id === id);
   if (task && task.subtasks && task.subtasks[subId]) {
     task.subtasks[subId].is_done = !task.subtasks[subId].is_done;
     updateSubtaskCheckboxIcon(id, subId, task.subtasks[subId].is_done);
@@ -354,7 +358,7 @@ function updateSubtaskCheckboxIcon(id, subId, isDone) {
  * @param {string} id - The ID of the task.
  */
 function refreshTaskDetail(id) {
-  const task = tasks.find((t) => t.id === id);
+  const task = currentTasks.find((t) => t.id === id);
   if (task) {
     const content = document.getElementById("dialogContent");
     const categoryClass = task.category.toLowerCase().replace(/\s+/g, "-");
@@ -366,8 +370,33 @@ function refreshTaskDetail(id) {
  * Opens the edit view for a task within the existing dialog.
  */
 function editTask(id) {
-  const task = tasks.find((t) => t.id === id);
+  const task = currentTasks.find((t) => t.id === id);
   if (!task) return;
   const content = document.getElementById("dialogContent");
   content.innerHTML = editTaskTemplate(task);
+}
+
+function searchFilter() {
+  const input = document.getElementById("searchInput");
+  const filter = input.value.toLowerCase();
+  currentTasks = tasks.filter(
+    (task) =>
+      task.title.toLowerCase().includes(filter) ||
+      task.description.toLowerCase().includes(filter),
+  );
+  updateBoard();
+  const emptyStates = document.querySelectorAll(".empty-state");
+  if (emptyStates) {
+    emptyStates.forEach((state) => {
+      state.textContent = `No tasks found!"`;
+    });
+  }
+}
+
+function checkEnter(event, inputId) {
+  clearTimeout(tippTimer);
+  tippTimer = setTimeout(searchFilter, 400, inputId);
+  if (event.key === "Enter") {
+    searchFilter(inputId);
+  }
 }
