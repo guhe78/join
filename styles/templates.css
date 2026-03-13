@@ -262,6 +262,11 @@
   border-radius: 50%;
 }
 
+.detail-subtask-item:hover .subtask-checkbox {
+  background-color: var(--side-bar-privacy-legal);
+  border-radius: 50%;
+}
+
 .detail-dialog {
   overflow: hidden;
 }
