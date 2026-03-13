@@ -65,7 +65,7 @@ function fillContainer(subset, container) {
 function prepareTaskData(element) {
   const stats = getSubtaskStats(element.subtasks);
   const categoryClass = element.category.toLowerCase().replace(/\s+/g, "-");
-  const avatars = generateAvatarsHtml(element.assigned_to);
+  const badges = generateBadgeHtml(element.assigned_to);
   return {
     id: element.id,
     title: element.title,
@@ -76,7 +76,7 @@ function prepareTaskData(element) {
     hasSubtasks: stats.hasSubtasks,
     subtaskInfo: stats.text,
     progressWidth: stats.percent,
-    avatarsHtml: avatars,
+    badgesHtml: badges,
   };
 }
 
@@ -192,23 +192,33 @@ async function moveTo(newStatus) {
 }
 
 /**
- * Generates the HTML for contact avatars assigned to a task.
+ * Generates the HTML for contact badges assigned to a task.
  * @param {Object} assignedTo - Object containing assigned contact IDs.
- * @returns {string} Combined HTML string for all avatars.
+ * @returns {string} Combined HTML string for all badges.
  */
-function generateAvatarsHtml(assignedTo) {
+function generateBadgeHtml(assignedTo) {
   if (!assignedTo) return "";
   let html = "";
   const contactIds = Object.values(assignedTo);
-
-  for (let i = 0; i < contactIds.length; i++) {
-    const contact = contacts.find((c) => c.id === contactIds[i]);
+  const limit = 3;
+  const displayIds = contactIds.slice(0, limit);
+  for (const id of displayIds) {
+    const contact = contacts.find((c) => c.id === id);
     if (contact) {
       const initials = (
         contact.firstName[0] + contact.lastName[0]
       ).toUpperCase();
-      html += avatarTemplate(contact.badgeColor, initials);
+      html += badgeTemplate(contact.badgeColor, initials);
     }
+  }
+  html = addBadgeCount(html, contactIds, limit);
+  return html;
+}
+
+function addBadgeCount(html, contactIds, limit) {
+  if (contactIds.length > limit) {
+    const remaining = contactIds.length - limit;
+    html += `<div class="badge-count">+${remaining}</div>`;
   }
   return html;
 }
@@ -263,18 +273,18 @@ function generateDetailedContactsHtml(assignedTo) {
  * @returns {string} Combined HTML string for the subtask list.
  */
 function generateDetailedSubtasksHtml(id, subtasks) {
-    const subtaskArray = subtasks ? Object.entries(subtasks) : [];
-    if (subtaskArray.length === 0) {
-        return noSubtasksTemplate();
-    }
-    let html = "";
-    for (const [subId, sub] of subtaskArray) {
-        const checkImg = sub.is_done
-            ? "../assets/imgs/checkbox-checked.png"
-            : "../assets/imgs/checkbox-empty.png";
-        html += subtaskItemTemplate(id, subId, checkImg, sub);
-    }
-    return html;
+  const subtaskArray = subtasks ? Object.entries(subtasks) : [];
+  if (subtaskArray.length === 0) {
+    return noSubtasksTemplate();
+  }
+  let html = "";
+  for (const [subId, sub] of subtaskArray) {
+    const checkImg = sub.is_done
+      ? "../assets/imgs/checkbox-checked.png"
+      : "../assets/imgs/checkbox-empty.png";
+    html += subtaskItemTemplate(id, subId, checkImg, sub);
+  }
+  return html;
 }
 
 /**
@@ -301,9 +311,13 @@ function reformatDate(task) {
  * @param {string} id - The ID of the task to be deleted.
  */
 async function deleteTask(path, id) {
-    deleteData(path, id);
-    await getTasks();
+  const index = tasks.findIndex((t) => t.id === id);
+  if (index !== -1) {
+    await deleteData(path, id);
+    tasks.splice(index, 1);
+    closeTaskDialog();
     updateBoard();
+  }
 }
 
 /**
@@ -340,20 +354,20 @@ function updateSubtaskCheckboxIcon(id, subId, isDone) {
  * @param {string} id - The ID of the task.
  */
 function refreshTaskDetail(id) {
-    const task = tasks.find((t) => t.id === id);
-    if (task) {
-        const content = document.getElementById("dialogContent");
-        const categoryClass = task.category.toLowerCase().replace(/\s+/g, "-");
-        content.innerHTML = dialogTemplate(task, categoryClass);
-    }
+  const task = tasks.find((t) => t.id === id);
+  if (task) {
+    const content = document.getElementById("dialogContent");
+    const categoryClass = task.category.toLowerCase().replace(/\s+/g, "-");
+    content.innerHTML = dialogTemplate(task, categoryClass);
+  }
 }
 
 /**
  * Opens the edit view for a task within the existing dialog.
  */
 function editTask(id) {
-    const task = tasks.find((t) => t.id === id);
-    if (!task) return;
-    const content = document.getElementById("dialogContent");
-    content.innerHTML = editTaskTemplate(task);
+  const task = tasks.find((t) => t.id === id);
+  if (!task) return;
+  const content = document.getElementById("dialogContent");
+  content.innerHTML = editTaskTemplate(task);
 }
