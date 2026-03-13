@@ -85,7 +85,7 @@
             </label>
 
             <div class="date-input-wrapper">
-              <input id="due" class="input" type="text" placeholder="dd/mm/yyyy" />
+              <input id="due" class="input" type="text" placeholder="dd/mm/yyyy" ondblclick="setTodayDate()" />
               <img class="date-icon-right" src="../assets/imgs/event.png" alt="calendar" />
             </div>
             <p class="error-msg" id="dueError">This field is required</p>
@@ -247,9 +247,13 @@
       </form>
     </section>
   </main>
-
-  <script src="../scripts/addtask-template.js"></script>
-  <script src="../scripts/addtask.js"></script>
+  <div id="taskAddedToast" class="task-toast">
+    <span>Task added to board</span>
+    <img src="../assets/imgs/board.png" alt="board">
+  </div>
+<script src="../scripts/addtask-template.js"></script>
+<script src="../scripts/addtask-dom.js"></script>
+<script src="../scripts/addtask.js"></script>
 </body>
 
 </html>

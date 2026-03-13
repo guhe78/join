@@ -225,7 +225,20 @@
 }
 
 .select-option.active {
-  background: #eeeeee;
+  background: #2A3647;
+  color: #ffffff;
+}
+
+.select-option.active span {
+  color: #ffffff;
+}
+
+.select-option.active input {
+  accent-color: white;
+}
+
+.select-option.active .avatar {
+  border: 2px solid #ffffff;
 }
 
 .contact-info {
@@ -244,6 +257,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
+  border: 2px solid transparent;
 }
 
 .assigned-badges {
@@ -375,8 +390,8 @@
 }
 
 .subtask-action-icon {
-  width: 18px;
-  height: 18px;
+  width: 12px;
+  height: 12px;
   cursor: pointer;
 }
 
@@ -431,6 +446,45 @@
 
 .prio-row {
   margin-bottom: 6px;
+}
+
+.task-toast {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) translateX(400px);
+
+  width: 326px;
+  height: 76px;
+
+  background: #2A3647;
+  color: white;
+
+  border-radius: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 24px;
+
+  font-size: 20px;
+  font-weight: 500;
+
+  opacity: 0;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+
+  z-index: 999;
+}
+
+.task-toast.show {
+  transform: translate(-50%, -50%) translateX(0);
+  opacity: 1;
+}
+
+.task-toast img {
+  width: 32px;
+  height: 32px;
 }
 
 @media (max-width: 1100px) {
