@@ -35,17 +35,10 @@ function clearAssignedSelect() {
         let checkbox = options[i].getElementsByTagName("input")[0];
         checkbox.checked = false;
     }
-
+    
     updateAssignedText();
     updateAssignedBadges();
     assignedSelect.classList.remove("open");
-}
-
-function createTaskClicked() {
-    let isValid = validateAddTaskForm();
-    if (isValid === true) {
-        showTaskAddedToast();
-    }
 }
 
 function validateAddTaskForm() {
@@ -146,7 +139,89 @@ function redirectToBoard() {
     window.location.href = "board.html";
 }
 
-function initAddTask() {
+function createTaskObject() {
+    let titleInput = document.getElementById("title");
+    let descInput = document.getElementById("desc");
+    let dueInput = document.getElementById("due");
+    let catHidden = document.getElementById("catHidden");
+    let task = {
+        assigned_to: getAssignedContacts(),
+        author_id: "user_1",
+        category: catHidden.value,
+        created_at: new Date().toISOString(),
+        description: descInput.value,
+        due_date: dueInput.value,
+        priority: getSelectedPriority(),
+        status: "todo",
+        subtasks: getSubtasksForFirebase(),
+        title: titleInput.value
+    };
+    return task;
+}
+
+function getSelectedPriority() {
+    let buttons = document.getElementsByClassName("prio-btn");
+    for (let i = 0; i < buttons.length; i++) {
+        if (buttons[i].classList.contains("is-active") === true) {
+            if (buttons[i].classList.contains("prio-urgent") === true) {
+                return "urgent";
+            }
+            if (buttons[i].classList.contains("prio-medium") === true) {
+                return "medium";
+            }
+            if (buttons[i].classList.contains("prio-low") === true) {
+                return "low";
+            }
+        }
+    }
+}
+
+function getAssignedContacts() {
+    let assignedSelect = document.getElementById("assignedSelect");
+    if (assignedSelect === null) {
+        return [];
+    }
+    let dropdown = assignedSelect.getElementsByClassName("select-dropdown")[0];
+    let options = dropdown.getElementsByClassName("select-option");
+    let assignedContacts = [];
+    for (let i = 0; i < options.length; i++) {
+        let checkbox = options[i].getElementsByTagName("input")[0];
+        if (checkbox.checked === true) {
+            let contactInfo = options[i].getElementsByClassName("contact-info")[0];
+            let nameText = contactInfo.getElementsByTagName("span")[0].textContent;
+            assignedContacts.push(nameText);
+        }
+    }
+    return assignedContacts;
+}
+
+function getSubtasksForFirebase() {
+    let subtasksForFirebase = [];
+    for (let i = 0; i < subtasks.length; i++) {
+        subtasksForFirebase.push({
+            title: subtasks[i],
+            done: false
+        });
+    }
+    return subtasksForFirebase;
+}
+
+async function createTaskClicked() {
+    let isValid = validateAddTaskForm();
+    if (isValid === true) {
+        try {
+            let task = createTaskObject();
+            await postData("tasks", task);
+            showTaskAddedToast();
+        } catch (error) {
+            console.error("Task could not be saved:", error);
+        }
+    }
+}
+
+async function initAddTask() {
+    await getContacts();
+    renderAssignedContacts();
     initPriorityButtons();
     initAssignedSelect();
     initCategorySelect();

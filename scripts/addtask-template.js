@@ -29,3 +29,34 @@ function buildEditSubtaskHTML(index) {
     </div>
     `;
 }
+
+function buildAssignedContactOptionHTML(index) {
+    let initials = getContactInitials(contacts[index]);
+    let fullName = contacts[index].firstName + " " + contacts[index].lastName;
+    let badgeColor = contacts[index].badgeColor;
+
+    return `
+    <div class="select-option">
+        <div class="contact-info">
+            <div class="avatar" style="background:${badgeColor}">${initials}</div>
+            <span>${fullName}</span>
+        </div>
+        <input type="checkbox">
+    </div>
+    `;
+}
+
+function getContactInitials(contact) {
+    let firstLetter = "";
+    let lastLetter = "";
+
+    if (contact.firstName.length > 0) {
+        firstLetter = contact.firstName.charAt(0);
+    }
+
+    if (contact.lastName.length > 0) {
+        lastLetter = contact.lastName.charAt(0);
+    }
+
+    return firstLetter + lastLetter;
+}

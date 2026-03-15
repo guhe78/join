@@ -215,32 +215,66 @@ function clearValidationState() {
 }
 
 function updateAssignedBadges() {
+    let contactsData = getSelectedAssignedContacts();
+    let html = buildAssignedBadgesHTML(contactsData);
+    renderAssignedBadges(html);
+}
+
+function getSelectedAssignedContacts() {
     let assignedSelect = document.getElementById("assignedSelect");
-    let badgesContainer = document.getElementById("assignedBadges");
+
     if (assignedSelect === null) {
-        return;
+        return [];
     }
-    if (badgesContainer === null) {
-        return;
-    }
+
     let dropdown = assignedSelect.getElementsByClassName("select-dropdown")[0];
     let options = dropdown.getElementsByClassName("select-option");
-    let badgesHTML = "";
+    let selectedContacts = [];
+
     for (let i = 0; i < options.length; i++) {
         let checkbox = options[i].getElementsByTagName("input")[0];
+
         if (checkbox.checked === true) {
             let contactInfo = options[i].getElementsByClassName("contact-info")[0];
             let avatar = contactInfo.getElementsByClassName("avatar")[0];
-            let classes = avatar.className;
-            let letters = avatar.textContent;
-            badgesHTML = badgesHTML +
-                '<div class="' + classes.replace("avatar", "assigned-badge") + '">' +
-                letters +
-                '</div>';
+
+            selectedContacts.push({
+                letters: avatar.textContent,
+                backgroundColor: avatar.style.background
+            });
         }
     }
-    badgesContainer.innerHTML = badgesHTML;
-} ``
+
+    return selectedContacts;
+}
+
+function buildAssignedBadgesHTML(contactsData) {
+    let html = "";
+
+    for (let i = 0; i < contactsData.length; i++) {
+        html = html + buildSingleAssignedBadgeHTML(contactsData[i]);
+    }
+
+    return html;
+}
+
+function buildSingleAssignedBadgeHTML(contact) {
+    return `
+    <div class="assigned-badge" style="background:${contact.backgroundColor}">
+        ${contact.letters}
+    </div>
+    `;
+}
+
+function renderAssignedBadges(html) {
+    let badgesContainer = document.getElementById("assignedBadges");
+
+    if (badgesContainer === null) {
+        return;
+    }
+
+    badgesContainer.innerHTML = html;
+}
 
 function initSubtaskSection() {
     let subtaskInput = document.getElementById("subtask");
@@ -266,6 +300,14 @@ function clearSubtaskInput() {
         subtaskInput.value = "";
     }
     editSubtaskIndex = -1;
+}
+
+function clearSubtasks() {
+    subtasks = [];
+    editSubtaskIndex = -1;
+    let input = document.getElementById("subtask");
+    if (input) input.value = "";
+    renderSubtasks();
 }
 
 function renderSubtasks() {
@@ -386,4 +428,16 @@ function setTodayDate() {
         month = "0" + month;
     }
     dueInput.value = day + "/" + month + "/" + year;
+}
+
+function renderAssignedContacts() {
+    let dropdown = document.getElementById("assignedDropdown");
+    if (dropdown === null) {
+        return;
+    }
+    let html = "";
+    for (let i = 0; i < contacts.length; i++) {
+        html = html + buildAssignedContactOptionHTML(i);
+    }
+    dropdown.innerHTML = html;
 }

@@ -114,7 +114,7 @@
               </svg>
             </button>
 
-            <button type="button" class="prio-btn prio-low is-active">
+            <button type="button" class="prio-btn prio-low">
               Low
               <svg class="prio-icon" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M7 10l5 5 5-5" />
@@ -132,48 +132,9 @@
                 <img class="trigger-arrow" src="../assets/imgs/arrow_drop_downaa.png" alt="">
               </div>
 
-              <div class="select-dropdown">
-                <div class="select-option">
-                  <div class="contact-info">
-                    <div class="avatar blue">SM</div>
-                    <span>Sofia Müller (You)</span>
-                  </div>
-                  <input type="checkbox">
-                </div>
-
-                <div class="select-option">
-                  <div class="contact-info">
-                    <div class="avatar orange">AM</div>
-                    <span>Anton Mayer</span>
-                  </div>
-                  <input type="checkbox">
-                </div>
-
-                <div class="select-option">
-                  <div class="contact-info">
-                    <div class="avatar purple">AS</div>
-                    <span>Anja Schulz</span>
-                  </div>
-                  <input type="checkbox">
-                </div>
-
-                <div class="select-option">
-                  <div class="contact-info">
-                    <div class="avatar violet">BZ</div>
-                    <span>Benedikt Ziegler</span>
-                  </div>
-                  <input type="checkbox">
-                </div>
-
-                <div class="select-option">
-                  <div class="contact-info">
-                    <div class="avatar pink">DE</div>
-                    <span>David Eisenberg</span>
-                  </div>
-                  <input type="checkbox">
-                </div>
-              </div>
+              <div class="select-dropdown" id="assignedDropdown"></div>
             </div>
+
             <div class="assigned-badges" id="assignedBadges"></div>
           </div>
 
@@ -251,6 +212,8 @@
     <span>Task added to board</span>
     <img src="../assets/imgs/board.png" alt="board">
   </div>
+<script src="../scripts/config.js"></script>
+<script src="../scripts/services.js"></script>
 <script src="../scripts/addtask-template.js"></script>
 <script src="../scripts/addtask-dom.js"></script>
 <script src="../scripts/addtask.js"></script>
