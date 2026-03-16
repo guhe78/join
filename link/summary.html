@@ -21,9 +21,13 @@
 
   <link rel="stylesheet" href="../styles/summary.css">
 
+  <script src="../scripts/config.js" defer></script>
+  <script src="../scripts/services.js" defer></script>
+  <script src="../scripts/summary.js" defer></script>
+
 </head>
 
-<body>
+<body onload="initSummary()">
   <aside>
     <img src="../assets/imgs/join-logo-white.png" alt="logo" class="logo" />
     <nav class="side-nav">
@@ -69,7 +73,7 @@
               <img class="img-card" src="../assets/imgs/edit.png" alt="edit" />
             </div>
             <div class="text-wrapper">
-              <span class="numbers">1</span>
+              <span class="numbers" id="todo-count">0</span>
               <span class="card-font">To-do</span>
             </div>
           </div>
@@ -79,7 +83,7 @@
               <img class="img-card" src="../assets/imgs/check-white.svg" alt="check" />
             </div>
             <div class="text-wrapper">
-              <span class="numbers">1</span>
+              <span class="numbers" id="done-count">0</span>
               <span class="card-font">Done</span>
             </div>
           </div>
@@ -89,28 +93,28 @@
               <img class="img-card" src="../assets/imgs/prio-high-white.png" alt="priority high" />
             </div>
             <div class="text-wrapper">
-              <span class="numbers">1</span>
+              <span class="numbers" id="urgent-count">0</span>
               <span class="card-font">Urgent</span>
             </div>
             <div class="split-line-priority"></div>
             <div>
-              <p class="date-prior">October 16, 2022</p>
+              <p class="date-prior" id="urgent-date">No urgent tasks</p>
               <p class="deadline-text">Upcoming Deadline</p>
             </div>
           </div>
 
           <div class="card board">
-            <span class="numbers">5</span>
+            <span class="numbers" id="board-count">0</span>
             <p class="task-text">Tasks in Board</p>
           </div>
 
           <div class="card progress">
-            <span class="numbers">2</span>
+            <span class="numbers" id="progress-count">0</span>
             <p>Tasks in Progress</p>
           </div>
 
           <div class="card feedback">
-            <span class="numbers">2</span>
+            <span class="numbers" id="feedback-count">0</span>
             <p class="task-text">Awaiting Feedback</p>
           </div>
         </div>
