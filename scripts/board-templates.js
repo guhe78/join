@@ -9,7 +9,7 @@ function toDoTaskTemplate(task) {
             ${
               task.hasSubtasks
                 ? `
-                <div class="progress-container">
+                <div class="progress-container" title="${task.subtaskInfo}">
                     <div class="progress-bar">
                         <div class="progress-fill" style="width: ${task.progressWidth}%"></div>
                     </div>
@@ -128,7 +128,7 @@ function editTaskTemplate(task) {
           <div class="edit-scroll-content">
           <div class="edit-container title">
             <label class="detail-label" for="task-title">Title</label>
-            <input id="task-title" class="edit-input" type="text" required />
+            <input value="${task.title}" id="task-title" class="edit-input" type="text" required />
           </div>
 
           <div class="edit-container description">
@@ -139,7 +139,7 @@ function editTaskTemplate(task) {
                 placeholder="Enter description..."
                 class="edit-textarea"
                 rows="4"
-              ></textarea>
+              >${task.description}</textarea>
               <button><img src="../assets/imgs/recurso.svg" alt="recurso icon"></button>
             </div>
           </div>
@@ -150,7 +150,7 @@ function editTaskTemplate(task) {
               <input
                 type="text"
                 id="due-date"
-                value="10/05/2023"
+                value="${transformDate(task)}"
                 placeholder="DD/MM/YYYY"
               />
               <button class="calendar-icon">
@@ -162,15 +162,15 @@ function editTaskTemplate(task) {
           <div class="edit-container priority">
             <span class="detail-label priority-label">Priority</span>
             <div class="priority-options"> 
-              <button class="urgent-btn">
+              <button id="urgent-btn" class="urgent-btn">
                 Urgent
                 <img src="../assets/imgs/prio-high.png" alt="Urgent icon" />
               </button>
-              <button class="medium-btn">
+              <button id="medium-btn" class="medium-btn">
                 Medium
                 <img src="../assets/imgs/prio-media.png" alt="Medium icon" />
               </button>
-              <button class="low-btn">
+              <button id="low-btn" class="low-btn">
                 Low <img src="../assets/imgs/prio-low.png" alt="Low icon" />
               </button>
             </div>

@@ -374,6 +374,29 @@ function editTask(id) {
   if (!task) return;
   const content = document.getElementById("dialogContent");
   content.innerHTML = editTaskTemplate(task);
+  selectFocus(task);
+}
+
+function selectFocus(task) {
+  const focusTargets = {
+    high: "urgent-btn",
+    media: "medium-btn",
+    low: "low-btn",
+  };
+  const targetId = focusTargets[task.priority];
+  if (!targetId) return;
+  requestAnimationFrame(() => {
+    document.getElementById(targetId)?.focus();
+  });
+}
+
+function transformDate(task) {
+  const rawDate = task.due_date;
+  if (!rawDate) return "";
+  if (rawDate.includes("/")) return rawDate;
+  const [year, month, day] = rawDate.split("-");
+  if (!year || !month || !day) return "";
+  return `${day}/${month}/${year}`;
 }
 
 function searchFilter() {
