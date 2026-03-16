@@ -50,7 +50,7 @@ function contactDetailTemplate(index) {
         <p class="font-size-20">Contact Information</p>
         <div class="contact-detail-data">
           <p class="bold">Email</p>
-          <p class="email">${state.contacts[index].email}</p>
+          <a href="mailto:${state.contacts[index].email}" class="email">${state.contacts[index].email}</a>
           <p class="bold">Phone</p>
           <p>${state.contacts[index].phone}</p>
         </div>

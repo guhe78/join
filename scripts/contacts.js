@@ -11,6 +11,8 @@ const DOM = {
   contactPhoneEl: document.getElementById("contact-phone-input"),
   closeButtonEl: document.getElementById("close-button"),
   personImageEl: document.getElementById("person-image"),
+  toastSectionEl: document.getElementById("toast-section"),
+  toastMessageEl: document.getElementById("toast-message"),
 };
 
 const state = {
@@ -65,6 +67,14 @@ function renderContact(index) {
   DOM.contactOverviewEl.innerHTML = contactDetailTemplate(index);
 }
 
+function renderToastMessage(type) {
+  DOM.toastMessageEl.innerHTML = `Contact succesfully ${type}`;
+  DOM.toastSectionEl.classList.add("fade-in");
+  setTimeout(() => {
+    DOM.toastSectionEl.classList.remove("fade-in");
+  }, 2000);
+}
+
 function toggleActiveContact(index) {
   const currentActiveElement = document.querySelector(".active-contact");
   const newActiveElement = document.getElementById("contact" + index);
@@ -90,13 +100,31 @@ function openAddNewContact() {
   DOM.noButtonEl.onclick = cancelAddContact;
   DOM.okButtonEl.innerHTML = `Add contact&nbsp;${checkIcon()}`;
   DOM.personImageEl.innerHTML = contactBadgeDummyTemplate();
-  DOM.okButtonEl.onclick = () =>
-    addContact(
-      DOM.contactNameEl.value,
-      DOM.contactEmailEl.value,
-      DOM.contactPhoneEl.value,
-    );
+  DOM.okButtonEl.onclick = () => addContact();
   openDialog();
+}
+
+function addContact() {
+  let nameParts = DOM.contactNameEl.value.split(" ");
+  let email = DOM.contactEmailEl.value;
+  let phone = DOM.contactPhoneEl.value;
+  if (!nameParts || !email || !phone) {
+    return false;
+  }
+  let newContact = {
+    firstName: nameParts[0],
+    lastName: nameParts[nameParts.length - 1],
+    email: email,
+    phone: phone,
+    badgeColor: getRandomColor(),
+  };
+  postData("contacts", newContact);
+  state.contacts.push(newContact);
+  renderContact(state.contacts.length - 1);
+  clearInputs();
+  renderContactsList();
+  closeDialog();
+  renderToastMessage("created");
 }
 
 function openEditContact(index) {
@@ -115,32 +143,18 @@ function openEditContact(index) {
 }
 
 function saveEditedContact(index) {
-  const contactNameArray = DOM.contactNameEl.value.split(" ");
+  const contactNameArray = checkName(DOM.contactNameEl.value).split(" ");
+  console.log(contactNameArray);
   const contact = state.contacts[index];
   contact.firstName = contactNameArray[0];
-  contact.lastName = contactNameArray[1];
+  contact.lastName = contactNameArray[-1];
   contact.email = DOM.contactEmailEl.value;
   contact.phone = DOM.contactPhoneEl.value;
   updateContact(contact);
   renderContactsList();
   renderContact(index);
   closeDialog();
-}
-
-function addContact(name, email, phone) {
-  let nameParts = name.split(" ");
-  let newContact = {
-    firstName: nameParts[0],
-    lastName: nameParts[nameParts.length - 1],
-    email: email,
-    phone: phone,
-    badgeColor: getRandomColor(),
-  };
-  postData("contacts", newContact);
-  state.contacts.push(newContact);
-  clearInputs();
-  renderContactsList();
-  closeDialog();
+  renderToastMessage("edited");
 }
 
 function deleteContact(index) {
@@ -149,17 +163,37 @@ function deleteContact(index) {
   DOM.contactOverviewEl.innerHTML = "";
   renderContactsList();
   closeDialog();
+  renderToastMessage("deleted");
 }
 
 async function updateContact(contact) {
+  const firstName = contact.firstName;
+  const lastName = contact.lastName;
+  const email = contact.email;
+  const phone = contact.phone;
+  if (!firstName || !lastName || !email || !phone) {
+    return false;
+  }
   let updatedContact = {
-    firstName: contact.firstName,
-    lastName: contact.lastName,
-    email: contact.email,
-    phone: contact.phone,
+    firstName: firstName,
+    lastName: lastName,
+    email: email,
+    phone: phone,
   };
   updateData("contacts", contact.id, updatedContact);
 }
+
+function checkName(name) {
+  return name.trim().split(" ").length > 1;
+}
+
+function checkEmail(input) {
+  const pattern =
+    /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  return pattern.test(input);
+}
+
+function checkPhone(input) {}
 
 function cancelAddContact() {
   clearInputs();
@@ -170,7 +204,6 @@ function clearInputs() {
   DOM.contactNameEl.value = "";
   DOM.contactEmailEl.value = "";
   DOM.contactPhoneEl.value = "";
-  DOM.personImageEl.innerHTML = "";
 }
 
 function makeArray(data) {
