@@ -177,19 +177,17 @@ function editTaskTemplate(task) {
           </div>
 
           <div class="edit-container date">
-            <span class="detail-label">Assigned to</span>
-            <div class="custom-select edit-assigned-select " id="editAssignedSelect">
-              <div class="select-trigger" tabindex="0">
-                <span class="trigger-text">Select contacts to assign</span>
-                <img class="trigger-arrow" src="../assets/imgs/arrow_drop_downaa.png" alt="Toggle contacts" />
+            <label class="detail-label" for="assignedSelect">Assigned to</label>
+            <div class="custom-select" id="assignedSelect">
+                <div class="select-trigger">
+                  <span class="trigger-text">Select contacts to assign</span>
+                  <img class="trigger-arrow" src="../assets/imgs/arrow_drop_downaa.png" alt="">
+                </div>
+
+                <div class="select-dropdown" id="assignedDropdown"></div>
               </div>
-              <div class="select-dropdown" id="editAssignedDropdown">
-              </div>
-            </div>
-            <div class="assigned-preview" id="editAssignedPreview">
-              <div class="assigned-preview-badge" style="background-color: #4589ff" title="Sofia Mueller">SM</div>
-              <div class="assigned-preview-badge" style="background-color: #9b51e0" title="Anja Schulz">AS</div>
-            </div>
+
+              <div class="assigned-badges" id="assignedBadges"></div>
           </div>
 
           <div class="edit-container date">

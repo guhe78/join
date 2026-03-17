@@ -3,6 +3,7 @@ let currentDraggedElement = null;
 
 let currentTasks = [];
 let tippTimer;
+const TaskDialogCloseDuration = 200;
 
 /**
  * Initializes the application by loading contacts and tasks.
@@ -236,6 +237,8 @@ function openTaskDetail(id) {
   if (!task) return;
   const dialog = document.getElementById("taskDialog");
   const content = document.getElementById("dialogContent");
+  if (!dialog || !content) return;
+  dialog.classList.remove("is-closing");
   const categoryClass = task.category.toLowerCase().replace(/\s+/g, "-");
   content.innerHTML = dialogTemplate(task, categoryClass);
   dialog.showModal();
@@ -246,7 +249,16 @@ function openTaskDetail(id) {
  */
 function closeTaskDialog() {
   const dialog = document.getElementById("taskDialog");
-  dialog.close();
+  if (!dialog || !dialog.open || dialog.classList.contains("is-closing")) {
+    return;
+  }
+  dialog.classList.add("is-closing");
+  setTimeout(() => {
+    if (dialog.open) {
+      dialog.close();
+    }
+    dialog.classList.remove("is-closing");
+  }, TaskDialogCloseDuration);
 }
 
 /**
@@ -362,6 +374,7 @@ function refreshTaskDetail(id) {
   if (task) {
     const content = document.getElementById("dialogContent");
     const categoryClass = task.category.toLowerCase().replace(/\s+/g, "-");
+    if (!content) return;
     content.innerHTML = dialogTemplate(task, categoryClass);
   }
 }
@@ -373,6 +386,7 @@ function editTask(id) {
   const task = currentTasks.find((t) => t.id === id);
   if (!task) return;
   const content = document.getElementById("dialogContent");
+  if (!content) return;
   content.innerHTML = editTaskTemplate(task);
   selectFocus(task);
 }
@@ -401,6 +415,7 @@ function transformDate(task) {
 
 function searchFilter() {
   const input = document.getElementById("searchInput");
+  if (!input) return;
   const filter = input.value.toLowerCase();
   currentTasks = tasks.filter(
     (task) =>
@@ -409,7 +424,7 @@ function searchFilter() {
   );
   updateBoard();
   const emptyStates = document.querySelectorAll(".empty-state");
-  if (emptyStates) {
+  if (emptyStates.length > 0) {
     emptyStates.forEach((state) => {
       state.textContent = `No tasks found!"`;
     });
