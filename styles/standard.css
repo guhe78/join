@@ -60,6 +60,26 @@ a {
   gap: 20px;
 }
 
+.primary-btn {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0px 24px;
+  border-radius: 8px;
+  font-size: 21px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.primary-btn:hover {
+  background: var(--greeting-name-and-hover);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
+}
+
 .secondary-btn {
   height: 48px;
   font-family: "Inter Variable", sans-serif;
@@ -67,7 +87,6 @@ a {
   align-items: center;
   padding: 0px 24px;
   border-radius: 10px;
-  gap: 8px;
   font-size: 21px;
   font-weight: bold;
   cursor: pointer;
@@ -84,28 +103,15 @@ a {
   color: var(--greeting-name-and-hover);
 }
 
-a {
-  text-decoration: none;
-  color: var(--link-color);
+.pd-top24 {
+  padding-top: 24px;
 }
 
-.primary-btn {
-  height: 48px;
-  font-family: "Inter Variable", sans-serif;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--primary-color);
-  color: white;
-  border: none;
-  padding: 0px 24px;
-  border-radius: 10px;
-  font-size: 21px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.2s ease;
+.pd-bottom24 {
+  padding-bottom: 24px;
 }
 
 .pd-top8 {
   padding-top: 8px;
 }
+
