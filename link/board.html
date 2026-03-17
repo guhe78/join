@@ -23,11 +23,19 @@
   <link rel="stylesheet" href="../styles/templates.css" />
   <link rel="stylesheet" href="../styles/edit-template.css" />
   <link rel="stylesheet" href="../styles/scrollbar.css" />
+  <link rel="stylesheet" href="../styles/addtask.css" />
+  <link rel="stylesheet" href="../styles/board-modal.css" />
 
   <script src="../scripts/config.js" defer></script>
   <script src="../scripts/services.js" defer></script>
+
+  <script src="../scripts/addtask-template.js" defer></script>
+  <script src="../scripts/addtask-dom.js" defer></script>
+  <script src="../scripts/addtask.js" defer></script>
+
   <script src="../scripts/board-templates.js" defer></script>
   <script src="../scripts/board.js" defer></script>
+  <script src="../scripts/board-modal.js" defer></script>
 </head>
 
 <body onload="init()">
@@ -75,7 +83,7 @@
               <img src="../assets/imgs/search.svg" alt="Search" />
             </button>
           </div>
-          <button class="primary-btn add-task-button">
+          <button class="primary-btn add-task-button" onclick="openAddTaskModal('todo')">
             Add task<img src="../assets/imgs/add.svg" alt="add new task" />
           </button>
         </div>
@@ -84,21 +92,24 @@
         <section class="to-do-column">
           <div class="board-header">
             <h2 class="column-title">To Do</h2>
-            <button class="add-new-task-button">
+            <button class="add-new-task-button" onclick="openAddTaskModal('todo')">
               <img src="../assets/imgs/plus button.png" alt="add new task to To Do column" />
             </button>
           </div>
-          <div id="todo" class="to-do-content" ondrop="moveTo('todo')" ondragleave="highlight('todo', false)" ondragover="
+          <div id="todo" class="to-do-content" ondrop="moveTo('todo')" ondragleave="highlight('todo', false)"
+            ondragover="
                 dragover(event);
                 highlight('todo', true);
-              "><div class="drag-placeholder">
+              ">
+            <div class="drag-placeholder">
 
-              </div></div>
+            </div>
+          </div>
         </section>
         <section class="in-progress-column">
           <div class="board-header">
             <h2 class="column-title">In Progress</h2>
-            <button class="add-new-task-button">
+            <button class="add-new-task-button" onclick="openAddTaskModal('inProgress')">
               <img src="../assets/imgs/plus button.png" alt="add new task to In Progress column" />
             </button>
           </div>
@@ -111,7 +122,7 @@
         <section class="review-column">
           <div class="board-header">
             <h2 class="column-title">Await feedback</h2>
-            <button class="add-new-task-button">
+            <button class="add-new-task-button" onclick="openAddTaskModal('review')">
               <img src="../assets/imgs/plus button.png" alt="add new task to Await feedback column" />
             </button>
           </div>
@@ -133,6 +144,167 @@
       </div>
     </section>
   </main>
+  <dialog id="addTaskDialog" class="add-task-dialog" onclick="closeAddTaskModal(event)"
+    onkeydown="handleAddTaskModalKey(event)">
+  </dialog>
+  <template id="addTaskModalTemplate">
+    <div class="add-task-modal" onclick="event.stopPropagation()">
+      <button class="add-task-close-btn" type="button" onclick="closeAddTaskModalDirect()">✕</button>
+
+      <section class="addtask">
+        <h1 class="addtask-title">Add Task</h1>
+
+        <form class="addtask-form">
+          <div class="addtask-col">
+            <div class="field">
+              <label class="label" for="title">
+                Title<span class="req">*</span>
+              </label>
+
+              <input id="title" class="input" type="text" placeholder="Enter a title" />
+              <p class="error-msg" id="titleError">This field is required</p>
+            </div>
+
+            <div class="field">
+              <label class="label" for="desc">Description</label>
+              <textarea id="desc" class="textarea" rows="5"
+                placeholder="Create a contact form and imprint page !"></textarea>
+            </div>
+
+            <div class="field">
+              <label class="label" for="due">
+                Due date<span class="req">*</span>
+              </label>
+
+              <div class="date-input-wrapper">
+                <input id="due" class="input" type="text" placeholder="dd/mm/yyyy" ondblclick="setTodayDate()" />
+                <img class="date-icon-right" src="../assets/imgs/event.png" alt="calendar" />
+              </div>
+              <p class="error-msg" id="dueError">This field is required</p>
+            </div>
+          </div>
+
+          <div class="addtask-divider"></div>
+
+          <div class="addtask-col">
+            <label class="label">Priority</label>
+
+            <div class="prio-row">
+              <button type="button" class="prio-btn prio-urgent">
+                Urgent
+                <svg class="prio-icon" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M7 14l5-5 5 5" />
+                  <path d="M7 19l5-5 5 5" />
+                </svg>
+              </button>
+
+              <button type="button" class="prio-btn prio-medium">
+                Medium
+                <svg class="prio-icon" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M7 10h10" />
+                  <path d="M7 14h10" />
+                </svg>
+              </button>
+
+              <button type="button" class="prio-btn prio-low">
+                Low
+                <svg class="prio-icon" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M7 10l5 5 5-5" />
+                  <path d="M7 5l5 5 5-5" />
+                </svg>
+              </button>
+            </div>
+
+            <div class="field">
+              <label class="label" for="assignedSelect">Assigned to</label>
+
+              <div class="custom-select" id="assignedSelect">
+                <div class="select-trigger">
+                  <span class="trigger-text">Select contacts to assign</span>
+                  <img class="trigger-arrow" src="../assets/imgs/arrow_drop_downaa.png" alt="">
+                </div>
+
+                <div class="select-dropdown" id="assignedDropdown"></div>
+              </div>
+
+              <div class="assigned-badges" id="assignedBadges"></div>
+            </div>
+
+            <div class="field">
+              <label class="label" for="catSelect">
+                Category<span class="req">*</span>
+              </label>
+
+              <div class="custom-select custom-select--single" id="catSelect">
+                <div class="select-trigger">
+                  <span class="trigger-text">Select task category</span>
+                  <img class="trigger-arrow" src="../assets/imgs/arrow_drop_downaa.png" alt="">
+                </div>
+
+                <div class="select-dropdown">
+                  <div class="select-option" data-value="technical">Technical Task</div>
+                  <div class="select-option" data-value="userstory">User Story</div>
+                </div>
+              </div>
+
+              <input type="hidden" name="category" id="catHidden" value="">
+              <p class="error-msg" id="categoryError">This field is required</p>
+            </div>
+
+            <div class="field">
+              <label class="label" for="subtask">Subtasks</label>
+
+              <div class="subtask-input">
+                <input id="subtask" type="text" placeholder="Add new subtask" class="input" />
+
+                <div class="subtask-actions">
+                  <svg class="subtask-icon" viewBox="0 0 24 24">
+                    <path d="M6 6L18 18M6 18L18 6" />
+                  </svg>
+
+                  <div class="divider"></div>
+
+                  <svg class="subtask-icon" viewBox="0 0 24 24">
+                    <path d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="subtasks-list" id="subtasksList"></div>
+          </div>
+
+          <div class="addtask-foot">
+            <p class="required-hint">
+              <span class="req">*</span> This field is required
+            </p>
+
+            <div class="addtask-actions">
+              <button type="button" class="secondary-btn">
+                Clear
+                <svg class="icon icon-cancel" width="16" height="16" viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path
+                    d="M12.0011 11.9998L17.2441 17.2428M6.75806 17.2428L12.0011 11.9998L6.75806 17.2428ZM17.2441 6.75684L12.0001 11.9998L17.2441 6.75684ZM12.0001 11.9998L6.75806 6.75684L12.0001 11.9998Z"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+
+              <button type="button" class="primary-btn">
+                Create Task
+                <img src="../assets/imgs/check.svg" alt="create">
+              </button>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <div id="taskAddedToast" class="task-toast">
+        <span>Task added to board</span>
+        <img src="../assets/imgs/board.png" alt="board">
+      </div>
+    </div>
+  </template>
 </body>
 
 </html>
