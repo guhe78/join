@@ -16,6 +16,7 @@ async function init() {
   updateBoard();
 }
 
+
 /**
  * Iterates through all status types and updates the corresponding board columns.
  */
@@ -30,21 +31,35 @@ function updateBoard() {
   }
 }
 
+
 /**
- * Filters currentTasks by status and prepares the column container for new content.
+ * Filters tasks for a status and renders the matching column.
  * @param {string} status - The status category to filter for.
  * @param {HTMLElement} container - The DOM element representing the column.
  */
 function processColumn(status, container) {
-  let filtered = [];
-  for (let i = 0; i < currentTasks.length; i++) {
-    if (currentTasks[i].status === status) {
-      filtered.push(currentTasks[i]);
-    }
-  }
+  const filtered = filterTasksByStatus(currentTasks, status);
   container.innerHTML = "";
   fillContainer(filtered, container);
 }
+
+
+/**
+ * Returns all tasks that belong to a specific status.
+ * @param {Array} taskList - The source list of tasks.
+ * @param {string} status - The status to match.
+ * @returns {Array} A filtered task array.
+ */
+function filterTasksByStatus(taskList, status) {
+  const filtered = [];
+  for (let i = 0; i < taskList.length; i++) {
+    if (taskList[i].status === status) {
+      filtered.push(taskList[i]);
+    }
+  }
+  return filtered;
+}
+
 
 /**
  * Fills the container with task templates or an "empty" template if no tasks exist.
@@ -61,6 +76,7 @@ function fillContainer(subset, container) {
     container.innerHTML += toDoTaskTemplate(taskData);
   }
 }
+
 
 /**
  * Prepares and formats task data for use in the HTML template.
@@ -85,6 +101,7 @@ function prepareTaskData(element) {
   };
 }
 
+
 /**
  * Calculates progress and statistics for subtasks.
  * @param {Object} subtasks - The subtasks object from the task.
@@ -107,6 +124,7 @@ function getSubtaskStats(subtasks) {
   };
 }
 
+
 /**
  * Sets the current dragged element ID.
  * @param {string} id - The ID of the task being dragged.
@@ -119,6 +137,7 @@ function startdragging(id) {
   }
 }
 
+
 /**
  * Removes drag styling from the currently dragged task card.
  */
@@ -129,6 +148,7 @@ function stopDragging(id) {
   }
 }
 
+
 /**
  * Prevents default behavior to allow a drop event.
  * @param {Event} ev - The dragover event.
@@ -136,6 +156,7 @@ function stopDragging(id) {
 function dragover(ev) {
   ev.preventDefault();
 }
+
 
 /**
  * Shows or removes the drag placeholder in a board column.
@@ -151,6 +172,7 @@ function highlight(id, show) {
   }
   removeDragPlaceholder(container);
 }
+
 
 /**
  * Adds a drag placeholder to the column and removes the empty-state element.
@@ -168,6 +190,7 @@ function addDragPlaceholder(container) {
   container.appendChild(placeholder);
 }
 
+
 /**
  * Removes the drag placeholder and restores the empty-state template if needed.
  * @param {HTMLElement} container - The target board column.
@@ -180,6 +203,7 @@ function removeDragPlaceholder(container) {
     container.innerHTML = nothingToDoTemplate();
   }
 }
+
 
 /**
  * Updates the status of the dragged task and refreshes the board.
@@ -195,6 +219,7 @@ async function moveTo(newStatus) {
     updateBoard();
   }
 }
+
 
 /**
  * Generates the HTML for contact badges assigned to a task.
@@ -220,6 +245,14 @@ function generateBadgeHtml(assignedTo) {
   return html;
 }
 
+
+/**
+ * Appends a counter badge when more contacts exist than are displayed.
+ * @param {string} html - The existing badge HTML.
+ * @param {Array} contactIds - All assigned contact IDs.
+ * @param {number} limit - The number of visible badges.
+ * @returns {string} Updated badge HTML with optional overflow count.
+ */
 function addBadgeCount(html, contactIds, limit) {
   if (contactIds.length > limit) {
     const remaining = contactIds.length - limit;
@@ -228,21 +261,44 @@ function addBadgeCount(html, contactIds, limit) {
   return html;
 }
 
+
 /**
- * Opens the detail view for a specific task.
+ * Opens the task detail dialog for a specific task.
  * @param {string} id - The ID of the task to display.
  */
 function openTaskDetail(id) {
-  const task = tasks.find((t) => t.id === id);
+  const task = findTaskById(tasks, id);
   if (!task) return;
   const dialog = document.getElementById("taskDialog");
   const content = document.getElementById("dialogContent");
   if (!dialog || !content) return;
   dialog.classList.remove("is-closing");
-  const categoryClass = task.category.toLowerCase().replace(/\s+/g, "-");
-  content.innerHTML = dialogTemplate(task, categoryClass);
+  renderTaskDetailContent(content, task);
   dialog.showModal();
 }
+
+
+/**
+ * Finds a task by ID in a given task list.
+ * @param {Array} taskList - The source list of tasks.
+ * @param {string} id - The ID of the task to find.
+ * @returns {Object|undefined} The matched task or undefined.
+ */
+function findTaskById(taskList, id) {
+  return taskList.find((task) => task.id === id);
+}
+
+
+/**
+ * Renders task detail HTML into the dialog content container.
+ * @param {HTMLElement} content - The detail dialog content element.
+ * @param {Object} task - The task to render.
+ */
+function renderTaskDetailContent(content, task) {
+  const categoryClass = task.category.toLowerCase().replace(/\s+/g, "-");
+  content.innerHTML = dialogTemplate(task, categoryClass);
+}
+
 
 /**
  * Closes the task detail dialog.
@@ -260,6 +316,7 @@ function closeTaskDialog() {
     dialog.classList.remove("is-closing");
   }, TaskDialogCloseDuration);
 }
+
 
 /**
  * Generates detailed contact list HTML for the task detail view.
@@ -282,6 +339,7 @@ function generateDetailedContactsHtml(assignedTo) {
   return html;
 }
 
+
 /**
  * Generates the HTML for subtasks in the task detail view.
  * @param {string} id - The ID of the parent task.
@@ -303,6 +361,7 @@ function generateDetailedSubtasksHtml(id, subtasks) {
   return html;
 }
 
+
 /**
  * Capitalizes the first letter of the task priority.
  * @param {Object} task - The task object.
@@ -312,6 +371,7 @@ function formatPriority(task) {
   return task.priority.charAt(0).toUpperCase() + task.priority.slice(1);
 }
 
+
 /**
  * Reformats the date from YYYY-MM-DD to DD/MM/YYYY.
  * @param {Object} task - The task object.
@@ -320,6 +380,7 @@ function formatPriority(task) {
 function reformatDate(task) {
   return task.due_date.split("-").reverse().join("/");
 }
+
 
 /**
  * Deletes a task from the currentTasks array by its ID and updates the board.
@@ -336,6 +397,7 @@ async function deleteTask(path, id) {
   }
 }
 
+
 /**
  * Toggles the completion status of a subtask and updates the UI.
  * @param {string} id - The ID of the parent task.
@@ -351,6 +413,7 @@ async function toggleSubtask(id, subId) {
   }
 }
 
+
 /**
  * Updates only the subtask checkbox icon in the open detail dialog.
  * @param {string} id - The ID of the parent task.
@@ -365,25 +428,26 @@ function updateSubtaskCheckboxIcon(id, subId, isDone) {
     : "../assets/imgs/checkbox-empty.png";
 }
 
+
 /**
  * Helper function to re-render the detail view content without closing the dialog.
  * @param {string} id - The ID of the task.
  */
 function refreshTaskDetail(id) {
-  const task = currentTasks.find((t) => t.id === id);
+  const task = findTaskById(currentTasks, id);
   if (task) {
     const content = document.getElementById("dialogContent");
-    const categoryClass = task.category.toLowerCase().replace(/\s+/g, "-");
     if (!content) return;
-    content.innerHTML = dialogTemplate(task, categoryClass);
+    renderTaskDetailContent(content, task);
   }
 }
+
 
 /**
  * Opens the edit view for a task within the existing dialog.
  */
 function editTask(id) {
-  const task = currentTasks.find((t) => t.id === id);
+  const task = findTaskById(currentTasks, id);
   if (!task) return;
   const content = document.getElementById("dialogContent");
   if (!content) return;
@@ -391,10 +455,15 @@ function editTask(id) {
   selectFocus(task);
 }
 
+
+/**
+ * Moves focus to the priority button that matches the task priority.
+ * @param {Object} task - The task currently being edited.
+ */
 function selectFocus(task) {
   const focusTargets = {
     high: "urgent-btn",
-    media: "medium-btn",
+    medium: "medium-btn",
     low: "low-btn",
   };
   const targetId = focusTargets[task.priority];
@@ -404,6 +473,12 @@ function selectFocus(task) {
   });
 }
 
+
+/**
+ * Converts a task due date to DD/MM/YYYY for display in edit mode.
+ * @param {Object} task - The task object.
+ * @returns {string} The formatted date string or an empty string.
+ */
 function transformDate(task) {
   const rawDate = task.due_date;
   if (!rawDate) return "";
@@ -413,28 +488,72 @@ function transformDate(task) {
   return `${day}/${month}/${year}`;
 }
 
-function searchFilter() {
+
+/**
+ * Reads and normalizes the search text from the board input.
+ * @returns {string} The lowercased search query.
+ */
+function getSearchQuery() {
   const input = document.getElementById("searchInput");
-  if (!input) return;
-  const filter = input.value.toLowerCase();
-  currentTasks = tasks.filter(
-    (task) =>
-      task.title.toLowerCase().includes(filter) ||
-      task.description.toLowerCase().includes(filter),
-  );
-  updateBoard();
-  const emptyStates = document.querySelectorAll(".empty-state");
-  if (emptyStates.length > 0) {
-    emptyStates.forEach((state) => {
-      state.textContent = `No tasks found!"`;
-    });
-  }
+  if (!input) return "";
+  return input.value.toLowerCase();
 }
 
-function checkEnter(event, inputId) {
+
+/**
+ * Filters tasks by title or description using the provided query.
+ * @param {Array} taskList - The source list of tasks.
+ * @param {string} query - The lowercased search query.
+ * @returns {Array} Matching tasks.
+ */
+function filterTasksByQuery(taskList, query) {
+  return taskList.filter(
+    (task) =>
+      task.title.toLowerCase().includes(query) ||
+      task.description.toLowerCase().includes(query),
+  );
+}
+
+
+/**
+ * Updates all rendered empty-state texts after a search.
+ */
+function updateSearchEmptyStateMessage() {
+  const emptyStates = document.querySelectorAll(".empty-state");
+  if (emptyStates.length === 0) return;
+  emptyStates.forEach((state) => {
+    state.textContent = "No tasks found!";
+  });
+}
+
+
+/**
+ * Applies the current search query to the board and updates empty-state text.
+ */
+function searchFilter() {
+  const query = getSearchQuery();
+  currentTasks = filterTasksByQuery(tasks, query);
+  updateBoard();
+  updateSearchEmptyStateMessage();
+}
+
+
+/**
+ * Schedules the search filtering with a short debounce.
+ */
+function scheduleSearchFilter() {
   clearTimeout(tippTimer);
-  tippTimer = setTimeout(searchFilter, 400, inputId);
+  tippTimer = setTimeout(searchFilter, 400);
+}
+
+
+/**
+ * Handles keyboard interaction for board search.
+ * @param {KeyboardEvent} event - The keyboard event from the input.
+ */
+function checkEnter(event, _inputId) {
+  scheduleSearchFilter();
   if (event.key === "Enter") {
-    searchFilter(inputId);
+    searchFilter();
   }
 }

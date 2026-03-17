@@ -11,7 +11,7 @@
       "created_at": 1709542260,
       "description": "Initial meeting with stakeholders to define requirements.",
       "due_date": "2026-03-01",
-      "priority": "media",
+      "priority": "medium",
       "status": "done",
       "subtasks": {
         "s1": {
@@ -56,7 +56,7 @@
       "created_at": 1709542260,
       "description": "Create high-fidelity mockups for the landing page hero section.",
       "due_date": "2026-03-20",
-      "priority": "media",
+      "priority": "medium",
       "status": "todo",
       "subtasks": {
         "s1": {

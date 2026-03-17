@@ -168,7 +168,7 @@ function editTaskTemplate(task) {
               </button>
               <button id="medium-btn" class="medium-btn">
                 Medium
-                <img src="../assets/imgs/prio-media.png" alt="Medium icon" />
+                <img src="../assets/imgs/prio-medium.png" alt="Medium icon" />
               </button>
               <button id="low-btn" class="low-btn">
                 Low <img src="../assets/imgs/prio-low.png" alt="Low icon" />
