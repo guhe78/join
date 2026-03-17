@@ -13,6 +13,9 @@ const DOM = {
   personImageEl: document.getElementById("person-image"),
   toastSectionEl: document.getElementById("toast-section"),
   toastMessageEl: document.getElementById("toast-message"),
+  warningMessageNameEl: document.getElementById("warning-name"),
+  warningMessageEmailEl: document.getElementById("warning-email"),
+  warningMessagePhoneEl: document.getElementById("warning-phone"),
 };
 
 const state = {
@@ -105,15 +108,31 @@ function openAddNewContact() {
 }
 
 function addContact() {
-  let nameParts = DOM.contactNameEl.value.split(" ");
+  let name = DOM.contactNameEl.value;
   let email = DOM.contactEmailEl.value;
   let phone = DOM.contactPhoneEl.value;
-  if (!nameParts || !email || !phone) {
+  if (!name || !email || !phone) {
+    if (name == "") {
+      DOM.warningMessageNameEl.innerHTML = "This field is required";
+    }
+    if (email == "") {
+      DOM.warningMessageEmailEl.innerHTML = "This field is required";
+    }
+    if (phone == "") {
+      DOM.warningMessagePhoneEl.innerHTML = "This field is required";
+    }
     return false;
   }
+  name = name.split(" ");
+  if (checkName(name)) {
+    DOM.warningMessageNameEl.innerHTML = "Firstname and Lastname required";
+    return false;
+  }
+  let firstName = name[0];
+  let lastName = name[name.length - 1];
   let newContact = {
-    firstName: nameParts[0],
-    lastName: nameParts[nameParts.length - 1],
+    firstName: firstName,
+    lastName: lastName,
     email: email,
     phone: phone,
     badgeColor: getRandomColor(),
@@ -183,8 +202,8 @@ async function updateContact(contact) {
   updateData("contacts", contact.id, updatedContact);
 }
 
-function checkName(name) {
-  return name.trim().split(" ").length > 1;
+function checkName(input) {
+  return input.trim().split(" ").length < 1;
 }
 
 function checkEmail(input) {
@@ -193,7 +212,9 @@ function checkEmail(input) {
   return pattern.test(input);
 }
 
-function checkPhone(input) {}
+function checkPhone(input) {
+  return input.trim().length < 1;
+}
 
 function cancelAddContact() {
   clearInputs();

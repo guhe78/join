@@ -254,6 +254,13 @@ dialog::backdrop {
   margin: -40px;
 }
 
+.required-warning {
+  position: absolute;
+  margin-top: 70px;
+  color: red;
+  font-size: 14px;
+}
+
 .input-buttons {
   display: flex;
   gap: 24px;
@@ -364,6 +371,10 @@ dialog::backdrop {
 .fade-in {
   transform: translateX(0);
   opacity: 1;
+}
+
+.show {
+  display: inline;
 }
 
 .toast-section {
