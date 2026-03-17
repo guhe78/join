@@ -1,7 +1,7 @@
 function toDoTaskTemplate(task) {
   return `
         <div class="card" onclick="openTaskDetail('${task.id}')" draggable="true" ondragstart="startdragging('${task.id}')" ondragend="stopDragging('${task.id}')" data-id="${task.id}">
-            <span class="badge ${task.categoryClass}">${task.category}</span>
+            <span class="task-badge ${task.categoryClass}">${task.category}</span>
 
             <h3 class="card-title">${task.title}</h3>
             <p class="card-description">${task.description}</p>
@@ -20,7 +20,7 @@ function toDoTaskTemplate(task) {
             }
 
             <div class="card-footer">
-                <div class="avatars">${task.avatarsHtml}</div>
+                <div class="badges">${task.badgesHtml}</div>
                 <div class="priority-icon ${task.priority}">
                     <img src="../assets/imgs/prio-${task.priority}.png" alt="priority ${task.priority}">
                 </div>
@@ -28,9 +28,9 @@ function toDoTaskTemplate(task) {
         </div>`;
 }
 
-function avatarTemplate(color, initials) {
+function badgeTemplate(color, initials) {
   return `
-    <div class="avatar" style="background-color: ${color}">
+    <div class="badge" style="background-color: ${color}">
       ${initials}
     </div>`;
 }
@@ -96,7 +96,7 @@ function dialogTemplate(task, categoryClass) {
 
 function contactTemplate(contact, initials) {
   return `<div class="detail-contact-item">
-                    <div class="avatar-circle" style="background-color: ${contact.color}">${initials}</div>
+                    <div class="badge-circle" style="background-color: ${contact.badgeColor}">${initials}</div>
                     <span class="contact-name">${contact.firstName} ${contact.lastName}</span>
                 </div>`;
 }
@@ -187,8 +187,8 @@ function editTaskTemplate(task) {
               </div>
             </div>
             <div class="assigned-preview" id="editAssignedPreview">
-              <div class="assigned-preview-avatar" style="background-color: #4589ff" title="Sofia Mueller">SM</div>
-              <div class="assigned-preview-avatar" style="background-color: #9b51e0" title="Anja Schulz">AS</div>
+              <div class="assigned-preview-badge" style="background-color: #4589ff" title="Sofia Mueller">SM</div>
+              <div class="assigned-preview-badge" style="background-color: #9b51e0" title="Anja Schulz">AS</div>
             </div>
           </div>
 

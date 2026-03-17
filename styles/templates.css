@@ -16,11 +16,11 @@
   transform: scale(1.02);
 }
 
-.avatar {
+.badge {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  border: 2px solid white;
+  border: 1px solid white;
   margin-left: -8px;
   display: flex;
   align-items: center;
@@ -30,11 +30,26 @@
   color: white;
 }
 
-.avatar:first-child {
+.badge-count {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--user-icon);
+  margin-left: -8px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 400;
+  color: black;
+}
+
+.badge:first-child {
   margin-left: 0;
 }
 
-.avatar-circle {
+.badge-circle {
   width: 42px;
   height: 42px;
   border-radius: 50%;
@@ -44,11 +59,11 @@
   justify-content: center;
 }
 
-.avatars {
+.badges {
   display: flex;
 }
 
-.badge {
+.task-badge {
   padding: 4px 12px;
   border-radius: 8px;
   color: white;
@@ -140,20 +155,31 @@
   font-weight: 400;
 }
 
+.detail-subtasks-list {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+} 
+
 .detail-subtask-item {
   display: flex;
   align-items: center;
   font-size: 16px;
   gap: 12px;
-  padding: 4px;
-  transition: transform 0.2s ease-in-out;
-  transform-origin: center;
+  padding: 6px 16px;
+  transition: 0.2s ease;
 }
 
 .detail-subtask-item:hover {
-  background-color: var(--side-bar-privacy-legal);
+  background-color: var(--user-icon);
   border-radius: 8px;
   transform: scale(1.01);
+}
+
+.detail-subtask-item:hover .subtask-checkbox {
+  background-color: var(--side-bar-privacy-legal);
+  border-radius: 50%;
 }
 
 .detail-dialog {
@@ -167,6 +193,12 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+}
+
+.footer-divider {
+  height: 24px;
+  width: 1px;
+  background-color: var(--user-icon);
 }
 
 .empty-state {
@@ -209,7 +241,9 @@
 }
 
 .subtask-checkbox {
-  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .subtask-count {

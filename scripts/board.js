@@ -1,6 +1,9 @@
 /** @type {string|null} Stores the ID of the element currently being dragged */
 let currentDraggedElement = null;
 
+let currentTasks = [];
+let tippTimer;
+
 /**
  * Initializes the application by loading contacts and tasks.
  * Updates the board with the loaded data afterwards.
@@ -8,6 +11,7 @@ let currentDraggedElement = null;
 async function init() {
   await getContacts();
   await getTasks();
+  currentTasks = tasks;
   updateBoard();
 }
 
@@ -26,15 +30,15 @@ function updateBoard() {
 }
 
 /**
- * Filters tasks by status and prepares the column container for new content.
+ * Filters currentTasks by status and prepares the column container for new content.
  * @param {string} status - The status category to filter for.
  * @param {HTMLElement} container - The DOM element representing the column.
  */
 function processColumn(status, container) {
   let filtered = [];
-  for (let i = 0; i < tasks.length; i++) {
-    if (tasks[i].status === status) {
-      filtered.push(tasks[i]);
+  for (let i = 0; i < currentTasks.length; i++) {
+    if (currentTasks[i].status === status) {
+      filtered.push(currentTasks[i]);
     }
   }
   container.innerHTML = "";
@@ -65,7 +69,7 @@ function fillContainer(subset, container) {
 function prepareTaskData(element) {
   const stats = getSubtaskStats(element.subtasks);
   const categoryClass = element.category.toLowerCase().replace(/\s+/g, "-");
-  const avatars = generateAvatarsHtml(element.assigned_to);
+  const badges = generateBadgeHtml(element.assigned_to);
   return {
     id: element.id,
     title: element.title,
@@ -76,7 +80,7 @@ function prepareTaskData(element) {
     hasSubtasks: stats.hasSubtasks,
     subtaskInfo: stats.text,
     progressWidth: stats.percent,
-    avatarsHtml: avatars,
+    badgesHtml: badges,
   };
 }
 
@@ -181,34 +185,44 @@ function removeDragPlaceholder(container) {
  * @param {string} newStatus - The new status to assign to the task.
  */
 async function moveTo(newStatus) {
-  const index = tasks.findIndex((t) => t.id === currentDraggedElement);
+  const index = currentTasks.findIndex((t) => t.id === currentDraggedElement);
   if (index !== -1) {
-    const movedTask = tasks.splice(index, 1)[0];
+    const movedTask = currentTasks.splice(index, 1)[0];
     movedTask.status = newStatus;
-    tasks.push(movedTask);
+    currentTasks.push(movedTask);
     await updateData("tasks", movedTask.id, { status: newStatus });
     updateBoard();
   }
 }
 
 /**
- * Generates the HTML for contact avatars assigned to a task.
+ * Generates the HTML for contact badges assigned to a task.
  * @param {Object} assignedTo - Object containing assigned contact IDs.
- * @returns {string} Combined HTML string for all avatars.
+ * @returns {string} Combined HTML string for all badges.
  */
-function generateAvatarsHtml(assignedTo) {
+function generateBadgeHtml(assignedTo) {
   if (!assignedTo) return "";
   let html = "";
   const contactIds = Object.values(assignedTo);
-
-  for (let i = 0; i < contactIds.length; i++) {
-    const contact = contacts.find((c) => c.id === contactIds[i]);
+  const limit = 3;
+  const displayIds = contactIds.slice(0, limit);
+  for (const id of displayIds) {
+    const contact = contacts.find((c) => c.id === id);
     if (contact) {
       const initials = (
         contact.firstName[0] + contact.lastName[0]
       ).toUpperCase();
-      html += avatarTemplate(contact.badgeColor, initials);
+      html += badgeTemplate(contact.badgeColor, initials);
     }
+  }
+  html = addBadgeCount(html, contactIds, limit);
+  return html;
+}
+
+function addBadgeCount(html, contactIds, limit) {
+  if (contactIds.length > limit) {
+    const remaining = contactIds.length - limit;
+    html += `<div class="badge-count">+${remaining}</div>`;
   }
   return html;
 }
@@ -243,7 +257,7 @@ function closeTaskDialog() {
 function generateDetailedContactsHtml(assignedTo) {
   if (!assignedTo) return "";
   let html = "";
-  const contactIds = Object.keys(assignedTo);
+  const contactIds = Object.values(assignedTo);
   for (const id of contactIds) {
     const contact = contacts.find((c) => c.id === id);
     if (contact) {
@@ -263,18 +277,18 @@ function generateDetailedContactsHtml(assignedTo) {
  * @returns {string} Combined HTML string for the subtask list.
  */
 function generateDetailedSubtasksHtml(id, subtasks) {
-    const subtaskArray = subtasks ? Object.entries(subtasks) : [];
-    if (subtaskArray.length === 0) {
-        return noSubtasksTemplate();
-    }
-    let html = "";
-    for (const [subId, sub] of subtaskArray) {
-        const checkImg = sub.is_done
-            ? "../assets/imgs/checkbox-checked.png"
-            : "../assets/imgs/checkbox-empty.png";
-        html += subtaskItemTemplate(id, subId, checkImg, sub);
-    }
-    return html;
+  const subtaskArray = subtasks ? Object.entries(subtasks) : [];
+  if (subtaskArray.length === 0) {
+    return noSubtasksTemplate();
+  }
+  let html = "";
+  for (const [subId, sub] of subtaskArray) {
+    const checkImg = sub.is_done
+      ? "../assets/imgs/checkbox-checked.png"
+      : "../assets/imgs/checkbox-empty.png";
+    html += subtaskItemTemplate(id, subId, checkImg, sub);
+  }
+  return html;
 }
 
 /**
@@ -296,14 +310,18 @@ function reformatDate(task) {
 }
 
 /**
- * Deletes a task from the tasks array by its ID and updates the board.
+ * Deletes a task from the currentTasks array by its ID and updates the board.
  * @param {string} path - The collection path in Firebase.
  * @param {string} id - The ID of the task to be deleted.
  */
 async function deleteTask(path, id) {
-    deleteData(path, id);
-    await getTasks();
+  const index = currentTasks.findIndex((t) => t.id === id);
+  if (index !== -1) {
+    await deleteData(path, id);
+    currentTasks.splice(index, 1);
+    closeTaskDialog();
     updateBoard();
+  }
 }
 
 /**
@@ -312,7 +330,7 @@ async function deleteTask(path, id) {
  * @param {string} subId - The ID of the subtask to toggle.
  */
 async function toggleSubtask(id, subId) {
-  const task = tasks.find((t) => t.id === id);
+  const task = currentTasks.find((t) => t.id === id);
   if (task && task.subtasks && task.subtasks[subId]) {
     task.subtasks[subId].is_done = !task.subtasks[subId].is_done;
     updateSubtaskCheckboxIcon(id, subId, task.subtasks[subId].is_done);
@@ -340,20 +358,45 @@ function updateSubtaskCheckboxIcon(id, subId, isDone) {
  * @param {string} id - The ID of the task.
  */
 function refreshTaskDetail(id) {
-    const task = tasks.find((t) => t.id === id);
-    if (task) {
-        const content = document.getElementById("dialogContent");
-        const categoryClass = task.category.toLowerCase().replace(/\s+/g, "-");
-        content.innerHTML = dialogTemplate(task, categoryClass);
-    }
+  const task = currentTasks.find((t) => t.id === id);
+  if (task) {
+    const content = document.getElementById("dialogContent");
+    const categoryClass = task.category.toLowerCase().replace(/\s+/g, "-");
+    content.innerHTML = dialogTemplate(task, categoryClass);
+  }
 }
 
 /**
  * Opens the edit view for a task within the existing dialog.
  */
 function editTask(id) {
-    const task = tasks.find((t) => t.id === id);
-    if (!task) return;
-    const content = document.getElementById("dialogContent");
-    content.innerHTML = editTaskTemplate(task);
+  const task = currentTasks.find((t) => t.id === id);
+  if (!task) return;
+  const content = document.getElementById("dialogContent");
+  content.innerHTML = editTaskTemplate(task);
+}
+
+function searchFilter() {
+  const input = document.getElementById("searchInput");
+  const filter = input.value.toLowerCase();
+  currentTasks = tasks.filter(
+    (task) =>
+      task.title.toLowerCase().includes(filter) ||
+      task.description.toLowerCase().includes(filter),
+  );
+  updateBoard();
+  const emptyStates = document.querySelectorAll(".empty-state");
+  if (emptyStates) {
+    emptyStates.forEach((state) => {
+      state.textContent = `No tasks found!"`;
+    });
+  }
+}
+
+function checkEnter(event, inputId) {
+  clearTimeout(tippTimer);
+  tippTimer = setTimeout(searchFilter, 400, inputId);
+  if (event.key === "Enter") {
+    searchFilter(inputId);
+  }
 }

@@ -77,9 +77,9 @@
         <h1 class="headline-board">Board</h1>
         <div class="board-header-right">
           <div class="search-container">
-            <input type="text" placeholder="Find Task" />
+            <input type="text" placeholder="Find Task" id="searchInput" onkeyup="checkEnter(event, 'searchInput')"/>
             <div class="divider"></div>
-            <button type="submit">
+            <button  type="submit" onclick="searchFilter()">
               <img src="../assets/imgs/search.svg" alt="Search" />
             </button>
           </div>
@@ -88,7 +88,7 @@
           </button>
         </div>
       </div>
-      <div class="board-content">
+      <div class="board-content" id="boardContent">
         <section class="to-do-column">
           <div class="board-header">
             <h2 class="column-title">To Do</h2>
