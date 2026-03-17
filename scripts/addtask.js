@@ -139,7 +139,7 @@ function redirectToBoard() {
     window.location.href = "board.html";
 }
 
-function createTaskObject() {
+function createTaskObject(status = "todo") {
     let titleInput = document.getElementById("title");
     let descInput = document.getElementById("desc");
     let dueInput = document.getElementById("due");
@@ -152,10 +152,11 @@ function createTaskObject() {
         description: descInput.value,
         due_date: dueInput.value,
         priority: getSelectedPriority(),
-        status: "todo",
+        status: status,
         subtasks: getSubtasksForFirebase(),
         title: titleInput.value
     };
+
     return task;
 }
 
@@ -219,13 +220,13 @@ async function createTaskClicked() {
     }
 }
 
-async function initAddTask() {
+async function initAddTask(createHandler = createTaskClicked) {
     await getContacts();
     renderAssignedContacts();
     initPriorityButtons();
     initAssignedSelect();
     initCategorySelect();
     initSubtaskSection();
-    initActionButtons();
+    initActionButtons(createHandler);
     document.onclick = closeAllSelects;
 }

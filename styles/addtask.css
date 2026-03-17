@@ -6,14 +6,14 @@
 .addtask-form {
   display: grid;
   grid-template-columns: 1fr 1px 1fr;
-  gap: 40px;
+  gap: 32px;
   max-width: 980px;
 }
 
 .addtask-col {
   display: flex;
   flex-direction: column;
-  gap: 22px; 
+  gap: 18px; 
 }
 
 .addtask-divider {

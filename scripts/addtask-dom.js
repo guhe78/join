@@ -125,7 +125,7 @@ function closeAllSelects() {
     }
 }
 
-function initActionButtons() {
+function initActionButtons(createHandler = createTaskClicked) {
     let actionArea = document.getElementsByClassName("addtask-actions")[0];
     if (actionArea === undefined) {
         return;
@@ -133,7 +133,7 @@ function initActionButtons() {
     let buttons = actionArea.getElementsByTagName("button");
     if (buttons.length >= 2) {
         buttons[0].onclick = clearAddTaskForm;
-        buttons[1].onclick = createTaskClicked;
+        buttons[1].onclick = createHandler;
     }
 }
 
