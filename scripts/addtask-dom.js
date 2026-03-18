@@ -164,7 +164,7 @@ function clearPriorityButtons() {
         buttons[i].classList.remove("is-active");
     }
     for (let i = 0; i < buttons.length; i++) {
-        if (buttons[i].classList.contains("prio-low") === true) {
+        if (buttons[i].classList.contains("prio-medium") === true) {
             buttons[i].classList.add("is-active");
         }
     }
@@ -412,23 +412,6 @@ function showTaskAddedToast() {
     setTimeout(redirectToBoard, 1000);
 }
 
-function setTodayDate() {
-    let dueInput = document.getElementById("due");
-    if (dueInput === null) {
-        return;
-    }
-    let today = new Date();
-    let day = today.getDate();
-    let month = today.getMonth() + 1;
-    let year = today.getFullYear();
-    if (day < 10) {
-        day = "0" + day;
-    }
-    if (month < 10) {
-        month = "0" + month;
-    }
-    dueInput.value = day + "/" + month + "/" + year;
-}
 
 function renderAssignedContacts() {
     let dropdown = document.getElementById("assignedDropdown");

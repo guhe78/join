@@ -448,6 +448,18 @@
   margin-bottom: 6px;
 }
 
+.date-input {
+  position: relative;
+}
+
+.date-input::-webkit-calendar-picker-indicator {
+  background: url("../assets/imgs/event.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  opacity: 1;
+}
+
 .task-toast {
   position: fixed;
   top: 50%;

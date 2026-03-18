@@ -77,9 +77,9 @@
         <h1 class="headline-board">Board</h1>
         <div class="board-header-right">
           <div class="search-container">
-            <input type="text" placeholder="Find Task" id="searchInput" onkeyup="checkEnter(event, 'searchInput')"/>
+            <input type="text" placeholder="Find Task" id="searchInput" onkeyup="checkEnter(event, 'searchInput')" />
             <div class="divider"></div>
-            <button  type="submit" onclick="searchFilter()">
+            <button type="submit" onclick="searchFilter()">
               <img src="../assets/imgs/search.svg" alt="Search" />
             </button>
           </div>
@@ -177,11 +177,14 @@
               </label>
 
               <div class="date-input-wrapper">
-                <input id="due" class="input" type="text" placeholder="dd/mm/yyyy" ondblclick="setTodayDate()" />
-                <img class="date-icon-right" src="../assets/imgs/event.png" alt="calendar" />
+                <input id="due" class="input date-input" type="date" ondblclick="setTodayDate()"
+                  onkeydown="return false" />
               </div>
+
               <p class="error-msg" id="dueError">This field is required</p>
             </div>
+
+            <p class="error-msg" id="dueError">This field is required</p>
           </div>
 
           <div class="addtask-divider"></div>
@@ -198,7 +201,7 @@
                 </svg>
               </button>
 
-              <button type="button" class="prio-btn prio-medium">
+              <button type="button" class="prio-btn prio-medium is-active">
                 Medium
                 <svg class="prio-icon" viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M7 10h10" />

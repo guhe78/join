@@ -161,3 +161,36 @@ body.dialog-open {
   font-size: 18px;
   padding: 0 20px;
 }
+
+.date-input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.date-picker-trigger {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+}
+
+.date-icon-right {
+  position: absolute;
+  inset: 0;
+  width: 20px;
+  height: 20px;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.icon-date-picker {
+  position: absolute;
+  inset: 0;
+  width: 20px;
+  height: 20px;
+  opacity: 0;
+  cursor: pointer;
+  border: none;
+}
