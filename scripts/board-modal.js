@@ -5,11 +5,17 @@ async function openAddTaskModal(status) {
         status = "todo";
     }
     currentBoardStatus = status;
-    let dialog = document.getElementById("addTaskDialog");
+    let dialog = document.getElementById("dialog");
+    let dialogContent = document.getElementById("dialogContent");
+    if (dialog === null || dialogContent === null) {
+        return;
+    }
+    dialogContent.innerHTML = addTaskTemplate();
     let template = document.getElementById("addTaskModalTemplate");
     if (dialog === null || template === null) {
         return;
     }
+    dialog.classList.add("add-task-dialog");
     prepareAddTaskDialog(dialog, template);
     await initAddTask(createTaskFromBoardModal);
     showAddTaskDialog(dialog);
@@ -35,7 +41,7 @@ function showAddTaskDialog(dialog) {
 }
 
 function showAddTaskDialogAnimation() {
-    let dialog = document.getElementById("addTaskDialog");
+    let dialog = document.getElementById("dialog");
     if (dialog === null) {
         return;
     }
@@ -46,19 +52,24 @@ function showAddTaskDialogAnimation() {
     modal.classList.add("show");
 }
 
-function closeAddTaskModal(event) {
-    if (event.target.id === "addTaskDialog") {
-        closeAddTaskModalDirect();
-    }
-}
+// function closeAddTaskModal(event) {
+//     if (event.target.id === "dialog") {
+//         const dialog = document.getElementById("dialog");
+//         if (dialog === null) {
+//             return;
+//         }
+//         dialog.classList.remove("add-task-dialog");
+//         closeAddTaskModalDirect();
+//     }
+// }
 
-function closeAddTaskModalDirect() {
-    startAddTaskDialogCloseAnimation();
-    setTimeout(finishAddTaskDialogClose, 250);
-}
+// function closeAddTaskModalDirect() {
+//     startAddTaskDialogCloseAnimation();
+//     setTimeout(finishAddTaskDialogClose, 250);
+// }
 
 function startAddTaskDialogCloseAnimation() {
-    let dialog = document.getElementById("addTaskDialog");
+    let dialog = document.getElementById("dialog");
     if (dialog === null) {
         return;
     }
@@ -71,7 +82,7 @@ function startAddTaskDialogCloseAnimation() {
 }
 
 function finishAddTaskDialogClose() {
-    let dialog = document.getElementById("addTaskDialog");
+    let dialog = document.getElementById("dialog");
     if (dialog === null) {
         return;
     }
@@ -131,4 +142,40 @@ function handleAddTaskModalKey(event) {
     if (event.key === "Escape") {
         closeAddTaskModalDirect();
     }
+}
+
+/**
+ * Closes the task detail dialog.
+ */
+function closeTaskDialog() {
+  const dialog = document.getElementById("dialog");
+  if (!dialog || !dialog.open || dialog.classList.contains("is-closing")) {
+    return;
+  }
+  dialog.classList.add("is-closing");
+
+  setTimeout(() => {
+    if (dialog.open) {
+      dialog.close();
+    }
+    dialog.classList.remove("task-modal");
+    dialog.classList.remove("is-closing");
+  }, TaskDialogCloseDuration);
+}
+
+
+/**
+ * Opens the task detail dialog for a specific task.
+ * @param {string} id - The ID of the task to display.
+ */
+function openTaskDetail(id) {
+  const task = findTaskById(tasks, id);
+  if (!task) return;
+  const dialog = document.getElementById("dialog");
+  const content = document.getElementById("dialogContent");
+  if (!dialog || !content) return;
+  dialog.classList.add("task-modal");
+  dialog.classList.remove("is-closing");
+  renderTaskDetailContent(content, task);
+  dialog.showModal();
 }

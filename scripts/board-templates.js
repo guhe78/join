@@ -191,19 +191,30 @@ function editTaskTemplate(task) {
           </div>
 
           <div class="edit-container date">
-            <span class="detail-label">Subtasks</span>
-            <input
-              type="text"
-              class="edit-subtask-input"
-              placeholder="Add new subtask"
-            />
-            <div class="subtasks-container">
-              <ul class="edit-subtasks-list">
-                <li>Implement Recipe Recommendation</li>
-                <li>Start Page Layout</li>
-              </ul>
-            </div>
+            <label class="detail-label" for="subtask">Subtasks</label>
+                <div class="subtask-input">
+                  <input
+                    id="subtask"
+                    type="text"
+                    placeholder="Add new subtask"
+                    class="input"
+                  />
+
+                  <div class="subtask-actions">
+                    <svg class="subtask-icon" viewBox="0 0 24 24">
+                      <path d="M6 6L18 18M6 18L18 6" />
+                    </svg>
+
+                    <div class="divider"></div>
+
+                    <svg class="subtask-icon" viewBox="0 0 24 24">
+                      <path d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                </div>
+                <div class="subtasks-list" id="subtasksList"></div>
           </div>
+          
           </div>
 
           <div class="detail-footer">
