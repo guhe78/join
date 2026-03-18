@@ -70,13 +70,13 @@
 }
 
 .search-container input::placeholder {
-  color: var(--side-bar-icon);
+  color: var(--user-icon);
 }
 
 .search-container .divider {
   width: 2px;
   height: 28px;
-  background-color: var(--side-bar-icon);
+  background-color: var(--user-icon);
 }
 
 .search-container button {
@@ -91,7 +91,7 @@
 
 .search-container button:hover {
   transform: scale(1.02);
-  background-color: var(--side-bar-icon);
+  background-color: var(--user-icon);
 }
 
 .done-content,
@@ -132,5 +132,6 @@
   filter: invert(61%) sepia(52%) saturate(2335%) hue-rotate(167deg)
     brightness(96%) contrast(91%);
 }
+
 
 

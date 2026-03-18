@@ -16,7 +16,6 @@ const DOM = {
 const state = {
   contacts: [],
   letterBefore: "",
-  idNumber: null,
 };
 
 const CONTACTS_URL = "../scripts/contacts.json";
@@ -39,13 +38,13 @@ DOM.dialogEl.onclick = (event) => {
 DOM.closeButtonEl.onclick = closeDialog;
 
 async function init() {
-  await fetchContacts();
+  await getContacts();
   renderContactsList();
 }
 
-async function fetchContacts() {
-  const response = await fetch(CONTACTS_URL);
-  state.contacts = await response.json();
+async function getContacts() {
+  let data = await fetchData("contacts");
+  makeArray(data);
 }
 
 function renderContactsList() {
@@ -122,25 +121,22 @@ function saveEditedContact(index) {
   contact.lastName = contactNameArray[1];
   contact.email = DOM.contactEmailEl.value;
   contact.phone = DOM.contactPhoneEl.value;
+  updateContact(contact);
   renderContactsList();
   renderContact(index);
   closeDialog();
 }
 
 function addContact(name, email, phone) {
-  let id = "c" + getIdNumber();
-  let firstName = name.split(" ")[0];
-  let lastName = name.split(" ")[-1];
-  let badgeColor = getRandomColor();
-  const newContact = {
-    id: id,
-    firstName: firstName,
-    lastName: lastName,
+  let nameParts = name.split(" ");
+  let newContact = {
+    firstName: nameParts[0],
+    lastName: nameParts[nameParts.length - 1],
     email: email,
     phone: phone,
-    badgeColor: badgeColor,
+    badgeColor: getRandomColor(),
   };
-
+  postData("contacts", newContact);
   state.contacts.push(newContact);
   clearInputs();
   renderContactsList();
@@ -148,10 +144,21 @@ function addContact(name, email, phone) {
 }
 
 function deleteContact(index) {
+  deleteData("contacts", state.contacts[index].id);
   state.contacts.splice(index, 1);
   DOM.contactOverviewEl.innerHTML = "";
   renderContactsList();
   closeDialog();
+}
+
+async function updateContact(contact) {
+  let updatedContact = {
+    firstName: contact.firstName,
+    lastName: contact.lastName,
+    email: contact.email,
+    phone: contact.phone,
+  };
+  updateData("contacts", contact.id, updatedContact);
 }
 
 function cancelAddContact() {
@@ -164,6 +171,13 @@ function clearInputs() {
   DOM.contactEmailEl.value = "";
   DOM.contactPhoneEl.value = "";
   DOM.personImageEl.innerHTML = "";
+}
+
+function makeArray(data) {
+  state.contacts = Object.entries(data).map(([id, value]) => ({
+    id,
+    ...value,
+  }));
 }
 
 function openDialog() {
@@ -181,20 +195,4 @@ function getRandom(max) {
 
 function getRandomColor() {
   return DEFAULT_BADGE_COLORS[getRandom(DEFAULT_BADGE_COLORS.length)];
-}
-
-function getIdNumber() {
-  const ids = [];
-  for (let i = 0; i < state.contacts.length; i++) {
-    ids.push(parseInt(state.contacts[i].id.slice(1)));
-    ids.sort((a, b) => a - b);
-  }
-
-  for (let i = 0; i < ids.length; i++) {
-    if (ids[i] + 1 === ids[i + 1]) {
-      continue;
-    } else {
-      return ids[i] + 1;
-    }
-  }
 }

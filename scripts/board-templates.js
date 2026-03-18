@@ -1,7 +1,7 @@
 function toDoTaskTemplate(task) {
   return `
         <div class="card" onclick="openTaskDetail('${task.id}')" draggable="true" ondragstart="startdragging('${task.id}')" ondragend="stopDragging('${task.id}')" data-id="${task.id}">
-            <span class="badge ${task.categoryClass}">${task.category}</span>
+            <span class="task-badge ${task.categoryClass}">${task.category}</span>
 
             <h3 class="card-title">${task.title}</h3>
             <p class="card-description">${task.description}</p>
@@ -9,7 +9,7 @@ function toDoTaskTemplate(task) {
             ${
               task.hasSubtasks
                 ? `
-                <div class="progress-container">
+                <div class="progress-container" title="${task.subtaskInfo}">
                     <div class="progress-bar">
                         <div class="progress-fill" style="width: ${task.progressWidth}%"></div>
                     </div>
@@ -20,7 +20,7 @@ function toDoTaskTemplate(task) {
             }
 
             <div class="card-footer">
-                <div class="avatars">${task.avatarsHtml}</div>
+                <div class="badges">${task.badgesHtml}</div>
                 <div class="priority-icon ${task.priority}">
                     <img src="../assets/imgs/prio-${task.priority}.png" alt="priority ${task.priority}">
                 </div>
@@ -28,9 +28,9 @@ function toDoTaskTemplate(task) {
         </div>`;
 }
 
-function avatarTemplate(color, initials) {
+function badgeTemplate(color, initials) {
   return `
-    <div class="avatar" style="background-color: ${color}">
+    <div class="badge" style="background-color: ${color}">
       ${initials}
     </div>`;
 }
@@ -96,7 +96,7 @@ function dialogTemplate(task, categoryClass) {
 
 function contactTemplate(contact, initials) {
   return `<div class="detail-contact-item">
-                    <div class="avatar-circle" style="background-color: ${contact.color}">${initials}</div>
+                    <div class="badge-circle" style="background-color: ${contact.badgeColor}">${initials}</div>
                     <span class="contact-name">${contact.firstName} ${contact.lastName}</span>
                 </div>`;
 }
@@ -128,7 +128,7 @@ function editTaskTemplate(task) {
           <div class="edit-scroll-content">
           <div class="edit-container title">
             <label class="detail-label" for="task-title">Title</label>
-            <input id="task-title" class="edit-input" type="text" required />
+            <input value="${task.title}" id="task-title" class="edit-input" type="text" required />
           </div>
 
           <div class="edit-container description">
@@ -139,7 +139,7 @@ function editTaskTemplate(task) {
                 placeholder="Enter description..."
                 class="edit-textarea"
                 rows="4"
-              ></textarea>
+              >${task.description}</textarea>
               <button><img src="../assets/imgs/recurso.svg" alt="recurso icon"></button>
             </div>
           </div>
@@ -150,7 +150,7 @@ function editTaskTemplate(task) {
               <input
                 type="text"
                 id="due-date"
-                value="10/05/2023"
+                value="${transformDate(task)}"
                 placeholder="DD/MM/YYYY"
               />
               <button class="calendar-icon">
@@ -162,34 +162,32 @@ function editTaskTemplate(task) {
           <div class="edit-container priority">
             <span class="detail-label priority-label">Priority</span>
             <div class="priority-options"> 
-              <button class="urgent-btn">
+              <button id="urgent-btn" class="urgent-btn">
                 Urgent
                 <img src="../assets/imgs/prio-high.png" alt="Urgent icon" />
               </button>
-              <button class="medium-btn">
+              <button id="medium-btn" class="medium-btn">
                 Medium
-                <img src="../assets/imgs/prio-media.png" alt="Medium icon" />
+                <img src="../assets/imgs/prio-medium.png" alt="Medium icon" />
               </button>
-              <button class="low-btn">
+              <button id="low-btn" class="low-btn">
                 Low <img src="../assets/imgs/prio-low.png" alt="Low icon" />
               </button>
             </div>
           </div>
 
           <div class="edit-container date">
-            <span class="detail-label">Assigned to</span>
-            <div class="custom-select edit-assigned-select " id="editAssignedSelect">
-              <div class="select-trigger" tabindex="0">
-                <span class="trigger-text">Select contacts to assign</span>
-                <img class="trigger-arrow" src="../assets/imgs/arrow_drop_downaa.png" alt="Toggle contacts" />
+            <label class="detail-label" for="assignedSelect">Assigned to</label>
+            <div class="custom-select" id="assignedSelect">
+                <div class="select-trigger">
+                  <span class="trigger-text">Select contacts to assign</span>
+                  <img class="trigger-arrow" src="../assets/imgs/arrow_drop_downaa.png" alt="">
+                </div>
+
+                <div class="select-dropdown" id="assignedDropdown"></div>
               </div>
-              <div class="select-dropdown" id="editAssignedDropdown">
-              </div>
-            </div>
-            <div class="assigned-preview" id="editAssignedPreview">
-              <div class="assigned-preview-avatar" style="background-color: #4589ff" title="Sofia Mueller">SM</div>
-              <div class="assigned-preview-avatar" style="background-color: #9b51e0" title="Anja Schulz">AS</div>
-            </div>
+
+              <div class="assigned-badges" id="assignedBadges"></div>
           </div>
 
           <div class="edit-container date">

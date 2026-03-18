@@ -1,6 +1,10 @@
 /** @type {string|null} Stores the ID of the element currently being dragged */
 let currentDraggedElement = null;
 
+let currentTasks = [];
+let tippTimer;
+const TaskDialogCloseDuration = 200;
+
 /**
  * Initializes the application by loading contacts and tasks.
  * Updates the board with the loaded data afterwards.
@@ -8,8 +12,10 @@ let currentDraggedElement = null;
 async function init() {
   await getContacts();
   await getTasks();
+  currentTasks = tasks;
   updateBoard();
 }
+
 
 /**
  * Iterates through all status types and updates the corresponding board columns.
@@ -25,21 +31,35 @@ function updateBoard() {
   }
 }
 
+
 /**
- * Filters tasks by status and prepares the column container for new content.
+ * Filters tasks for a status and renders the matching column.
  * @param {string} status - The status category to filter for.
  * @param {HTMLElement} container - The DOM element representing the column.
  */
 function processColumn(status, container) {
-  let filtered = [];
-  for (let i = 0; i < tasks.length; i++) {
-    if (tasks[i].status === status) {
-      filtered.push(tasks[i]);
-    }
-  }
+  const filtered = filterTasksByStatus(currentTasks, status);
   container.innerHTML = "";
   fillContainer(filtered, container);
 }
+
+
+/**
+ * Returns all tasks that belong to a specific status.
+ * @param {Array} taskList - The source list of tasks.
+ * @param {string} status - The status to match.
+ * @returns {Array} A filtered task array.
+ */
+function filterTasksByStatus(taskList, status) {
+  const filtered = [];
+  for (let i = 0; i < taskList.length; i++) {
+    if (taskList[i].status === status) {
+      filtered.push(taskList[i]);
+    }
+  }
+  return filtered;
+}
+
 
 /**
  * Fills the container with task templates or an "empty" template if no tasks exist.
@@ -57,6 +77,7 @@ function fillContainer(subset, container) {
   }
 }
 
+
 /**
  * Prepares and formats task data for use in the HTML template.
  * @param {Object} element - The raw task object.
@@ -65,7 +86,7 @@ function fillContainer(subset, container) {
 function prepareTaskData(element) {
   const stats = getSubtaskStats(element.subtasks);
   const categoryClass = element.category.toLowerCase().replace(/\s+/g, "-");
-  const avatars = generateAvatarsHtml(element.assigned_to);
+  const badges = generateBadgeHtml(element.assigned_to);
   return {
     id: element.id,
     title: element.title,
@@ -76,9 +97,10 @@ function prepareTaskData(element) {
     hasSubtasks: stats.hasSubtasks,
     subtaskInfo: stats.text,
     progressWidth: stats.percent,
-    avatarsHtml: avatars,
+    badgesHtml: badges,
   };
 }
+
 
 /**
  * Calculates progress and statistics for subtasks.
@@ -102,6 +124,7 @@ function getSubtaskStats(subtasks) {
   };
 }
 
+
 /**
  * Sets the current dragged element ID.
  * @param {string} id - The ID of the task being dragged.
@@ -114,6 +137,7 @@ function startdragging(id) {
   }
 }
 
+
 /**
  * Removes drag styling from the currently dragged task card.
  */
@@ -124,6 +148,7 @@ function stopDragging(id) {
   }
 }
 
+
 /**
  * Prevents default behavior to allow a drop event.
  * @param {Event} ev - The dragover event.
@@ -131,6 +156,7 @@ function stopDragging(id) {
 function dragover(ev) {
   ev.preventDefault();
 }
+
 
 /**
  * Shows or removes the drag placeholder in a board column.
@@ -146,6 +172,7 @@ function highlight(id, show) {
   }
   removeDragPlaceholder(container);
 }
+
 
 /**
  * Adds a drag placeholder to the column and removes the empty-state element.
@@ -163,6 +190,7 @@ function addDragPlaceholder(container) {
   container.appendChild(placeholder);
 }
 
+
 /**
  * Removes the drag placeholder and restores the empty-state template if needed.
  * @param {HTMLElement} container - The target board column.
@@ -176,64 +204,119 @@ function removeDragPlaceholder(container) {
   }
 }
 
+
 /**
  * Updates the status of the dragged task and refreshes the board.
  * @param {string} newStatus - The new status to assign to the task.
  */
 async function moveTo(newStatus) {
-  const index = tasks.findIndex((t) => t.id === currentDraggedElement);
+  const index = currentTasks.findIndex((t) => t.id === currentDraggedElement);
   if (index !== -1) {
-    const movedTask = tasks.splice(index, 1)[0];
+    const movedTask = currentTasks.splice(index, 1)[0];
     movedTask.status = newStatus;
-    tasks.push(movedTask);
+    currentTasks.push(movedTask);
     await updateData("tasks", movedTask.id, { status: newStatus });
     updateBoard();
   }
 }
 
+
 /**
- * Generates the HTML for contact avatars assigned to a task.
+ * Generates the HTML for contact badges assigned to a task.
  * @param {Object} assignedTo - Object containing assigned contact IDs.
- * @returns {string} Combined HTML string for all avatars.
+ * @returns {string} Combined HTML string for all badges.
  */
-function generateAvatarsHtml(assignedTo) {
+function generateBadgeHtml(assignedTo) {
   if (!assignedTo) return "";
   let html = "";
   const contactIds = Object.values(assignedTo);
-
-  for (let i = 0; i < contactIds.length; i++) {
-    const contact = contacts.find((c) => c.id === contactIds[i]);
+  const limit = 3;
+  const displayIds = contactIds.slice(0, limit);
+  for (const id of displayIds) {
+    const contact = contacts.find((c) => c.id === id);
     if (contact) {
       const initials = (
         contact.firstName[0] + contact.lastName[0]
       ).toUpperCase();
-      html += avatarTemplate(contact.badgeColor, initials);
+      html += badgeTemplate(contact.badgeColor, initials);
     }
+  }
+  html = addBadgeCount(html, contactIds, limit);
+  return html;
+}
+
+
+/**
+ * Appends a counter badge when more contacts exist than are displayed.
+ * @param {string} html - The existing badge HTML.
+ * @param {Array} contactIds - All assigned contact IDs.
+ * @param {number} limit - The number of visible badges.
+ * @returns {string} Updated badge HTML with optional overflow count.
+ */
+function addBadgeCount(html, contactIds, limit) {
+  if (contactIds.length > limit) {
+    const remaining = contactIds.length - limit;
+    html += `<div class="badge-count">+${remaining}</div>`;
   }
   return html;
 }
 
+
 /**
- * Opens the detail view for a specific task.
+ * Opens the task detail dialog for a specific task.
  * @param {string} id - The ID of the task to display.
  */
 function openTaskDetail(id) {
-  const task = tasks.find((t) => t.id === id);
+  const task = findTaskById(tasks, id);
   if (!task) return;
   const dialog = document.getElementById("taskDialog");
   const content = document.getElementById("dialogContent");
-  const categoryClass = task.category.toLowerCase().replace(/\s+/g, "-");
-  content.innerHTML = dialogTemplate(task, categoryClass);
+  if (!dialog || !content) return;
+  dialog.classList.remove("is-closing");
+  renderTaskDetailContent(content, task);
   dialog.showModal();
 }
+
+
+/**
+ * Finds a task by ID in a given task list.
+ * @param {Array} taskList - The source list of tasks.
+ * @param {string} id - The ID of the task to find.
+ * @returns {Object|undefined} The matched task or undefined.
+ */
+function findTaskById(taskList, id) {
+  return taskList.find((task) => task.id === id);
+}
+
+
+/**
+ * Renders task detail HTML into the dialog content container.
+ * @param {HTMLElement} content - The detail dialog content element.
+ * @param {Object} task - The task to render.
+ */
+function renderTaskDetailContent(content, task) {
+  const categoryClass = task.category.toLowerCase().replace(/\s+/g, "-");
+  content.innerHTML = dialogTemplate(task, categoryClass);
+}
+
 
 /**
  * Closes the task detail dialog.
  */
 function closeTaskDialog() {
   const dialog = document.getElementById("taskDialog");
-  dialog.close();
+  if (!dialog || !dialog.open || dialog.classList.contains("is-closing")) {
+    return;
+  }
+  dialog.classList.add("is-closing");
+  setTimeout(() => {
+    if (dialog.open) {
+      dialog.close();
+    }
+    dialog.classList.remove("is-closing");
+  }, TaskDialogCloseDuration);
 }
+
 
 /**
  * Generates detailed contact list HTML for the task detail view.
@@ -243,7 +326,7 @@ function closeTaskDialog() {
 function generateDetailedContactsHtml(assignedTo) {
   if (!assignedTo) return "";
   let html = "";
-  const contactIds = Object.keys(assignedTo);
+  const contactIds = Object.values(assignedTo);
   for (const id of contactIds) {
     const contact = contacts.find((c) => c.id === id);
     if (contact) {
@@ -256,6 +339,7 @@ function generateDetailedContactsHtml(assignedTo) {
   return html;
 }
 
+
 /**
  * Generates the HTML for subtasks in the task detail view.
  * @param {string} id - The ID of the parent task.
@@ -263,19 +347,20 @@ function generateDetailedContactsHtml(assignedTo) {
  * @returns {string} Combined HTML string for the subtask list.
  */
 function generateDetailedSubtasksHtml(id, subtasks) {
-    const subtaskArray = subtasks ? Object.entries(subtasks) : [];
-    if (subtaskArray.length === 0) {
-        return noSubtasksTemplate();
-    }
-    let html = "";
-    for (const [subId, sub] of subtaskArray) {
-        const checkImg = sub.is_done
-            ? "../assets/imgs/checkbox-checked.png"
-            : "../assets/imgs/checkbox-empty.png";
-        html += subtaskItemTemplate(id, subId, checkImg, sub);
-    }
-    return html;
+  const subtaskArray = subtasks ? Object.entries(subtasks) : [];
+  if (subtaskArray.length === 0) {
+    return noSubtasksTemplate();
+  }
+  let html = "";
+  for (const [subId, sub] of subtaskArray) {
+    const checkImg = sub.is_done
+      ? "../assets/imgs/checkbox-checked.png"
+      : "../assets/imgs/checkbox-empty.png";
+    html += subtaskItemTemplate(id, subId, checkImg, sub);
+  }
+  return html;
 }
+
 
 /**
  * Capitalizes the first letter of the task priority.
@@ -286,6 +371,7 @@ function formatPriority(task) {
   return task.priority.charAt(0).toUpperCase() + task.priority.slice(1);
 }
 
+
 /**
  * Reformats the date from YYYY-MM-DD to DD/MM/YYYY.
  * @param {Object} task - The task object.
@@ -295,16 +381,22 @@ function reformatDate(task) {
   return task.due_date.split("-").reverse().join("/");
 }
 
+
 /**
- * Deletes a task from the tasks array by its ID and updates the board.
+ * Deletes a task from the currentTasks array by its ID and updates the board.
  * @param {string} path - The collection path in Firebase.
  * @param {string} id - The ID of the task to be deleted.
  */
 async function deleteTask(path, id) {
-    deleteData(path, id);
-    await getTasks();
+  const index = currentTasks.findIndex((t) => t.id === id);
+  if (index !== -1) {
+    await deleteData(path, id);
+    currentTasks.splice(index, 1);
+    closeTaskDialog();
     updateBoard();
+  }
 }
+
 
 /**
  * Toggles the completion status of a subtask and updates the UI.
@@ -312,7 +404,7 @@ async function deleteTask(path, id) {
  * @param {string} subId - The ID of the subtask to toggle.
  */
 async function toggleSubtask(id, subId) {
-  const task = tasks.find((t) => t.id === id);
+  const task = currentTasks.find((t) => t.id === id);
   if (task && task.subtasks && task.subtasks[subId]) {
     task.subtasks[subId].is_done = !task.subtasks[subId].is_done;
     updateSubtaskCheckboxIcon(id, subId, task.subtasks[subId].is_done);
@@ -320,6 +412,7 @@ async function toggleSubtask(id, subId) {
     updateBoard();
   }
 }
+
 
 /**
  * Updates only the subtask checkbox icon in the open detail dialog.
@@ -335,25 +428,132 @@ function updateSubtaskCheckboxIcon(id, subId, isDone) {
     : "../assets/imgs/checkbox-empty.png";
 }
 
+
 /**
  * Helper function to re-render the detail view content without closing the dialog.
  * @param {string} id - The ID of the task.
  */
 function refreshTaskDetail(id) {
-    const task = tasks.find((t) => t.id === id);
-    if (task) {
-        const content = document.getElementById("dialogContent");
-        const categoryClass = task.category.toLowerCase().replace(/\s+/g, "-");
-        content.innerHTML = dialogTemplate(task, categoryClass);
-    }
+  const task = findTaskById(currentTasks, id);
+  if (task) {
+    const content = document.getElementById("dialogContent");
+    if (!content) return;
+    renderTaskDetailContent(content, task);
+  }
 }
+
 
 /**
  * Opens the edit view for a task within the existing dialog.
  */
 function editTask(id) {
-    const task = tasks.find((t) => t.id === id);
-    if (!task) return;
-    const content = document.getElementById("dialogContent");
-    content.innerHTML = editTaskTemplate(task);
+  const task = findTaskById(currentTasks, id);
+  if (!task) return;
+  const content = document.getElementById("dialogContent");
+  if (!content) return;
+  content.innerHTML = editTaskTemplate(task);
+  selectFocus(task);
+}
+
+
+/**
+ * Moves focus to the priority button that matches the task priority.
+ * @param {Object} task - The task currently being edited.
+ */
+function selectFocus(task) {
+  const focusTargets = {
+    high: "urgent-btn",
+    medium: "medium-btn",
+    low: "low-btn",
+  };
+  const targetId = focusTargets[task.priority];
+  if (!targetId) return;
+  requestAnimationFrame(() => {
+    document.getElementById(targetId)?.focus();
+  });
+}
+
+
+/**
+ * Converts a task due date to DD/MM/YYYY for display in edit mode.
+ * @param {Object} task - The task object.
+ * @returns {string} The formatted date string or an empty string.
+ */
+function transformDate(task) {
+  const rawDate = task.due_date;
+  if (!rawDate) return "";
+  if (rawDate.includes("/")) return rawDate;
+  const [year, month, day] = rawDate.split("-");
+  if (!year || !month || !day) return "";
+  return `${day}/${month}/${year}`;
+}
+
+
+/**
+ * Reads and normalizes the search text from the board input.
+ * @returns {string} The lowercased search query.
+ */
+function getSearchQuery() {
+  const input = document.getElementById("searchInput");
+  if (!input) return "";
+  return input.value.toLowerCase();
+}
+
+
+/**
+ * Filters tasks by title or description using the provided query.
+ * @param {Array} taskList - The source list of tasks.
+ * @param {string} query - The lowercased search query.
+ * @returns {Array} Matching tasks.
+ */
+function filterTasksByQuery(taskList, query) {
+  return taskList.filter(
+    (task) =>
+      task.title.toLowerCase().includes(query) ||
+      task.description.toLowerCase().includes(query),
+  );
+}
+
+
+/**
+ * Updates all rendered empty-state texts after a search.
+ */
+function updateSearchEmptyStateMessage() {
+  const emptyStates = document.querySelectorAll(".empty-state");
+  if (emptyStates.length === 0) return;
+  emptyStates.forEach((state) => {
+    state.textContent = "No tasks found!";
+  });
+}
+
+
+/**
+ * Applies the current search query to the board and updates empty-state text.
+ */
+function searchFilter() {
+  const query = getSearchQuery();
+  currentTasks = filterTasksByQuery(tasks, query);
+  updateBoard();
+  updateSearchEmptyStateMessage();
+}
+
+
+/**
+ * Schedules the search filtering with a short debounce.
+ */
+function scheduleSearchFilter() {
+  clearTimeout(tippTimer);
+  tippTimer = setTimeout(searchFilter, 400);
+}
+
+
+/**
+ * Handles keyboard interaction for board search.
+ * @param {KeyboardEvent} event - The keyboard event from the input.
+ */
+function checkEnter(event, _inputId) {
+  scheduleSearchFilter();
+  if (event.key === "Enter") {
+    searchFilter();
+  }
 }
