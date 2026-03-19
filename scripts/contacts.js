@@ -20,7 +20,6 @@ const DOM = {
 
 const state = {
   contacts: [],
-  letterBefore: "",
 };
 
 const CONTACTS_URL = "../scripts/contacts.json";
@@ -29,9 +28,17 @@ const DEFAULT_BADGE_COLORS = [
   "#9327ff",
   "#6e52ff",
   "#fc71ff",
-  "#ffbb2b",
   "#1fd7c1",
-  "#462f8a",
+  "#ff5eb3",
+  "#00bee8",
+  "#ff745e",
+  "#ffc701",
+  "#0038ff",
+  "#c3ff2b",
+  "#ffe62b",
+  "#ff4646",
+  "#ffbb2b",
+  "#ffa35e",
 ];
 
 DOM.dialogEl.onclick = (event) => {
@@ -55,11 +62,12 @@ async function getContacts() {
 function renderContactsList() {
   state.contacts.sort((a, b) => a.firstName.localeCompare(b.firstName, "de"));
   DOM.contactsListEl.innerHTML = "";
+  let lastLetter = "";
   for (let i = 0; i < state.contacts.length; i++) {
     let contact = state.contacts[i];
     let letter = contact.firstName[0].toUpperCase();
-    if (state.letterBefore != letter) {
-      state.letterBefore = letter;
+    if (lastLetter != letter) {
+      lastLetter = letter;
       DOM.contactsListEl.innerHTML += contactLetterTemplate(letter);
     }
     DOM.contactsListEl.innerHTML += contactTemplate(i);
@@ -68,6 +76,7 @@ function renderContactsList() {
 
 function renderContact(index) {
   DOM.contactOverviewEl.innerHTML = contactDetailTemplate(index);
+  DOM.contactOverviewEl.classList.add("fade-in");
 }
 
 function renderToastMessage(type) {
@@ -82,17 +91,14 @@ function toggleActiveContact(index) {
   const currentActiveElement = document.querySelector(".active-contact");
   const newActiveElement = document.getElementById("contact" + index);
   DOM.contactOverviewEl.classList.remove("fade-in");
-
   if (currentActiveElement) {
     currentActiveElement.classList.remove("active-contact");
     DOM.contactOverviewEl.innerHTML = "";
   }
-
   if (currentActiveElement === newActiveElement) {
     newActiveElement.classList.remove("active-contact");
   } else {
     newActiveElement.classList.add("active-contact");
-    DOM.contactOverviewEl.classList.add("fade-in");
     renderContact(index);
   }
 }
@@ -107,29 +113,55 @@ function openAddNewContact() {
   openDialog();
 }
 
-function addContact() {
-  let name = DOM.contactNameEl.value;
-  let email = DOM.contactEmailEl.value;
-  let phone = DOM.contactPhoneEl.value;
-  if (!name || !email || !phone) {
-    if (name == "") {
-      DOM.warningMessageNameEl.innerHTML = "This field is required";
-    }
-    if (email == "") {
-      DOM.warningMessageEmailEl.innerHTML = "This field is required";
-    }
-    if (phone == "") {
-      DOM.warningMessagePhoneEl.innerHTML = "This field is required";
-    }
-    return false;
+function checkInputFields() {
+  let returnValue = true;
+  let errorMessage = "This field is required";
+  if (!DOM.contactNameEl.value) {
+    DOM.warningMessageNameEl.innerHTML = errorMessage;
+    returnValue = false;
   }
-  name = name.split(" ");
-  if (checkName(name)) {
+  if (!DOM.contactEmailEl.value) {
+    DOM.warningMessageEmailEl.innerHTML = errorMessage;
+    returnValue = false;
+  }
+  if (!DOM.contactPhoneEl.value) {
+    DOM.warningMessagePhoneEl.innerHTML = errorMessage;
+    returnValue = false;
+  }
+  return returnValue;
+}
+
+function validateInput() {
+  if (!checkName(DOM.contactNameEl.value)) {
     DOM.warningMessageNameEl.innerHTML = "Firstname and Lastname required";
     return false;
+  } else {
+    DOM.warningMessageNameEl.innerHTML = "";
   }
-  let firstName = name[0];
-  let lastName = name[name.length - 1];
+  if (!checkEmail(DOM.contactEmailEl.value)) {
+    DOM.warningMessageEmailEl.innerHTML = "Correct Email required";
+    return false;
+  } else {
+    DOM.warningMessageEmailEl.innerHTML = "";
+  }
+  if (!checkPhone(DOM.contactPhoneEl.value)) {
+    DOM.warningMessagePhoneEl.innerHTML = "Phone number required";
+    return false;
+  } else {
+    DOM.warningMessagePhoneEl.innerHTML = "";
+  }
+  return true;
+}
+
+async function addContact() {
+  let name = DOM.contactNameEl.value.trim();
+  let email = DOM.contactEmailEl.value.trim();
+  let phone = DOM.contactPhoneEl.value.trim();
+  if (!checkInputFields()) return;
+  if (!validateInput()) return;
+  let nameArray = name.split(" ");
+  let firstName = nameArray.at(0);
+  let lastName = nameArray.at(-1);
   let newContact = {
     firstName: firstName,
     lastName: lastName,
@@ -137,11 +169,13 @@ function addContact() {
     phone: phone,
     badgeColor: getRandomColor(),
   };
-  postData("contacts", newContact);
+  const result = await postData("contacts", newContact);
+  newContact.firebaseKey = result.name;
+  console.log("Result name: ", result.name);
   state.contacts.push(newContact);
-  renderContact(state.contacts.length - 1);
-  clearInputs();
   renderContactsList();
+  renderContact(findContactIndex(newContact.firebaseKey));
+  clearInputs();
   closeDialog();
   renderToastMessage("created");
 }
@@ -161,25 +195,28 @@ function openEditContact(index) {
   openDialog();
 }
 
-function saveEditedContact(index) {
-  const contactNameArray = checkName(DOM.contactNameEl.value).split(" ");
-  console.log(contactNameArray);
+async function saveEditedContact(index) {
+  const contactNameArray = DOM.contactNameEl.value.split(" ");
+  checkInputFields();
   const contact = state.contacts[index];
-  contact.firstName = contactNameArray[0];
-  contact.lastName = contactNameArray[-1];
+  contact.firstName = contactNameArray.at(0);
+  contact.lastName = contactNameArray.at(-1);
   contact.email = DOM.contactEmailEl.value;
   contact.phone = DOM.contactPhoneEl.value;
-  updateContact(contact);
+  const firebaseKey = contact.firebaseKey;
+  await updateContact(contact);
   renderContactsList();
-  renderContact(index);
+  renderContact(findContactIndex(firebaseKey));
   closeDialog();
   renderToastMessage("edited");
 }
 
-function deleteContact(index) {
-  deleteData("contacts", state.contacts[index].id);
-  state.contacts.splice(index, 1);
+async function deleteContact(index) {
+  const contact = state.contacts[index];
+  const result = await deleteData("contacts", contact.firebaseKey);
+  state.contacts.splice(findContactIndex(contact.firebaseKey), 1);
   DOM.contactOverviewEl.innerHTML = "";
+  DOM.contactOverviewEl.classList.remove("fade-in");
   renderContactsList();
   closeDialog();
   renderToastMessage("deleted");
@@ -199,21 +236,23 @@ async function updateContact(contact) {
     email: email,
     phone: phone,
   };
-  updateData("contacts", contact.id, updatedContact);
+  await updateData("contacts", contact.firebaseKey, updatedContact);
 }
 
 function checkName(input) {
-  return input.trim().split(" ").length < 1;
+  let check = input.split(" ");
+  return check.length > 1;
 }
 
 function checkEmail(input) {
   const pattern =
     /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  console.log(input);
   return pattern.test(input);
 }
 
 function checkPhone(input) {
-  return input.trim().length < 1;
+  return input.length > 0;
 }
 
 function cancelAddContact() {
@@ -223,15 +262,25 @@ function cancelAddContact() {
 
 function clearInputs() {
   DOM.contactNameEl.value = "";
+  DOM.warningMessageNameEl.innerHTML = "";
   DOM.contactEmailEl.value = "";
+  DOM.warningMessageEmailEl.innerHTML = "";
   DOM.contactPhoneEl.value = "";
+  DOM.warningMessagePhoneEl.innerHTML = "";
 }
 
 function makeArray(data) {
-  state.contacts = Object.entries(data).map(([id, value]) => ({
-    id,
+  state.contacts = Object.entries(data).map(([key, value]) => ({
+    firebaseKey: key,
     ...value,
   }));
+}
+
+function findContactIndex(firebaseKey) {
+  let index = state.contacts.findIndex(
+    (contact) => contact.firebaseKey === firebaseKey,
+  );
+  return index;
 }
 
 function openDialog() {
