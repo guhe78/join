@@ -102,15 +102,32 @@
   justify-content: flex-end;
 }
 
+.edit-first-description {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.input-wrapper-title {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
 .edit-input {
   font-size: 20px;
   height: 48px;
 }
 
+.feedback-message {
+  color: rgb(255, 0, 0);
+  font-size: 12px;
+}
+
 .edit-scroll-content {
   min-height: 0;
   overflow-y: auto;
-  padding-right: 4px;
+  padding-right: 8px;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -157,6 +174,12 @@
 
 .edit-textarea:focus {
   border-color: var(--greeting-name-and-hover);
+}
+
+.date-input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .input-wrapper {

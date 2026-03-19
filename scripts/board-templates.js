@@ -126,26 +126,34 @@ function editTaskTemplate(task) {
             </button>
           </div>
           <div class="edit-scroll-content">
+          <section class="edit-first-description">
           <div class="edit-container title">
             <label class="detail-label" for="task-title">Title</label>
+            <div class="input-wrapper-title">
             <input value="${task.title}" id="task-title" class="edit-input" type="text" required />
+            <p class="feedback-message" id="titleFeedback">this field is required</p>
+            </div>
           </div>
 
           <div class="edit-container description">
             <label class="detail-label" for="task-desc">Description</label>
-            <div class="area-wrapper">
-              <textarea
-                id="task-desc"
-                placeholder="Enter description..."
-                class="edit-textarea"
-                rows="4"
-              >${task.description}</textarea>
-              <button><img src="../assets/imgs/recurso.svg" alt="recurso icon"></button>
+            <div class="textarea-container">
+              <div class="area-wrapper">
+                <textarea
+                  id="task-desc"
+                  placeholder="Enter description..."
+                  class="edit-textarea"
+                  rows="4"
+                >${task.description}</textarea>
+                <button><img src="../assets/imgs/recurso.svg" alt="recurso icon"></button>
+              </div>
+              <p class="feedback-message" id="descriptionFeedback">this field is required</p>
             </div>
           </div>
 
           <div class="edit-container date">
             <label class="detail-label" for="due-date">Due date</label>
+            <div class="date-input-container">  
             <div class="input-wrapper">
               <input
                 type="text"
@@ -157,7 +165,10 @@ function editTaskTemplate(task) {
                 <img src="../assets/imgs/event.png" alt="calender icon" />
               </button>
             </div>
+            <p class="feedback-message" id="dueDateFeedback">this field is required</p>
+            </div>
           </div>
+          </section>
 
           <div class="edit-container priority">
             <span class="detail-label priority-label">Priority</span>
