@@ -1,6 +1,6 @@
 
 function buildNormalSubtaskHTML(index) {
-    return `
+  return `
     <div class="subtask-item">
         <div class="subtask-left">
             <span class="subtask-dot">•</span>
@@ -16,7 +16,7 @@ function buildNormalSubtaskHTML(index) {
 }
 
 function buildEditSubtaskHTML(index) {
-    return `
+  return `
     <div class="subtask-item edit-mode">
         <div class="subtask-left">
             <input class="subtask-edit-input" id="editSubtaskInput" type="text" value="${subtasks[index]}">
@@ -31,11 +31,11 @@ function buildEditSubtaskHTML(index) {
 }
 
 function buildAssignedContactOptionHTML(index) {
-    let initials = getContactInitials(contacts[index]);
-    let fullName = contacts[index].firstName + " " + contacts[index].lastName;
-    let badgeColor = contacts[index].badgeColor;
+  let initials = getContactInitials(contacts[index]);
+  let fullName = contacts[index].firstName + " " + contacts[index].lastName;
+  let badgeColor = contacts[index].badgeColor;
 
-    return `
+  return `
     <div class="select-option">
         <div class="contact-info">
             <div class="avatar" style="background:${badgeColor}">${initials}</div>
@@ -47,22 +47,19 @@ function buildAssignedContactOptionHTML(index) {
 }
 
 function getContactInitials(contact) {
-    let firstLetter = "";
-    let lastLetter = "";
-
-    if (contact.firstName.length > 0) {
-        firstLetter = contact.firstName.charAt(0);
-    }
-
-    if (contact.lastName.length > 0) {
-        lastLetter = contact.lastName.charAt(0);
-    }
-
-    return firstLetter + lastLetter;
+  let firstLetter = "";
+  let lastLetter = "";
+  if (contact.firstName.length > 0) {
+    firstLetter = contact.firstName.charAt(0);
+  }
+  if (contact.lastName.length > 0) {
+    lastLetter = contact.lastName.charAt(0);
+  }
+  return firstLetter + lastLetter;
 }
 
 function addTaskTemplate() {
-    return `<template id="addTaskModalTemplate">
+    return `
       <div class="add-task-modal" onclick="event.stopPropagation()">
         <button
           class="add-task-close-btn"
@@ -87,6 +84,7 @@ function addTaskTemplate() {
                   class="input"
                   type="text"
                   placeholder="Enter a title"
+                  maxlength="20"
                 />
                 <p class="error-msg" id="titleError">This field is required</p>
               </div>
@@ -98,6 +96,7 @@ function addTaskTemplate() {
                   class="textarea"
                   rows="5"
                   placeholder="Create a contact form and imprint page !"
+                  maxlength="250"
                 ></textarea>
               </div>
 
@@ -109,15 +108,10 @@ function addTaskTemplate() {
                 <div class="date-input-wrapper">
                   <input
                     id="due"
-                    class="input"
-                    type="text"
-                    placeholder="dd/mm/yyyy"
+                    class="input date-input"
+                    type="date"
                     ondblclick="setTodayDate()"
-                  />
-                  <img
-                    class="date-icon-right"
-                    src="../assets/imgs/event.png"
-                    alt="calendar"
+                    onkeydown="return false"
                   />
                 </div>
                 <p class="error-msg" id="dueError">This field is required</p>
@@ -138,7 +132,7 @@ function addTaskTemplate() {
                   </svg>
                 </button>
 
-                <button type="button" class="prio-btn prio-medium">
+                <button type="button" class="prio-btn prio-medium is-active">
                   Medium
                   <svg class="prio-icon" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M7 10h10" />
@@ -273,5 +267,5 @@ function addTaskTemplate() {
           <img src="../assets/imgs/board.png" alt="board" />
         </div>
       </div>
-    </template>`;
+    `;
 }
