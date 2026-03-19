@@ -336,6 +336,7 @@ function checkName(input) {
 function checkEmail(input) {
   const pattern =
     /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  console.log(input);
   return pattern.test(input);
 }
 
@@ -359,6 +360,13 @@ function clearInputs() {
 
 function findContactIndex(firebaseKey) {
   let index = contacts.findIndex(
+    (contact) => contact.firebaseKey === firebaseKey,
+  );
+  return index;
+}
+
+function findContactIndex(firebaseKey) {
+  let index = state.contacts.findIndex(
     (contact) => contact.firebaseKey === firebaseKey,
   );
   return index;
