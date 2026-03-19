@@ -144,6 +144,41 @@ function handleAddTaskModalKey(event) {
     }
 }
 
+function openCalendar() {
+    let picker = document.getElementById("duePicker");
+
+    if (picker === null) {
+        return;
+    }
+
+    if (typeof picker.showPicker === "function") {
+        picker.showPicker();
+    } else {
+        picker.focus();
+        picker.click();
+    }
+}
+
+function applyPickedDate() {
+    let dueInput = document.getElementById("due");
+    let picker = document.getElementById("duePicker");
+
+    if (dueInput === null || picker === null) {
+        return;
+    }
+
+    if (picker.value === "") {
+        return;
+    }
+
+    let parts = picker.value.split("-");
+    let year = parts[0];
+    let month = parts[1];
+    let day = parts[2];
+
+    dueInput.value = day + "/" + month + "/" + year;
+}
+
 /**
  * Closes the task detail dialog.
  */
