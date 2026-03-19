@@ -9,7 +9,7 @@ function toDoTaskTemplate(task) {
             ${
               task.hasSubtasks
                 ? `
-                <div class="progress-container">
+                <div class="progress-container" title="${task.subtaskInfo}">
                     <div class="progress-bar">
                         <div class="progress-fill" style="width: ${task.progressWidth}%"></div>
                     </div>
@@ -128,7 +128,7 @@ function editTaskTemplate(task) {
           <div class="edit-scroll-content">
           <div class="edit-container title">
             <label class="detail-label" for="task-title">Title</label>
-            <input id="task-title" class="edit-input" type="text" required />
+            <input value="${task.title}" id="task-title" class="edit-input" type="text" required />
           </div>
 
           <div class="edit-container description">
@@ -139,7 +139,7 @@ function editTaskTemplate(task) {
                 placeholder="Enter description..."
                 class="edit-textarea"
                 rows="4"
-              ></textarea>
+              >${task.description}</textarea>
               <button><img src="../assets/imgs/recurso.svg" alt="recurso icon"></button>
             </div>
           </div>
@@ -150,7 +150,7 @@ function editTaskTemplate(task) {
               <input
                 type="text"
                 id="due-date"
-                value="10/05/2023"
+                value="${transformDate(task)}"
                 placeholder="DD/MM/YYYY"
               />
               <button class="calendar-icon">
@@ -162,50 +162,59 @@ function editTaskTemplate(task) {
           <div class="edit-container priority">
             <span class="detail-label priority-label">Priority</span>
             <div class="priority-options"> 
-              <button class="urgent-btn">
+              <button id="urgent-btn" class="urgent-btn">
                 Urgent
                 <img src="../assets/imgs/prio-high.png" alt="Urgent icon" />
               </button>
-              <button class="medium-btn">
+              <button id="medium-btn" class="medium-btn">
                 Medium
-                <img src="../assets/imgs/prio-media.png" alt="Medium icon" />
+                <img src="../assets/imgs/prio-medium.png" alt="Medium icon" />
               </button>
-              <button class="low-btn">
+              <button id="low-btn" class="low-btn">
                 Low <img src="../assets/imgs/prio-low.png" alt="Low icon" />
               </button>
             </div>
           </div>
 
           <div class="edit-container date">
-            <span class="detail-label">Assigned to</span>
-            <div class="custom-select edit-assigned-select " id="editAssignedSelect">
-              <div class="select-trigger" tabindex="0">
-                <span class="trigger-text">Select contacts to assign</span>
-                <img class="trigger-arrow" src="../assets/imgs/arrow_drop_downaa.png" alt="Toggle contacts" />
+            <label class="detail-label" for="assignedSelect">Assigned to</label>
+            <div class="custom-select" id="assignedSelect">
+                <div class="select-trigger">
+                  <span class="trigger-text">Select contacts to assign</span>
+                  <img class="trigger-arrow" src="../assets/imgs/arrow_drop_downaa.png" alt="">
+                </div>
+
+                <div class="select-dropdown" id="assignedDropdown"></div>
               </div>
-              <div class="select-dropdown" id="editAssignedDropdown">
-              </div>
-            </div>
-            <div class="assigned-preview" id="editAssignedPreview">
-              <div class="assigned-preview-badge" style="background-color: #4589ff" title="Sofia Mueller">SM</div>
-              <div class="assigned-preview-badge" style="background-color: #9b51e0" title="Anja Schulz">AS</div>
-            </div>
+
+              <div class="assigned-badges" id="assignedBadges"></div>
           </div>
 
           <div class="edit-container date">
-            <span class="detail-label">Subtasks</span>
-            <input
-              type="text"
-              class="edit-subtask-input"
-              placeholder="Add new subtask"
-            />
-            <div class="subtasks-container">
-              <ul class="edit-subtasks-list">
-                <li>Implement Recipe Recommendation</li>
-                <li>Start Page Layout</li>
-              </ul>
-            </div>
+            <label class="detail-label" for="subtask">Subtasks</label>
+                <div class="subtask-input">
+                  <input
+                    id="subtask"
+                    type="text"
+                    placeholder="Add new subtask"
+                    class="input"
+                  />
+
+                  <div class="subtask-actions">
+                    <svg class="subtask-icon" viewBox="0 0 24 24">
+                      <path d="M6 6L18 18M6 18L18 6" />
+                    </svg>
+
+                    <div class="divider"></div>
+
+                    <svg class="subtask-icon" viewBox="0 0 24 24">
+                      <path d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                </div>
+                <div class="subtasks-list" id="subtasksList"></div>
           </div>
+          
           </div>
 
           <div class="detail-footer">

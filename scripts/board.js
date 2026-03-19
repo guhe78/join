@@ -3,6 +3,7 @@ let currentDraggedElement = null;
 
 let currentTasks = [];
 let tippTimer;
+const TaskDialogCloseDuration = 200;
 
 /**
  * Initializes the application by loading contacts and tasks.
@@ -30,19 +31,30 @@ function updateBoard() {
 }
 
 /**
- * Filters currentTasks by status and prepares the column container for new content.
+ * Filters tasks for a status and renders the matching column.
  * @param {string} status - The status category to filter for.
  * @param {HTMLElement} container - The DOM element representing the column.
  */
 function processColumn(status, container) {
-  let filtered = [];
-  for (let i = 0; i < currentTasks.length; i++) {
-    if (currentTasks[i].status === status) {
-      filtered.push(currentTasks[i]);
-    }
-  }
+  const filtered = filterTasksByStatus(currentTasks, status);
   container.innerHTML = "";
   fillContainer(filtered, container);
+}
+
+/**
+ * Returns all tasks that belong to a specific status.
+ * @param {Array} taskList - The source list of tasks.
+ * @param {string} status - The status to match.
+ * @returns {Array} A filtered task array.
+ */
+function filterTasksByStatus(taskList, status) {
+  const filtered = [];
+  for (let i = 0; i < taskList.length; i++) {
+    if (taskList[i].status === status) {
+      filtered.push(taskList[i]);
+    }
+  }
+  return filtered;
 }
 
 /**
@@ -219,6 +231,13 @@ function generateBadgeHtml(assignedTo) {
   return html;
 }
 
+/**
+ * Appends a counter badge when more contacts exist than are displayed.
+ * @param {string} html - The existing badge HTML.
+ * @param {Array} contactIds - All assigned contact IDs.
+ * @param {number} limit - The number of visible badges.
+ * @returns {string} Updated badge HTML with optional overflow count.
+ */
 function addBadgeCount(html, contactIds, limit) {
   if (contactIds.length > limit) {
     const remaining = contactIds.length - limit;
@@ -228,25 +247,23 @@ function addBadgeCount(html, contactIds, limit) {
 }
 
 /**
- * Opens the detail view for a specific task.
- * @param {string} id - The ID of the task to display.
+ * Finds a task by ID in a given task list.
+ * @param {Array} taskList - The source list of tasks.
+ * @param {string} id - The ID of the task to find.
+ * @returns {Object|undefined} The matched task or undefined.
  */
-function openTaskDetail(id) {
-  const task = tasks.find((t) => t.id === id);
-  if (!task) return;
-  const dialog = document.getElementById("taskDialog");
-  const content = document.getElementById("dialogContent");
-  const categoryClass = task.category.toLowerCase().replace(/\s+/g, "-");
-  content.innerHTML = dialogTemplate(task, categoryClass);
-  dialog.showModal();
+function findTaskById(taskList, id) {
+  return taskList.find((task) => task.id === id);
 }
 
 /**
- * Closes the task detail dialog.
+ * Renders task detail HTML into the dialog content container.
+ * @param {HTMLElement} content - The detail dialog content element.
+ * @param {Object} task - The task to render.
  */
-function closeTaskDialog() {
-  const dialog = document.getElementById("taskDialog");
-  dialog.close();
+function renderTaskDetailContent(content, task) {
+  const categoryClass = task.category.toLowerCase().replace(/\s+/g, "-");
+  content.innerHTML = dialogTemplate(task, categoryClass);
 }
 
 /**
@@ -358,45 +375,125 @@ function updateSubtaskCheckboxIcon(id, subId, isDone) {
  * @param {string} id - The ID of the task.
  */
 function refreshTaskDetail(id) {
-  const task = currentTasks.find((t) => t.id === id);
+  const task = findTaskById(currentTasks, id);
   if (task) {
     const content = document.getElementById("dialogContent");
-    const categoryClass = task.category.toLowerCase().replace(/\s+/g, "-");
-    content.innerHTML = dialogTemplate(task, categoryClass);
+    if (!content) return;
+    renderTaskDetailContent(content, task);
   }
 }
 
 /**
  * Opens the edit view for a task within the existing dialog.
  */
-function editTask(id) {
-  const task = currentTasks.find((t) => t.id === id);
+async function editTask(id, createHandler = createTaskClicked) {
+  const task = findTaskById(currentTasks, id);
   if (!task) return;
   const content = document.getElementById("dialogContent");
+  if (!content) return;
   content.innerHTML = editTaskTemplate(task);
+  selectFocus(task);
+  await getContacts();
+  renderAssignedContacts();
+  initAssignedSelect();
+  subtasks = task.subtasks ? Object.values(task.subtasks).map(s => s.title) : [];
+  editSubtaskIndex = -1;
+  initSubtaskSection();
+  initActionButtons(createHandler);
+  document.onclick = closeAllSelects;
 }
 
-function searchFilter() {
+/**
+ * Moves focus to the priority button that matches the task priority.
+ * @param {Object} task - The task currently being edited.
+ */
+function selectFocus(task) {
+  const focusTargets = {
+    high: "urgent-btn",
+    medium: "medium-btn",
+    low: "low-btn",
+  };
+  const targetId = focusTargets[task.priority];
+  if (!targetId) return;
+  requestAnimationFrame(() => {
+    document.getElementById(targetId)?.focus();
+  });
+}
+
+/**
+ * Converts a task due date to DD/MM/YYYY for display in edit mode.
+ * @param {Object} task - The task object.
+ * @returns {string} The formatted date string or an empty string.
+ */
+function transformDate(task) {
+  const rawDate = task.due_date;
+  if (!rawDate) return "";
+  if (rawDate.includes("/")) return rawDate;
+  const [year, month, day] = rawDate.split("-");
+  if (!year || !month || !day) return "";
+  return `${day}/${month}/${year}`;
+}
+
+/**
+ * Reads and normalizes the search text from the board input.
+ * @returns {string} The lowercased search query.
+ */
+function getSearchQuery() {
   const input = document.getElementById("searchInput");
-  const filter = input.value.toLowerCase();
-  currentTasks = tasks.filter(
-    (task) =>
-      task.title.toLowerCase().includes(filter) ||
-      task.description.toLowerCase().includes(filter),
-  );
-  updateBoard();
-  const emptyStates = document.querySelectorAll(".empty-state");
-  if (emptyStates) {
-    emptyStates.forEach((state) => {
-      state.textContent = `No tasks found!"`;
-    });
-  }
+  if (!input) return "";
+  return input.value.toLowerCase();
 }
 
-function checkEnter(event, inputId) {
+/**
+ * Filters tasks by title or description using the provided query.
+ * @param {Array} taskList - The source list of tasks.
+ * @param {string} query - The lowercased search query.
+ * @returns {Array} Matching tasks.
+ */
+function filterTasksByQuery(taskList, query) {
+  return taskList.filter(
+    (task) =>
+      task.title.toLowerCase().includes(query) ||
+      task.description.toLowerCase().includes(query),
+  );
+}
+
+/**
+ * Updates all rendered empty-state texts after a search.
+ */
+function updateSearchEmptyStateMessage() {
+  const emptyStates = document.querySelectorAll(".empty-state");
+  if (emptyStates.length === 0) return;
+  emptyStates.forEach((state) => {
+    state.textContent = "No tasks found!";
+  });
+}
+
+/**
+ * Applies the current search query to the board and updates empty-state text.
+ */
+function searchFilter() {
+  const query = getSearchQuery();
+  currentTasks = filterTasksByQuery(tasks, query);
+  updateBoard();
+  updateSearchEmptyStateMessage();
+}
+
+/**
+ * Schedules the search filtering with a short debounce.
+ */
+function scheduleSearchFilter() {
   clearTimeout(tippTimer);
-  tippTimer = setTimeout(searchFilter, 400, inputId);
+  tippTimer = setTimeout(searchFilter, 400);
+}
+
+/**
+ * Handles keyboard interaction for board search.
+ * @param {KeyboardEvent} event - The keyboard event from the input.
+ */
+function checkEnter(event, _inputId) {
+  scheduleSearchFilter();
   if (event.key === "Enter") {
-    searchFilter(inputId);
+    searchFilter();
   }
 }

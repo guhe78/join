@@ -283,6 +283,11 @@
   animation: slideInRight 0.2s ease-out;
 }
 
+.task-modal.is-closing {
+  animation: slideOutRight 0.2s ease-out forwards;
+  pointer-events: none;
+}
+
 .technical-task {
   background-color: var(--technical-task);
 }
@@ -310,5 +315,16 @@
   to {
     transform: translate(-50%, -50%);
     opacity: 1;
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+  to {
+    transform: translate(100%, -50%);
+    opacity: 0;
   }
 }
