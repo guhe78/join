@@ -392,46 +392,265 @@ async function editTask(id, createHandler = createTaskClicked) {
   const content = document.getElementById("dialogContent");
   if (!content) return;
   content.innerHTML = editTaskTemplate(task);
-  selectFocus(task);
+  await initEditTaskForm(task, createHandler);
+}
+
+/**
+ * Reads edited values, patches task in Firebase, syncs arrays, rerenders board and closes dialog.
+ * @param {string} id - The ID of the task being edited.
+ */
+async function saveEditedTask(id) {
+  const task = findTaskById(currentTasks, id);
+  if (!task) return;
+
+  const payload = buildEditedTaskPayload(task);
+  if (!payload) return;
+  try {
+    await updateData("tasks", id, payload);
+    applyEditedTaskToLocalArrays(id, payload);
+    updateBoard();
+    closeTaskDialog();
+  } catch (error) {
+    console.error("Task could not be updated:", error);
+  }
+}
+
+/**
+ * Builds a Firebase patch payload from the current edit form values.
+ * @param {Object} task - The task currently being edited.
+ * @returns {Object|null} The patch payload or null when required fields are missing.
+ */
+function buildEditedTaskPayload(task) {
+  const titleInput = document.getElementById("task-title");
+  const descriptionInput = document.getElementById("desc");
+  const dueDateInput = document.getElementById("due");
+  if (!titleInput || !descriptionInput || !dueDateInput) {
+    return null;
+  }
+  return {
+    title: titleInput.value.trim(),
+    description: descriptionInput.value.trim(),
+    due_date: dueDateInput.value,
+    priority: getSelectedEditPriority(),
+    assigned_to: getSelectedAssignedContactIds(),
+    subtasks: buildEditedSubtasksPayload(task),
+  };
+}
+
+function buildEditedSubtasksPayload(task) {
+  const previousSubtasks = task?.subtasks ? Object.values(task.subtasks) : [];
+  const result = {};
+  subtasks.forEach((subtaskTitle, index) => {
+    const existingSubtask = previousSubtasks.find(s => s.title === subtaskTitle);
+    const subtaskId = existingSubtask?.id || `s${Date.now()}_${index}`;
+    result[subtaskId] = {
+      title: subtaskTitle,
+      is_done: existingSubtask ? existingSubtask.is_done : false
+    };
+  });
+  return result;
+}
+
+/**
+ * Returns the selected priority by reading the selected edit-button class.
+ * @returns {string} Priority value (high, medium, or low).
+ */
+function getSelectedEditPriority() {
+  const priorityButtons = ["high-btn", "medium-btn", "low-btn"];
+  for (let i = 0; i < priorityButtons.length; i++) {
+    const buttonId = priorityButtons[i];
+    const button = document.getElementById(buttonId);
+    if (button?.classList.contains(`${buttonId}-selected`)) {
+      return buttonId.replace("-btn", "");
+    }
+  }
+  return "medium";
+}
+
+/**
+ * Reads selected contacts from edit assigned dropdown and returns IDs for database patching.
+ * @returns {Object} Assigned contact IDs keyed numerically.
+ */
+function getSelectedAssignedContactIds() {
+  const dropdown = getAssignedDropdown();
+  if (!dropdown) return {};
+  const options = dropdown.getElementsByClassName("select-option");
+  const selectedIds = [];
+  for (let i = 0; i < options.length; i++) {
+    const checkbox = options[i].getElementsByTagName("input")[0];
+    const contact = contacts[i];
+    if (checkbox?.checked && contact?.id) {
+      selectedIds.push(contact.id);
+    }
+  }
+  const assignedTo = {};
+  for (let i = 0; i < selectedIds.length; i++) {
+    assignedTo[i] = selectedIds[i];
+  }
+  return assignedTo;
+}
+
+/**
+ * Syncs the edited payload into both task arrays used in board state.
+ * @param {string} id - The edited task ID.
+ * @param {Object} payload - The updated task data.
+ */
+function applyEditedTaskToLocalArrays(id, payload) {
+  applyTaskPatch(currentTasks, id, payload);
+  applyTaskPatch(tasks, id, payload);
+}
+
+/**
+ * Applies a partial patch to a task in the provided list.
+ * @param {Array} taskList - The list containing tasks.
+ * @param {string} id - The edited task ID.
+ * @param {Object} payload - The partial task update.
+ */
+function applyTaskPatch(taskList, id, payload) {
+  const taskIndex = taskList.findIndex((task) => task.id === id);
+  if (taskIndex === -1) return;
+  taskList[taskIndex] = {
+    ...taskList[taskIndex],
+    ...payload,
+  };
+}
+
+/**
+ * Initializes all edit form sections after the dialog markup is rendered.
+ * @param {Object} task - The task currently being edited.
+ * @param {Function} createHandler - The callback used for the submit action.
+ */
+async function initEditTaskForm(task, createHandler) {
+  prioritySelected(task);
+  initEditPriorityButtons();
   await getContacts();
   renderAssignedContacts();
   initAssignedSelect();
-  subtasks = task.subtasks ? Object.values(task.subtasks).map(s => s.title) : [];
-  editSubtaskIndex = -1;
-  initSubtaskSection();
+  preselectAssignedContacts(task);
+  initEditSubtasks(task);
   initActionButtons(createHandler);
   document.onclick = closeAllSelects;
+}
+
+/**
+ * Prepares and renders subtask data for edit mode.
+ * @param {Object} task - The task currently being edited.
+ */
+function initEditSubtasks(task) {
+  subtasks = task.subtasks ? Object.values(task.subtasks).map((s) => s.title) : [];
+  editSubtaskIndex = -1;
+  initSubtaskSection();
+}
+
+/**
+ * Preselects assigned contacts in the edit dropdown based on the task values.
+ * Supports both contact IDs and full names as persisted values.
+ * @param {Object} task - The task currently being edited.
+ */
+function preselectAssignedContacts(task) {
+  const dropdown = getAssignedDropdown();
+  if (!dropdown) return;
+  const assignedValues = getAssignedValues(task);
+  const options = dropdown.getElementsByClassName("select-option");
+  for (let i = 0; i < options.length; i++) {
+    applyAssignedSelection(options[i], contacts[i], assignedValues);
+  }
+  syncAssignedSelectionUi();
+}
+
+/**
+ * Returns the assigned contacts dropdown element from the edit form.
+ * @returns {HTMLElement|null} The dropdown element or null if not found.
+ */
+function getAssignedDropdown() {
+  const assignedSelect = document.getElementById("assignedSelect");
+  if (!assignedSelect) return null;
+  return assignedSelect.getElementsByClassName("select-dropdown")[0];
+}
+
+/**
+ * Builds a set of assigned values from the task payload.
+ * @param {Object} task - The task currently being edited.
+ * @returns {Set<string>} A set of assigned contact IDs.
+ */
+function getAssignedValues(task) {
+  const values = task.assigned_to ? Object.values(task.assigned_to) : [];
+  return new Set(values);
+}
+
+/**
+ * Applies selected state for a single assigned-contact option.
+ * @param {HTMLElement} option - The contact option element.
+ * @param {Object} contact - The contact mapped to the option.
+ * @param {Set<string>} assignedValues - The set of assigned contact IDs.
+ */
+function applyAssignedSelection(option, contact, assignedValues) {
+  const checkbox = option?.getElementsByTagName("input")[0];
+  if (!checkbox || !contact) return;
+  const isSelected = assignedValues.has(contact.id);
+  checkbox.checked = isSelected;
+  option.classList.toggle("active", isSelected);
+}
+
+/**
+ * Refreshes assigned select text and badge preview after selection changes.
+ */
+function syncAssignedSelectionUi() {
+  updateAssignedText();
+  updateAssignedBadges();
 }
 
 /**
  * Moves focus to the priority button that matches the task priority.
  * @param {Object} task - The task currently being edited.
  */
-function selectFocus(task) {
+function prioritySelected(task) {
   const focusTargets = {
-    high: "urgent-btn",
+    high: "high-btn",
     medium: "medium-btn",
     low: "low-btn",
   };
   const targetId = focusTargets[task.priority];
+  Object.values(focusTargets).forEach((id) => {
+    document.getElementById(id)?.classList.remove(`${id}-selected`);
+  });
   if (!targetId) return;
   requestAnimationFrame(() => {
-    document.getElementById(targetId)?.focus();
+    document.getElementById(targetId)?.classList.add(`${targetId}-selected`);
   });
 }
 
 /**
- * Converts a task due date to DD/MM/YYYY for display in edit mode.
- * @param {Object} task - The task object.
- * @returns {string} The formatted date string or an empty string.
+ * Initializes priority button click behavior in the edit dialog.
  */
-function transformDate(task) {
-  const rawDate = task.due_date;
-  if (!rawDate) return "";
-  if (rawDate.includes("/")) return rawDate;
-  const [year, month, day] = rawDate.split("-");
-  if (!year || !month || !day) return "";
-  return `${day}/${month}/${year}`;
+function initEditPriorityButtons() {
+  const priorityButtons = ["high-btn", "medium-btn", "low-btn"];
+  for (let i = 0; i < priorityButtons.length; i++) {
+    const buttonId = priorityButtons[i];
+    const button = document.getElementById(buttonId);
+    if (!button) continue;
+    button.onclick = (event) => {
+      event.preventDefault();
+      setEditPriority(buttonId);
+    };
+  }
+}
+
+/**
+ * Sets selected priority class for edit mode buttons.
+ * @param {string} selectedButtonId - The button ID that should be selected.
+ */
+function setEditPriority(selectedButtonId) {
+  const priorityButtons = ["high-btn", "medium-btn", "low-btn"];
+  for (let i = 0; i < priorityButtons.length; i++) {
+    const buttonId = priorityButtons[i];
+    document
+      .getElementById(buttonId)
+      ?.classList.remove(`${buttonId}-selected`);
+  }
+  document
+    .getElementById(selectedButtonId)
+    ?.classList.add(`${selectedButtonId}-selected`);
 }
 
 /**

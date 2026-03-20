@@ -138,15 +138,13 @@ function editTaskTemplate(task) {
           <div class="edit-container description">
             <label class="detail-label" for="task-desc">Description</label>
             <div class="textarea-container">
-              <div class="area-wrapper">
                 <textarea
-                  id="task-desc"
+                  id="desc"
+                  class="textarea edit-textarea"
+                  rows="5"
                   placeholder="Enter description..."
-                  class="edit-textarea"
-                  rows="4"
+                  maxlength="250"
                 >${task.description}</textarea>
-                <button><img src="../assets/imgs/recurso.svg" alt="recurso icon"></button>
-              </div>
               <p class="feedback-message" id="descriptionFeedback">this field is required</p>
             </div>
           </div>
@@ -154,18 +152,17 @@ function editTaskTemplate(task) {
           <div class="edit-container date">
             <label class="detail-label" for="due-date">Due date</label>
             <div class="date-input-container">  
-            <div class="input-wrapper">
-              <input
-                type="text"
-                id="due-date"
-                value="${transformDate(task)}"
-                placeholder="DD/MM/YYYY"
-              />
-              <button class="calendar-icon">
-                <img src="../assets/imgs/event.png" alt="calender icon" />
-              </button>
-            </div>
-            <p class="feedback-message" id="dueDateFeedback">this field is required</p>
+            <div class="date-input-wrapper">
+                  <input
+                    id="due"
+                    value="${task.due_date}" 
+                    class="input date-input"
+                    type="date"
+                    ondblclick="setTodayDate()"
+                    onkeydown="return false"
+                  />
+                </div>
+            <p class="feedback-message" id="dueDateFeedback" >this field is required</p>
             </div>
           </div>
           </section>
@@ -173,7 +170,7 @@ function editTaskTemplate(task) {
           <div class="edit-container priority">
             <span class="detail-label priority-label">Priority</span>
             <div class="priority-options"> 
-              <button id="urgent-btn" class="urgent-btn">
+              <button id="high-btn" class="high-btn">
                 Urgent
                 <img src="../assets/imgs/prio-high.png" alt="Urgent icon" />
               </button>
@@ -230,7 +227,7 @@ function editTaskTemplate(task) {
 
           <div class="detail-footer">
             <button
-              onclick="#"
+              onclick="saveEditedTask('${task.id}')"
               class="primary-btn edit-button"
             >
               Ok
