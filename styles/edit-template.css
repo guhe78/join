@@ -127,7 +127,7 @@
 .edit-scroll-content {
   min-height: 0;
   overflow-y: auto;
-  padding-right: 8px;
+  padding-right: 10px;
   display: flex;
   flex-direction: column;
   gap: 24px;
