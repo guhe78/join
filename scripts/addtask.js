@@ -220,6 +220,78 @@ async function createTaskClicked() {
     }
 }
 
+function openDueDatePicker() {
+    let datePicker = document.getElementById("duePicker");
+    if (datePicker === null) {
+        return;
+    }
+    if (typeof datePicker.showPicker === "function") {
+        datePicker.showPicker();
+    } else {
+        datePicker.focus();
+        datePicker.click();
+    }
+}
+
+function applyPickedDate() {
+    let dueInput = document.getElementById("due");
+    let datePicker = document.getElementById("duePicker");
+    if (dueInput === null || datePicker === null) {
+        return;
+    }
+    if (datePicker.value === "") {
+        return;
+    }
+    dueInput.value = formatDateToGerman(datePicker.value);
+}
+
+function formatDateToGerman(dateString) {
+    let parts = dateString.split("-");
+    if (parts.length !== 3) {
+        return "";
+    }
+    let year = parts[0];
+    let month = parts[1];
+    let day = parts[2];
+    return day + "/" + month + "/" + year;
+}
+
+function setTodayDate() {
+    let dueInput = document.getElementById("due");
+    if (dueInput === null) {
+        return;
+    }
+    let today = new Date();
+    let day = today.getDate();
+    let month = today.getMonth() + 1;
+    let year = today.getFullYear();
+    if (day < 10) {
+        day = "0" + day;
+    }
+    if (month < 10) {
+        month = "0" + month;
+    }
+    dueInput.value = year + "-" + month + "-" + day;
+}
+
+function setMinDueDate() {
+    let dueInput = document.getElementById("due");
+    if (dueInput === null) {
+        return;
+    }
+    let today = new Date();
+    let day = today.getDate();
+    let month = today.getMonth() + 1;
+    let year = today.getFullYear();
+    if (day < 10) {
+        day = "0" + day;
+    }
+    if (month < 10) {
+        month = "0" + month;
+    }
+    dueInput.min = year + "-" + month + "-" + day;
+}
+
 async function initAddTask(createHandler = createTaskClicked) {
     await getContacts();
     renderAssignedContacts();
@@ -228,5 +300,6 @@ async function initAddTask(createHandler = createTaskClicked) {
     initCategorySelect();
     initSubtaskSection();
     initActionButtons(createHandler);
+    setMinDueDate();
     document.onclick = closeAllSelects;
 }

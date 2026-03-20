@@ -62,6 +62,28 @@
   padding-right: 42px;
 }
 
+.textarea {
+  width: 100%;
+  min-height: 120px;
+  height: 166px;
+  max-width: 100%;
+  resize: vertical;
+  box-sizing: border-box;
+  border: 1px solid #d1d1d1;
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-family: inherit;
+  font-size: 16px;
+  color: #2A3647;
+  background: #fff;
+}
+
+.input:focus,
+.textarea:focus {
+  outline: none;
+  border: 1px solid #29ABE2;
+}
+
 .date-icon-right {
   position: absolute;
   right: 12px;
@@ -448,6 +470,18 @@
   margin-bottom: 6px;
 }
 
+.date-input {
+  position: relative;
+}
+
+.date-input::-webkit-calendar-picker-indicator {
+  background: url("../assets/imgs/event.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  opacity: 1;
+}
+
 .task-toast {
   position: fixed;
   top: 50%;
@@ -499,5 +533,12 @@
 
   .addtask-actions {
     justify-content: flex-end;
+  }
+}
+
+@media (max-width: 850px) {
+  .textarea {
+    height: 160px;
+    min-height: 120px;
   }
 }
