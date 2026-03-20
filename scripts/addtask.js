@@ -256,24 +256,6 @@ function formatDateToGerman(dateString) {
     return day + "/" + month + "/" + year;
 }
 
-function setTodayDate() {
-    let dueInput = document.getElementById("due");
-    if (dueInput === null) {
-        return;
-    }
-    let today = new Date();
-    let day = today.getDate();
-    let month = today.getMonth() + 1;
-    let year = today.getFullYear();
-    if (day < 10) {
-        day = "0" + day;
-    }
-    if (month < 10) {
-        month = "0" + month;
-    }
-    dueInput.value = year + "-" + month + "-" + day;
-}
-
 function setMinDueDate() {
     let dueInput = document.getElementById("due");
     if (dueInput === null) {

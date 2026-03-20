@@ -408,16 +408,20 @@ async function editTask(id, createHandler = createTaskClicked) {
  * @param {Object} task - The task currently being edited.
  */
 function selectFocus(task) {
-  const focusTargets = {
-    high: "urgent-btn",
+  let focusTargets = {
+    urgent: "urgent-btn",
     medium: "medium-btn",
     low: "low-btn",
   };
-  const targetId = focusTargets[task.priority];
-  if (!targetId) return;
-  requestAnimationFrame(() => {
-    document.getElementById(targetId)?.focus();
-  });
+  let targetId = focusTargets[task.priority];
+  if (!targetId) {
+    return;
+  }
+  let targetButton = document.getElementById(targetId);
+  if (!targetButton) {
+    return;
+  }
+  targetButton.focus();
 }
 
 /**

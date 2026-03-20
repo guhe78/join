@@ -159,22 +159,35 @@ function editTaskTemplate(task) {
             </div>
           </div>
 
-          <div class="edit-container priority">
-            <span class="detail-label priority-label">Priority</span>
-            <div class="priority-options"> 
-              <button id="urgent-btn" class="urgent-btn">
-                Urgent
-                <img src="../assets/imgs/prio-high.png" alt="Urgent icon" />
-              </button>
-              <button id="medium-btn" class="medium-btn">
-                Medium
-                <img src="../assets/imgs/prio-medium.png" alt="Medium icon" />
-              </button>
-              <button id="low-btn" class="low-btn">
-                Low <img src="../assets/imgs/prio-low.png" alt="Low icon" />
-              </button>
-            </div>
-          </div>
+          <div class="field">
+  <label class="label">Priority</label>
+
+  <div class="prio-row">
+    <button id="urgent-btn" type="button" class="prio-btn prio-urgent ${getEditPriorityActiveClass(task.priority, 'urgent')}">
+      Urgent
+      <svg class="prio-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M7 14l5-5 5 5" />
+        <path d="M7 19l5-5 5 5" />
+      </svg>
+    </button>
+
+    <button id="medium-btn" type="button" class="prio-btn prio-medium ${getEditPriorityActiveClass(task.priority, 'medium')}">
+      Medium
+      <svg class="prio-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M7 10h10" />
+        <path d="M7 14h10" />
+      </svg>
+    </button>
+
+    <button id="low-btn" type="button" class="prio-btn prio-low ${getEditPriorityActiveClass(task.priority, 'low')}">
+      Low
+      <svg class="prio-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M7 10l5 5 5-5" />
+        <path d="M7 5l5 5 5-5" />
+      </svg>
+    </button>
+  </div>
+</div>
 
           <div class="edit-container date">
             <label class="detail-label" for="assignedSelect">Assigned to</label>
@@ -231,4 +244,11 @@ function editTaskTemplate(task) {
             </button>
           </div>
         </div>`;
+}
+
+function getEditPriorityActiveClass(taskPriority, buttonPriority) {
+  if (taskPriority === buttonPriority) {
+    return "is-active";
+  }
+  return "";
 }
