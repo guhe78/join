@@ -31,12 +31,13 @@ function buildEditSubtaskHTML(index) {
 }
 
 function buildAssignedContactOptionHTML(index) {
-  let initials = getContactInitials(contacts[index]);
-  let fullName = contacts[index].firstName + " " + contacts[index].lastName;
-  let badgeColor = contacts[index].badgeColor;
+    let initials = getContactInitials(contacts[index]);
+    let fullName = contacts[index].firstName + " " + contacts[index].lastName;
+    let badgeColor = contacts[index].badgeColor;
+    let contactId = contacts[index].id;
 
-  return `
-    <div class="select-option">
+    return `
+    <div class="select-option" data-id="${contactId}">
         <div class="contact-info">
             <div class="avatar" style="background:${badgeColor}">${initials}</div>
             <span>${fullName}</span>

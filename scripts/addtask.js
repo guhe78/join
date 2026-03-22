@@ -144,10 +144,12 @@ function createTaskObject(status = "todo") {
     let descInput = document.getElementById("desc");
     let dueInput = document.getElementById("due");
     let catHidden = document.getElementById("catHidden");
+    let categoryValue = catHidden.value;
+    let categoryLabel = getCategoryLabel(categoryValue);
     let task = {
         assigned_to: getAssignedContacts(),
         author_id: "user_1",
-        category: catHidden.value,
+        category: categoryLabel,
         created_at: new Date().toISOString(),
         description: descInput.value,
         due_date: dueInput.value,
@@ -156,8 +158,17 @@ function createTaskObject(status = "todo") {
         subtasks: getSubtasksForFirebase(),
         title: titleInput.value
     };
-
     return task;
+}
+
+function getCategoryLabel(categoryValue) {
+    if (categoryValue === "technical") {
+        return "Technical Task";
+    }
+    if (categoryValue === "userstory") {
+        return "User Story";
+    }
+    return categoryValue;
 }
 
 function getSelectedPriority() {
@@ -165,7 +176,7 @@ function getSelectedPriority() {
     for (let i = 0; i < buttons.length; i++) {
         if (buttons[i].classList.contains("is-active") === true) {
             if (buttons[i].classList.contains("prio-urgent") === true) {
-                return "urgent";
+                return "high";
             }
             if (buttons[i].classList.contains("prio-medium") === true) {
                 return "medium";
@@ -188,9 +199,8 @@ function getAssignedContacts() {
     for (let i = 0; i < options.length; i++) {
         let checkbox = options[i].getElementsByTagName("input")[0];
         if (checkbox.checked === true) {
-            let contactInfo = options[i].getElementsByClassName("contact-info")[0];
-            let nameText = contactInfo.getElementsByTagName("span")[0].textContent;
-            assignedContacts.push(nameText);
+            let contactId = options[i].getAttribute("data-id");
+            assignedContacts.push(contactId);
         }
     }
     return assignedContacts;

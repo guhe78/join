@@ -6,9 +6,8 @@ function toDoTaskTemplate(task) {
             <h3 class="card-title">${task.title}</h3>
             <p class="card-description">${task.description}</p>
 
-            ${
-              task.hasSubtasks
-                ? `
+            ${task.hasSubtasks
+      ? `
                 <div class="progress-container" title="${task.subtaskInfo}">
                     <div class="progress-bar">
                         <div class="progress-fill" style="width: ${task.progressWidth}%"></div>
@@ -16,8 +15,8 @@ function toDoTaskTemplate(task) {
                     <span class="subtask-count">${task.subtaskInfo}</span>
                 </div>
             `
-                : ""
-            }
+      : ""
+    }
 
             <div class="card-footer">
                 <div class="badges">${task.badgesHtml}</div>
@@ -163,7 +162,7 @@ function editTaskTemplate(task) {
   <label class="label">Priority</label>
 
   <div class="prio-row">
-    <button id="urgent-btn" type="button" class="prio-btn prio-urgent ${getEditPriorityActiveClass(task.priority, 'urgent')}">
+    <button id="urgent-btn" type="button" class="prio-btn prio-urgent ${getEditPriorityActiveClass(task.priority, 'high')}">
       Urgent
       <svg class="prio-icon" viewBox="0 0 24 24" aria-hidden="true">
         <path d="M7 14l5-5 5 5" />
@@ -231,10 +230,11 @@ function editTaskTemplate(task) {
           </div>
 
           <div class="detail-footer">
-            <button
-              onclick="#"
-              class="primary-btn edit-button"
-            >
+  <button
+  type="button"
+  onclick="saveEditedTask('${task.id}')"
+  class="primary-btn edit-button"
+>
               Ok
               <img
                 class="check-img"

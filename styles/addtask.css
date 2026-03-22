@@ -62,6 +62,8 @@
   padding-right: 42px;
 }
 
+
+
 .textarea {
   width: 100%;
   min-height: 120px;
@@ -274,8 +276,8 @@
   height: 32px;
   border-radius: 50%;
   color: #fff;
-  font-size: 13px;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 400;
   display: flex;
   align-items: center;
   justify-content: center;
