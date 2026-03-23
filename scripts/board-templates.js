@@ -128,6 +128,7 @@ function editTaskTemplate(task) {
           <div class="edit-container title">
             <label class="detail-label" for="task-title">Title</label>
             <input value="${task.title}" id="task-title" class="edit-input" type="text" required />
+            <input value="${task.title}" id="task-title" class="edit-input" type="text" required />
           </div>
 
           <div class="edit-container description">
@@ -139,6 +140,7 @@ function editTaskTemplate(task) {
                 class="edit-textarea"
                 rows="4"
               >${task.description}</textarea>
+              >${task.description}</textarea>
               <button><img src="../assets/imgs/recurso.svg" alt="recurso icon"></button>
             </div>
           </div>
@@ -149,6 +151,7 @@ function editTaskTemplate(task) {
               <input
                 type="text"
                 id="due-date"
+                value="${transformDate(task)}"
                 value="${transformDate(task)}"
                 placeholder="DD/MM/YYYY"
               />
@@ -197,7 +200,17 @@ function editTaskTemplate(task) {
                 </div>
 
                 <div class="select-dropdown" id="assignedDropdown"></div>
+            <label class="detail-label" for="assignedSelect">Assigned to</label>
+            <div class="custom-select" id="assignedSelect">
+                <div class="select-trigger">
+                  <span class="trigger-text">Select contacts to assign</span>
+                  <img class="trigger-arrow" src="../assets/imgs/arrow_drop_downaa.png" alt="">
+                </div>
+
+                <div class="select-dropdown" id="assignedDropdown"></div>
               </div>
+
+              <div class="assigned-badges" id="assignedBadges"></div>
 
               <div class="assigned-badges" id="assignedBadges"></div>
           </div>
