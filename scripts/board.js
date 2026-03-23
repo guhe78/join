@@ -4,7 +4,6 @@ let currentDraggedElement = null;
 let currentTasks = [];
 let tippTimer;
 const TaskDialogCloseDuration = 200;
-const TaskDialogCloseDuration = 200;
 
 /**
  * Initializes the application by loading contacts and tasks.
@@ -16,7 +15,6 @@ async function init() {
   currentTasks = tasks;
   updateBoard();
 }
-
 
 /**
  * Iterates through all status types and updates the corresponding board columns.
@@ -32,15 +30,12 @@ function updateBoard() {
   }
 }
 
-
 /**
- * Filters tasks for a status and renders the matching column.
  * Filters tasks for a status and renders the matching column.
  * @param {string} status - The status category to filter for.
  * @param {HTMLElement} container - The DOM element representing the column.
  */
 function processColumn(status, container) {
-  const filtered = filterTasksByStatus(currentTasks, status);
   const filtered = filterTasksByStatus(currentTasks, status);
   container.innerHTML = "";
   fillContainer(filtered, container);
@@ -78,7 +73,6 @@ function fillContainer(subset, container) {
   }
 }
 
-
 /**
  * Prepares and formats task data for use in the HTML template.
  * @param {Object} element - The raw task object.
@@ -102,7 +96,6 @@ function prepareTaskData(element) {
   };
 }
 
-
 /**
  * Calculates progress and statistics for subtasks.
  * @param {Object} subtasks - The subtasks object from the task.
@@ -125,7 +118,6 @@ function getSubtaskStats(subtasks) {
   };
 }
 
-
 /**
  * Sets the current dragged element ID.
  * @param {string} id - The ID of the task being dragged.
@@ -138,7 +130,6 @@ function startdragging(id) {
   }
 }
 
-
 /**
  * Removes drag styling from the currently dragged task card.
  */
@@ -149,7 +140,6 @@ function stopDragging(id) {
   }
 }
 
-
 /**
  * Prevents default behavior to allow a drop event.
  * @param {Event} ev - The dragover event.
@@ -157,7 +147,6 @@ function stopDragging(id) {
 function dragover(ev) {
   ev.preventDefault();
 }
-
 
 /**
  * Shows or removes the drag placeholder in a board column.
@@ -173,7 +162,6 @@ function highlight(id, show) {
   }
   removeDragPlaceholder(container);
 }
-
 
 /**
  * Adds a drag placeholder to the column and removes the empty-state element.
@@ -191,7 +179,6 @@ function addDragPlaceholder(container) {
   container.appendChild(placeholder);
 }
 
-
 /**
  * Removes the drag placeholder and restores the empty-state template if needed.
  * @param {HTMLElement} container - The target board column.
@@ -204,7 +191,6 @@ function removeDragPlaceholder(container) {
     container.innerHTML = nothingToDoTemplate();
   }
 }
-
 
 /**
  * Updates the status of the dragged task and refreshes the board.
@@ -220,7 +206,6 @@ async function moveTo(newStatus) {
     updateBoard();
   }
 }
-
 
 /**
  * Generates the HTML for contact badges assigned to a task.
@@ -260,7 +245,6 @@ function addBadgeCount(html, contactIds, limit) {
   }
   return html;
 }
-
 
 /**
  * Finds a task by ID in a given task list.
@@ -303,7 +287,6 @@ function generateDetailedContactsHtml(assignedTo) {
   return html;
 }
 
-
 /**
  * Generates the HTML for subtasks in the task detail view.
  * @param {string} id - The ID of the parent task.
@@ -325,7 +308,6 @@ function generateDetailedSubtasksHtml(id, subtasks) {
   return html;
 }
 
-
 /**
  * Capitalizes the first letter of the task priority.
  * @param {Object} task - The task object.
@@ -335,7 +317,6 @@ function formatPriority(task) {
   return task.priority.charAt(0).toUpperCase() + task.priority.slice(1);
 }
 
-
 /**
  * Reformats the date from YYYY-MM-DD to DD/MM/YYYY.
  * @param {Object} task - The task object.
@@ -344,7 +325,6 @@ function formatPriority(task) {
 function reformatDate(task) {
   return task.due_date.split("-").reverse().join("/");
 }
-
 
 /**
  * Deletes a task from the currentTasks array by its ID and updates the board.
@@ -361,7 +341,6 @@ async function deleteTask(path, id) {
   }
 }
 
-
 /**
  * Toggles the completion status of a subtask and updates the UI.
  * @param {string} id - The ID of the parent task.
@@ -377,7 +356,6 @@ async function toggleSubtask(id, subId) {
   }
 }
 
-
 /**
  * Updates only the subtask checkbox icon in the open detail dialog.
  * @param {string} id - The ID of the parent task.
@@ -392,23 +370,18 @@ function updateSubtaskCheckboxIcon(id, subId, isDone) {
     : "../assets/imgs/checkbox-empty.png";
 }
 
-
 /**
  * Helper function to re-render the detail view content without closing the dialog.
  * @param {string} id - The ID of the task.
  */
 function refreshTaskDetail(id) {
   const task = findTaskById(currentTasks, id);
-  const task = findTaskById(currentTasks, id);
   if (task) {
     const content = document.getElementById("dialogContent");
     if (!content) return;
     renderTaskDetailContent(content, task);
-    if (!content) return;
-    renderTaskDetailContent(content, task);
   }
 }
-
 
 /**
  * Opens the edit view for a task within the existing dialog. --->von renato geändert
@@ -417,7 +390,6 @@ async function editTask(id, createHandler = createTaskClicked) {
   const task = findTaskById(currentTasks, id);
   if (!task) return;
   const content = document.getElementById("dialogContent");
-  if (!content) return;
   if (!content) return;
   content.innerHTML = editTaskTemplate(task);
   selectFocus(task);
@@ -488,8 +460,6 @@ function getSearchQuery() {
 function filterTasksByQuery(taskList, query) {
   return taskList.filter(
     (task) =>
-      task.title.toLowerCase().includes(query) ||
-      task.description.toLowerCase().includes(query),
       task.title.toLowerCase().includes(query) ||
       task.description.toLowerCase().includes(query),
   );
