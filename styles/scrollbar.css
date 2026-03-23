@@ -1,24 +1,4 @@
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--secondary-color);
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--side-bar-privacy-legal);
-  border-radius: 10px;
-  border: 2px solid var(--secondary-color);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--primary-color);
-}
-
 * {
-  scrollbar-width: thin;
-  scrollbar-color: var(--side-bar-privacy-legal) #f1f1f1;
+  scrollbar-width: auto;
+  scrollbar-color: var(--side-bar-privacy-legal) transparent;
 }
