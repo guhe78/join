@@ -242,3 +242,20 @@ body.dialog-open {
   border-color: transparent;
   box-shadow: 0 6px 14px rgba(0,0,0,0.08);
 }
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.date-input-wrapper {
+  position: relative;
+}
+
+.date-input-wrapper img {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}

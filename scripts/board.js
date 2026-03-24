@@ -385,13 +385,15 @@ function refreshTaskDetail(id) {
 
 /**
  * Opens the edit view for a task within the existing dialog. --->von renato geändert
- */ 
+ */
 async function editTask(id, createHandler = createTaskClicked) {
   const task = findTaskById(currentTasks, id);
   if (!task) return;
   const content = document.getElementById("dialogContent");
   if (!content) return;
   content.innerHTML = editTaskTemplate(task);
+  setEditTodayDate();
+  setEditMinDueDate();
   selectFocus(task);
   setEditMinDueDate();
   await getContacts();

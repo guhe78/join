@@ -230,17 +230,16 @@ async function createTaskClicked() {
     }
 }
 
-function openDueDatePicker() {
-    let datePicker = document.getElementById("duePicker");
-    if (datePicker === null) {
+function openDatePicker(inputId) {
+    let input = document.getElementById(inputId);
+    if (input === null) {
         return;
     }
-    if (typeof datePicker.showPicker === "function") {
-        datePicker.showPicker();
-    } else {
-        datePicker.focus();
-        datePicker.click();
+    if (input.showPicker) {
+        input.showPicker();
+        return;
     }
+    input.focus();
 }
 
 function applyPickedDate() {
@@ -284,6 +283,19 @@ function setMinDueDate() {
     dueInput.min = year + "-" + month + "-" + day;
 }
 
+function setTodayDate() {
+    let dueInput = document.getElementById("due");
+    if (dueInput === null) {
+        return;
+    }
+    dueInput.value = getTodayDateValue();
+}
+
+function getTodayDateValue() {
+    let today = new Date();
+    return today.toISOString().split("T")[0];
+}
+
 async function initAddTask(createHandler = createTaskClicked) {
     await getContacts();
     renderAssignedContacts();
@@ -293,5 +305,6 @@ async function initAddTask(createHandler = createTaskClicked) {
     initSubtaskSection();
     initActionButtons(createHandler);
     setMinDueDate();
+    setTodayDate();
     document.onclick = closeAllSelects;
 }

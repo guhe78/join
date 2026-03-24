@@ -146,16 +146,16 @@ function editTaskTemplate(task) {
           <div class="edit-container date">
             <label class="detail-label" for="due-date">Due date</label>
             <div class="input-wrapper">
-              <input
-                type="text"
-                id="due-date"
-                value="${transformDate(task)}"
-                placeholder="DD/MM/YYYY"
-              />
-              <button class="calendar-icon">
-                <img src="../assets/imgs/event.png" alt="calender icon" />
-              </button>
-            </div>
+<div class="date-input-wrapper">
+  <input
+    type="date"
+    id="due-date"
+    value="${task.due_date}"
+    ondblclick="setEditTodayDate()"
+    onkeydown="return false"
+  />
+  <img src="../assets/imgs/event.png" onclick="openDatePicker('due-date')" />
+</div>
           </div>
 
           <div class="field">

@@ -31,12 +31,12 @@ function buildEditSubtaskHTML(index) {
 }
 
 function buildAssignedContactOptionHTML(index) {
-    let initials = getContactInitials(contacts[index]);
-    let fullName = contacts[index].firstName + " " + contacts[index].lastName;
-    let badgeColor = contacts[index].badgeColor;
-    let contactId = contacts[index].id;
+  let initials = getContactInitials(contacts[index]);
+  let fullName = contacts[index].firstName + " " + contacts[index].lastName;
+  let badgeColor = contacts[index].badgeColor;
+  let contactId = contacts[index].id;
 
-    return `
+  return `
     <div class="select-option" data-id="${contactId}">
         <div class="contact-info">
             <div class="avatar" style="background:${badgeColor}">${initials}</div>
@@ -60,7 +60,7 @@ function getContactInitials(contact) {
 }
 
 function addTaskTemplate() {
-    return `
+  return `
       <div class="add-task-modal" onclick="event.stopPropagation()">
         <button
           class="add-task-close-btn"
@@ -106,14 +106,16 @@ function addTaskTemplate() {
                   Due date<span class="req">*</span>
                 </label>
 
-                <div class="date-input-wrapper">
-                  <input
-                    id="due"
-                    class="input date-input"
-                    type="date"
-                    ondblclick="setTodayDate()"
-                    onkeydown="return false"
-                  />
+              <div class="date-input-wrapper">
+              <input
+              id="due"
+              class="input date-input"
+              type="date"
+              ondblclick="setTodayDate()"
+              onkeydown="return false"
+              />
+              <img src="../assets/imgs/event.png" onclick="openDatePicker()" />
+              </div>
                 </div>
                 <p class="error-msg" id="dueError">This field is required</p>
               </div>

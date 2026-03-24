@@ -153,9 +153,10 @@ function clearDescriptionField() {
 
 function clearDueDateField() {
     let dueInput = document.getElementById("due");
-    if (dueInput !== null) {
-        dueInput.value = "";
+    if (dueInput === null) {
+        return;
     }
+    dueInput.value = getTodayDateValue();
 }
 
 function clearPriorityButtons() {
