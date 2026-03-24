@@ -22,7 +22,7 @@ h3 {
 .contacts {
   background-color: #f6f7f8;
   width: 456px;
-  height: 90vh;
+  height: calc(100vh - 96px);
   box-shadow: 4px 0px 4px rgba(0, 0, 0, 0.1);
 
   overflow-y: auto;

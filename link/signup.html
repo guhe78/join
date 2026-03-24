@@ -68,17 +68,22 @@
           <h1>Sign up</h1>
         </div>
 
-        <form id="form-signup">
+        <form id="form-signup" novalidate>
           <div class="input-group">
-            <input type="text" placeholder="Name" id="name-signup" />
+            <input type="text" placeholder="Name" id="name-signup" required />
             <img class="input-icon" src="../assets/imgs/person.png" alt="" />
+            <p class="required-warning" id="warning-name-signup"></p>
           </div>
-
           <div class="input-group">
-            <input type="email" placeholder="Email" id="email-signup" />
+            <input
+              type="email"
+              placeholder="Email"
+              id="email-signup"
+              required
+            />
             <img class="input-icon" src="../assets/imgs/mail.png" alt="" />
+            <p class="required-warning" id="warning-email-signup"></p>
           </div>
-
           <div class="input-group">
             <input
               type="password"
@@ -86,27 +91,34 @@
               id="password-signup"
             />
             <img class="input-icon" src="../assets/imgs/lock.png" alt="" />
+            <p class="required-warning" id="warning-password-signup"></p>
           </div>
-
           <div class="input-group">
             <input
               type="password"
               placeholder="Confirm Password"
               id="password-confirm-signup"
+              required
             />
             <img class="input-icon" src="../assets/imgs/lock.png" alt="" />
+            <p
+              class="required-warning"
+              id="warning-password-confirm-signup"
+            ></p>
           </div>
-
           <div class="checkbox-wrapper">
-            <input type="checkbox" id="privacy-accept" />
+            <input type="checkbox" id="privacy-accept" required />
             <label for="privacy">
               I accept the
               <a class="link-blue" href="./privacy-policy.html"
                 >Privacy Policy</a
               >
             </label>
+            <p
+              class="required-warning checkbox-warning"
+              id="warning-policy-signup"
+            ></p>
           </div>
-
           <div class="button-group center">
             <button
               type="submit"
@@ -118,7 +130,9 @@
           </div>
         </form>
       </div>
-
+      <section class="toast-section" id="toast-section">
+        <p id="toast-message">You signed up succesfully</p>
+      </section>
       <div class="footer-links">
         <a href="./privacy-policy.html">Privacy Policy</a>
         <a href="./legal-notice.html">Legal notice</a>
