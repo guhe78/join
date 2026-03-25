@@ -1,8 +1,9 @@
 .board-section {
+  height: calc(100vh - 96px);
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  margin: 48px;
+  padding: 48px;
 }
 
 .board-header,
@@ -25,7 +26,7 @@
 }
 
 .board-content {
-  margin-top: 32px;
+  padding-top: 32px;
   min-height: 600px;
   display: flex;
 }
@@ -101,11 +102,13 @@
   display: flex;
   flex-direction: column;
   border-radius: 10px;
-  max-height: 550px;
-  flex: 1;
   gap: 16px;
-  padding: 16px;
-  overflow: auto;
+  margin-top: 16px;
+  padding-left: 16px;
+  padding-bottom: 16px;
+  padding-right: 16px;
+  overflow-y: auto;
+  flex-grow: 1;
 }
 
 .column-title {
