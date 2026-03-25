@@ -80,10 +80,10 @@
               Due date<span class="req">*</span>
             </label>
             <div class="date-input-wrapper">
-              <input id="due" class="input date-input" type="date" />
-              <img src="../assets/imgs/event.png" onclick="openDatePicker()" />
+              <input id="due" class="input date-input" type="date" ondblclick="setTodayDate()"
+                onkeydown="return false" />
+              <img src="../assets/imgs/event.png" onclick="openDatePicker('due')" />
             </div>
-
             <p class="error-msg" id="dueError">This field is required</p>
           </div>
 

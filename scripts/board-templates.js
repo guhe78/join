@@ -162,7 +162,7 @@ function editTaskTemplate(task) {
   <label class="label">Priority</label>
 
   <div class="prio-row">
-    <button id="urgent-btn" type="button" class="prio-btn prio-urgent ${getEditPriorityActiveClass(task.priority, 'high')}">
+    <button id="urgent-btn" type="button" class="prio-btn prio-urgent ${getEditPriorityActiveClass(task.priority, 'urgent')}">
       Urgent
       <svg class="prio-icon" viewBox="0 0 24 24" aria-hidden="true">
         <path d="M7 14l5-5 5 5" />

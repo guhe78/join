@@ -1,4 +1,3 @@
-
 function buildNormalSubtaskHTML(index) {
   return `
     <div class="subtask-item">
@@ -106,17 +105,17 @@ function addTaskTemplate() {
                   Due date<span class="req">*</span>
                 </label>
 
-              <div class="date-input-wrapper">
-              <input
-              id="due"
-              class="input date-input"
-              type="date"
-              ondblclick="setTodayDate()"
-              onkeydown="return false"
-              />
-              <img src="../assets/imgs/event.png" onclick="openDatePicker()" />
-              </div>
+                <div class="date-input-wrapper">
+                  <input
+                    id="due"
+                    class="input date-input"
+                    type="date"
+                    ondblclick="setTodayDate()"
+                    onkeydown="return false"
+                  />
+                  <img src="../assets/imgs/event.png" onclick="openDatePicker('due')" />
                 </div>
+
                 <p class="error-msg" id="dueError">This field is required</p>
               </div>
             </div>
