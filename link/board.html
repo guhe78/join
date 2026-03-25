@@ -85,16 +85,23 @@
             </button>
           </div>
           <button class="primary-btn add-task-button" onclick="openAddTaskModal('todo')">
-            Add task<img src="../assets/imgs/add.svg" alt="add new task" />
+            <span>Add task</span><img src="../assets/imgs/add.svg" alt="add new task" />
           </button>
         </div>
       </div>
+      <div class="search-container search-container-mobile">
+            <input type="text" placeholder="Find Task" id="searchInput" onkeyup="checkEnter(event, 'searchInput')"/>
+            <div class="divider"></div>
+            <button  type="submit" onclick="searchFilter()">
+              <img src="../assets/imgs/search.svg" alt="Search" />
+            </button>
+          </div>
       <div class="board-content" id="boardContent">
         <section class="to-do-column">
-          <div class="board-header">
+          <div class="board-header column-header">
             <h2 class="column-title">To Do</h2>
             <button class="add-new-task-button" onclick="openAddTaskModal('todo')">
-              <img src="../assets/imgs/plus button.png" alt="add new task to To Do column" />
+              <img src="../assets/imgs/plus-symbol.svg" alt="add new task to To Do column" />
             </button>
           </div>
           <div id="todo" class="to-do-content" ondrop="moveTo('todo')" ondragleave="highlight('todo', false)"
@@ -108,10 +115,10 @@
           </div>
         </section>
         <section class="in-progress-column">
-          <div class="board-header">
+          <div class="board-header column-header">
             <h2 class="column-title">In Progress</h2>
             <button class="add-new-task-button" onclick="openAddTaskModal('inProgress')">
-              <img src="../assets/imgs/plus button.png" alt="add new task to In Progress column" />
+              <img src="../assets/imgs/plus-symbol.svg" alt="add new task to In Progress column" />
             </button>
           </div>
           <div id="inProgress" class="in-progress-content" ondrop="moveTo('inProgress')"
@@ -121,10 +128,10 @@
               "></div>
         </section>
         <section class="review-column">
-          <div class="board-header">
+          <div class="board-header column-header">
             <h2 class="column-title">Await feedback</h2>
             <button class="add-new-task-button" onclick="openAddTaskModal('review')">
-              <img src="../assets/imgs/plus button.png" alt="add new task to Await feedback column" />
+              <img src="../assets/imgs/plus-symbol.svg" alt="add new task to Await feedback column" />
             </button>
           </div>
           <div id="review" class="review-content" ondrop="moveTo('review')" ondragleave="highlight('review', false)"
@@ -134,7 +141,7 @@
               "></div>
         </section>
         <section class="done-column">
-          <div class="board-header">
+          <div class="board-header column-header">
             <h2 class="column-title">Done</h2>
           </div>
           <div id="done" class="done-content" ondrop="moveTo('done')" ondragleave="highlight('done', false)" ondragover="
