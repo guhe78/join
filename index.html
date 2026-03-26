@@ -50,9 +50,10 @@
     <link rel="stylesheet" href="./styles/login.css" />
 
     <script src="./scripts/login.js" defer></script>
-    <script src="./scripts/auth/auth.js"></script>
-    <script src="./scripts/config.js"></script>
-    <script src="./scripts/services.js"></script>
+    <script src="./scripts/auth/auth.js" defer></script>
+    <script src="./scripts/config.js" defer></script>
+    <script src="./scripts/services.js" defer></script>
+    <script src="./scripts/helpers.js"></script>
   </head>
 
   <body class="has-splash" onload="startSplash()">
@@ -87,17 +88,15 @@
               required
             />
             <img class="input-icon" src="../assets/imgs/lock.png" alt="" />
+            <p class="required-warning login-warning" id="warning-login"></p>
           </div>
-
           <div class="button-group">
             <button type="submit" class="primary-btn" id="login-button">
               Log in
             </button>
-            <a href="./link/summary.html"
-              ><button type="button" class="secondary-btn">
-                Guest Log in
-              </button></a
-            >
+            <button type="button" class="secondary-btn" id="login-guest-button">
+              Guest Log in
+            </button>
           </div>
         </form>
       </div>

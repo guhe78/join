@@ -18,10 +18,6 @@ const DOM = {
   warningMessagePhoneEl: document.getElementById("warning-phone"),
 };
 
-const state = {
-  contacts: [],
-};
-
 const CONTACTS_URL = "../scripts/contacts.json";
 const DEFAULT_BADGE_COLORS = [
   "#ff7a00",
@@ -52,6 +48,7 @@ DOM.closeButtonEl.onclick = closeDialog;
 async function init() {
   await getContacts();
   renderContactsList();
+  getUserData();
 }
 
 async function getContacts() {
@@ -60,11 +57,11 @@ async function getContacts() {
 }
 
 function renderContactsList() {
-  state.contacts.sort((a, b) => a.firstName.localeCompare(b.firstName, "de"));
+  contacts.sort((a, b) => a.firstName.localeCompare(b.firstName, "de"));
   DOM.contactsListEl.innerHTML = "";
   let lastLetter = "";
-  for (let i = 0; i < state.contacts.length; i++) {
-    let contact = state.contacts[i];
+  for (let i = 0; i < contacts.length; i++) {
+    let contact = contacts[i];
     let letter = contact.firstName[0].toUpperCase();
     if (lastLetter != letter) {
       lastLetter = letter;
@@ -171,8 +168,7 @@ async function addContact() {
   };
   const result = await postData("contacts", newContact);
   newContact.firebaseKey = result.name;
-  console.log("Result name: ", result.name);
-  state.contacts.push(newContact);
+  contacts.push(newContact);
   renderContactsList();
   renderContact(findContactIndex(newContact.firebaseKey));
   clearInputs();
@@ -189,16 +185,16 @@ function openEditContact(index) {
   DOM.okButtonEl.onclick = () => saveEditedContact(index);
   DOM.personImageEl.innerHTML = contactBadgeTemplate(index);
   DOM.contactNameEl.value =
-    state.contacts[index].firstName + " " + state.contacts[index].lastName;
-  DOM.contactEmailEl.value = state.contacts[index].email;
-  DOM.contactPhoneEl.value = state.contacts[index].phone;
+    contacts[index].firstName + " " + contacts[index].lastName;
+  DOM.contactEmailEl.value = contacts[index].email;
+  DOM.contactPhoneEl.value = contacts[index].phone;
   openDialog();
 }
 
 async function saveEditedContact(index) {
   const contactNameArray = DOM.contactNameEl.value.split(" ");
   checkInputFields();
-  const contact = state.contacts[index];
+  const contact = contacts[index];
   contact.firstName = contactNameArray.at(0);
   contact.lastName = contactNameArray.at(-1);
   contact.email = DOM.contactEmailEl.value;
@@ -212,9 +208,9 @@ async function saveEditedContact(index) {
 }
 
 async function deleteContact(index) {
-  const contact = state.contacts[index];
-  const result = await deleteData("contacts", contact.firebaseKey);
-  state.contacts.splice(findContactIndex(contact.firebaseKey), 1);
+  const contact = contacts[index];
+  await deleteData("contacts", contact.firebaseKey);
+  contacts.splice(findContactIndex(contact.firebaseKey), 1);
   DOM.contactOverviewEl.innerHTML = "";
   DOM.contactOverviewEl.classList.remove("fade-in");
   renderContactsList();
@@ -268,15 +264,8 @@ function clearInputs() {
   DOM.warningMessagePhoneEl.innerHTML = "";
 }
 
-function makeArray(data) {
-  state.contacts = Object.entries(data).map(([key, value]) => ({
-    firebaseKey: key,
-    ...value,
-  }));
-}
-
 function findContactIndex(firebaseKey) {
-  let index = state.contacts.findIndex(
+  let index = contacts.findIndex(
     (contact) => contact.firebaseKey === firebaseKey,
   );
   return index;
@@ -297,4 +286,16 @@ function getRandom(max) {
 
 function getRandomColor() {
   return DEFAULT_BADGE_COLORS[getRandom(DEFAULT_BADGE_COLORS.length)];
+}
+
+function getUserData() {
+  const userData = localStorage.getItem("joinUser");
+
+  if (userData) {
+    console.log("treffer: ", userData);
+    const data = JSON.parse(userData);
+    console.log(data.firstName + " " + data.lastName);
+  } else {
+    console.log("nix da");
+  }
 }
