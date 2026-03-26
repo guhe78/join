@@ -20,9 +20,6 @@
   <link rel="stylesheet" href="../style.css" />
 
   <link rel="stylesheet" href="../styles/addtask.css" />
-
-
-
 </head>
 
 <body onload="initAddTask()">
@@ -70,24 +67,23 @@
               Title<span class="req">*</span>
             </label>
 
-            <input id="title" class="input" type="text" placeholder="Enter a title" />
+            <input id="title" class="input" type="text" placeholder="Enter a title" maxlength="20">
             <p class="error-msg" id="titleError">This field is required</p>
           </div>
 
           <div class="field">
             <label class="label" for="desc">Description</label>
-            <textarea id="desc" class="textarea" rows="5"
-              placeholder="Create a contact form and imprint page !"></textarea>
+            <textarea id="desc" class="textarea" rows="5" placeholder=" Enter a Description" maxlength="250"></textarea>
           </div>
 
           <div class="field">
             <label class="label" for="due">
               Due date<span class="req">*</span>
             </label>
-
             <div class="date-input-wrapper">
-              <input id="due" class="input" type="text" placeholder="dd/mm/yyyy" ondblclick="setTodayDate()" />
-              <img class="date-icon-right" src="../assets/imgs/event.png" alt="calendar" />
+              <input id="due" class="input date-input" type="date" ondblclick="setTodayDate()"
+                onkeydown="return false" />
+              <img src="../assets/imgs/event.png" onclick="openDatePicker('due')" />
             </div>
             <p class="error-msg" id="dueError">This field is required</p>
           </div>
@@ -107,7 +103,7 @@
               </svg>
             </button>
 
-            <button type="button" class="prio-btn prio-medium">
+            <button type="button" class="prio-btn prio-medium is-active">
               Medium
               <svg class="prio-icon" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M7 10h10" />
@@ -213,11 +209,11 @@
     <span>Task added to board</span>
     <img src="../assets/imgs/board.png" alt="board">
   </div>
-<script src="../scripts/config.js"></script>
-<script src="../scripts/services.js"></script>
-<script src="../scripts/addtask-template.js"></script>
-<script src="../scripts/addtask-dom.js"></script>
-<script src="../scripts/addtask.js"></script>
+  <script src="../scripts/config.js"></script>
+  <script src="../scripts/services.js"></script>
+  <script src="../scripts/addtask-template.js"></script>
+  <script src="../scripts/addtask-dom.js"></script>
+  <script src="../scripts/addtask.js"></script>
 </body>
 
 </html>

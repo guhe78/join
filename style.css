@@ -107,6 +107,7 @@ header {
 /* =========================================
    4. HEADER COMPONENTS & BUTTONS
    ========================================= */
+
    
 .header-nav {
     display: flex;
@@ -116,14 +117,29 @@ header {
     gap: 16px;
 }
 
+
 .headline {
     font-size: 16px;
     padding-left: 64px;
 }
 
+
 .help-button {
     padding: 6px;
 }
+
+
+.profil-button {
+    width: 56px;
+    height: 56px;
+    border: solid 3px var(--primary-color);
+    border-radius: 50%;
+    color: var(--greeting-name-and-hover);
+    font-weight: bold;
+    font-size: 16px;
+}
+
+
 
 /* =========================================
    5. OTHER UTILITIES / CONTENT
