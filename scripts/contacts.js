@@ -273,7 +273,7 @@ function findContactIndex(firebaseKey) {
 }
 
 function findContactIndex(firebaseKey) {
-  let index = state.contacts.findIndex(
+  let index = contacts.findIndex(
     (contact) => contact.firebaseKey === firebaseKey,
   );
   return index;
