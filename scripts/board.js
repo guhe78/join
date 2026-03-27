@@ -20,6 +20,28 @@ async function init() {
 }
 
 /**
+ * Loads contacts from Firebase and stores them in the global contacts array.
+ * @returns {Promise<void>} Resolves when contacts have been loaded and mapped.
+ */
+async function getContactsBoard() {
+  const contactsResponse = await getData("contacts");
+  if (contactsResponse) {
+    contacts = makeArray(contactsResponse);
+  }
+}
+
+/**
+ * Loads tasks from Firebase and stores them in the global tasks array.
+ * @returns {Promise<void>} Resolves when tasks have been loaded and mapped.
+ */
+async function getTasksBoard() {
+  const tasksResponse = await getData("tasks");
+  if (tasksResponse) {
+    tasks = makeArray(tasksResponse);
+  }
+}
+
+/**
  * Iterates through all status types and updates the corresponding board columns.
  */
 function updateBoard() {
@@ -443,8 +465,8 @@ function refreshTaskDetail(firebaseKey) {
 /**
  * Opens the edit view for a task within the existing dialog. --->von renato geändert
  */
-async function editTask(id, createHandler = createTaskClicked) {
-  const task = findTaskById(currentTasks, id);
+async function editTask(firebaseKey, createHandler = createTaskClicked) {
+  const task = findTaskById(currentTasks, firebaseKey);
   if (!task) return;
   const content = document.getElementById("dialogContent");
   if (!content) return;
