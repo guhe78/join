@@ -10,10 +10,32 @@ const TaskDialogCloseDuration = 200;
  * Updates the board with the loaded data afterwards.
  */
 async function init() {
-  await getContacts();
-  await getTasks();
+  await getContactsBoard();
+  await getTasksBoard();
   currentTasks = tasks;
   updateBoard();
+}
+
+/**
+ * Loads contacts from Firebase and stores them in the global contacts array.
+ * @returns {Promise<void>} Resolves when contacts have been loaded and mapped.
+ */
+async function getContactsBoard() {
+  const contactsResponse = await getData("contacts");
+  if (contactsResponse) {
+    contacts = makeArray(contactsResponse);
+  }
+}
+
+/**
+ * Loads tasks from Firebase and stores them in the global tasks array.
+ * @returns {Promise<void>} Resolves when tasks have been loaded and mapped.
+ */
+async function getTasksBoard() {
+  const tasksResponse = await getData("tasks");
+  if (tasksResponse) {
+    tasks = makeArray(tasksResponse);
+  }
 }
 
 /**
@@ -83,7 +105,7 @@ function prepareTaskData(element) {
   const categoryClass = element.category.toLowerCase().replace(/\s+/g, "-");
   const badges = generateBadgeHtml(element.assigned_to);
   return {
-    id: element.id,
+    firebaseKey: element.firebaseKey,
     title: element.title,
     description: element.description,
     category: element.category,
@@ -120,11 +142,11 @@ function getSubtaskStats(subtasks) {
 
 /**
  * Sets the current dragged element ID.
- * @param {string} id - The ID of the task being dragged.
+ * @param {string} firebaseKey - The ID of the task being dragged.
  */
-function startdragging(id) {
-  currentDraggedElement = id;
-  const card = document.querySelector(`.card[data-id="${id}"]`);
+function startdragging(firebaseKey) {
+  currentDraggedElement = firebaseKey;
+  const card = document.querySelector(`.card[data-id="${firebaseKey}"]`);
   if (card) {
     card.classList.add("is-dragging");
   }
@@ -133,8 +155,8 @@ function startdragging(id) {
 /**
  * Removes drag styling from the currently dragged task card.
  */
-function stopDragging(id) {
-  const draggedCard = document.querySelector(`.card[data-id="${id}"]`);
+function stopDragging(firebaseKey) {
+  const draggedCard = document.querySelector(`.card[data-id="${firebaseKey}"]`);
   if (draggedCard) {
     draggedCard.classList.remove("is-dragging");
   }
@@ -150,11 +172,11 @@ function dragover(ev) {
 
 /**
  * Shows or removes the drag placeholder in a board column.
- * @param {string} id - The ID of the target column element.
+ * @param {string} firebaseKey - The ID of the target column element.
  * @param {boolean} show - Whether the placeholder should be visible.
  */
-function highlight(id, show) {
-  const container = document.getElementById(id);
+function highlight(firebaseKey, show) {
+  const container = document.getElementById(firebaseKey);
   if (!container) return;
   if (show) {
     addDragPlaceholder(container);
@@ -197,12 +219,12 @@ function removeDragPlaceholder(container) {
  * @param {string} newStatus - The new status to assign to the task.
  */
 async function moveTo(newStatus) {
-  const index = currentTasks.findIndex((t) => t.id === currentDraggedElement);
+  const index = currentTasks.findIndex((t) => t.firebaseKey === currentDraggedElement);
   if (index !== -1) {
     const movedTask = currentTasks.splice(index, 1)[0];
     movedTask.status = newStatus;
     currentTasks.push(movedTask);
-    await updateData("tasks", movedTask.id, { status: newStatus });
+    await updateData("tasks", movedTask.firebaseKey, { status: newStatus });
     updateBoard();
   }
 }
@@ -218,8 +240,8 @@ function generateBadgeHtml(assignedTo) {
   const contactIds = Object.values(assignedTo);
   const limit = 3;
   const displayIds = contactIds.slice(0, limit);
-  for (const id of displayIds) {
-    const contact = contacts.find((c) => c.id === id);
+  for (const firebaseKey of displayIds) {
+    const contact = contacts.find((c) => c.firebaseKey === firebaseKey);
     if (contact) {
       const initials = (
         contact.firstName[0] + contact.lastName[0]
@@ -249,11 +271,11 @@ function addBadgeCount(html, contactIds, limit) {
 /**
  * Finds a task by ID in a given task list.
  * @param {Array} taskList - The source list of tasks.
- * @param {string} id - The ID of the task to find.
+ * @param {string} firebaseKey - The ID of the task to find.
  * @returns {Object|undefined} The matched task or undefined.
  */
-function findTaskById(taskList, id) {
-  return taskList.find((task) => task.id === id);
+function findTaskById(taskList, firebaseKey) {
+  return taskList.find((task) => task.firebaseKey === firebaseKey);
 }
 
 /**
@@ -275,8 +297,8 @@ function generateDetailedContactsHtml(assignedTo) {
   if (!assignedTo) return "";
   let html = "";
   const contactIds = Object.values(assignedTo);
-  for (const id of contactIds) {
-    const contact = contacts.find((c) => c.id === id);
+  for (const firebaseKey of contactIds) {
+    const contact = contacts.find((c) => c.firebaseKey === firebaseKey);
     if (contact) {
       const initials = (
         contact.firstName[0] + contact.lastName[0]
@@ -289,11 +311,11 @@ function generateDetailedContactsHtml(assignedTo) {
 
 /**
  * Generates the HTML for subtasks in the task detail view.
- * @param {string} id - The ID of the parent task.
+ * @param {string} firebaseKey - The ID of the parent task.
  * @param {Object} subtasks - The subtasks object.
  * @returns {string} Combined HTML string for the subtask list.
  */
-function generateDetailedSubtasksHtml(id, subtasks) {
+function generateDetailedSubtasksHtml(firebaseKey, subtasks) {
   const subtaskArray = subtasks ? Object.entries(subtasks) : [];
   if (subtaskArray.length === 0) {
     return noSubtasksTemplate();
@@ -303,7 +325,7 @@ function generateDetailedSubtasksHtml(id, subtasks) {
     const checkImg = sub.is_done
       ? "../assets/imgs/checkbox-checked.png"
       : "../assets/imgs/checkbox-empty.png";
-    html += subtaskItemTemplate(id, subId, checkImg, sub);
+    html += subtaskItemTemplate(firebaseKey, subId, checkImg, sub);
   }
   return html;
 }
@@ -329,12 +351,12 @@ function reformatDate(task) {
 /**
  * Deletes a task from the currentTasks array by its ID and updates the board.
  * @param {string} path - The collection path in Firebase.
- * @param {string} id - The ID of the task to be deleted.
+ * @param {string} firebaseKey - The ID of the task to be deleted.
  */
-async function deleteTask(path, id) {
-  const index = currentTasks.findIndex((t) => t.id === id);
+async function deleteTask(path, firebaseKey) {
+  const index = currentTasks.findIndex((t) => t.firebaseKey === firebaseKey);
   if (index !== -1) {
-    await deleteData(path, id);
+    await deleteData(path, firebaseKey);
     currentTasks.splice(index, 1);
     closeTaskDialog();
     updateBoard();
@@ -343,27 +365,27 @@ async function deleteTask(path, id) {
 
 /**
  * Toggles the completion status of a subtask and updates the UI.
- * @param {string} id - The ID of the parent task.
+ * @param {string} firebaseKey - The ID of the parent task.
  * @param {string} subId - The ID of the subtask to toggle.
  */
-async function toggleSubtask(id, subId) {
-  const task = currentTasks.find((t) => t.id === id);
+async function toggleSubtask(firebaseKey, subId) {
+  const task = currentTasks.find((t) => t.firebaseKey === firebaseKey);
   if (task && task.subtasks && task.subtasks[subId]) {
     task.subtasks[subId].is_done = !task.subtasks[subId].is_done;
-    updateSubtaskCheckboxIcon(id, subId, task.subtasks[subId].is_done);
-    await updateData("tasks", task.id, { subtasks: task.subtasks });
+    updateSubtaskCheckboxIcon(firebaseKey, subId, task.subtasks[subId].is_done);
+    await updateData("tasks", task.firebaseKey, { subtasks: task.subtasks });
     updateBoard();
   }
 }
 
 /**
  * Updates only the subtask checkbox icon in the open detail dialog.
- * @param {string} id - The ID of the parent task.
+ * @param {string} firebaseKey - The ID of the parent task.
  * @param {string} subId - The ID of the subtask.
  * @param {boolean} isDone - The completion status of the subtask.
  */
-function updateSubtaskCheckboxIcon(id, subId, isDone) {
-  const icon = document.getElementById(`subtask-checkbox-icon-${id}-${subId}`);
+function updateSubtaskCheckboxIcon(firebaseKey, subId, isDone) {
+  const icon = document.getElementById(`subtask-checkbox-icon-${firebaseKey}-${subId}`);
   if (!icon) return;
   icon.src = isDone
     ? "../assets/imgs/checkbox-checked.png"
@@ -372,10 +394,10 @@ function updateSubtaskCheckboxIcon(id, subId, isDone) {
 
 /**
  * Helper function to re-render the detail view content without closing the dialog.
- * @param {string} id - The ID of the task.
+ * @param {string} firebaseKey - The ID of the task.
  */
-function refreshTaskDetail(id) {
-  const task = findTaskById(currentTasks, id);
+function refreshTaskDetail(firebaseKey) {
+  const task = findTaskById(currentTasks, firebaseKey);
   if (task) {
     const content = document.getElementById("dialogContent");
     if (!content) return;
@@ -386,8 +408,8 @@ function refreshTaskDetail(id) {
 /**
  * Opens the edit view for a task within the existing dialog. --->von renato geändert
  */
-async function editTask(id, createHandler = createTaskClicked) {
-  const task = findTaskById(currentTasks, id);
+async function editTask(firebaseKey, createHandler = createTaskClicked) {
+  const task = findTaskById(currentTasks, firebaseKey);
   if (!task) return;
   const content = document.getElementById("dialogContent");
   if (!content) return;

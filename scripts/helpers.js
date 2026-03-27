@@ -5,3 +5,16 @@ function makeArray(data) {
   }));
   return array;
 }
+
+function getPriorityIcon(priority) {
+  switch (priority) {
+    case "low":
+      return priorityLowIcon();
+    case "medium":
+      return priorityMediumIcon();
+    case "urgent":
+      return priorityUrgentIcon();
+    default:
+      return "";
+  }
+}

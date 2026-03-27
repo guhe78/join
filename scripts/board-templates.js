@@ -1,6 +1,6 @@
 function toDoTaskTemplate(task) {
   return `
-        <div class="card" onclick="openTaskDetail('${task.id}')" draggable="true" ondragstart="startdragging('${task.id}')" ondragend="stopDragging('${task.id}')" data-id="${task.id}">
+        <div class="card" onclick="openTaskDetail('${task.firebaseKey}')" draggable="true" ondragstart="startdragging('${task.firebaseKey}')" ondragend="stopDragging('${task.firebaseKey}')" data-id="${task.firebaseKey}">
             <span class="task-badge ${task.categoryClass}">${task.category}</span>
 
             <h3 class="card-title">${task.title}</h3>
@@ -21,8 +21,8 @@ function toDoTaskTemplate(task) {
             <div class="card-footer">
                 <div class="badges">${task.badgesHtml}</div>
                 <div class="priority-icon ${task.priority}">
-                    <img src="../assets/imgs/prio-${task.priority}.png" alt="priority ${task.priority}">
-                </div>
+                        ${getPriorityIcon(task.priority)}
+                    </div>
             </div>
         </div>`;
 }
@@ -75,18 +75,18 @@ function dialogTemplate(task, categoryClass) {
           <div class="detail-subtasks-section">
             <span class="detail-label">Subtasks</span>
             <div class="detail-subtasks-list">
-              ${generateDetailedSubtasksHtml(task.id, task.subtasks)}
+              ${generateDetailedSubtasksHtml(task.firebaseKey, task.subtasks)}
             </div>
           </div>
 
           </div>
 
           <div class="detail-footer">
-            <button onclick="deleteTask('tasks', '${task.id}'), closeTaskDialog()" class="action-btn">
+            <button onclick="deleteTask('tasks', '${task.firebaseKey}'), closeTaskDialog()" class="action-btn">
               <img src="../assets/imgs/delete.png" /> Delete
             </button>
             <div class="footer-divider"></div>
-            <button onclick="editTask('${task.id}')" class="action-btn">
+            <button onclick="editTask('${task.firebaseKey}')" class="action-btn">
               <img src="../assets/imgs/edit.png" /> Edit
             </button>
           </div>
@@ -100,11 +100,11 @@ function contactTemplate(contact, initials) {
                 </div>`;
 }
 
-function subtaskItemTemplate(id, subId, checkImg, sub) {
+function subtaskItemTemplate(firebaseKey, subId, checkImg, sub) {
   return `
             <div class="detail-subtask-item">
-        <button class="subtask-checkbox" id="subtask-checkbox-${id}-${subId}" onclick="toggleSubtask('${id}', '${subId}')">
-          <img id="subtask-checkbox-icon-${id}-${subId}" src="${checkImg}" alt="Subtask status">
+        <button class="subtask-checkbox" id="subtask-checkbox-${firebaseKey}-${subId}" onclick="toggleSubtask('${firebaseKey}', '${subId}')">
+          <img id="subtask-checkbox-icon-${firebaseKey}-${subId}" src="${checkImg}" alt="Subtask status">
                 </button>
                 <span>${sub.title}</span>
             </div>`;
@@ -233,7 +233,7 @@ function editTaskTemplate(task) {
 
           <div class="detail-footer">
             <button
-              onclick="saveEditedTask('${task.id}')"
+              onclick="saveEditedTask('${task.firebaseKey}')"
               class="primary-btn edit-button"
             >
               Ok
