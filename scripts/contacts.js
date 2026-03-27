@@ -16,6 +16,7 @@ const DOM = {
   warningMessageNameEl: document.getElementById("warning-name"),
   warningMessageEmailEl: document.getElementById("warning-email"),
   warningMessagePhoneEl: document.getElementById("warning-phone"),
+  userButton: document.getElementById("user-button"),
 };
 
 const CONTACTS_URL = "../scripts/contacts.json";
@@ -48,7 +49,7 @@ DOM.closeButtonEl.onclick = closeDialog;
 async function init() {
   await getContacts();
   renderContactsList();
-  getUserData();
+  DOM.userButton.innerHTML = getUserData();
 }
 
 async function getContacts() {
@@ -292,10 +293,9 @@ function getUserData() {
   const userData = localStorage.getItem("joinUser");
 
   if (userData) {
-    console.log("treffer: ", userData);
     const data = JSON.parse(userData);
-    console.log(data.firstName + " " + data.lastName);
+    return data.firstName[0].toUpperCase() + data.lastName[0].toUpperCase();
   } else {
-    console.log("nix da");
+    return "G";
   }
 }

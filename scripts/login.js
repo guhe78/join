@@ -41,7 +41,7 @@ async function userLogin(event) {
   }
   persistUser(user);
   console.log("userLogin erfolgreich: ", user);
-  //window.location.href = "./link/summary.html";
+  window.location.href = "./link/summary.html";
 }
 
 function getLoginInput() {
@@ -49,4 +49,10 @@ function getLoginInput() {
     userEmail: DOM.emailLoginEl.value,
     userPassword: DOM.passwordLoginEl.value,
   };
+}
+
+function clearInputs() {
+  DOM.emailLoginEl.value = "";
+  DOM.passwordLoginEl.value = "";
+  DOM.warningMessageLoginEl.innerHTML = "";
 }
