@@ -22,7 +22,8 @@ h3 {
 .contacts {
   background-color: #f6f7f8;
   width: 456px;
-  height: 90vh;
+  height: calc(100vh - 96px);
+  box-shadow: 4px 0px 4px rgba(0, 0, 0, 0.1);
 
   overflow-y: auto;
 }
@@ -253,6 +254,13 @@ dialog::backdrop {
   margin: -40px;
 }
 
+.required-warning {
+  position: absolute;
+  margin-top: 70px;
+  color: red;
+  font-size: 14px;
+}
+
 .input-buttons {
   display: flex;
   gap: 24px;
@@ -335,6 +343,14 @@ dialog::backdrop {
   gap: 22px;
 }
 
+.contact-detail-data .email {
+  color: #007cee;
+}
+
+.contact-detail-data .email:hover {
+  text-decoration: underline;
+}
+
 .font-size-20 {
   font-size: 20px;
 }
@@ -343,7 +359,8 @@ dialog::backdrop {
   font-weight: bold;
 }
 
-.contact-overview {
+.contact-overview,
+.toast-section {
   transform: translateX(100vw);
   opacity: 0;
   transition:
@@ -354,4 +371,21 @@ dialog::backdrop {
 .fade-in {
   transform: translateX(0);
   opacity: 1;
+}
+
+.show {
+  display: inline;
+}
+
+.toast-section {
+  background-color: var(--primary-color);
+  width: 326px;
+  height: 74px;
+  border-radius: 20px;
+  margin-top: 100px;
+  margin-left: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
 }

@@ -3,228 +3,220 @@
    1. GLOBAL STYLES & RESET
    ========================================= */
 body {
-    height: 100vh;
-    max-width: 1440px;
-    margin: auto;
-    font-family: 'Inter Variable', sans-serif;
-    background-color: var(--secondary-color);
-    display: flex;
+  height: 100vh;
+  max-width: 1440px;
+  margin: 0 auto;
+  font-family: "Inter Variable", sans-serif;
+  background-color: var(--secondary-color);
+  display: flex;
 }
 
 /* =========================================
    2. MAIN LAYOUT STRUCTURE
    ========================================= */
 aside {
-    width: 232px;
-    flex-shrink: 0;
-    background-color: var(--primary-color);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  width: 232px;
+  flex-shrink: 0;
+  background-color: var(--primary-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 main {
-    flex-grow: 1;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
+  flex-grow: 1;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 header {
-    height: 96px;
-    width: 100%;
-    background-color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
-
+  height: 96px;
+  width: 100%;
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
 }
 
 /* =========================================
    3. NAVIGATION & SIDEBAR COMPONENTS
    ========================================= */
 .logo {
-    padding-top: 64px;
-    padding-bottom: 64px;
-    width: 100px;
+  padding-top: 64px;
+  padding-bottom: 64px;
+  width: 100px;
 }
 
 .logo-mobile {
-    display: none;
-    width: 32px;
+  display: none;
+  width: 32px;
 }
 
 .side-nav {
-    width: 100%;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding-top: 64px;
+  width: 100%;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: 64px;
 }
 
 .side-nav a {
-    display: flex;
-    align-items: center;
-    color: #7b818a;
-    padding: 8px 56px;
-    gap: 8px;
+  display: flex;
+  align-items: center;
+  color: #7b818a;
+  padding: 8px 56px;
+  gap: 8px;
 }
 
 .police-links-container {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-top: 32px;
-    margin-bottom: 64px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 32px;
+  margin-bottom: 64px;
 }
 
 .page-link-button {
-    transition: 0.2s ease;
+  transition: 0.2s ease;
 }
 
 .page-link-button:hover {
-    background-color: var(--sidebar-bg-hover);
-    color: white;
+  background-color: var(--sidebar-bg-hover);
+  color: white;
 }
 
 .police-links-container a {
-    color: var(--side-bar-privacy-legal);
-    text-decoration: none;
-    font-size: 14px;
-    padding: 8px 56px;
-    transition: transform 0.2s ease-in-out;
-    transform-origin: center;
+  color: var(--side-bar-privacy-legal);
+  text-decoration: none;
+  font-size: 14px;
+  padding: 8px 56px;
+  transition: transform 0.2s ease-in-out;
+  transform-origin: center;
 }
 
 .police-links-container a:hover {
-    color: var(--greeting-name-and-hover);
-    transform: scale(1.05);
+  color: var(--greeting-name-and-hover);
+  transform: scale(1.05);
 }
 
 /* =========================================
    4. HEADER COMPONENTS & BUTTONS
    ========================================= */
 
-   
 .header-nav {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 32px;
-    gap: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 32px;
+  gap: 16px;
 }
-
 
 .headline {
-    font-size: 16px;
-    padding-left: 64px;
+  font-size: 16px;
+  padding-left: 64px;
 }
-
 
 .help-button {
-    padding: 6px;
+  padding: 6px;
 }
-
 
 .profil-button {
-    width: 56px;
-    height: 56px;
-    border: solid 3px var(--primary-color);
-    border-radius: 50%;
-    color: var(--greeting-name-and-hover);
-    font-weight: bold;
-    font-size: 16px;
+  width: 56px;
+  height: 56px;
+  border: solid 3px var(--primary-color);
+  border-radius: 50%;
+  color: var(--greeting-name-and-hover);
+  font-weight: bold;
+  font-size: 16px;
 }
-
-
 
 /* =========================================
    5. OTHER UTILITIES / CONTENT
    ========================================= */
 
-   
 /*#endregion*/
 
 @media (max-width: 1440px) {
-    header {
-        height: 80px;
-    }
+  header {
+    height: 80px;
+  }
 
-    .header-nav {
-        margin-right: 20px;
-    }
+  .header-nav {
+    margin-right: 20px;
+  }
 
-    .logo-mobile {
-        display: block;
-        margin-left: 20px;
-    }
+  .logo-mobile {
+    display: block;
+    margin-left: 20px;
+  }
 
-    .headline {
-        display: none;
-    }
+  .headline {
+    display: none;
+  }
 
-    .help-button {
-        display: none;
-    }
+  .help-button {
+    display: none;
+  }
 
-    body  {
-        flex-direction: column-reverse;
-    }
+  body {
+    flex-direction: column-reverse;
+  }
 
-    aside {
-        width: 100%;
-        height: 80px;
-        flex-direction: row;
-        justify-content: space-between;
-    }
+  aside {
+    width: 100%;
+    height: 80px;
+    flex-direction: row;
+    justify-content: space-between;
+  }
 
-    .logo {
-        display: none;
-    }
+  .logo {
+    display: none;
+  }
 
-    .page-links {
-        width: 100%;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-    }
-    .page-link-button {
-        height: 76px;
-        width: 80px;
-        border-radius: 16px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-    }
+  .page-links {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .page-link-button {
+    height: 76px;
+    width: 80px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
 
-    .page-link-button img {
-        width: 24px;
-        height: 24px;
-    }
+  .page-link-button img {
+    width: 24px;
+    height: 24px;
+  }
 
-    .page-link-button:hover {
+  .page-link-button:hover {
     background-color: #091930;
     color: white;
-}
+  }
 
-    .side-nav {
-        flex-direction: row;
-        padding-top: 0;
-        gap: 16px;
-        justify-content: center;
-        align-items: center;
-    }
+  .side-nav {
+    flex-direction: row;
+    padding-top: 0;
+    gap: 16px;
+    justify-content: center;
+    align-items: center;
+  }
 
-    .side-nav a {
-        padding: 0;
-        gap: 0;
-    }
+  .side-nav a {
+    padding: 0;
+    gap: 0;
+  }
 
-    .police-links-container {
-        display: none;
-    }
+  .police-links-container {
+    display: none;
+  }
 }

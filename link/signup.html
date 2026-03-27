@@ -1,83 +1,142 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Join</title>
 
-    <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon/favicon-16x16.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="../assets/favicon/android-chrome-192x192.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="../assets/favicon/android-chrome-512x512.png">
-    <link rel="apple-touch-icon" size="180x180" href="../assets/favicon/apple-touch-icon.png">
-    <link rel="shortcut icon" sizes="any" href="../assets/favicon/favicon.ico" type="image/x-icon">
-    <link rel="manifest" href="../assets/favicon/site.webmanifest">
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="../assets/favicon/favicon-16x16.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="../assets/favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="../assets/favicon/android-chrome-192x192.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="512x512"
+      href="../assets/favicon/android-chrome-512x512.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      size="180x180"
+      href="../assets/favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="shortcut icon"
+      sizes="any"
+      href="../assets/favicon/favicon.ico"
+      type="image/x-icon"
+    />
+    <link rel="manifest" href="../assets/favicon/site.webmanifest" />
 
-    <link rel="stylesheet" href="../styles/standard.css">
-    <link rel="stylesheet" href="../styles/variables.css">
-    <link rel="stylesheet" href="../styles/font.css">
-    <link rel="stylesheet" href="../style.css">
-
-    <link rel="stylesheet" href="../styles/login.css">
-
-</head>
-
-<body onload="initSignup()">
-    <div class="login-wrapper">
-        <img class="login-logo" src="../assets/imgs/join-logo.png" alt="Join Logo">
-        <div class="login-card">
-            <a class="back-btn" href="../index.html">
-                <img src="../assets/imgs/arrow-left-line.png" alt="Back">
-            </a>
-            <div class="signup-header">
-                <h1>Sign up</h1>
-            </div>
-
-            <form>
-                <div class="input-group">
-                    <input type="text" placeholder="Name">
-                    <img class="input-icon" src="../assets/imgs/person.png" alt="">
-                </div>
-
-                <div class="input-group">
-                    <input type="email" placeholder="Email">
-                    <img class="input-icon" src="../assets/imgs/mail.png" alt="">
-                </div>
-
-                <div class="input-group">
-                    <input type="password" placeholder="Password">
-                    <img class="input-icon" src="../assets/imgs/lock.png" alt="">
-                </div>
-
-                <div class="input-group">
-                    <input type="password" placeholder="Confirm Password">
-                    <img class="input-icon" src="../assets/imgs/lock.png" alt="">
-                </div>
-
-                <div class="checkbox-wrapper">
-                    <input type="checkbox" id="privacy">
-                    <label for="privacy">
-                        I accept the <a class="link-blue" href="./privacy-policy.html">Privacy Policy</a>
-                    </label>
-                </div>
-
-                <div class="button-group center">
-                    <button class="primary-btn signup-btn-main">
-                        <a href="../index.html">Sign up</a>
-                    </button>
-                </div>
-            </form>
-
-        </div>
-
-        <div class="footer-links">
-            <a href="./privacy-policy.html">Privacy Policy</a>
-            <a href="./legal-notice.html">Legal notice</a>
-        </div>
-    </div>
+    <link rel="stylesheet" href="../styles/standard.css" />
+    <link rel="stylesheet" href="../styles/variables.css" />
+    <link rel="stylesheet" href="../styles/font.css" />
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="../styles/login.css" />
+    <script src="../scripts/config.js"></script>
+    <script src="../scripts/services.js"></script>
+    <script src="../scripts/signup.js" defer></script>
     <script src="../scripts/signup-template.js"></script>
-    <script src="../scripts/signup.js"></script>
-</body>
+  </head>
 
+  <body>
+    <div class="login-wrapper">
+      <img
+        class="login-logo"
+        src="../assets/imgs/join-logo.png"
+        alt="Join Logo"
+      />
+      <div class="login-card">
+        <a class="back-btn" href="../index.html">
+          <img src="../assets/imgs/arrow-left-line.png" alt="Back" />
+        </a>
+        <div class="signup-header">
+          <h1>Sign up</h1>
+        </div>
+
+        <form id="form-signup" novalidate>
+          <div class="input-group">
+            <input type="text" placeholder="Name" id="name-signup" required />
+            <img class="input-icon" src="../assets/imgs/person.png" alt="" />
+            <p class="required-warning" id="warning-name-signup"></p>
+          </div>
+          <div class="input-group">
+            <input
+              type="email"
+              placeholder="Email"
+              id="email-signup"
+              required
+            />
+            <img class="input-icon" src="../assets/imgs/mail.png" alt="" />
+            <p class="required-warning" id="warning-email-signup"></p>
+          </div>
+          <div class="input-group">
+            <input
+              type="password"
+              placeholder="Password"
+              id="password-signup"
+            />
+            <img class="input-icon" src="../assets/imgs/lock.png" alt="" />
+            <p class="required-warning" id="warning-password-signup"></p>
+          </div>
+          <div class="input-group">
+            <input
+              type="password"
+              placeholder="Confirm Password"
+              id="password-confirm-signup"
+              required
+            />
+            <img class="input-icon" src="../assets/imgs/lock.png" alt="" />
+            <p
+              class="required-warning"
+              id="warning-password-confirm-signup"
+            ></p>
+          </div>
+          <div class="checkbox-wrapper">
+            <input type="checkbox" id="privacy-accept" required />
+            <label for="privacy">
+              I accept the
+              <a class="link-blue" href="./privacy-policy.html"
+                >Privacy Policy</a
+              >
+            </label>
+            <p
+              class="required-warning checkbox-warning"
+              id="warning-policy-signup"
+            ></p>
+          </div>
+          <div class="button-group center">
+            <button
+              type="submit"
+              class="primary-btn signup-btn-main"
+              id="signup-button"
+            >
+              Sign up
+            </button>
+          </div>
+        </form>
+      </div>
+      <section class="toast-section" id="toast-section">
+        <p id="toast-message">You signed up succesfully</p>
+      </section>
+      <div class="footer-links">
+        <a href="./privacy-policy.html">Privacy Policy</a>
+        <a href="./legal-notice.html">Legal notice</a>
+      </div>
+    </div>
+  </body>
 </html>

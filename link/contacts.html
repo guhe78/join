@@ -52,14 +52,17 @@
     <script src="../scripts/contacts.js" defer></script>
     <script src="../scripts/contactsTemplates.js" defer></script>
     <script src="../scripts/icons/icons.js" defer></script>
-    <script src="../scripts/config.js"></script>
-    <script src="../scripts/services.js"></script>
-    <script src="../scripts/database-operations.js"></script>
+    <script src="../scripts/config.js" defer></script>
+    <script src="../scripts/services.js" defer></script>
+    <script src="../scripts/database-operations.js" defer></script>
+    <script src="../scripts/helpers.js" defer></script>
   </head>
 
   <body onload="init()">
     <aside>
-      <img src="../assets/imgs/join-logo-white.png" alt="logo" class="logo" />
+      <a href="../index.html">
+        <img src="../assets/imgs/join-logo-white.png" alt="logo" class="logo"
+      /></a>
       <nav class="side-nav">
         <div class="page-links">
           <a href="summary.html" class="page-link-button"
@@ -84,7 +87,11 @@
 
     <main>
       <header>
-        <img src="../assets/imgs/join-logo.png" alt="logo" class="logo-mobile" />
+        <img
+          src="../assets/imgs/join-logo.png"
+          alt="logo"
+          class="logo-mobile"
+        />
         <p class="headline">Kanban Project Management Tool</p>
         <nav class="header-nav">
           <button class="button help-button">
@@ -92,7 +99,7 @@
               ><img src="../assets/imgs/help.png" alt="search"
             /></a>
           </button>
-          <button class="button profil-button">SM</button>
+          <button class="button profil-button" id="user-button"></button>
         </nav>
       </header>
 
@@ -114,6 +121,9 @@
             <p>Better with a team</p>
           </div>
           <div class="contact-overview" id="contact-overview"></div>
+          <section class="toast-section" id="toast-section">
+            <p id="toast-message"></p>
+          </section>
         </div>
       </section>
       <dialog id="dialog">
@@ -127,7 +137,7 @@
               <img src="../assets/imgs/close.png" alt="" />
             </button>
             <div id="person-image"></div>
-            <form action="">
+            <form>
               <div class="textfield-container">
                 <input
                   type="text"
@@ -135,8 +145,10 @@
                   id="contact-name-input"
                   placeholder="Name"
                   class="input-field"
+                  required
                 />
                 <img src="../assets/imgs/person.png" alt="" />
+                <p class="required-warning" id="warning-name"></p>
               </div>
               <div class="textfield-container">
                 <input
@@ -145,8 +157,10 @@
                   id="contact-email-input"
                   placeholder="Email"
                   class="input-field"
+                  required
                 />
                 <img src="../assets/imgs/mail.png" alt="" />
+                <p class="required-warning" id="warning-email"></p>
               </div>
               <div class="textfield-container">
                 <input
@@ -155,8 +169,10 @@
                   id="contact-phone-input"
                   placeholder="Phone"
                   class="input-field"
+                  required
                 />
                 <img src="../assets/imgs/call.png" alt="" />
+                <p class="required-warning" id="warning-phone"></p>
               </div>
               <div class="input-buttons">
                 <button

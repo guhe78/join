@@ -2,8 +2,6 @@ const BASE_URL = databaseURL;
 
 let contacts = [];
 let tasks = [];
-let users = [];
-
 
 /**
  * Fetches data from the Firebase database using the specified path.
