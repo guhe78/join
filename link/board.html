@@ -91,127 +91,89 @@
       </nav>
     </aside>
 
-    <main>
-      <header>
-        <p class="headline">Kanban Project Management Tool</p>
-        <nav class="header-nav">
-          <button class="button help-button">
-            <a href="./help-desk.html"
-              ><img src="../assets/imgs/help.png" alt="search"
-            /></a>
-          </button>
-          <button class="button profil-button">SM</button>
-        </nav>
-      </header>
-      <section class="board-section">
-        <div class="board-header">
-          <h1 class="headline-board">Board</h1>
-          <div class="board-header-right">
-            <div class="search-container">
-              <input
-                type="text"
-                placeholder="Find Task"
-                id="searchInput"
-                onkeyup="checkEnter(event, 'searchInput')"
-              />
-              <div class="divider"></div>
-              <button type="submit" onclick="searchFilter()">
-                <img src="../assets/imgs/search.svg" alt="Search" />
-              </button>
-            </div>
-            <button
-              class="primary-btn add-task-button"
-              onclick="openAddTaskModal('todo')"
-            >
-              Add task<img src="../assets/imgs/add.svg" alt="add new task" />
+  <main>
+    <header>
+      <img src="../assets/imgs/join-logo.png" alt="logo" class="logo-mobile" />
+      <p class="headline">Kanban Project Management Tool</p>
+      <nav class="header-nav">
+        <button class="button help-button">
+          <a href="./help-desk.html"><img src="../assets/imgs/help.png" alt="search" /></a>
+        </button>
+        <button class="button profil-button">SM</button>
+      </nav>
+    </header>
+    <section class="board-section">
+      <div class="board-header">
+        <h1 class="headline-board">Board</h1>
+        <div class="board-header-right">
+          <div class="search-container">
+            <input type="text" placeholder="Find Task" id="searchInput" onkeyup="checkEnter(event, 'searchInput')"/>
+            <div class="divider"></div>
+            <button  type="submit" onclick="searchFilter()">
+              <img src="../assets/imgs/search.svg" alt="Search" />
             </button>
           </div>
+          <button class="primary-btn add-task-button" onclick="openAddTaskModal('todo')">
+            <span>Add task</span><img src="../assets/imgs/add.svg" alt="add new task" />
+          </button>
         </div>
-        <div class="board-content" id="boardContent">
-          <section class="to-do-column">
-            <div class="board-header">
-              <h2 class="column-title">To Do</h2>
-              <button
-                class="add-new-task-button"
-                onclick="openAddTaskModal('todo')"
-              >
-                <img
-                  src="../assets/imgs/plus button.png"
-                  alt="add new task to To Do column"
-                />
-              </button>
-            </div>
-            <div
-              id="todo"
-              class="to-do-content"
-              ondrop="moveTo('todo')"
-              ondragleave="highlight('todo', false)"
-              ondragover="
+      </div>
+      <div class="search-container search-container-mobile">
+            <input type="text" placeholder="Find Task" id="searchInput" onkeyup="checkEnter(event, 'searchInput')"/>
+            <div class="divider"></div>
+            <button  type="submit" onclick="searchFilter()">
+              <img src="../assets/imgs/search.svg" alt="Search" />
+            </button>
+          </div>
+      <div class="board-content" id="boardContent">
+        <section class="to-do-column">
+          <div class="board-header column-header">
+            <h2 class="column-title">To Do</h2>
+            <button class="add-new-task-button" onclick="openAddTaskModal('todo')">
+              <img src="../assets/imgs/plus-symbol.svg" alt="add new task to To Do column" />
+            </button>
+          </div>
+          <div id="todo" class="to-do-content" ondrop="moveTo('todo')" ondragleave="highlight('todo', false)"
+            ondragover="
                 dragover(event);
                 highlight('todo', true);
-              "
-            >
-              <div class="drag-placeholder"></div>
+              ">
+            <div class="drag-placeholder">
+
             </div>
-          </section>
-          <section class="in-progress-column">
-            <div class="board-header">
-              <h2 class="column-title">In Progress</h2>
-              <button
-                class="add-new-task-button"
-                onclick="openAddTaskModal('inProgress')"
-              >
-                <img
-                  src="../assets/imgs/plus button.png"
-                  alt="add new task to In Progress column"
-                />
-              </button>
-            </div>
-            <div
-              id="inProgress"
-              class="in-progress-content"
-              ondrop="moveTo('inProgress')"
-              ondragleave="highlight('inProgress', false)"
-              ondragover="
+          </div>
+        </section>
+        <section class="in-progress-column">
+          <div class="board-header column-header">
+            <h2 class="column-title">In Progress</h2>
+            <button class="add-new-task-button" onclick="openAddTaskModal('inProgress')">
+              <img src="../assets/imgs/plus-symbol.svg" alt="add new task to In Progress column" />
+            </button>
+          </div>
+          <div id="inProgress" class="in-progress-content" ondrop="moveTo('inProgress')"
+            ondragleave="highlight('inProgress', false)" ondragover="
                 dragover(event);
                 highlight('inProgress', true);
-              "
-            ></div>
-          </section>
-          <section class="review-column">
-            <div class="board-header">
-              <h2 class="column-title">Await feedback</h2>
-              <button
-                class="add-new-task-button"
-                onclick="openAddTaskModal('review')"
-              >
-                <img
-                  src="../assets/imgs/plus button.png"
-                  alt="add new task to Await feedback column"
-                />
-              </button>
-            </div>
-            <div
-              id="review"
-              class="review-content"
-              ondrop="moveTo('review')"
-              ondragleave="highlight('review', false)"
-              ondragover="
+              "></div>
+        </section>
+        <section class="review-column">
+          <div class="board-header column-header">
+            <h2 class="column-title">Await feedback</h2>
+            <button class="add-new-task-button" onclick="openAddTaskModal('review')">
+              <img src="../assets/imgs/plus-symbol.svg" alt="add new task to Await feedback column" />
+            </button>
+          </div>
+          <div id="review" class="review-content" ondrop="moveTo('review')" ondragleave="highlight('review', false)"
+            ondragover="
                 dragover(event);
                 highlight('review', true);
-              "
-            ></div>
-          </section>
-          <section class="done-column">
-            <div class="board-header">
-              <h2 class="column-title">Done</h2>
-            </div>
-            <div
-              id="done"
-              class="done-content"
-              ondrop="moveTo('done')"
-              ondragleave="highlight('done', false)"
-              ondragover="
+              "></div>
+        </section>
+        <section class="done-column">
+          <div class="board-header column-header">
+            <h2 class="column-title">Done</h2>
+          </div>
+          <div id="done" class="done-content" ondrop="moveTo('done')" ondragleave="highlight('done', false)" ondragover="
                 dragover(event);
                 highlight('done', true);
               "

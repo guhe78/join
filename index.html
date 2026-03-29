@@ -1,67 +1,110 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Join</title>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Join</title>
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="../assets/favicon/favicon-16x16.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="../assets/favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="../assets/favicon/android-chrome-192x192.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="512x512"
+      href="../assets/favicon/android-chrome-512x512.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      size="180x180"
+      href="../assets/favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="shortcut icon"
+      sizes="any"
+      href="../assets/favicon/favicon.ico"
+      type="image/x-icon"
+    />
+    <link rel="manifest" href="../assets/favicon/site.webmanifest" />
 
-  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon/favicon-16x16.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="../assets/favicon/android-chrome-192x192.png">
-  <link rel="icon" type="image/png" sizes="512x512" href="../assets/favicon/android-chrome-512x512.png">
-  <link rel="apple-touch-icon" size="180x180" href="../assets/favicon/apple-touch-icon.png">
-  <link rel="shortcut icon" sizes="any" href="../assets/favicon/favicon.ico" type="image/x-icon">
-  <link rel="manifest" href="../assets/favicon/site.webmanifest">
+    <link rel="stylesheet" href="./styles/standard.css" />
+    <link rel="stylesheet" href="./styles/variables.css" />
+    <link rel="stylesheet" href="./styles/font.css" />
+    <link rel="stylesheet" href="./style.css" />
 
-  <link rel="stylesheet" href="./styles/standard.css">
-  <link rel="stylesheet" href="./styles/variables.css">
-  <link rel="stylesheet" href="./styles/font.css">
-  <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./styles/login.css" />
 
-  <link rel="stylesheet" href="./styles/login.css">
+    <script src="./scripts/login.js" defer></script>
+    <script src="./scripts/auth/auth.js" defer></script>
+    <script src="./scripts/config.js" defer></script>
+    <script src="./scripts/services.js" defer></script>
+    <script src="./scripts/helpers.js"></script>
+  </head>
 
-  <script src="./scripts/login.js" defer></script>
-</head>
-
-<body class="has-splash" onload="startSplash()">
-  <div class="splash" id="splash" aria-hidden="true">
-    <img class="splash-logo" src="../assets/imgs/join-logo.png" alt="">
-  </div>
-
-  <div class="top-bar">
-    <span>Not a Join user? </span>
-    <a href="./link/signup.html" class="primary-btn">Sign up</a>
-  </div>
-
-  <div class="login-wrapper">
-    <img class="login-logo" src="../assets/imgs/join-logo.png" alt="Join Logo">
-    <div class="login-card">
-      <h1>Log in</h1>
-      <form>
-        <div class="input-group">
-          <input type="email" placeholder="Email" required>
-          <img class="input-icon" src="../assets/imgs/mail.png" alt="">
-        </div>
-
-        <div class="input-group">
-          <input type="password" placeholder="Password" required>
-          <img class="input-icon" src="../assets/imgs/lock.png" alt="">
-        </div>
-
-        <div class="button-group">
-          <button class="primary-btn">Log in</button>
-          <a href="./link/summary.html"><button type="button" class="secondary-btn">Guest Log in</button></a>
-        </div>
-      </form>
+  <body class="has-splash" onload="startSplash()">
+    <div class="splash" id="splash" aria-hidden="true">
+      <img class="splash-logo" src="../assets/imgs/join-logo.png" alt="" />
     </div>
 
-    <div class="footer-links">
-      <a href="./link/privacy-policy.html">Privacy Policy</a>
-      <a href="./link/legal-notice.html">Legal notice</a>
+    <div class="top-bar">
+      <span>Not a Join user? </span>
+      <a href="./link/signup.html" class="primary-btn">Sign up</a>
     </div>
 
-  </div>
-</body>
+    <div class="login-wrapper">
+      <img
+        class="login-logo"
+        src="../assets/imgs/join-logo.png"
+        alt="Join Logo"
+      />
+      <div class="login-card">
+        <h1>Log in</h1>
+        <form id="login-form" novalidate>
+          <div class="input-group">
+            <input type="email" placeholder="Email" id="email-login" required />
+            <img class="input-icon" src="../assets/imgs/mail.png" alt="" />
+          </div>
 
+          <div class="input-group">
+            <input
+              type="password"
+              placeholder="Password"
+              id="password-login"
+              required
+            />
+            <img class="input-icon" src="../assets/imgs/lock.png" alt="" />
+            <p class="required-warning login-warning" id="warning-login"></p>
+          </div>
+          <div class="button-group">
+            <button type="submit" class="primary-btn" id="login-button">
+              Log in
+            </button>
+            <button type="button" class="secondary-btn" id="login-guest-button">
+              Guest Log in
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div class="footer-links">
+        <a href="./link/privacy-policy.html">Privacy Policy</a>
+        <a href="./link/legal-notice.html">Legal notice</a>
+      </div>
+    </div>
+  </body>
 </html>
