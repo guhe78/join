@@ -44,12 +44,13 @@ DOM.dialogEl.onclick = (event) => {
   }
 };
 
-DOM.closeButtonEl.onclick = closeDialog;
-
 async function init() {
   await getContacts();
   renderContactsList();
+
   DOM.userButton.innerHTML = getUserData();
+  DOM.closeButtonEl.onclick = closeDialog;
+  DOM.closeButtonEl.innerHTML = closeIcon();
 }
 
 async function getContacts() {
@@ -105,7 +106,8 @@ function openAddNewContact() {
   DOM.headlineEl.innerHTML = addContactHeadlineTemplate();
   DOM.noButtonEl.innerHTML = `Cancel&nbsp;${cancelIcon()}`;
   DOM.noButtonEl.onclick = cancelAddContact;
-  DOM.okButtonEl.innerHTML = `Add contact&nbsp;${checkIcon()}`;
+  DOM.noButtonEl.classList.add("cancel-button");
+  DOM.okButtonEl.innerHTML = `Create contact&nbsp;${checkIcon()}`;
   DOM.personImageEl.innerHTML = contactBadgeDummyTemplate();
   DOM.okButtonEl.onclick = () => addContact();
   openDialog();
@@ -182,7 +184,7 @@ function openEditContact(index) {
   DOM.headlineEl.innerHTML = editContactHeadlineTemplate();
   DOM.noButtonEl.innerHTML = "Delete";
   DOM.noButtonEl.onclick = () => deleteContact(index);
-  DOM.okButtonEl.innerHTML = "Save";
+  DOM.okButtonEl.innerHTML = `Save&nbsp;${checkIcon()}`;
   DOM.okButtonEl.onclick = () => saveEditedContact(index);
   DOM.personImageEl.innerHTML = contactBadgeTemplate(index);
   DOM.contactNameEl.value =
@@ -286,6 +288,7 @@ function openDialog() {
 function closeDialog() {
   DOM.dialogEl.close();
   clearInputs();
+  DOM.noButtonEl.classList.remove("cancel-button");
 }
 
 function getRandom(max) {
