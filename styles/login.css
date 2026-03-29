@@ -1,188 +1,229 @@
-
 body {
-    justify-content: center;
-    align-items: center;
-    position: relative;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow-y: hidden;
 }
 
 .top-bar {
-    position: absolute;
-    top: 40px;
-    right: 60px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    font-size: 16px;
-    font-weight: 600;
-    
+  position: absolute;
+  top: 40px;
+  right: 60px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: 16px;
+  font-weight: 600;
 }
 
 .login-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 60px;
 }
 
 .login-logo {
-    position: absolute;
-    top: 40px;
-    left: 60px;
-    width: 100px;
-    opacity: 1;
+  position: absolute;
+  top: 40px;
+  left: 60px;
+  width: 100px;
+  opacity: 1;
 }
 
 .login-card {
-    background: white;
-    padding: 60px 80px;
-    border-radius: 24px;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
-    text-align: center;
-    width: 590px;
+  background: white;
+  padding: 60px 80px;
+  border-radius: 24px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  width: 590px;
 }
 
 .login-card h1 {
-    margin-bottom: 40px;
+  margin-bottom: 40px;
 }
 
 .login-card h1::after {
-    content: "";
-    display: block;
-    width: 145px;
-    height: 2.5px;
-    margin: 16px auto 0;
-    border-radius: 999px;
-    background: #29ABE2;
+  content: "";
+  display: block;
+  width: 145px;
+  height: 2.5px;
+  margin: 16px auto 0;
+  border-radius: 999px;
+  background: #29abe2;
 }
 
 .back-btn {
-    position: relative;
-    right: 230px;
-    top: 60px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    cursor: pointer;
+  position: relative;
+  right: 230px;
+  top: 60px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .back-btn img {
-    width: 32px;
+  width: 32px;
 }
 
 .back-btn:hover {
-    background: rgba(0,0,0,0.05);
+  background: rgba(0, 0, 0, 0.05);
 }
 
 .input-group {
-    width: 100%;
+  width: 100%;
 }
 
 .link-blue {
-    color: #29ABE2;
-    cursor: pointer;
+  color: #29abe2;
+  cursor: pointer;
 }
 
 form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .checkbox-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    width: 100%;
-    margin-top: 10px;
-    font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  margin-top: 10px;
+  font-size: 16px;
 }
 
 .checkbox-wrapper input[type="checkbox"] {
-    width: 16px;
-    height: 16px;
-    padding: 0;
-    margin: 0;
-    border-radius: 0;
-    flex-shrink: 0;
-    cursor: pointer;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
+  flex-shrink: 0;
+  cursor: pointer;
 }
 
 .checkbox-wrapper label {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .button-group {
-    margin-top: 30px;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.toast-section {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, 550%);
+  opacity: 0;
+
+  background-color: var(--primary-color);
+  width: 326px;
+  height: 74px;
+  border-radius: 20px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+
+  transition:
+    transform 0.2s ease-in,
+    opacity 0.2s ease-in;
+}
+
+.fade-in {
+  transform: translate(-50%, -50%);
+  opacity: 1;
 }
 
 .footer-links {
-    position: fixed;
-    bottom: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 30px;
-    font-size: 14px;
-    color: #888;
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 30px;
+  font-size: 14px;
+  color: #888;
 }
 
 .footer-links a {
-    transition: 0.2s ease;
+  transition: 0.2s ease;
 }
 
 .footer-links a:hover {
-    color: var(--primary-color);
+  color: var(--primary-color);
 }
 
 .splash {
-    position: fixed;
-    inset: 0;
-    background: #ffffff;
-    display: grid;
-    place-items: center;
-    z-index: 9999;
-    opacity: 1;
-    pointer-events: all;
-    transition: opacity 300ms ease, background 300ms ease;
+  position: fixed;
+  inset: 0;
+  background: #ffffff;
+  display: grid;
+  place-items: center;
+  z-index: 9999;
+  opacity: 1;
+  pointer-events: all;
+  transition:
+    opacity 300ms ease,
+    background 300ms ease;
 }
 
 .splash-logo {
-    width: 180px;
-    height: auto;
-    transform: translate(0, 0) scale(1);
-    transition: transform 300ms cubic-bezier(.2, .8, .2, 1);
+  width: 180px;
+  height: auto;
+  transform: translate(0, 0) scale(1);
+  transition: transform 300ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .splash.animate {
-    background: #f4f5f7;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 300ms ease, background 300ms ease;
+  background: #f4f5f7;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 300ms ease,
+    background 300ms ease;
 }
 
 .splash.animate .splash-logo {
-    transform: translate(-42vw, -36vh) scale(0.55);
-    transition: transform 300ms cubic-bezier(.2, .8, .2, 1);
+  transform: translate(-42vw, -36vh) scale(0.55);
+  transition: transform 300ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 body.has-splash .login-logo {
-    opacity: 0;
+  opacity: 0;
 }
 
 body.logo-early .login-logo {
-    opacity: 1;
-    transition: opacity 120ms ease;
+  opacity: 1;
+  transition: opacity 120ms ease;
+}
+
+.required-warning {
+  position: absolute;
+  color: red;
+  font-size: 14px;
+}
+
+.checkbox-warning {
+  margin-top: 30px;
+  margin-right: 50px;
 }
 
 @media (prefers-reduced-motion: reduce) {
-
-    .splash,
-    .splash-logo {
-        transition: none !important;
-    }
+  .splash,
+  .splash-logo {
+    transition: none !important;
+  }
 }

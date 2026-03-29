@@ -102,9 +102,26 @@
   justify-content: flex-end;
 }
 
+.edit-first-description {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.input-wrapper-title {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
 .edit-input {
   font-size: 20px;
   height: 48px;
+}
+
+.feedback-message {
+  color: rgb(255, 0, 0);
+  font-size: 12px;
 }
 
 .edit-scroll-content {
@@ -142,17 +159,8 @@
 }
 
 .edit-textarea {
-  font-family: 'Inter Variable', sans-serif;
-  width: 100%;
-  box-sizing: border-box;
-  border-radius: 10px;
-  border: 1px solid var(--user-icon);
-  padding: 16px;
-  resize: none;
-  outline: none;
-  font-size: 21px;
-  transition: 0.2s ease;
-  height: 120px;
+  font-family: 'Inter Variable', sans-serif !important;
+  font-size: 21px !important;
 }
 
 .edit-textarea:focus {
@@ -179,14 +187,34 @@
   justify-content: center;
 }
 
-.low-btn:focus {
-  transform: scale(1.02);
+.low-btn-selected,
+.medium-btn-selected,
+.high-btn-selected {
+  box-shadow: none;
+}
+
+.low-btn-selected {
   background-color: var(--low-arrow);
 }
 
-.medium-btn:focus {
-  transform: scale(1.02);
+.medium-btn-selected {
   background-color: var(--medium-btn);
+}
+
+.high-btn-selected {
+  background-color: var(--urgent-icon);
+}
+
+.low-btn-selected img,
+.medium-btn-selected img,
+.high-btn-selected img {
+  filter: brightness(0) saturate(100%) invert(100%);
+}
+
+.priority-options button.low-btn-selected:hover,
+.priority-options button.medium-btn-selected:hover,
+.priority-options button.high-btn-selected:hover {
+  box-shadow: none;
 }
 
 .priority-label {
@@ -208,19 +236,10 @@
   gap: 8px;
   padding: 16px 10px;
   border-radius: 10px;
-  border: 1px solid var(--user-icon);
-  transition: transform 0.2s ease-in-out;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+  transition: transform 0.1s ease;
 }
 
 .priority-options button:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.priority-options button:focus img {
-  filter: brightness(0) invert(1);
-}
-
-.urgent-btn:focus {
-  transform: scale(1.02);
-  background-color: var(--urgent-icon);
+   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }

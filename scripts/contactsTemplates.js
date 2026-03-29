@@ -1,5 +1,5 @@
 function contactTemplate(index) {
-  const contact = state.contacts[index];
+  const contact = contacts[index];
   return `
         <div class="contact" id="contact${index}" onclick="toggleActiveContact(${index})" >
           <div class="contact-badge" style="background-color: ${contact.badgeColor}">${contact.firstName[0].toUpperCase()}${contact.lastName[0].toUpperCase()}</div>
@@ -38,7 +38,7 @@ function contactDetailTemplate(index) {
       <div class="contact-detail-header">
         <div class="badge">${contactBadgeTemplate(index)}</div>
         <div class="contact-detail-headline">
-          <h2 class="name">${state.contacts[index].firstName} ${state.contacts[index].lastName}</h2>
+          <h2 class="name">${contacts[index].firstName} ${contacts[index].lastName}</h2>
           <div class="contact-detail-buttons">
             <button onclick="openEditContact(${index})">
               ${editIcon()}<span>Edit</span>
@@ -50,9 +50,9 @@ function contactDetailTemplate(index) {
         <p class="font-size-20">Contact Information</p>
         <div class="contact-detail-data">
           <p class="bold">Email</p>
-          <p class="email">${state.contacts[index].email}</p>
+          <a href="mailto:${contacts[index].email}" class="email">${contacts[index].email}</a>
           <p class="bold">Phone</p>
-          <p>${state.contacts[index].phone}</p>
+          <p>${contacts[index].phone}</p>
         </div>
     </div>
   `;
@@ -60,7 +60,7 @@ function contactDetailTemplate(index) {
 
 function contactBadgeTemplate(index) {
   return `
-  <div class="contact-detail-badge" style="background-color: ${state.contacts[index].badgeColor}">${state.contacts[index].firstName[0].toUpperCase()}${state.contacts[index].lastName[0].toUpperCase()}</div>
+  <div class="contact-detail-badge" style="background-color: ${contacts[index].badgeColor}">${contacts[index].firstName[0].toUpperCase()}${contacts[index].lastName[0].toUpperCase()}</div>
 `;
 }
 

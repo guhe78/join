@@ -16,7 +16,6 @@ async function init() {
   updateBoard();
 }
 
-
 /**
  * Iterates through all status types and updates the corresponding board columns.
  */
@@ -31,7 +30,6 @@ function updateBoard() {
   }
 }
 
-
 /**
  * Filters tasks for a status and renders the matching column.
  * @param {string} status - The status category to filter for.
@@ -42,7 +40,6 @@ function processColumn(status, container) {
   container.innerHTML = "";
   fillContainer(filtered, container);
 }
-
 
 /**
  * Returns all tasks that belong to a specific status.
@@ -60,7 +57,6 @@ function filterTasksByStatus(taskList, status) {
   return filtered;
 }
 
-
 /**
  * Fills the container with task templates or an "empty" template if no tasks exist.
  * @param {Array} subset - The array of tasks for this column.
@@ -76,7 +72,6 @@ function fillContainer(subset, container) {
     container.innerHTML += toDoTaskTemplate(taskData);
   }
 }
-
 
 /**
  * Prepares and formats task data for use in the HTML template.
@@ -101,7 +96,6 @@ function prepareTaskData(element) {
   };
 }
 
-
 /**
  * Calculates progress and statistics for subtasks.
  * @param {Object} subtasks - The subtasks object from the task.
@@ -124,7 +118,6 @@ function getSubtaskStats(subtasks) {
   };
 }
 
-
 /**
  * Sets the current dragged element ID.
  * @param {string} id - The ID of the task being dragged.
@@ -137,7 +130,6 @@ function startdragging(id) {
   }
 }
 
-
 /**
  * Removes drag styling from the currently dragged task card.
  */
@@ -148,7 +140,6 @@ function stopDragging(id) {
   }
 }
 
-
 /**
  * Prevents default behavior to allow a drop event.
  * @param {Event} ev - The dragover event.
@@ -156,7 +147,6 @@ function stopDragging(id) {
 function dragover(ev) {
   ev.preventDefault();
 }
-
 
 /**
  * Shows or removes the drag placeholder in a board column.
@@ -172,7 +162,6 @@ function highlight(id, show) {
   }
   removeDragPlaceholder(container);
 }
-
 
 /**
  * Adds a drag placeholder to the column and removes the empty-state element.
@@ -190,7 +179,6 @@ function addDragPlaceholder(container) {
   container.appendChild(placeholder);
 }
 
-
 /**
  * Removes the drag placeholder and restores the empty-state template if needed.
  * @param {HTMLElement} container - The target board column.
@@ -203,7 +191,6 @@ function removeDragPlaceholder(container) {
     container.innerHTML = nothingToDoTemplate();
   }
 }
-
 
 /**
  * Updates the status of the dragged task and refreshes the board.
@@ -219,7 +206,6 @@ async function moveTo(newStatus) {
     updateBoard();
   }
 }
-
 
 /**
  * Generates the HTML for contact badges assigned to a task.
@@ -245,7 +231,6 @@ function generateBadgeHtml(assignedTo) {
   return html;
 }
 
-
 /**
  * Appends a counter badge when more contacts exist than are displayed.
  * @param {string} html - The existing badge HTML.
@@ -261,23 +246,6 @@ function addBadgeCount(html, contactIds, limit) {
   return html;
 }
 
-
-/**
- * Opens the task detail dialog for a specific task.
- * @param {string} id - The ID of the task to display.
- */
-function openTaskDetail(id) {
-  const task = findTaskById(tasks, id);
-  if (!task) return;
-  const dialog = document.getElementById("taskDialog");
-  const content = document.getElementById("dialogContent");
-  if (!dialog || !content) return;
-  dialog.classList.remove("is-closing");
-  renderTaskDetailContent(content, task);
-  dialog.showModal();
-}
-
-
 /**
  * Finds a task by ID in a given task list.
  * @param {Array} taskList - The source list of tasks.
@@ -288,7 +256,6 @@ function findTaskById(taskList, id) {
   return taskList.find((task) => task.id === id);
 }
 
-
 /**
  * Renders task detail HTML into the dialog content container.
  * @param {HTMLElement} content - The detail dialog content element.
@@ -298,25 +265,6 @@ function renderTaskDetailContent(content, task) {
   const categoryClass = task.category.toLowerCase().replace(/\s+/g, "-");
   content.innerHTML = dialogTemplate(task, categoryClass);
 }
-
-
-/**
- * Closes the task detail dialog.
- */
-function closeTaskDialog() {
-  const dialog = document.getElementById("taskDialog");
-  if (!dialog || !dialog.open || dialog.classList.contains("is-closing")) {
-    return;
-  }
-  dialog.classList.add("is-closing");
-  setTimeout(() => {
-    if (dialog.open) {
-      dialog.close();
-    }
-    dialog.classList.remove("is-closing");
-  }, TaskDialogCloseDuration);
-}
-
 
 /**
  * Generates detailed contact list HTML for the task detail view.
@@ -339,7 +287,6 @@ function generateDetailedContactsHtml(assignedTo) {
   return html;
 }
 
-
 /**
  * Generates the HTML for subtasks in the task detail view.
  * @param {string} id - The ID of the parent task.
@@ -361,7 +308,6 @@ function generateDetailedSubtasksHtml(id, subtasks) {
   return html;
 }
 
-
 /**
  * Capitalizes the first letter of the task priority.
  * @param {Object} task - The task object.
@@ -371,7 +317,6 @@ function formatPriority(task) {
   return task.priority.charAt(0).toUpperCase() + task.priority.slice(1);
 }
 
-
 /**
  * Reformats the date from YYYY-MM-DD to DD/MM/YYYY.
  * @param {Object} task - The task object.
@@ -380,7 +325,6 @@ function formatPriority(task) {
 function reformatDate(task) {
   return task.due_date.split("-").reverse().join("/");
 }
-
 
 /**
  * Deletes a task from the currentTasks array by its ID and updates the board.
@@ -397,7 +341,6 @@ async function deleteTask(path, id) {
   }
 }
 
-
 /**
  * Toggles the completion status of a subtask and updates the UI.
  * @param {string} id - The ID of the parent task.
@@ -413,7 +356,6 @@ async function toggleSubtask(id, subId) {
   }
 }
 
-
 /**
  * Updates only the subtask checkbox icon in the open detail dialog.
  * @param {string} id - The ID of the parent task.
@@ -428,7 +370,6 @@ function updateSubtaskCheckboxIcon(id, subId, isDone) {
     : "../assets/imgs/checkbox-empty.png";
 }
 
-
 /**
  * Helper function to re-render the detail view content without closing the dialog.
  * @param {string} id - The ID of the task.
@@ -442,37 +383,51 @@ function refreshTaskDetail(id) {
   }
 }
 
-
 /**
- * Opens the edit view for a task within the existing dialog.
+ * Opens the edit view for a task within the existing dialog. --->von renato geändert
  */
-function editTask(id) {
+async function editTask(id, createHandler = createTaskClicked) {
   const task = findTaskById(currentTasks, id);
   if (!task) return;
   const content = document.getElementById("dialogContent");
   if (!content) return;
   content.innerHTML = editTaskTemplate(task);
+  setEditTodayDate();
+  setEditMinDueDate();
   selectFocus(task);
+  setEditMinDueDate();
+  await getContacts();
+  renderAssignedContacts();
+  initPriorityButtons();
+  initAssignedSelect();
+  subtasks = task.subtasks ? Object.values(task.subtasks).map(function (s) {
+    return s.title;
+  }) : [];
+  editSubtaskIndex = -1;
+  initSubtaskSection();
+  document.onclick = closeAllSelects;
 }
-
 
 /**
  * Moves focus to the priority button that matches the task priority.
  * @param {Object} task - The task currently being edited.
  */
 function selectFocus(task) {
-  const focusTargets = {
-    high: "urgent-btn",
+  let focusTargets = {
+    urgent: "urgent-btn",
     medium: "medium-btn",
     low: "low-btn",
   };
-  const targetId = focusTargets[task.priority];
-  if (!targetId) return;
-  requestAnimationFrame(() => {
-    document.getElementById(targetId)?.focus();
-  });
+  let targetId = focusTargets[task.priority];
+  if (!targetId) {
+    return;
+  }
+  let targetButton = document.getElementById(targetId);
+  if (!targetButton) {
+    return;
+  }
+  targetButton.focus();
 }
-
 
 /**
  * Converts a task due date to DD/MM/YYYY for display in edit mode.
@@ -488,7 +443,6 @@ function transformDate(task) {
   return `${day}/${month}/${year}`;
 }
 
-
 /**
  * Reads and normalizes the search text from the board input.
  * @returns {string} The lowercased search query.
@@ -498,7 +452,6 @@ function getSearchQuery() {
   if (!input) return "";
   return input.value.toLowerCase();
 }
-
 
 /**
  * Filters tasks by title or description using the provided query.
@@ -514,7 +467,6 @@ function filterTasksByQuery(taskList, query) {
   );
 }
 
-
 /**
  * Updates all rendered empty-state texts after a search.
  */
@@ -526,7 +478,6 @@ function updateSearchEmptyStateMessage() {
   });
 }
 
-
 /**
  * Applies the current search query to the board and updates empty-state text.
  */
@@ -537,7 +488,6 @@ function searchFilter() {
   updateSearchEmptyStateMessage();
 }
 
-
 /**
  * Schedules the search filtering with a short debounce.
  */
@@ -545,7 +495,6 @@ function scheduleSearchFilter() {
   clearTimeout(tippTimer);
   tippTimer = setTimeout(searchFilter, 400);
 }
-
 
 /**
  * Handles keyboard interaction for board search.
@@ -556,4 +505,147 @@ function checkEnter(event, _inputId) {
   if (event.key === "Enter") {
     searchFilter();
   }
+}
+
+// meine scripts/board-templates.js renato
+async function saveEditedTask(taskId) {
+  let task = findTaskById(currentTasks, taskId);
+  if (!task) {
+    return;
+  }
+
+  let updatedTask = buildEditedTaskObject(task);
+  await updateData("tasks", taskId, updatedTask);
+  updateEditedTaskInBoard(taskId, updatedTask);
+  closeTaskDialog();
+  updateBoard();
+}
+
+function buildEditedTaskObject(task) {
+  return {
+    title: getEditTitleValue(),
+    description: getEditDescriptionValue(),
+    due_date: getEditDueDateValue(),
+    priority: getEditSelectedPriority(),
+    assigned_to: task.assigned_to,
+    subtasks: buildEditedSubtasks(task.subtasks),
+  };
+}
+
+function getEditTitleValue() {
+  let input = document.getElementById("task-title");
+  if (input === null) {
+    return "";
+  }
+  return input.value.trim();
+}
+
+function getEditDescriptionValue() {
+  let input = document.getElementById("task-desc");
+  if (input === null) {
+    return "";
+  }
+  return input.value.trim();
+}
+
+function getEditDueDateValue() {
+  let input = document.getElementById("due-date");
+  if (input === null) {
+    return "";
+  }
+  return input.value;
+}
+
+function getEditSelectedPriority() {
+  let urgentButton = document.getElementById("urgent-btn");
+  let mediumButton = document.getElementById("medium-btn");
+  let lowButton = document.getElementById("low-btn");
+
+  if (urgentButton && urgentButton.classList.contains("is-active")) {
+    return "urgent";
+  }
+  if (mediumButton && mediumButton.classList.contains("is-active")) {
+    return "medium";
+  }
+  if (lowButton && lowButton.classList.contains("is-active")) {
+    return "low";
+  }
+  return "medium";
+}
+
+function buildEditedSubtasks(oldSubtasks) {
+  if (!oldSubtasks) {
+    return {};
+  }
+
+  let updatedSubtasks = {};
+  let keys = Object.keys(oldSubtasks);
+
+  for (let i = 0; i < subtasks.length; i++) {
+    let oldKey = keys[i];
+    let subtaskKey = oldKey ? oldKey : "subtask_" + i;
+    let doneValue = oldKey ? oldSubtasks[oldKey].is_done : false;
+
+    updatedSubtasks[subtaskKey] = {
+      title: subtasks[i],
+      is_done: doneValue,
+    };
+  }
+
+  return updatedSubtasks;
+}
+
+function updateEditedTaskInBoard(taskId, updatedTask) {
+  let task = findTaskById(currentTasks, taskId);
+  if (!task) {
+    return;
+  }
+
+  task.title = updatedTask.title;
+  task.description = updatedTask.description;
+  task.due_date = updatedTask.due_date;
+  task.priority = updatedTask.priority;
+  task.subtasks = updatedTask.subtasks;
+}
+
+function setEditTodayDate() {
+  let dueInput = document.getElementById("due-date");
+  if (dueInput === null) {
+    return;
+  }
+
+  let today = new Date();
+  let day = today.getDate();
+  let month = today.getMonth() + 1;
+  let year = today.getFullYear();
+
+  if (day < 10) {
+    day = "0" + day;
+  }
+  if (month < 10) {
+    month = "0" + month;
+  }
+
+  dueInput.value = year + "-" + month + "-" + day;
+}
+
+function setEditMinDueDate() {
+  let dueInput = document.getElementById("due-date");
+  if (dueInput === null) {
+    return;
+  }
+
+  let today = new Date();
+  let day = today.getDate();
+  let month = today.getMonth() + 1;
+  let year = today.getFullYear();
+
+  if (day < 10) {
+    day = "0" + day;
+  }
+  if (month < 10) {
+    month = "0" + month;
+  }
+
+  dueInput.min = year + "-" + month + "-" + day;
 }

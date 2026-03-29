@@ -161,3 +161,101 @@ body.dialog-open {
   font-size: 18px;
   padding: 0 20px;
 }
+
+.date-input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.date-picker-trigger {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+}
+
+.date-icon-right {
+  position: absolute;
+  inset: 0;
+  width: 20px;
+  height: 20px;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.icon-date-picker {
+  position: absolute;
+  inset: 0;
+  width: 20px;
+  height: 20px;
+  opacity: 0;
+  cursor: pointer;
+  border: none;
+}
+
+.edit-dialog .prio-row {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 6px;
+}
+
+.edit-dialog .prio-btn {
+  flex: 1;
+  background: #fff;
+  border: 1px solid #e6e8ee;
+  border-radius: 10px;
+  padding: 10px 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #2A3647;
+  font-size: 21px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.edit-dialog .prio-icon {
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+}
+
+.edit-dialog .prio-icon path {
+  stroke: currentColor;
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+.edit-dialog .prio-btn:not(.is-active) .prio-icon {
+  color: var(--prio);
+}
+
+.edit-dialog .prio-btn.is-active {
+  background: var(--prio);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.date-input-wrapper {
+  position: relative;
+}
+
+.date-input-wrapper img {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}

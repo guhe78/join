@@ -1,63 +1,99 @@
 <!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Join</title>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Join</title>
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="../assets/favicon/favicon-16x16.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="../assets/favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="../assets/favicon/android-chrome-192x192.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="512x512"
+      href="../assets/favicon/android-chrome-512x512.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      size="180x180"
+      href="../assets/favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="shortcut icon"
+      sizes="any"
+      href="../assets/favicon/favicon.ico"
+      type="image/x-icon"
+    />
+    <link rel="manifest" href="../assets/favicon/site.webmanifest" />
 
-  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon/favicon-16x16.png" />
-  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon/favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="192x192" href="../assets/favicon/android-chrome-192x192.png" />
-  <link rel="icon" type="image/png" sizes="512x512" href="../assets/favicon/android-chrome-512x512.png" />
-  <link rel="apple-touch-icon" size="180x180" href="../assets/favicon/apple-touch-icon.png" />
-  <link rel="shortcut icon" sizes="any" href="../assets/favicon/favicon.ico" type="image/x-icon" />
-  <link rel="manifest" href="../assets/favicon/site.webmanifest" />
+    <link rel="stylesheet" href="../styles/standard.css" />
+    <link rel="stylesheet" href="../styles/variables.css" />
+    <link rel="stylesheet" href="../styles/font.css" />
+    <link rel="stylesheet" href="../style.css" />
 
-  <link rel="stylesheet" href="../styles/standard.css" />
-  <link rel="stylesheet" href="../styles/variables.css" />
-  <link rel="stylesheet" href="../styles/font.css" />
-  <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="../styles/board.css" />
+    <link rel="stylesheet" href="../styles/templates.css" />
+    <link rel="stylesheet" href="../styles/edit-template.css" />
+    <link rel="stylesheet" href="../styles/scrollbar.css" />
+    <link rel="stylesheet" href="../styles/addtask.css" />
+    <link rel="stylesheet" href="../styles/board-modal.css" />
 
-  <link rel="stylesheet" href="../styles/board.css" />
-  <link rel="stylesheet" href="../styles/templates.css" />
-  <link rel="stylesheet" href="../styles/edit-template.css" />
-  <link rel="stylesheet" href="../styles/scrollbar.css" />
+    <script src="../scripts/config.js" defer></script>
+    <script src="../scripts/services.js" defer></script>
 
-  <script src="../scripts/config.js" defer></script>
-  <script src="../scripts/services.js" defer></script>
+    <script src="../scripts/addtask-template.js" defer></script>
+    <script src="../scripts/addtask-dom.js" defer></script>
+    <script src="../scripts/addtask.js" defer></script>
 
-  <script src="../scripts/addtask-template.js" defer></script>
-  <script src="../scripts/addtask-dom.js" defer></script>
-  <script src="../scripts/addtask.js" defer></script>
+    <script src="../scripts/board-templates.js" defer></script>
+    <script src="../scripts/board.js" defer></script>
+    <script src="../scripts/board-modal.js" defer></script>
+  </head>
 
-  <script src="../scripts/board-templates.js" defer></script>
-  <script src="../scripts/board.js" defer></script>
-  <script src="../scripts/board-modal.js" defer></script>
-</head>
-
-<body onload="init()">
-  <aside>
-    <img src="../assets/imgs/join-logo-white.png" alt="logo" class="logo" />
-    <nav class="side-nav">
-      <div class="page-links">
-        <a href="summary.html" class="page-link-button"><img src="../assets/imgs/summary.png"
-            alt="Summary" />Summary</a>
-        <a href="add-task.html" class="page-link-button"><img src="../assets/imgs/add-task.png" alt="Add Task" />Add
-          Task</a>
-        <a href="board.html" class="page-link-button"><img src="../assets/imgs/board.png" alt="Board" />Board</a>
-        <a href="contacts.html" class="page-link-button"><img src="../assets/imgs/contacts.png"
-            alt="Contacts" />Contacts</a>
-      </div>
-      <div class="police-links-container">
-        <a href="./privacy-policy.html">Privacy Policy</a>
-        <a href="./legal-notice.html">Legal notice</a>
-      </div>
-    </nav>
-  </aside>
+  <body onload="init()">
+    <aside>
+      <img src="../assets/imgs/join-logo-white.png" alt="logo" class="logo" />
+      <nav class="side-nav">
+        <div class="page-links">
+          <a href="summary.html" class="page-link-button"
+            ><img src="../assets/imgs/summary.png" alt="Summary" />Summary</a
+          >
+          <a href="add-task.html" class="page-link-button"
+            ><img src="../assets/imgs/add-task.png" alt="Add Task" />Add Task</a
+          >
+          <a href="board.html" class="page-link-button"
+            ><img src="../assets/imgs/board.png" alt="Board" />Board</a
+          >
+          <a href="contacts.html" class="page-link-button"
+            ><img src="../assets/imgs/contacts.png" alt="Contacts" />Contacts</a
+          >
+        </div>
+        <div class="police-links-container">
+          <a href="./privacy-policy.html">Privacy Policy</a>
+          <a href="./legal-notice.html">Legal notice</a>
+        </div>
+      </nav>
+    </aside>
 
   <main>
     <header>
+      <img src="../assets/imgs/join-logo.png" alt="logo" class="logo-mobile" />
       <p class="headline">Kanban Project Management Tool</p>
       <nav class="header-nav">
         <button class="button help-button">
@@ -66,10 +102,6 @@
         <button class="button profil-button">SM</button>
       </nav>
     </header>
-
-    <dialog id="taskDialog" class="task-modal" onclick="closeTaskDialog()">
-      <div id="dialogContent" onclick="event.stopPropagation()"></div>
-    </dialog>
     <section class="board-section">
       <div class="board-header">
         <h1 class="headline-board">Board</h1>
@@ -82,16 +114,23 @@
             </button>
           </div>
           <button class="primary-btn add-task-button" onclick="openAddTaskModal('todo')">
-            Add task<img src="../assets/imgs/add.svg" alt="add new task" />
+            <span>Add task</span><img src="../assets/imgs/add.svg" alt="add new task" />
           </button>
         </div>
       </div>
+      <div class="search-container search-container-mobile">
+            <input type="text" placeholder="Find Task" id="searchInput" onkeyup="checkEnter(event, 'searchInput')"/>
+            <div class="divider"></div>
+            <button  type="submit" onclick="searchFilter()">
+              <img src="../assets/imgs/search.svg" alt="Search" />
+            </button>
+          </div>
       <div class="board-content" id="boardContent">
         <section class="to-do-column">
-          <div class="board-header">
+          <div class="board-header column-header">
             <h2 class="column-title">To Do</h2>
             <button class="add-new-task-button" onclick="openAddTaskModal('todo')">
-              <img src="../assets/imgs/plus button.png" alt="add new task to To Do column" />
+              <img src="../assets/imgs/plus-symbol.svg" alt="add new task to To Do column" />
             </button>
           </div>
           <div id="todo" class="to-do-content" ondrop="moveTo('todo')" ondragleave="highlight('todo', false)"
@@ -105,10 +144,10 @@
           </div>
         </section>
         <section class="in-progress-column">
-          <div class="board-header">
+          <div class="board-header column-header">
             <h2 class="column-title">In Progress</h2>
             <button class="add-new-task-button" onclick="openAddTaskModal('inProgress')">
-              <img src="../assets/imgs/plus button.png" alt="add new task to In Progress column" />
+              <img src="../assets/imgs/plus-symbol.svg" alt="add new task to In Progress column" />
             </button>
           </div>
           <div id="inProgress" class="in-progress-content" ondrop="moveTo('inProgress')"
@@ -118,10 +157,10 @@
               "></div>
         </section>
         <section class="review-column">
-          <div class="board-header">
+          <div class="board-header column-header">
             <h2 class="column-title">Await feedback</h2>
             <button class="add-new-task-button" onclick="openAddTaskModal('review')">
-              <img src="../assets/imgs/plus button.png" alt="add new task to Await feedback column" />
+              <img src="../assets/imgs/plus-symbol.svg" alt="add new task to Await feedback column" />
             </button>
           </div>
           <div id="review" class="review-content" ondrop="moveTo('review')" ondragleave="highlight('review', false)"
@@ -131,178 +170,24 @@
               "></div>
         </section>
         <section class="done-column">
-          <div class="board-header">
+          <div class="board-header column-header">
             <h2 class="column-title">Done</h2>
           </div>
           <div id="done" class="done-content" ondrop="moveTo('done')" ondragleave="highlight('done', false)" ondragover="
                 dragover(event);
                 highlight('done', true);
-              "></div>
-        </section>
-      </div>
-    </section>
-  </main>
-  <dialog id="addTaskDialog" class="add-task-dialog" onclick="closeAddTaskModal(event)"
-    onkeydown="handleAddTaskModalKey(event)">
-  </dialog>
-  <template id="addTaskModalTemplate">
-    <div class="add-task-modal" onclick="event.stopPropagation()">
-      <button class="add-task-close-btn" type="button" onclick="closeAddTaskModalDirect()">✕</button>
-
-      <section class="addtask">
-        <h1 class="addtask-title">Add Task</h1>
-
-        <form class="addtask-form">
-          <div class="addtask-col">
-            <div class="field">
-              <label class="label" for="title">
-                Title<span class="req">*</span>
-              </label>
-
-              <input id="title" class="input" type="text" placeholder="Enter a title" />
-              <p class="error-msg" id="titleError">This field is required</p>
-            </div>
-
-            <div class="field">
-              <label class="label" for="desc">Description</label>
-              <textarea id="desc" class="textarea" rows="5"
-                placeholder="Create a contact form and imprint page !"></textarea>
-            </div>
-
-            <div class="field">
-              <label class="label" for="due">
-                Due date<span class="req">*</span>
-              </label>
-
-              <div class="date-input-wrapper">
-                <input id="due" class="input" type="text" placeholder="dd/mm/yyyy" ondblclick="setTodayDate()" />
-                <img class="date-icon-right" src="../assets/imgs/event.png" alt="calendar" />
-              </div>
-              <p class="error-msg" id="dueError">This field is required</p>
-            </div>
-          </div>
-
-          <div class="addtask-divider"></div>
-
-          <div class="addtask-col">
-            <label class="label">Priority</label>
-
-            <div class="prio-row">
-              <button type="button" class="prio-btn prio-urgent">
-                Urgent
-                <svg class="prio-icon" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M7 14l5-5 5 5" />
-                  <path d="M7 19l5-5 5 5" />
-                </svg>
-              </button>
-
-              <button type="button" class="prio-btn prio-medium">
-                Medium
-                <svg class="prio-icon" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M7 10h10" />
-                  <path d="M7 14h10" />
-                </svg>
-              </button>
-
-              <button type="button" class="prio-btn prio-low">
-                Low
-                <svg class="prio-icon" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M7 10l5 5 5-5" />
-                  <path d="M7 5l5 5 5-5" />
-                </svg>
-              </button>
-            </div>
-
-            <div class="field">
-              <label class="label" for="assignedSelect">Assigned to</label>
-
-              <div class="custom-select" id="assignedSelect">
-                <div class="select-trigger">
-                  <span class="trigger-text">Select contacts to assign</span>
-                  <img class="trigger-arrow" src="../assets/imgs/arrow_drop_downaa.png" alt="">
-                </div>
-
-                <div class="select-dropdown" id="assignedDropdown"></div>
-              </div>
-
-              <div class="assigned-badges" id="assignedBadges"></div>
-            </div>
-
-            <div class="field">
-              <label class="label" for="catSelect">
-                Category<span class="req">*</span>
-              </label>
-
-              <div class="custom-select custom-select--single" id="catSelect">
-                <div class="select-trigger">
-                  <span class="trigger-text">Select task category</span>
-                  <img class="trigger-arrow" src="../assets/imgs/arrow_drop_downaa.png" alt="">
-                </div>
-
-                <div class="select-dropdown">
-                  <div class="select-option" data-value="technical">Technical Task</div>
-                  <div class="select-option" data-value="userstory">User Story</div>
-                </div>
-              </div>
-
-              <input type="hidden" name="category" id="catHidden" value="">
-              <p class="error-msg" id="categoryError">This field is required</p>
-            </div>
-
-            <div class="field">
-              <label class="label" for="subtask">Subtasks</label>
-
-              <div class="subtask-input">
-                <input id="subtask" type="text" placeholder="Add new subtask" class="input" />
-
-                <div class="subtask-actions">
-                  <svg class="subtask-icon" viewBox="0 0 24 24">
-                    <path d="M6 6L18 18M6 18L18 6" />
-                  </svg>
-
-                  <div class="divider"></div>
-
-                  <svg class="subtask-icon" viewBox="0 0 24 24">
-                    <path d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-              </div>
-            </div>
-
-            <div class="subtasks-list" id="subtasksList"></div>
-          </div>
-
-          <div class="addtask-foot">
-            <p class="required-hint">
-              <span class="req">*</span> This field is required
-            </p>
-
-            <div class="addtask-actions">
-              <button type="button" class="secondary-btn">
-                Clear
-                <svg class="icon icon-cancel" width="16" height="16" viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <path
-                    d="M12.0011 11.9998L17.2441 17.2428M6.75806 17.2428L12.0011 11.9998L6.75806 17.2428ZM17.2441 6.75684L12.0001 11.9998L17.2441 6.75684ZM12.0001 11.9998L6.75806 6.75684L12.0001 11.9998Z"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-              </button>
-
-              <button type="button" class="primary-btn">
-                Create Task
-                <img src="../assets/imgs/check.svg" alt="create">
-              </button>
-            </div>
-          </div>
-        </form>
+              "
+            ></div>
+          </section>
+        </div>
       </section>
-
-      <div id="taskAddedToast" class="task-toast">
-        <span>Task added to board</span>
-        <img src="../assets/imgs/board.png" alt="board">
-      </div>
-    </div>
-  </template>
-</body>
-
+    </main>
+    <dialog
+      id="dialog"
+      onclick="closeTaskDialog()"
+      onkeydown="handleAddTaskModalKey(event)"
+    >
+      <div id="dialogContent" onclick="event.stopPropagation()"></div>
+    </dialog>
+  </body>
 </html>
