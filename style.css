@@ -140,7 +140,7 @@ header {
 
 /*#endregion*/
 
-@media (max-width: 700px) {
+@media (max-width: 1440px) {
   header {
     height: 80px;
   }

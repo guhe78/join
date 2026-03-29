@@ -471,8 +471,14 @@ function transformDate(task) {
  */
 function getSearchQuery() {
   const input = document.getElementById("searchInput");
-  if (!input) return "";
-  return input.value.toLowerCase();
+  const mobileInput = document.getElementById("searchInputMobile");
+  if (input && input.offsetParent !== null) {
+    return input.value.toLowerCase();
+  }
+  if (mobileInput && mobileInput.offsetParent !== null) {
+    return mobileInput.value.toLowerCase();
+  }
+  return "";
 }
 
 /**
