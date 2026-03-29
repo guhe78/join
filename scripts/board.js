@@ -106,6 +106,7 @@ function prepareTaskData(element) {
   const badges = generateBadgeHtml(element.assigned_to);
   return {
     firebaseKey: element.firebaseKey,
+    status: element.status,
     title: element.title,
     description: element.description,
     category: element.category,
@@ -227,6 +228,55 @@ async function moveTo(newStatus) {
     await updateData("tasks", movedTask.firebaseKey, { status: newStatus });
     updateBoard();
   }
+}
+
+/**
+ * Opens or closes the move menu for a task card on mobile.
+ * @param {Event} event - The click event from the move button.
+ * @param {string} firebaseKey - The task ID.
+ */
+function toggleTaskMoveMenu(event, firebaseKey) {
+  event.stopPropagation();
+  const card = document.querySelector(`.card[data-id="${firebaseKey}"]`);
+  if (!card) return;
+  const menu = card.querySelector(".task-move-menu");
+  if (!menu) return;
+  const isOpen = menu.classList.contains("open");
+  closeTaskMoveMenus();
+  if (!isOpen) {
+    menu.classList.add("open");
+  }
+}
+
+/**
+ * Closes all currently open task move menus.
+ */
+function closeTaskMoveMenus() {
+  const menus = document.querySelectorAll(".task-move-menu.open");
+  if (menus.length === 0) return;
+  menus.forEach((menu) => menu.classList.remove("open"));
+}
+
+/**
+ * Moves a task to a selected status from the mobile move menu.
+ * @param {Event} event - The click event from the menu item.
+ * @param {string} firebaseKey - The task ID.
+ * @param {string} newStatus - The target status.
+ */
+async function moveTaskFromMenu(event, firebaseKey, newStatus) {
+  event.stopPropagation();
+  const task = currentTasks.find((item) => item.firebaseKey === firebaseKey);
+  if (!task || task.status === newStatus) {
+    closeTaskMoveMenus();
+    return;
+  }
+  currentDraggedElement = firebaseKey;
+  await moveTo(newStatus);
+  closeTaskMoveMenus();
+}
+
+function checkIsCurrentStatus(task, newStatus, returnContent) {
+return task.status === newStatus ? returnContent : "";
 }
 
 /**
