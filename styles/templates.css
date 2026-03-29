@@ -113,8 +113,11 @@
 }
 
 .close-btn {
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .detail-assigned-section,
@@ -134,14 +137,14 @@
 .detail-footer {
   display: flex;
   justify-content: flex-end;
-  padding-right: 16px;
+  padding-right: 24px;
   gap: 8px;
 }
 
 .detail-header {
   display: flex;
   justify-content: space-between;
-  padding-right: 16px;
+  padding-right: 24px;
 }
 
 .detail-info-row {
