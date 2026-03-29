@@ -114,6 +114,18 @@
   gap: 4px;
 }
 
+.edit-first-description {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.input-wrapper-title {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
 .edit-input {
   font-size: 20px;
   height: 48px;
@@ -160,6 +172,8 @@
 }
 
 .edit-textarea {
+  font-family: 'Inter Variable', sans-serif !important;
+  font-size: 21px !important;
   font-family: 'Inter Variable', sans-serif !important;
   font-size: 21px !important;
 }

@@ -123,6 +123,21 @@
           </div>
           <div id="inProgress" class="in-progress-content" ondrop="moveTo('inProgress')"
             ondragleave="highlight('inProgress', false)" ondragover="
+              ">
+            <div class="drag-placeholder">
+
+            </div>
+          </div>
+        </section>
+        <section class="in-progress-column">
+          <div class="board-header column-header">
+            <h2 class="column-title">In Progress</h2>
+            <button class="add-new-task-button" onclick="openAddTaskModal('inProgress')">
+              <img src="../assets/imgs/plus-symbol.svg" alt="add new task to In Progress column" />
+            </button>
+          </div>
+          <div id="inProgress" class="in-progress-content" ondrop="moveTo('inProgress')"
+            ondragleave="highlight('inProgress', false)" ondragover="
                 dragover(event);
                 highlight('inProgress', true);
               "></div>
@@ -136,8 +151,26 @@
           </div>
           <div id="review" class="review-content" ondrop="moveTo('review')" ondragleave="highlight('review', false)"
             ondragover="
+              "></div>
+        </section>
+        <section class="review-column">
+          <div class="board-header column-header">
+            <h2 class="column-title">Await feedback</h2>
+            <button class="add-new-task-button" onclick="openAddTaskModal('review')">
+              <img src="../assets/imgs/plus-symbol.svg" alt="add new task to Await feedback column" />
+            </button>
+          </div>
+          <div id="review" class="review-content" ondrop="moveTo('review')" ondragleave="highlight('review', false)"
+            ondragover="
                 dragover(event);
                 highlight('review', true);
+              "></div>
+        </section>
+        <section class="done-column">
+          <div class="board-header column-header">
+            <h2 class="column-title">Done</h2>
+          </div>
+          <div id="done" class="done-content" ondrop="moveTo('done')" ondragleave="highlight('done', false)" ondragover="
               "></div>
         </section>
         <section class="done-column">
