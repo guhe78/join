@@ -35,7 +35,6 @@ function clearAssignedSelect() {
         let checkbox = options[i].getElementsByTagName("input")[0];
         checkbox.checked = false;
     }
-    
     updateAssignedText();
     updateAssignedBadges();
     assignedSelect.classList.remove("open");
@@ -176,7 +175,7 @@ function getSelectedPriority() {
     for (let i = 0; i < buttons.length; i++) {
         if (buttons[i].classList.contains("is-active") === true) {
             if (buttons[i].classList.contains("prio-urgent") === true) {
-                return "high";
+                return "urgent";
             }
             if (buttons[i].classList.contains("prio-medium") === true) {
                 return "medium";
@@ -211,7 +210,7 @@ function getSubtasksForFirebase() {
     for (let i = 0; i < subtasks.length; i++) {
         subtasksForFirebase.push({
             title: subtasks[i],
-            done: false
+            is_done: false
         });
     }
     return subtasksForFirebase;
@@ -252,17 +251,6 @@ function applyPickedDate() {
         return;
     }
     dueInput.value = formatDateToGerman(datePicker.value);
-}
-
-function formatDateToGerman(dateString) {
-    let parts = dateString.split("-");
-    if (parts.length !== 3) {
-        return "";
-    }
-    let year = parts[0];
-    let month = parts[1];
-    let day = parts[2];
-    return day + "/" + month + "/" + year;
 }
 
 function setMinDueDate() {

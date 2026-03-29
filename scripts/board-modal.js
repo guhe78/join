@@ -4,19 +4,14 @@ async function openAddTaskModal(status) {
     if (status === undefined) {
         status = "todo";
     }
-
     currentBoardStatus = status;
-
     let dialog = document.getElementById("dialog");
     let dialogContent = document.getElementById("dialogContent");
-
     if (dialog === null || dialogContent === null) {
         return;
     }
-
     dialog.classList.add("add-task-dialog");
     dialogContent.innerHTML = addTaskTemplate();
-
     await initAddTask(createTaskFromBoardModal);
     showAddTaskDialog(dialog);
 }
@@ -32,12 +27,10 @@ function showAddTaskDialogAnimation() {
     if (dialog === null) {
         return;
     }
-
     let modal = dialog.getElementsByClassName("add-task-modal")[0];
     if (modal === undefined) {
         return;
     }
-
     modal.classList.add("show");
 }
 
@@ -51,12 +44,10 @@ function startAddTaskDialogCloseAnimation() {
     if (dialog === null) {
         return;
     }
-
     let modal = dialog.getElementsByClassName("add-task-modal")[0];
     if (modal === undefined) {
         return;
     }
-
     modal.classList.remove("show");
     modal.classList.add("hide");
 }
@@ -64,11 +55,9 @@ function startAddTaskDialogCloseAnimation() {
 function finishAddTaskDialogClose() {
     let dialog = document.getElementById("dialog");
     let dialogContent = document.getElementById("dialogContent");
-
     if (dialog === null || dialogContent === null) {
         return;
     }
-
     closeAddTaskDialogElement(dialog);
     dialogContent.innerHTML = "";
     dialog.classList.remove("add-task-dialog");
@@ -87,7 +76,6 @@ async function createTaskFromBoardModal() {
     if (isValid !== true) {
         return;
     }
-
     try {
         let task = createTaskObject(currentBoardStatus);
         await postData("tasks", task);
@@ -104,7 +92,6 @@ function showBoardTaskAddedToast() {
     if (toast === null) {
         return;
     }
-
     toast.classList.add("show");
 }
 
@@ -130,11 +117,9 @@ function openTaskDetail(id) {
     let task = findTaskById(tasks, id);
     let dialog = document.getElementById("dialog");
     let content = document.getElementById("dialogContent");
-
     if (!task || !dialog || !content) {
         return;
     }
-
     dialog.classList.add("task-modal");
     dialog.classList.remove("is-closing");
     renderTaskDetailContent(content, task);
@@ -144,22 +129,17 @@ function openTaskDetail(id) {
 function closeTaskDialog() {
     let dialog = document.getElementById("dialog");
     let dialogContent = document.getElementById("dialogContent");
-
     if (!dialog || !dialog.open || dialog.classList.contains("is-closing")) {
         return;
     }
-
     dialog.classList.add("is-closing");
-
     setTimeout(function () {
         if (dialog.open) {
             dialog.close();
         }
-
         if (dialogContent) {
             dialogContent.innerHTML = "";
         }
-
         dialog.classList.remove("task-modal");
         dialog.classList.remove("add-task-dialog");
         dialog.classList.remove("is-closing");
