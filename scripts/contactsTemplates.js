@@ -60,14 +60,12 @@ function contactDetailTemplate(index) {
 
 function contactBadgeTemplate(index) {
   return `
-  <div class="contact-detail-badge" style="background-color: ${contacts[index].badgeColor}">${contacts[index].firstName[0].toUpperCase()}${contacts[index].lastName[0].toUpperCase()}</div>
-`;
+    <div class="contact-detail-badge" style="background-color: ${contacts[index].badgeColor}">${contacts[index].firstName[0].toUpperCase()}${contacts[index].lastName[0].toUpperCase()}</div>
+  `;
 }
 
 function contactBadgeDummyTemplate() {
   return `
-    <div class="person-img-container">
-      <img src="../assets/imgs/person.svg" alt="" />
-    </div>
+    <img src="../assets/imgs/person.svg" alt="" />
   `;
 }
