@@ -72,7 +72,7 @@ function dialogTemplate(task, categoryClass) {
             <span class="detail-label">Priority:</span>
             <div class="priority-badge-detail">
               ${formatPriority(task)}
-              <img src="../assets/imgs/prio-${task.priority}.png" alt="" />
+              <img src="../assets/imgs/prio-${task.priority}.svg" alt="" />
             </div>
           </div>
 
