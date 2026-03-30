@@ -118,26 +118,17 @@
       <section class="contacts-section">
         <aside class="contacts">
           <div class="add-contact">
-            <button class="primary-btn" onclick="openAddNewContact()">
-              Add new contact
+            <button
+              class="primary-btn add-contact-button"
+              onclick="openAddNewContact()"
+            >
               <img src="../assets/imgs/person-add.png" alt="" />
             </button>
           </div>
 
           <div class="contacts-list" id="contacts-list"></div>
         </aside>
-        <div class="contact-main">
-          <div class="contact-headline">
-            <h1>Contacts</h1>
-            <div class="headline-seperator"></div>
-            <p>Better with a team</p>
-            <div class="headline-seperator-mobile"></div>
-          </div>
-          <div class="contact-overview" id="contact-overview"></div>
-          <section class="toast-section" id="toast-section">
-            <p id="toast-message"></p>
-          </section>
-        </div>
+        <div class="contact-main" id="contact-main"></div>
       </section>
       <dialog id="dialog">
         <section class="add-edit-contact-section" id="add-edit-contact-section">

@@ -69,3 +69,18 @@ function contactBadgeDummyTemplate() {
     <img src="../assets/imgs/person.svg" alt="" />
   `;
 }
+
+function contactMainTemplate() {
+  return `
+    <div class="contact-headline">
+      <h1>Contacts</h1>
+      <div class="headline-seperator"></div>
+      <p>Better with a team</p>
+      <div class="headline-seperator-mobile"></div>
+    </div>
+    <div class="contact-overview" id="contact-overview"></div>
+    <section class="toast-section" id="toast-section">
+      <p id="toast-message"></p>
+    </section>
+  `;
+}

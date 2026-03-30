@@ -38,7 +38,7 @@ h3 {
   align-items: center;
 }
 
-.contacts button {
+.add-contact-button {
   font-weight: bold;
   font-size: 21px;
   width: 352px;
@@ -48,6 +48,12 @@ h3 {
   padding: 12px 0;
   display: flex;
   justify-content: center;
+
+  gap: 16px;
+}
+
+.add-contact-button::before {
+  content: "Add new contact";
 }
 
 .contacts-list {
@@ -508,5 +514,40 @@ dialog::backdrop {
   }
 }
 
-@media (max-width: 430px) {
+@media (max-width: 850px) {
+  .contact-main {
+    display: none;
+  }
+
+  .add-contact {
+    height: 0;
+  }
+
+  .contacts-list {
+    padding-top: 24px;
+    padding-bottom: 86px;
+  }
+
+  .add-contact-button {
+    width: 56px;
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 21px;
+    border-radius: 50%;
+
+    padding: 0;
+    gap: 0;
+
+    position: absolute;
+    bottom: 108px;
+    right: 24px;
+  }
+
+  .add-contact-button::before {
+    content: "";
+  }
+
+  .contacts {
+    width: 100%;
+  }
 }
