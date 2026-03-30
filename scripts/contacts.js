@@ -5,6 +5,7 @@ const DOM = {
   noButtonEl: document.getElementById("no-button"),
   okButtonEl: document.getElementById("ok-button"),
   badgeColorEl: document.getElementById("contact-badge"),
+  contactMainEl: document.getElementById("contact-main"),
   contactOverviewEl: document.getElementById("contact-overview"),
   contactNameEl: document.getElementById("contact-name-input"),
   contactEmailEl: document.getElementById("contact-email-input"),
@@ -47,6 +48,7 @@ DOM.dialogEl.onclick = (event) => {
 async function init() {
   await getContacts();
   renderContactsList();
+  renderContactMain();
 
   DOM.userButton.innerHTML = getUserData();
   DOM.closeButtonEl.onclick = closeDialog;
@@ -73,6 +75,11 @@ function renderContactsList() {
   }
 }
 
+function renderContactMain() {
+  DOM.contactMainEl.innerHTML = contactMainTemplate();
+  DOM.contactOverviewEl = document.getElementById("contact-overview");
+}
+
 function renderContact(index) {
   DOM.contactOverviewEl.innerHTML = contactDetailTemplate(index);
   DOM.contactOverviewEl.classList.add("fade-in");
@@ -89,7 +96,9 @@ function renderToastMessage(type) {
 function toggleActiveContact(index) {
   const currentActiveElement = document.querySelector(".active-contact");
   const newActiveElement = document.getElementById("contact" + index);
-  DOM.contactOverviewEl.classList.remove("fade-in");
+  if (DOM.contactOverviewEl) {
+    DOM.contactOverviewEl.classList.remove("fade-in");
+  }
   if (currentActiveElement) {
     currentActiveElement.classList.remove("active-contact");
     DOM.contactOverviewEl.innerHTML = "";
