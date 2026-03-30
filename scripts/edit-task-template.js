@@ -91,7 +91,7 @@ function editTaskTemplate(task) {
             <div class="custom-select" id="assignedSelect">
                 <div class="select-trigger">
                   <span class="trigger-text">Select contacts to assign</span>
-                  <img class="trigger-arrow" src="../assets/imgs/arrow_drop_downaa.png" alt="">
+                  <img class="trigger-arrow" src="../assets/imgs/arrow_drop_downaa.png" alt="Open assigned contacts dropdown">
                 </div>
 
                 <div class="select-dropdown" id="assignedDropdown"></div>

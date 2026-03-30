@@ -182,6 +182,50 @@
 }
 
 @media (max-width: 1440px) {
+  .drag-placeholder {
+    height: 200px;
+  }
+
+  .board-content {
+    padding-top: 0;
+    padding-bottom: 80px;
+    margin-top: 26px;
+    flex-direction: column;
+    overflow-y: auto;
+    scrollbar-width: none;
+  }
+
+  .to-do-content,
+  .in-progress-content,
+  .review-content,
+  .done-content {
+    flex-direction: row;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .empty-state,
+  .card,
+  .drag-placeholder {
+    width: 252px;
+    flex-shrink: 0;
+  }
+  
+  .column-header {
+    padding: 0;
+  }
+
+  .done-content,
+  .review-content,
+  .to-do-content,
+  .in-progress-content {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+
+@media (max-width: 1040px) {
   .board-section {
     height: calc(100vh - 160px);
     padding: 16px;
@@ -241,40 +285,4 @@
     display: flex;
   }
 
-  .board-content {
-    padding-top: 0;
-    padding-bottom: 80px;
-    margin-top: 26px;
-    flex-direction: column;
-    overflow-y: auto;
-    scrollbar-width: none;
-  }
-
-  .to-do-content,
-  .in-progress-content,
-  .review-content,
-  .done-content {
-    flex-direction: row;
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
-
-  .empty-state,
-  .card,
-  .drag-placeholder {
-    width: 252px;
-    flex-shrink: 0;
-  }
-  
-  .column-header {
-    padding: 0;
-  }
-
-  .done-content,
-  .review-content,
-  .to-do-content,
-  .in-progress-content {
-    padding-left: 0;
-    padding-right: 0;
-  }
 }

@@ -58,15 +58,15 @@ function dialogTemplate(task, categoryClass) {
           <div class="detail-scroll-content">
           <h1 class="detail-title">${task.title}</h1>
           <p class="detail-description">${task.description}</p>
-          <div class="detail-info-row">
+          <div class="detail-info-due-date">
             <span class="detail-label">Due date:</span>
             <span>${reformatDate(task)}</span>
           </div>
-          <div class="detail-info-row">
+          <div class="detail-info-priority">
             <span class="detail-label">Priority:</span>
             <div class="priority-badge-detail">
               ${formatPriority(task)}
-              <img src="../assets/imgs/prio-${task.priority}.svg" alt="" />
+              <img src="../assets/imgs/prio-${task.priority}.svg" alt="Priority icon" />
             </div>
           </div>
           <div class="detail-assigned-section">

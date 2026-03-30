@@ -159,7 +159,7 @@ function addTaskTemplate() {
                     <img
                       class="trigger-arrow"
                       src="../assets/imgs/arrow_drop_downaa.png"
-                      alt=""
+                      alt="Open assigned contacts dropdown"
                     />
                   </div>
 
@@ -180,7 +180,7 @@ function addTaskTemplate() {
                     <img
                       class="trigger-arrow"
                       src="../assets/imgs/arrow_drop_downaa.png"
-                      alt=""
+                      alt="Open category dropdown"
                     />
                   </div>
 

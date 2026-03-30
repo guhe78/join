@@ -4,16 +4,13 @@
   align-items: center;
   gap: 8px;
   font-size: 16px;
-  transition: transform 0.2s ease-in-out;
-  transform-origin: center;
+  transition: 0.1s ease;
 }
 
 .action-btn:hover,
 .action-btn:hover img {
   color: var(--greeting-name-and-hover);
-  filter: invert(61%) sepia(52%) saturate(2335%) hue-rotate(167deg)
-    brightness(96%) contrast(91%);
-  transform: scale(1.02);
+  filter: invert(58%) sepia(82%) saturate(1968%) hue-rotate(168deg) brightness(96%) contrast(91%);
 }
 
 .badge {
@@ -52,6 +49,7 @@
 .badge-circle {
   width: 42px;
   height: 42px;
+  border: 2px solid white;
   border-radius: 50%;
   color: white;
   display: flex;
@@ -194,14 +192,14 @@
 .detail-subtasks-section {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
 }
 
 .detail-contact-item {
   display: flex;
   align-items: center;
-  gap: 20px;
-  padding: 8px 16px;
+  gap: 16px;
+  padding: 7px 16px;
 }
 
 .detail-footer {
@@ -217,9 +215,16 @@
   padding-right: 24px;
 }
 
-.detail-info-row {
+.detail-info-due-date {
   display: flex;
-  gap: 20px;
+  gap: 25px;
+  font-size: 20px;
+}
+
+.detail-info-priority {
+  display: flex;
+  align-items: center;
+  gap: 25px;
   font-size: 20px;
 }
 
@@ -241,13 +246,12 @@
   font-size: 16px;
   gap: 12px;
   padding: 6px 16px;
-  transition: 0.2s ease;
+  transition: 0.1s ease;
 }
 
 .detail-subtask-item:hover {
   background-color: var(--user-icon);
   border-radius: 8px;
-  transform: scale(1.01);
 }
 
 .detail-subtask-item:hover .subtask-checkbox {
@@ -289,7 +293,7 @@
 .priority-badge-detail {
   display: flex;
   align-items: center;
-  gap: 12px;
+  padding: 0px 18px;
 }
 
 .progress-bar {
@@ -317,6 +321,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
+  transition: 0.1s ease;
 }
 
 .subtask-count {
@@ -399,6 +405,7 @@
 
 @media (max-width: 600px) {
   .task-card-detail {
+    max-width: 396px;
     font-size: 16px;
     padding: 32px 24px;
     gap: 16px;
@@ -412,11 +419,31 @@
     padding: 4px 16px;
   }
 
-  h1 {
+  .task-card-detail h1 {
     font-size: 36px;
   }
 
-  .detail-info-row {
+  .detail-info-due-date {
     font-size: 16px;
   }
+
+  .detail-info-priority {
+    font-size: 16px;
+  }
+
+  .priority-badge-detail img {
+    height: 27px;
+  }
+}
+
+@media (max-width: 440px) {
+  .task-card-detail {
+    width: auto;
+    max-width: none;
+  }
+
+  .detail-header {
+    padding-right: 0;
+  }
+
 }
