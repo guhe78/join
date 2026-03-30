@@ -129,7 +129,7 @@ function editTaskTemplate(task) {
 
           <div class="detail-footer">
             <button
-              onclick="saveEditedTask('${task.id}')"
+              onclick="saveEditedTask('${task.firebaseKey}')"
               class="primary-btn edit-button"
             >
               Ok

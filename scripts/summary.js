@@ -46,7 +46,7 @@ function updateTask(task, summary) {
   if (task.status === "done") summary.done++;
   if (task.status === "inProgress") summary.inProgress++;
   if (task.status === "review") summary.review++;
-  if (task.priority === "high") summary.urgent++;
+  if (task.priority === "urgent") summary.urgent++;
 }
 
 function updateUrgentDeadline() {
@@ -64,7 +64,7 @@ function updateUrgentDeadline() {
 }
 
 function getMostUrgentTask(tasks) {
-  const urgentTasks = tasks.filter(t => t.priority === "high");
+  const urgentTasks = tasks.filter(t => t.priority === "urgent");
 
   if (urgentTasks.length === 0) return null;
 

@@ -10,32 +10,10 @@ const TaskDialogCloseDuration = 200;
  * Updates the board with the loaded data afterwards.
  */
 async function init() {
-  await getContactsBoard();
-  await getTasksBoard();
+  await getContacts();
+  await getTasks();
   currentTasks = tasks;
   updateBoard();
-}
-
-/**
- * Loads contacts from Firebase and stores them in the global contacts array.
- * @returns {Promise<void>} Resolves when contacts have been loaded and mapped.
- */
-async function getContactsBoard() {
-  const contactsResponse = await getData("contacts");
-  if (contactsResponse) {
-    contacts = makeArray(contactsResponse);
-  }
-}
-
-/**
- * Loads tasks from Firebase and stores them in the global tasks array.
- * @returns {Promise<void>} Resolves when tasks have been loaded and mapped.
- */
-async function getTasksBoard() {
-  const tasksResponse = await getData("tasks");
-  if (tasksResponse) {
-    tasks = makeArray(tasksResponse);
-  }
 }
 
 /**
