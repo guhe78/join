@@ -114,6 +114,18 @@
   gap: 4px;
 }
 
+.edit-first-description {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.input-wrapper-title {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
 .edit-input {
   font-size: 20px;
   height: 48px;
@@ -122,6 +134,7 @@
 .feedback-message {
   color: rgb(255, 0, 0);
   font-size: 12px;
+  display: none;
 }
 
 .edit-scroll-content {
@@ -161,6 +174,8 @@
 .edit-textarea {
   font-family: 'Inter Variable', sans-serif !important;
   font-size: 21px !important;
+  font-family: 'Inter Variable', sans-serif !important;
+  font-size: 21px !important;
 }
 
 .edit-textarea:focus {
@@ -187,36 +202,6 @@
   justify-content: center;
 }
 
-.low-btn-selected,
-.medium-btn-selected,
-.high-btn-selected {
-  box-shadow: none;
-}
-
-.low-btn-selected {
-  background-color: var(--low-arrow);
-}
-
-.medium-btn-selected {
-  background-color: var(--medium-btn);
-}
-
-.high-btn-selected {
-  background-color: var(--urgent-icon);
-}
-
-.low-btn-selected img,
-.medium-btn-selected img,
-.high-btn-selected img {
-  filter: brightness(0) saturate(100%) invert(100%);
-}
-
-.priority-options button.low-btn-selected:hover,
-.priority-options button.medium-btn-selected:hover,
-.priority-options button.high-btn-selected:hover {
-  box-shadow: none;
-}
-
 .priority-label {
   font-size: 19px;
   font-weight: bold;
@@ -227,7 +212,7 @@
   gap: 8px;
 }
 
-.priority-options button {
+.priority-options .prio-btn {
   font-size: 20px;
   display: flex;
   flex: 1;
@@ -236,10 +221,82 @@
   gap: 8px;
   padding: 16px 10px;
   border-radius: 10px;
-  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
-  transition: transform 0.1s ease;
+  border: 1px solid #e6e8ee;
+  background: #ffffff;
+  color: #2A3647;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
+  transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease;
 }
 
-.priority-options button:hover {
-   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+.priority-options .prio-btn:not(.is-active):hover {
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  transform: translateY(-1px);
+}
+
+.priority-options .prio-btn.is-active {
+  box-shadow: none;
+}
+
+#urgent-btn.is-active {
+  background: #ff3d00;
+  color: #ffffff;
+}
+
+#medium-btn.is-active {
+  background: #ffa800;
+  color: #ffffff;
+}
+
+#low-btn.is-active {
+  background: #7ae229;
+  color: #ffffff;
+}
+
+.priority-options .prio-icon {
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+}
+
+.priority-options .prio-icon path {
+  stroke: currentColor;
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+#urgent-btn:not(.is-active) .prio-icon {
+  color: #ff3d00;
+}
+
+#low-btn:not(.is-active) .prio-icon {
+  color: #7ae229;
+}
+
+#urgent-btn.is-active .prio-icon,
+#low-btn.is-active .prio-icon {
+  color: #ffffff;
+}
+
+#medium-btn img {
+  width: 20px;
+  height: 10px;
+}
+
+#medium-btn.is-active img {
+  filter: brightness(0) saturate(100%) invert(100%);
+}
+
+.error-msg {
+  color: #ff8190;
+  font-size: 12px;
+}
+
+.input-error {
+  border: 1px solid #ff8190 !important;
+}
+
+.d-none {
+  display: none;
 }
