@@ -28,10 +28,13 @@ main {
   height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  overflow-y: auto  ;
 }
 
 header {
   height: 96px;
+  padding: 12px 0;
   width: 100%;
   background-color: white;
   display: flex;
@@ -106,7 +109,6 @@ header {
 /* =========================================
    4. HEADER COMPONENTS & BUTTONS
    ========================================= */
-
 .header-nav {
   display: flex;
   justify-content: center;

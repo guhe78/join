@@ -18,12 +18,14 @@
   <link rel="stylesheet" href="../styles/variables.css" />
   <link rel="stylesheet" href="../styles/font.css" />
   <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="../styles/dropdown-menu.css" />
 
   <link rel="stylesheet" href="../styles/summary.css">
 
   <script src="../scripts/config.js" defer></script>
   <script src="../scripts/services.js" defer></script>
   <script src="../scripts/summary.js" defer></script>
+  <script src="../scripts/dropdown-menu.js" defer></script>
 
 </head>
 
@@ -55,74 +57,85 @@
         <button class="button help-button">
           <a href="./help-desk.html"><img src="../assets/imgs/help.png" alt="search" /></a>
         </button>
-        <button class="button profil-button">SM</button>
+        <div class="profile-wrapper">
+          <button id="profile-button" class="button profile-button">SM</button>
+
+          <div id="profile-dropdown" class="profile-dropdown">
+            <a href="./legal-notice.html">Profile</a>
+            <a href="./privacy-policy.html">Settings</a>
+            <a href="../index.html">Log out</a>
+          </div>
+        </div>
       </nav>
     </header>
 
     <section class="summary-section">
-      <div class="summary-title">
-        <h1>Join 360</h1>
-        <div class="split-line"></div>
-        <span class="summary-subtitle">Key Metrics at a Glance</span>
-      </div>
-
-      <div class="summary-below-section">
-        <div class="summary-container">
-
-          <div class="card todo">
-            <div class="icon-wrapper">
-              <img class="img-card" src="../assets/imgs/edit.png" alt="edit" />
-            </div>
-            <div class="text-wrapper">
-              <span class="numbers" id="todo-count">0</span>
-              <span class="card-font">To-do</span>
-            </div>
-          </div>
-
-          <div class="card done">
-            <div class="icon-wrapper">
-              <img class="img-card" src="../assets/imgs/check-white.svg" alt="check" />
-            </div>
-            <div class="text-wrapper">
-              <span class="numbers" id="done-count">0</span>
-              <span class="card-font">Done</span>
-            </div>
-          </div>
-
-          <div class="card priority">
-            <div class="icon-wrapper bg-prio">
-              <img class="img-card" src="../assets/imgs/prio-high-white.png" alt="priority high" />
-            </div>
-            <div class="text-wrapper">
-              <span class="numbers" id="urgent-count">0</span>
-              <span class="card-font">Urgent</span>
-            </div>
-            <div class="split-line-priority"></div>
-            <div>
-              <p class="date-prior" id="urgent-date">No urgent tasks</p>
-              <p class="deadline-text">Upcoming Deadline</p>
-            </div>
-          </div>
-
-          <div class="card board">
-            <span class="numbers" id="board-count">0</span>
-            <p class="task-text">Tasks in Board</p>
-          </div>
-
-          <div class="card progress">
-            <span class="numbers" id="progress-count">0</span>
-            <p>Tasks in Progress</p>
-          </div>
-
-          <div class="card feedback">
-            <span class="numbers" id="feedback-count">0</span>
-            <p class="task-text">Awaiting Feedback</p>
-          </div>
+      <div class="summary-content">
+        <div class="summary-title">
+          <h1>Join 360</h1>
+          <div class="split-line"></div>
+          <span class="summary-subtitle">Key Metrics at a Glance</span>
+          <div class="bottom-line"></div>
         </div>
 
-        <div class="welcome-section">
-          <h2>Good morning,</h2>
-          <p class="user-name">Sofia Müller</p>
+        <div class="summary-below-section">
+          <div class="summary-container">
+
+            <div class="card todo">
+              <div class="icon-wrapper">
+                <img class="img-card" src="../assets/imgs/edit.png" alt="edit" />
+              </div>
+              <div class="text-wrapper">
+                <span class="numbers" id="todo-count">0</span>
+                <span class="card-font">To-do</span>
+              </div>
+            </div>
+
+            <div class="card done">
+              <div class="icon-wrapper">
+                <img class="img-card" src="../assets/imgs/check-white.svg" alt="check" />
+              </div>
+              <div class="text-wrapper">
+                <span class="numbers" id="done-count">0</span>
+                <span class="card-font">Done</span>
+              </div>
+            </div>
+
+            <div class="card priority">
+              <div class="icon-wrapper bg-prio">
+                <img class="img-card" src="../assets/imgs/prio-high-white.png" alt="priority high" />
+              </div>
+              <div class="text-wrapper">
+                <span class="numbers" id="urgent-count">0</span>
+                <span class="card-font">Urgent</span>
+              </div>
+              <div class="split-line-priority"></div>
+              <div>
+                <p class="date-prior" id="urgent-date">No urgent tasks</p>
+                <p class="deadline-text">Upcoming Deadline</p>
+              </div>
+            </div>
+
+            <div class="card board">
+              <span class="numbers" id="board-count">0</span>
+              <p class="task-text">Tasks in Board</p>
+            </div>
+
+            <div class="card progress">
+              <span class="numbers" id="progress-count">0</span>
+              <p class="task-text">Tasks in Progress</p>
+            </div>
+
+            <div class="card feedback">
+              <span class="numbers" id="feedback-count">0</span>
+              <p class="task-text">Awaiting Feedback</p>
+            </div>
+          </div>
+
+          <div class="welcome-section">
+            <h2>Good morning,</h2>
+            <p class="user-name">Sofia Müller</p>
+          </div>
         </div>
       </div>
 

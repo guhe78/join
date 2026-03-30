@@ -1,41 +1,72 @@
+let isMobile = window.innerWidth <= 1000;
+let splashRunning = false;
 
 async function initSummary() {
   await getTasks();
   updateSummary();
+  initWelcome();
+}
+
+function updateDOM(summary) {
+  document.getElementById("todo-count").textContent = summary.todo;
+  document.getElementById("done-count").textContent = summary.done;
+  document.getElementById("progress-count").textContent = summary.inProgress;
+  document.getElementById("feedback-count").textContent = summary.review;
+  document.getElementById("board-count").textContent = summary.total;
+  document.getElementById("urgent-count").textContent = summary.urgent;
 }
 
 function updateSummary() {
+  if (!tasks || tasks.length === 0) return;
 
-  const todoTasks = tasks.filter(t => t.status === "todo").length;
-  const doneTasks = tasks.filter(t => t.status === "done").length;
-  const inProgressTasks = tasks.filter(t => t.status === "inProgress").length;
-  const reviewTasks = tasks.filter(t => t.status === "review").length;
-  const totalTasks = tasks.length;
-  const urgentTasks = tasks.filter(t => t.priority === "high").length;
+  const summary = calculateSummary(tasks);
 
-  document.getElementById("todo-count").textContent = todoTasks;
-  document.getElementById("done-count").textContent = doneTasks;
-  document.getElementById("progress-count").textContent = inProgressTasks;
-  document.getElementById("feedback-count").textContent = reviewTasks;
-  document.getElementById("board-count").textContent = totalTasks;
-  document.getElementById("urgent-count").textContent = urgentTasks;
-
+  updateDOM(summary);
   updateUrgentDeadline();
+}
+
+function calculateSummary(tasks) {
+  const summary = {
+    todo: 0,
+    done: 0,
+    inProgress: 0,
+    review: 0,
+    urgent: 0,
+    total: tasks.length
+  };
+
+  for (let task of tasks) {
+    updateTask(task, summary);
+  }
+  return summary;
+}
+
+function updateTask(task, summary) {
+  if (task.status === "todo") summary.todo++;
+  if (task.status === "done") summary.done++;
+  if (task.status === "inProgress") summary.inProgress++;
+  if (task.status === "review") summary.review++;
+  if (task.priority === "high") summary.urgent++;
 }
 
 function updateUrgentDeadline() {
   const urgentDateEl = document.getElementById("urgent-date");
-  if (!urgentDateEl) {
-    console.error('Element mit id="urgent-date" nicht gefunden');
-    return;
-  }
+  if (!urgentDateEl) return;
 
-  const urgentTasks = tasks.filter((t) => t.priority === "high");
+  const mostUrgent = getMostUrgentTask(tasks);
 
-  if (urgentTasks.length === 0) {
+  if (!mostUrgent) {
     urgentDateEl.textContent = "No urgent tasks";
     return;
   }
+
+  urgentDateEl.textContent = formatDate(mostUrgent.due_date);
+}
+
+function getMostUrgentTask(tasks) {
+  const urgentTasks = tasks.filter(t => t.priority === "high");
+
+  if (urgentTasks.length === 0) return null;
 
   let mostUrgent = urgentTasks[0];
 
@@ -45,7 +76,7 @@ function updateUrgentDeadline() {
     }
   }
 
-  urgentDateEl.textContent = formatDate(mostUrgent.due_date);
+  return mostUrgent;
 }
 
 function formatDate(dateString) {
@@ -56,4 +87,83 @@ function formatDate(dateString) {
     day: "numeric",
     year: "numeric"
   });
+}
+
+function initWelcome() {
+  if (isMobile) {
+    startSplash();
+  }
+
+  window.addEventListener("resize", handleResize);
+}
+
+function getWelcomeElements() {
+  return {
+    welcome: document.querySelector(".welcome-section"),
+    summary: document.querySelector(".summary-section")
+  };
+}
+
+function startSplash() {
+  const { welcome, summary } = getWelcomeElements();
+
+  if (!welcome || !summary) return;
+  if (splashRunning) return;
+
+  splashRunning = true;
+
+  document.body.classList.add("mobile-welcome-active");
+
+  runSplashAnimation(welcome, summary);
+}
+
+function runSplashAnimation(welcome, summary) {
+  showWelcome(welcome, summary);
+
+  setTimeout(() => {
+    hideWelcome(welcome, summary);
+  }, 1500);
+}
+
+function showWelcome(welcome, summary) {
+  summary.style.opacity = "0";
+  welcome.style.display = "flex";
+  welcome.style.opacity = "1";
+}
+
+function hideWelcome(welcome, summary) {
+  welcome.style.opacity = "0";
+
+  setTimeout(() => {
+    welcome.style.display = "none";
+    summary.style.opacity = "1";
+    splashRunning = false;
+  }, 500);
+}
+
+function resetWelcome() {
+  const { welcome, summary } = getWelcomeElements();
+
+  if (!welcome || !summary) return;
+
+  welcome.style.display = "";
+  welcome.style.opacity = "";
+
+  summary.style.opacity = "";
+
+  document.body.classList.remove("mobile-welcome-active");
+}
+
+function handleResize() {
+  const nowMobile = window.innerWidth <= 1000;
+
+  if (!isMobile && nowMobile) {
+    startSplash();
+  }
+
+  if (isMobile && !nowMobile) {
+    resetWelcome();
+  }
+
+  isMobile = nowMobile;
 }
