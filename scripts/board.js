@@ -198,7 +198,9 @@ function removeDragPlaceholder(container) {
  * @param {string} newStatus - The new status to assign to the task.
  */
 async function moveTo(newStatus) {
-  const index = currentTasks.findIndex((t) => t.firebaseKey === currentDraggedElement);
+  const index = currentTasks.findIndex(
+    (t) => t.firebaseKey === currentDraggedElement,
+  );
   if (index !== -1) {
     const movedTask = currentTasks.splice(index, 1)[0];
     movedTask.status = newStatus;
@@ -254,7 +256,7 @@ async function moveTaskFromMenu(event, firebaseKey, newStatus) {
 }
 
 function checkIsCurrentStatus(task, newStatus, returnContent) {
-return task.status === newStatus ? returnContent : "";
+  return task.status === newStatus ? returnContent : "";
 }
 
 /**
@@ -413,7 +415,9 @@ async function toggleSubtask(firebaseKey, subId) {
  * @param {boolean} isDone - The completion status of the subtask.
  */
 function updateSubtaskCheckboxIcon(firebaseKey, subId, isDone) {
-  const icon = document.getElementById(`subtask-checkbox-icon-${firebaseKey}-${subId}`);
+  const icon = document.getElementById(
+    `subtask-checkbox-icon-${firebaseKey}-${subId}`,
+  );
   if (!icon) return;
   icon.src = isDone
     ? "../assets/imgs/checkbox-checked.png"

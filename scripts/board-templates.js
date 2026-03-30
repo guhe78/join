@@ -7,18 +7,17 @@ function toDoTaskTemplate(task) {
                   <img class="drag-and-drop-icon" src="../assets/imgs/arrow-mobile-drag-drop.png" alt="Move task" />
                 </button>
                 <div class="task-move-menu" role="menu" aria-label="Move task to section">
-                  <button class="task-move-option ${checkIsCurrentStatus(task, 'todo', 'is-current')}" onclick="moveTaskFromMenu(event, '${task.firebaseKey}', 'todo')" ${checkIsCurrentStatus(task, 'todo', 'disabled')}>To do</button>
-                  <button class="task-move-option ${checkIsCurrentStatus(task, 'inProgress', 'is-current')}" onclick="moveTaskFromMenu(event, '${task.firebaseKey}', 'inProgress')" ${checkIsCurrentStatus(task, 'inProgress', 'disabled')}>In progress</button>
-                  <button class="task-move-option ${checkIsCurrentStatus(task, 'review', 'is-current')}" onclick="moveTaskFromMenu(event, '${task.firebaseKey}', 'review')" ${checkIsCurrentStatus(task, 'review', 'disabled')}>Await feedback</button>
-                  <button class="task-move-option ${checkIsCurrentStatus(task, 'done', 'is-current')}" onclick="moveTaskFromMenu(event, '${task.firebaseKey}', 'done')" ${checkIsCurrentStatus(task, 'done', 'disabled')}>Done</button>
+                  <button class="task-move-option ${checkIsCurrentStatus(task, "todo", "is-current")}" onclick="moveTaskFromMenu(event, '${task.firebaseKey}', 'todo')" ${checkIsCurrentStatus(task, "todo", "disabled")}>To do</button>
+                  <button class="task-move-option ${checkIsCurrentStatus(task, "inProgress", "is-current")}" onclick="moveTaskFromMenu(event, '${task.firebaseKey}', 'inProgress')" ${checkIsCurrentStatus(task, "inProgress", "disabled")}>In progress</button>
+                  <button class="task-move-option ${checkIsCurrentStatus(task, "review", "is-current")}" onclick="moveTaskFromMenu(event, '${task.firebaseKey}', 'review')" ${checkIsCurrentStatus(task, "review", "disabled")}>Await feedback</button>
+                  <button class="task-move-option ${checkIsCurrentStatus(task, "done", "is-current")}" onclick="moveTaskFromMenu(event, '${task.firebaseKey}', 'done')" ${checkIsCurrentStatus(task, "done", "disabled")}>Done</button>
                 </div>
               </div></div>
-
             <h3 class="card-title">${task.title}</h3>
             <p class="card-description">${task.description}</p>
-
-            ${task.hasSubtasks
-      ? `
+            ${
+              task.hasSubtasks
+                ? `
                 <div class="progress-container" title="${task.subtaskInfo}">
                     <div class="progress-bar">
                         <div class="progress-fill" style="width: ${task.progressWidth}%"></div>
@@ -26,9 +25,8 @@ function toDoTaskTemplate(task) {
                     <span class="subtask-count">${task.subtaskInfo}</span>
                 </div>
             `
-      : ""
-    }
-
+                : ""
+            }
             <div class="card-footer">
                 <div class="badges">${task.badgesHtml}</div>
                 <div class="priority-icon ${task.priority}">
@@ -57,17 +55,13 @@ function dialogTemplate(task, categoryClass) {
               <img src="../assets/imgs/close.png" alt="Close" />
             </button>
           </div>
-
           <div class="detail-scroll-content">
-
           <h1 class="detail-title">${task.title}</h1>
           <p class="detail-description">${task.description}</p>
-
           <div class="detail-info-row">
             <span class="detail-label">Due date:</span>
             <span>${reformatDate(task)}</span>
           </div>
-
           <div class="detail-info-row">
             <span class="detail-label">Priority:</span>
             <div class="priority-badge-detail">
@@ -75,23 +69,19 @@ function dialogTemplate(task, categoryClass) {
               <img src="../assets/imgs/prio-${task.priority}.svg" alt="" />
             </div>
           </div>
-
           <div class="detail-assigned-section">
             <span class="detail-label">Assigned To:</span>
             <div class="detail-contacts-list">
               ${generateDetailedContactsHtml(task.assigned_to)}
             </div>
           </div>
-
           <div class="detail-subtasks-section">
             <span class="detail-label">Subtasks</span>
             <div class="detail-subtasks-list">
               ${generateDetailedSubtasksHtml(task.firebaseKey, task.subtasks)}
             </div>
           </div>
-
           </div>
-
           <div class="detail-footer">
             <button onclick="deleteTask('tasks', '${task.firebaseKey}'), closeTaskDialog()" class="action-btn">
               <img src="../assets/imgs/delete.png" /> Delete

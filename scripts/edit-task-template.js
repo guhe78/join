@@ -55,7 +55,7 @@ function editTaskTemplate(task) {
     <button
       type="button"
       id="urgent-btn"
-      class="prio-btn high-btn ${getEditPriorityActiveClass(task.priority, 'urgent')}"
+      class="prio-btn high-btn ${getEditPriorityActiveClass(task.priority, "urgent")}"
     >
       Urgent
       <svg class="prio-icon" viewBox="0 0 24 24" aria-hidden="true">
@@ -67,7 +67,7 @@ function editTaskTemplate(task) {
     <button
       type="button"
       id="medium-btn"
-      class="prio-btn medium-btn ${getEditPriorityActiveClass(task.priority, 'medium')}"
+      class="prio-btn medium-btn ${getEditPriorityActiveClass(task.priority, "medium")}"
     >
       Medium
       <img src="../assets/imgs/prio-medium.png" alt="Medium icon" />
@@ -76,7 +76,7 @@ function editTaskTemplate(task) {
     <button
       type="button"
       id="low-btn"
-      class="prio-btn low-btn ${getEditPriorityActiveClass(task.priority, 'low')}"
+      class="prio-btn low-btn ${getEditPriorityActiveClass(task.priority, "low")}"
     >
       Low
       <svg class="prio-icon" viewBox="0 0 24 24" aria-hidden="true">
