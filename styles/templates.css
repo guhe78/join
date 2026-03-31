@@ -262,10 +262,6 @@
   border-radius: 50%;
 }
 
-.detail-dialog {
-  overflow: hidden;
-}
-
 .detail-scroll-content {
   min-height: 0;
   overflow-y: auto;
@@ -416,6 +412,7 @@
 
   .detail-scroll-content {
     gap: 16px;
+    overflow-x: hidden;
   }
 
   .category-badge {
