@@ -39,22 +39,35 @@ function contactDetailTemplate(index) {
         <div class="badge">${contactBadgeTemplate(index)}</div>
         <div class="contact-detail-headline">
           <h2 class="name">${contacts[index].firstName} ${contacts[index].lastName}</h2>
-          <div class="contact-detail-buttons">
-            <button onclick="openEditContact(${index})">
-              ${editIcon()}<span>Edit</span>
-            </button>
-            <button onclick="deleteContact(${index})">${deleteIcon()}<span>Delete</span></button>
-          </div>
+          <div class="contact-detail-buttons" id="contact-detail-buttons">${contactButtons(index)}</div>
         </div>
       </div>
-        <p class="font-size-20">Contact Information</p>
-        <div class="contact-detail-data">
-          <p class="bold">Email</p>
-          <a href="mailto:${contacts[index].email}" class="email">${contacts[index].email}</a>
-          <p class="bold">Phone</p>
-          <p>${contacts[index].phone}</p>
-        </div>
+      <p class="font-size-20">Contact Information</p>
+      <div class="contact-detail-data">
+        <p class="bold">Email</p>
+        <a href="mailto:${contacts[index].email}" class="email">${contacts[index].email}</a>
+        <p class="bold">Phone</p>
+        <p>${contacts[index].phone}</p>
+      </div>
     </div>
+  `;
+}
+
+function contactMobileButton(index) {
+  return `
+    <div class="mobile-contact-menu">
+      <div class="mobile-button-container" id="mobile-contact-menu-button">${moreVerticalIcon()}</div>
+      <div class="mobile-menu" id="mobile-menu">${contactButtons(index)}</div>
+    </div>
+  `;
+}
+
+function contactButtons(index) {
+  return `
+    <button onclick="openEditContact(${index})">
+      ${editIcon()}<span>Edit</span>
+    </button>
+    <button onclick="deleteContact(${index})">${deleteIcon()}<span>Delete</span></button>
   `;
 }
 
@@ -82,5 +95,11 @@ function contactMainTemplate() {
     <section class="toast-section" id="toast-section">
       <p id="toast-message"></p>
     </section>
+  `;
+}
+
+function mobileContactButton(index) {
+  return `
+
   `;
 }
