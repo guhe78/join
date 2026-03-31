@@ -8,6 +8,7 @@ async function editTask(id, createHandler = createTaskClicked) {
   if (!content) return;
   content.innerHTML = editTaskTemplate(task);
   setEditMinDueDate();
+  setEditAssignedContacts(task.assigned_to);
   selectFocus(task);
   await getContacts();
   renderAssignedContacts();
@@ -21,6 +22,61 @@ async function editTask(id, createHandler = createTaskClicked) {
   editSubtaskIndex = -1;
   initSubtaskSection();
   document.onclick = closeAllSelects;
+}
+
+function setEditAssignedContacts(assignedContacts) {
+  let assignedSelect = document.getElementById("assignedSelect");
+  if (assignedSelect === null) {
+    return;
+  }
+  assignedSelect.dataset.selectedContacts = getAssignedContactIds(assignedContacts).join(",");
+}
+
+function getAssignedContactIds(assignedContacts) {
+  if (!assignedContacts) {
+    return [];
+  }
+  return Object.values(assignedContacts);
+}
+
+
+function isAssignedContactSelected(contactId) {
+  let selectedContacts = getAssignedSelectionValues();
+  return selectedContacts.includes(contactId);
+}
+
+function getAssignedSelectionValues() {
+  let assignedSelect = document.getElementById("assignedSelect");
+  if (assignedSelect === null || !assignedSelect.dataset.selectedContacts) {
+    return [];
+  }
+  return assignedSelect.dataset.selectedContacts.split(",").filter(Boolean);
+}
+
+function getAssignedOptionClass(isSelected) {
+  if (isSelected) {
+    return " active";
+  }
+  return "";
+}
+
+function getAssignedCheckboxState(isSelected) {
+  if (isSelected) {
+    return " checked";
+  }
+  return "";
+}
+
+function getContactInitials(contact) {
+  let firstLetter = "";
+  let lastLetter = "";
+  if (contact.firstName.length > 0) {
+    firstLetter = contact.firstName.charAt(0);
+  }
+  if (contact.lastName.length > 0) {
+    lastLetter = contact.lastName.charAt(0);
+  }
+  return firstLetter + lastLetter;
 }
 
 async function saveEditedTask(taskId) {
