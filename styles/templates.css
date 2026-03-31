@@ -437,8 +437,13 @@
 }
 
 @media (max-width: 440px) {
+
+  .task-modal {
+    overflow-x: hidden;
+  }
+
   .task-card-detail {
-    width: auto;
+    width: 90vw;
     max-width: none;
   }
 

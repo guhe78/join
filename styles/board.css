@@ -225,7 +225,7 @@
 }
 
 
-@media (max-width: 1040px) {
+@media (max-width: 1100px) {
   .board-section {
     height: calc(100vh - 160px);
     padding: 16px;
