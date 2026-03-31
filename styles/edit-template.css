@@ -78,6 +78,13 @@
   padding-right: 44px;
 }
 
+.edit-date-picker {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
 .input-wrapper button {
   position: absolute;
   right: 12px;

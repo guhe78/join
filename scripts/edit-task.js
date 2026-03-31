@@ -129,17 +129,15 @@ function getEditDueDateValue() {
   if (input === null) {
     return "";
   }
-  return input.value;
+  return formatEditDateForStorage(input.value.trim());
 }
 
 function validateEditForm() {
   let isValid = true;
   let titleInput = document.getElementById("task-title");
   let descInput = document.getElementById("task-desc");
-  let dueInput = document.getElementById("due-date");
   let titleFeedback = document.getElementById("titleFeedback");
   let descriptionFeedback = document.getElementById("descriptionFeedback");
-  let dueDateFeedback = document.getElementById("dueDateFeedback");
   if (titleInput !== null && titleFeedback !== null) {
     if (titleInput.value.trim() === "") {
       titleInput.classList.add("input-error");
@@ -160,17 +158,97 @@ function validateEditForm() {
       descriptionFeedback.style.display = "none";
     }
   }
-  if (dueInput !== null && dueDateFeedback !== null) {
-    if (dueInput.value.trim() === "") {
-      dueInput.classList.add("input-error");
-      dueDateFeedback.style.display = "block";
-      isValid = false;
-    } else {
-      dueInput.classList.remove("input-error");
-      dueDateFeedback.style.display = "none";
-    }
+  if (!validateEditDueDateField()) {
+    isValid = false;
   }
   return isValid;
+}
+
+function validateEditDueDateField() {
+  let input = document.getElementById("due-date");
+  let feedback = document.getElementById("dueDateFeedback");
+  if (input === null || feedback === null) {
+    return false;
+  }
+  if (isEditDueDateValid()) {
+    input.classList.remove("input-error");
+    feedback.style.display = "none";
+    return true;
+  }
+  input.classList.add("input-error");
+  feedback.textContent = getEditDueDateFeedback(input.value.trim());
+  feedback.style.display = "block";
+  return false;
+}
+
+function isEditDueDateValid() {
+  let value = getEditDueDateValue();
+  if (value === "") {
+    return false;
+  }
+  return isRealEditDate(value) && value >= getEditTodayValue();
+}
+
+function getEditDueDateFeedback(value) {
+  if (value === "") {
+    return "this field is required";
+  }
+  if (formatEditDateForStorage(value) === "") {
+    return "use format dd/mm/yyyy";
+  }
+  return "choose today or a future date";
+}
+
+function isRealEditDate(value) {
+  let date = new Date(value);
+  if (Number.isNaN(date.getTime())) {
+    return false;
+  }
+  return date.toISOString().slice(0, 10) === value;
+}
+
+function openEditDatePicker() {
+  openDatePicker("due-date-picker");
+}
+
+function syncEditDateFromPicker() {
+  let picker = document.getElementById("due-date-picker");
+  let input = document.getElementById("due-date");
+  if (picker === null || input === null || picker.value === "") {
+    return;
+  }
+  input.value = formatEditDateForDisplay(picker.value);
+}
+
+function syncEditPickerFromInput() {
+  let picker = document.getElementById("due-date-picker");
+  if (picker === null) {
+    return;
+  }
+  picker.value = getEditDueDateValue();
+}
+
+function formatEditDateForDisplay(value) {
+  if (!value) {
+    return "";
+  }
+  return value.split("-").reverse().join("/");
+}
+
+function formatEditDateForStorage(value) {
+  let parts = getEditDateParts(value);
+  if (parts === null) {
+    return "";
+  }
+  return [parts.year, parts.month, parts.day].join("-");
+}
+
+function getEditDateParts(value) {
+  let match = value.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+  if (match === null) {
+    return null;
+  }
+  return { day: match[1].padStart(2, "0"), month: match[2].padStart(2, "0"), year: match[3] };
 }
 
 function getEditSelectedPriority() {
@@ -226,37 +304,28 @@ function updateEditedTaskInBoard(taskId, updatedTask) {
 }
 
 function setEditTodayDate() {
-  let dueInput = document.getElementById("due-date");
-  if (dueInput === null) {
-    return;
-  }
-  let today = new Date();
-  let day = today.getDate();
-  let month = today.getMonth() + 1;
-  let year = today.getFullYear();
-  if (day < 10) {
-    day = "0" + day;
-  }
-  if (month < 10) {
-    month = "0" + month;
-  }
-  dueInput.value = year + "-" + month + "-" + day;
+  setEditDateValue(getEditTodayValue());
 }
 
 function setEditMinDueDate() {
-  let dueInput = document.getElementById("due-date");
-  if (dueInput === null) {
+  let picker = document.getElementById("due-date-picker");
+  if (picker === null) {
     return;
   }
-  let today = new Date();
-  let day = today.getDate();
-  let month = today.getMonth() + 1;
-  let year = today.getFullYear();
-  if (day < 10) {
-    day = "0" + day;
+  picker.min = getEditTodayValue();
+}
+
+function setEditDateValue(value) {
+  let input = document.getElementById("due-date");
+  let picker = document.getElementById("due-date-picker");
+  if (input !== null) {
+    input.value = formatEditDateForDisplay(value);
   }
-  if (month < 10) {
-    month = "0" + month;
+  if (picker !== null) {
+    picker.value = value;
   }
-  dueInput.min = year + "-" + month + "-" + day;
+}
+
+function getEditTodayValue() {
+  return new Date().toISOString().split("T")[0];
 }
