@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="../styles/variables.css" />
   <link rel="stylesheet" href="../styles/font.css" />
   <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="../styles/dropdown-menu.css" />
 
   <link rel="stylesheet" href="../styles/board.css" />
   <link rel="stylesheet" href="../styles/templates.css" />
@@ -40,6 +41,18 @@
 <script src="../scripts/board.js" defer></script>
 <script src="../scripts/board-modal.js" defer></script>
 
+  <script src="../scripts/config.js" defer></script>
+  <script src="../scripts/services.js" defer></script>
+
+  <script src="../scripts/addtask-template.js" defer></script>
+  <script src="../scripts/addtask-dom.js" defer></script>
+  <script src="../scripts/addtask.js" defer></script>
+
+  <script src="../scripts/board-templates.js" defer></script>
+  <script src="../scripts/board.js" defer></script>
+  <script src="../scripts/board-modal.js" defer></script>
+
+  <script src="../scripts/dropdown-menu.js" defer></script>
 </head>
 
 <body onload="init()">
@@ -70,7 +83,15 @@
         <button class="button help-button">
           <a href="./help-desk.html"><img src="../assets/imgs/help.png" alt="search" /></a>
         </button>
-        <button class="button profil-button">SM</button>
+        <div class="profile-wrapper">
+          <button id="profile-button" class="button profile-button">SM</button>
+
+          <div id="profile-dropdown" class="profile-dropdown">
+            <a href="./legal-notice.html">Profile</a>
+            <a href="./privacy-policy.html">Settings</a>
+            <a href="../index.html">Log out</a>
+          </div>
+        </div>
       </nav>
     </header>
     <section class="board-section">

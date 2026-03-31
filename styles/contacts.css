@@ -373,9 +373,9 @@ dialog::backdrop {
   opacity: 1;
 }
 
-.show {
+/* .show {
   display: inline;
-}
+} */
 
 .toast-section {
   background-color: var(--primary-color);
