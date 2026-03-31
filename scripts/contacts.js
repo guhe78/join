@@ -391,13 +391,6 @@ function findContactIndex(firebaseKey) {
   return index;
 }
 
-function findContactIndex(firebaseKey) {
-  let index = contacts.findIndex(
-    (contact) => contact.firebaseKey === firebaseKey,
-  );
-  return index;
-}
-
 function openDialog() {
   DOM.dialogEl.showModal();
 }
