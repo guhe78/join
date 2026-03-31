@@ -10,6 +10,8 @@ const TaskDialogCloseDuration = 200;
  * Updates the board with the loaded data afterwards.
  */
 async function init() {
+  checkAuth();
+
   await getContacts();
   await getTasks();
   currentTasks = tasks;
@@ -435,6 +437,33 @@ function refreshTaskDetail(firebaseKey) {
     if (!content) return;
     renderTaskDetailContent(content, task);
   }
+}
+
+/**
+ * Opens the edit view for a task within the existing dialog. --->von renato geändert
+ */
+async function editTask(id, createHandler = createTaskClicked) {
+  const task = findTaskById(currentTasks, id);
+  if (!task) return;
+  const content = document.getElementById("dialogContent");
+  if (!content) return;
+  content.innerHTML = editTaskTemplate(task);
+  setEditTodayDate();
+  setEditMinDueDate();
+  selectFocus(task);
+  setEditMinDueDate();
+  await getContacts();
+  renderAssignedContacts();
+  initPriorityButtons();
+  initAssignedSelect();
+  subtasks = task.subtasks
+    ? Object.values(task.subtasks).map(function (s) {
+        return s.title;
+      })
+    : [];
+  editSubtaskIndex = -1;
+  initSubtaskSection();
+  document.onclick = closeAllSelects;
 }
 
 /**

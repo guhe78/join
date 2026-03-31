@@ -2,9 +2,13 @@ let isMobile = window.innerWidth <= 1000;
 let splashRunning = false;
 
 async function initSummary() {
+  checkAuth();
+
   await getTasks();
   updateSummary();
   initWelcome();
+  document.getElementById("profile-button").innerHTML = getUserData().initials;
+  document.getElementById("user-name").innerHTML = getUserData().name;
 }
 
 function updateDOM(summary) {
@@ -32,7 +36,7 @@ function calculateSummary(tasks) {
     inProgress: 0,
     review: 0,
     urgent: 0,
-    total: tasks.length
+    total: tasks.length,
   };
 
   for (let task of tasks) {
@@ -64,7 +68,7 @@ function updateUrgentDeadline() {
 }
 
 function getMostUrgentTask(tasks) {
-  const urgentTasks = tasks.filter(t => t.priority === "urgent");
+  const urgentTasks = tasks.filter((t) => t.priority === "urgent");
 
   if (urgentTasks.length === 0) return null;
 
@@ -85,7 +89,7 @@ function formatDate(dateString) {
   return date.toLocaleDateString("en-US", {
     month: "long",
     day: "numeric",
-    year: "numeric"
+    year: "numeric",
   });
 }
 
@@ -100,7 +104,7 @@ function initWelcome() {
 function getWelcomeElements() {
   return {
     welcome: document.querySelector(".welcome-section"),
-    summary: document.querySelector(".summary-section")
+    summary: document.querySelector(".summary-section"),
   };
 }
 

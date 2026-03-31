@@ -58,6 +58,7 @@
     <script src="../scripts/database-operations.js" defer></script>
     <script src="../scripts/helpers.js" defer></script>
     <script src="../scripts/dropdown-menu.js" defer></script>
+    <script src="../scripts/auth/auth.js" defer></script>
   </head>
 
   <body onload="init()">
@@ -89,11 +90,14 @@
 
     <main>
       <header>
-        <img
-          src="../assets/imgs/join-logo.png"
-          alt="logo"
-          class="logo-mobile"
-        />
+        <a href="../index.html">
+          <img
+            src="../assets/imgs/join-logo.png"
+            alt="logo"
+            class="logo-mobile"
+          />
+        </a>
+
         <p class="headline">Kanban Project Management Tool</p>
         <nav class="header-nav">
           <button class="button help-button">
@@ -107,7 +111,9 @@
             <div id="profile-dropdown" class="profile-dropdown">
               <a href="./legal-notice.html">Profile</a>
               <a href="./privacy-policy.html">Settings</a>
-              <a href="../index.html">Log out</a>
+              <button onclick="logoutUser()">
+                <a href="../index.html">Log out</a>
+              </button>
             </div>
           </div>
         </nav>

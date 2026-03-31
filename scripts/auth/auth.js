@@ -1,13 +1,15 @@
 async function saveUserLogin(data) {
   const user = await findUser(data);
-  localStorage.setItem(
-    "joinUser",
-    JSON.stringify({
-      firstName: user.firstName,
-      lastName: user.lastName,
-      userEmail: user.userEmail,
-    }),
-  );
+  persistUser(data, false);
+}
+
+function loginGuest() {
+  persistUser({}, true);
+}
+
+function logoutUser() {
+  localStorage.removeItem("joinUser");
+  window.location.href = "../index.html";
 }
 
 async function loadUsers() {
@@ -27,13 +29,14 @@ function showLoginError() {
   DOM.warningMessageLoginEl.textContent = "Email or password wrong";
 }
 
-function persistUser(user) {
+function persistUser(user, isGuest = false) {
   localStorage.setItem(
     "joinUser",
     JSON.stringify({
-      firstName: user.firstName,
-      lastName: user.lastName,
-      userEmail: user.userEmail,
+      firstName: user.firstName || "Guest",
+      lastName: user.lastName || "",
+      userEmail: user.userEmail || "",
+      isGuest: isGuest || true,
     }),
   );
 }

@@ -62,6 +62,7 @@ DOM.contactPhoneEl.addEventListener("input", () => {
 });
 
 async function init() {
+  checkAuth();
   await getContacts();
   renderContactsList();
   renderContactMain();
