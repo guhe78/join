@@ -126,6 +126,18 @@
   gap: 4px;
 }
 
+.edit-first-description {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.input-wrapper-title {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
 .edit-input {
   font-size: 20px;
   height: 48px;
@@ -134,6 +146,7 @@
 .feedback-message {
   color: rgb(255, 0, 0);
   font-size: 12px;
+  display: none;
   display: none;
 }
 
@@ -176,6 +189,8 @@
   font-size: 21px !important;
   font-family: 'Inter Variable', sans-serif !important;
   font-size: 21px !important;
+  font-family: 'Inter Variable', sans-serif !important;
+  font-size: 21px !important;
 }
 
 .edit-textarea:focus {
@@ -212,6 +227,7 @@
   gap: 8px;
 }
 
+.priority-options .prio-btn {
 .priority-options .prio-btn {
   font-size: 20px;
   display: flex;

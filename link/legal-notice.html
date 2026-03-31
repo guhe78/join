@@ -1,144 +1,187 @@
 <!doctype html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Join</title>
 
-    <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon/favicon-16x16.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="192x192" href="../assets/favicon/android-chrome-192x192.png" />
-    <link rel="icon" type="image/png" sizes="512x512" href="../assets/favicon/android-chrome-512x512.png" />
-    <link rel="apple-touch-icon" size="180x180" href="../assets/favicon/apple-touch-icon.png" />
-    <link rel="shortcut icon" sizes="any" href="../assets/favicon/favicon.ico" type="image/x-icon" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="../assets/favicon/favicon-16x16.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="../assets/favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="../assets/favicon/android-chrome-192x192.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="512x512"
+      href="../assets/favicon/android-chrome-512x512.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      size="180x180"
+      href="../assets/favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="shortcut icon"
+      sizes="any"
+      href="../assets/favicon/favicon.ico"
+      type="image/x-icon"
+    />
     <link rel="manifest" href="../assets/favicon/site.webmanifest" />
 
     <link rel="stylesheet" href="../styles/standard.css" />
     <link rel="stylesheet" href="../styles/variables.css" />
     <link rel="stylesheet" href="../styles/font.css" />
     <link rel="stylesheet" href="../style.css" />
-    <link rel="stylesheet" href="../styles/scrollbar.css">
+    <link rel="stylesheet" href="../styles/scrollbar.css" />
     <link rel="stylesheet" href="../styles/dropdown-menu.css" />
 
     <script src="../scripts/dropdown-menu.js" defer></script>
+    <script src="../scripts/helpers.js" defer></script>
+    <script src="../scripts/auth/auth.js" defer></script>
+  </head>
 
-</head>
-
-<body>
+  <body>
     <aside>
-        <img src="../assets/imgs/join-logo-white.png" alt="logo" class="logo" />
-        <nav class="side-nav">
-            <div class="page-links">
-                <a href="summary.html" class="page-link-button"><img src="../assets/imgs/summary.png"
-                        alt="Summary" />Summary</a>
-                <a href="add-task.html" class="page-link-button"><img src="../assets/imgs/add-task.png"
-                        alt="Add Task" />Add
-                    Task</a>
-                <a href="board.html" class="page-link-button"><img src="../assets/imgs/board.png"
-                        alt="Board" />Board</a>
-                <a href="contacts.html" class="page-link-button"><img src="../assets/imgs/contacts.png"
-                        alt="Contacts" />Contacts</a>
-            </div>
-            <div class="police-links-container">
-                <a href="./privacy-policy.html">Privacy Policy</a>
-                <a href="./legal-notice.html">Legal notice</a>
-            </div>
-        </nav>
+      <img src="../assets/imgs/join-logo-white.png" alt="logo" class="logo" />
+      <nav class="side-nav">
+        <div class="page-links">
+          <a href="summary.html" class="page-link-button"
+            ><img src="../assets/imgs/summary.png" alt="Summary" />Summary</a
+          >
+          <a href="add-task.html" class="page-link-button"
+            ><img src="../assets/imgs/add-task.png" alt="Add Task" />Add Task</a
+          >
+          <a href="board.html" class="page-link-button"
+            ><img src="../assets/imgs/board.png" alt="Board" />Board</a
+          >
+          <a href="contacts.html" class="page-link-button"
+            ><img src="../assets/imgs/contacts.png" alt="Contacts" />Contacts</a
+          >
+        </div>
+        <div class="police-links-container">
+          <a href="./privacy-policy.html">Privacy Policy</a>
+          <a href="./legal-notice.html">Legal notice</a>
+        </div>
+      </nav>
     </aside>
 
     <main>
-        <header>
-            <img src="../assets/imgs/join-logo.png" alt="logo" class="logo-mobile" />
-            <p class="headline">Kanban Project Management Tool</p>
-            <nav class="header-nav">
-                <button class="button help-button">
-                    <a href="./help-desk.html"><img src="../assets/imgs/help.png" alt="search" /></a>
-                </button>
-                <div class="profile-wrapper">
-                    <button id="profile-button" class="button profile-button">SM</button>
+      <header>
+        <img
+          src="../assets/imgs/join-logo.png"
+          alt="logo"
+          class="logo-mobile"
+        />
+        <p class="headline">Kanban Project Management Tool</p>
+        <nav class="header-nav">
+          <button class="button help-button">
+            <a href="./help-desk.html"
+              ><img src="../assets/imgs/help.png" alt="search"
+            /></a>
+          </button>
+          <div class="profile-wrapper">
+            <button id="profile-button" class="button profile-button">
+              SM
+            </button>
 
-                    <div id="profile-dropdown" class="profile-dropdown">
-                        <a href="./legal-notice.html">Profile</a>
-                        <a href="./privacy-policy.html">Settings</a>
-                        <a href="../index.html">Log out</a>
-                    </div>
-                </div>
-            </nav>
-        </header>
+            <div id="profile-dropdown" class="profile-dropdown">
+              <a href="./legal-notice.html">Profile</a>
+              <a href="./privacy-policy.html">Settings</a>
+              <a href="../index.html">Log out</a>
+            </div>
+          </div>
+        </nav>
+      </header>
 
-        <section class="main-section">
-            <h1 class="pd-bottom24">Legal Notice</h1>
-            <h3>Imprint</h3>
-            <ul class="pd-top8 pd-bottom24">
-                <li>[Student Names List]</li>
-                <li>[Address of the JOIN operator - e.g. one of the students]</li>
-                <li>[Postcode and city]</li>
-            </ul>
-            <h4>Exploring the Board</h4>
-            <p class="pd-bottom24">Email: [Email]</p>
+      <section class="main-section">
+        <h1 class="pd-bottom24">Legal Notice</h1>
+        <h3>Imprint</h3>
+        <ul class="pd-top8 pd-bottom24">
+          <li>[Student Names List]</li>
+          <li>[Address of the JOIN operator - e.g. one of the students]</li>
+          <li>[Postcode and city]</li>
+        </ul>
+        <h4>Exploring the Board</h4>
+        <p class="pd-bottom24">Email: [Email]</p>
 
-            <h4>Acceptance of terms</h4>
-            <p class="pd-bottom24">By accessing and using Join (Product), you acknowledge and agree to the following
-                terms and conditions,
-                and
-                any policies, guidelines, or amendments thereto that may be presented to you from time to time. We, the
-                listed students, may update or change the terms and conditions from time to time without notice.</p>
+        <h4>Acceptance of terms</h4>
+        <p class="pd-bottom24">
+          By accessing and using Join (Product), you acknowledge and agree to
+          the following terms and conditions, and any policies, guidelines, or
+          amendments thereto that may be presented to you from time to time. We,
+          the listed students, may update or change the terms and conditions
+          from time to time without notice.
+        </p>
 
-            <h4>Scope and ownership of the product</h4>
-            <p class="pd-bottom24">Join has been developed as part of a student group project in a web development
-                bootcamp at the Developer
-                Akademie GmbH. It has an educational purpose and is not intended for extensive personal & business
-                usage. As
-                such, we cannot guarantee consistent availability, reliability, accuracy, or any other aspect of quality
-                regarding this Product.
-                The design of Join is owned by the Developer Akademie GmbH. Unauthorized use, reproduction,
-                modification,
-                distribution, or replication of the design is strictly prohibited.
-            </p>
+        <h4>Scope and ownership of the product</h4>
+        <p class="pd-bottom24">
+          Join has been developed as part of a student group project in a web
+          development bootcamp at the Developer Akademie GmbH. It has an
+          educational purpose and is not intended for extensive personal &
+          business usage. As such, we cannot guarantee consistent availability,
+          reliability, accuracy, or any other aspect of quality regarding this
+          Product. The design of Join is owned by the Developer Akademie GmbH.
+          Unauthorized use, reproduction, modification, distribution, or
+          replication of the design is strictly prohibited.
+        </p>
 
-            <h4>Proprietary rights</h4>
-            <p class="pd-bottom24">Aside from the design owned by Developer Akademie GmbH, we, the listed students,
-                retain all proprietary
-                rights in Join, including any associated copyrighted material, trademarks, and other proprietary
-                information.</p>
-            </p>
+        <h4>Proprietary rights</h4>
+        <p class="pd-bottom24">
+          Aside from the design owned by Developer Akademie GmbH, we, the listed
+          students, retain all proprietary rights in Join, including any
+          associated copyrighted material, trademarks, and other proprietary
+          information.
+        </p>
 
-            <h4>Use of the product</h4>
-            <p class="pd-bottom24">Join is intended to be used for lawful purposes only, in accordance with all
-                applicable laws and
-                regulations. Any use of Join for illegal activities, or to harass, harm, threaten, or intimidate another
-                person, is strictly prohibited. You are solely responsible for your interactions with other users of
-                Join.</p>
+        <h4>Use of the product</h4>
+        <p class="pd-bottom24">
+          Join is intended to be used for lawful purposes only, in accordance
+          with all applicable laws and regulations. Any use of Join for illegal
+          activities, or to harass, harm, threaten, or intimidate another
+          person, is strictly prohibited. You are solely responsible for your
+          interactions with other users of Join.
+        </p>
 
-            <h4>Disclaimer of warranties and limitation of liability</h4>
-            <p class="pd-bottom24">Join is provided "as is" without warranty of any kind, whether express or implied,
-                including but not
-                limited
-                to the implied warranties of merchantability, fitness for a particular purpose, and non-infringement. In
-                no
-                event will we, the listed students, or the Developer Akademie, be liable for any direct, indirect,
-                incidental, special, consequential or exemplary damages, including but not limited to, damages for loss
-                of
-                profits, goodwill, use, data, or other intangible losses, even if we have been advised of the
-                possibility of
-                such damages, arising out of or in connection with the use or performance of Join.
-                Indemnity
-                You agree to indemnify, defend and hold harmless us, the listed students, the Developer Akademie, and
-                our
-                affiliates, partners, officers, directors, agents, and employees, from and against any claim, demand,
-                loss,
-                damage, cost, or liability (including reasonable legal fees) arising out of or relating to your use of
-                Join
-                and/or your breach of this Legal Notice.</p>
+        <h4>Disclaimer of warranties and limitation of liability</h4>
+        <p class="pd-bottom24">
+          Join is provided "as is" without warranty of any kind, whether express
+          or implied, including but not limited to the implied warranties of
+          merchantability, fitness for a particular purpose, and
+          non-infringement. In no event will we, the listed students, or the
+          Developer Akademie, be liable for any direct, indirect, incidental,
+          special, consequential or exemplary damages, including but not limited
+          to, damages for loss of profits, goodwill, use, data, or other
+          intangible losses, even if we have been advised of the possibility of
+          such damages, arising out of or in connection with the use or
+          performance of Join. Indemnity You agree to indemnify, defend and hold
+          harmless us, the listed students, the Developer Akademie, and our
+          affiliates, partners, officers, directors, agents, and employees, from
+          and against any claim, demand, loss, damage, cost, or liability
+          (including reasonable legal fees) arising out of or relating to your
+          use of Join and/or your breach of this Legal Notice.
+        </p>
 
-            <p class="pd-bottom24">For any questions or notices, please contact us at [Contact Email].</p>
+        <p class="pd-bottom24">
+          For any questions or notices, please contact us at [Contact Email].
+        </p>
 
-            <p>Date: July 26, 2023</p>
-
-        </section>
+        <p>Date: July 26, 2023</p>
+      </section>
     </main>
-</body>
-
+  </body>
 </html>

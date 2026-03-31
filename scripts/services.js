@@ -42,14 +42,7 @@ async function getData(path) {
 async function getContacts() {
   const contactsResponse = await getData("contacts");
   if (contactsResponse) {
-    contacts = Object.keys(contactsResponse).map((key) => ({
-      id: key,
-      badgeColor: contactsResponse[key].badgeColor,
-      email: contactsResponse[key].email,
-      firstName: contactsResponse[key].firstName,
-      lastName: contactsResponse[key].lastName,
-      phone: contactsResponse[key].phone,
-    }));
+    contacts = makeArray(contactsResponse);
   }
 }
 
@@ -60,19 +53,7 @@ async function getContacts() {
 async function getTasks() {
   const tasksResponse = await getData("tasks");
   if (tasksResponse) {
-    tasks = Object.keys(tasksResponse).map((key) => ({
-      id: key,
-      assigned_to: tasksResponse[key].assigned_to,
-      author_id: tasksResponse[key].author_id,
-      category: tasksResponse[key].category,
-      created_at: tasksResponse[key].created_at,
-      description: tasksResponse[key].description,
-      due_date: tasksResponse[key].due_date,
-      priority: tasksResponse[key].priority,
-      status: tasksResponse[key].status,
-      subtasks: tasksResponse[key].subtasks,
-      title: tasksResponse[key].title,
-    }));
+    tasks = makeArray(tasksResponse);
   }
 }
 

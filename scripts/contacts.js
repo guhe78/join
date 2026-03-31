@@ -5,6 +5,7 @@ const DOM = {
   noButtonEl: document.getElementById("no-button"),
   okButtonEl: document.getElementById("ok-button"),
   badgeColorEl: document.getElementById("contact-badge"),
+  contactMainEl: document.getElementById("contact-main"),
   contactOverviewEl: document.getElementById("contact-overview"),
   contactNameEl: document.getElementById("contact-name-input"),
   contactEmailEl: document.getElementById("contact-email-input"),
@@ -16,10 +17,15 @@ const DOM = {
   warningMessageNameEl: document.getElementById("warning-name"),
   warningMessageEmailEl: document.getElementById("warning-email"),
   warningMessagePhoneEl: document.getElementById("warning-phone"),
-  userButton: document.getElementById("user-button"),
+  userButtonEl: document.getElementById("profile-button"),
+  screenDesktopEl: document.getElementById("screen-desktop"),
+  fullscreenMobileEl: document.getElementById("fullscreen-mobile"),
+  mobileContactMenuButtonEl: document.getElementById(
+    "mobile-contact-menu-button",
+  ),
+  mobileMenuEl: document.getElementById("mobile-menu"),
 };
 
-const CONTACTS_URL = "../scripts/contacts.json";
 const DEFAULT_BADGE_COLORS = [
   "#ff7a00",
   "#9327ff",
@@ -43,13 +49,27 @@ DOM.dialogEl.onclick = (event) => {
     closeDialog();
   }
 };
+DOM.contactNameEl.addEventListener("input", () => {
+  DOM.warningMessageNameEl.innerHTML = "";
+});
 
-DOM.closeButtonEl.onclick = closeDialog;
+DOM.contactEmailEl.addEventListener("input", () => {
+  DOM.warningMessageEmailEl.innerHTML = "";
+});
+
+DOM.contactPhoneEl.addEventListener("input", () => {
+  DOM.warningMessagePhoneEl.innerHTML = "";
+});
 
 async function init() {
+  checkAuth();
   await getContacts();
   renderContactsList();
-  DOM.userButton.innerHTML = getUserData();
+  renderContactMain();
+
+  DOM.userButtonEl.innerHTML = getUserData().initials;
+  DOM.closeButtonEl.onclick = closeDialog;
+  DOM.closeButtonEl.innerHTML = closeIcon();
 }
 
 async function getContacts() {
@@ -72,9 +92,66 @@ function renderContactsList() {
   }
 }
 
+function renderContactMain() {
+  DOM.contactMainEl.innerHTML = contactMainTemplate();
+  DOM.contactOverviewEl = document.getElementById("contact-overview");
+}
+
 function renderContact(index) {
   DOM.contactOverviewEl.innerHTML = contactDetailTemplate(index);
   DOM.contactOverviewEl.classList.add("fade-in");
+  renderContactMobile(index);
+}
+
+function renderContactMobile(index) {
+  DOM.fullscreenMobileEl.innerHTML =
+    contactMainTemplate() + contactMobileButton(index);
+
+  DOM.mobileMenuEl = document.getElementById("mobile-menu");
+  const mobileContactMenuButtonEl = document.getElementById(
+    "mobile-contact-menu-button",
+  );
+  mobileContactMenuButtonEl.onclick = (event) => {
+    event.stopPropagation();
+    openMobileContactMenu();
+  };
+
+  DOM.screenDesktopEl.classList.add("hide-mobile");
+
+  const mobileOverviewEl =
+    DOM.fullscreenMobileEl.querySelector("#contact-overview");
+
+  mobileOverviewEl.innerHTML = contactDetailTemplate(index);
+  mobileOverviewEl.classList.add("fade-in");
+
+  DOM.contactsListEl.classList.add("hide-mobile");
+  DOM.fullscreenMobileEl.classList.remove("hide-mobile");
+}
+
+function openMobileContactMenu() {
+  const menu = document.getElementById("mobile-menu");
+  const button = document.querySelector(".mobile-button-container");
+
+  if (!menu) return;
+
+  const isOpen = menu.classList.toggle("fade-in");
+
+  if (isOpen) {
+    button.style.display = "none";
+    document.addEventListener("click", handleOutsideClick);
+  }
+}
+
+function handleOutsideClick(event) {
+  const menu = document.getElementById("mobile-menu");
+  const button = document.querySelector(".mobile-button-container");
+
+  if (!menu.contains(event.target)) {
+    menu.classList.remove("fade-in");
+    button.style.display = "flex";
+
+    document.removeEventListener("click", handleOutsideClick);
+  }
 }
 
 function renderToastMessage(type) {
@@ -88,7 +165,9 @@ function renderToastMessage(type) {
 function toggleActiveContact(index) {
   const currentActiveElement = document.querySelector(".active-contact");
   const newActiveElement = document.getElementById("contact" + index);
-  DOM.contactOverviewEl.classList.remove("fade-in");
+  if (DOM.contactOverviewEl) {
+    DOM.contactOverviewEl.classList.remove("fade-in");
+  }
   if (currentActiveElement) {
     currentActiveElement.classList.remove("active-contact");
     DOM.contactOverviewEl.innerHTML = "";
@@ -105,61 +184,64 @@ function openAddNewContact() {
   DOM.headlineEl.innerHTML = addContactHeadlineTemplate();
   DOM.noButtonEl.innerHTML = `Cancel&nbsp;${cancelIcon()}`;
   DOM.noButtonEl.onclick = cancelAddContact;
-  DOM.okButtonEl.innerHTML = `Add contact&nbsp;${checkIcon()}`;
+  DOM.noButtonEl.classList.add("cancel-button");
+  DOM.okButtonEl.innerHTML = `Create contact&nbsp;${checkIcon()}`;
   DOM.personImageEl.innerHTML = contactBadgeDummyTemplate();
   DOM.okButtonEl.onclick = () => addContact();
   openDialog();
 }
 
-function checkInputFields() {
-  let returnValue = true;
-  let errorMessage = "This field is required";
-  if (!DOM.contactNameEl.value) {
-    DOM.warningMessageNameEl.innerHTML = errorMessage;
-    returnValue = false;
-  }
-  if (!DOM.contactEmailEl.value) {
-    DOM.warningMessageEmailEl.innerHTML = errorMessage;
-    returnValue = false;
-  }
-  if (!DOM.contactPhoneEl.value) {
-    DOM.warningMessagePhoneEl.innerHTML = errorMessage;
-    returnValue = false;
-  }
-  return returnValue;
-}
+function validateForm() {
+  let isValid = true;
 
-function validateInput() {
-  if (!checkName(DOM.contactNameEl.value)) {
+  const name = DOM.contactNameEl.value.trim();
+  const email = DOM.contactEmailEl.value.trim();
+  const phone = DOM.contactPhoneEl.value.trim();
+
+  if (!name) {
+    DOM.warningMessageNameEl.innerHTML = "This field is required";
+    isValid = false;
+  } else if (!checkName(name)) {
     DOM.warningMessageNameEl.innerHTML = "Firstname and Lastname required";
-    return false;
+    isValid = false;
   } else {
     DOM.warningMessageNameEl.innerHTML = "";
   }
-  if (!checkEmail(DOM.contactEmailEl.value)) {
+
+  if (!email) {
+    DOM.warningMessageEmailEl.innerHTML = "This field is required";
+    isValid = false;
+  } else if (!checkEmail(email)) {
     DOM.warningMessageEmailEl.innerHTML = "Correct Email required";
-    return false;
+    isValid = false;
   } else {
     DOM.warningMessageEmailEl.innerHTML = "";
   }
-  if (!checkPhone(DOM.contactPhoneEl.value)) {
+
+  if (!phone) {
+    DOM.warningMessagePhoneEl.innerHTML = "This field is required";
+    isValid = false;
+  } else if (!checkPhone(phone)) {
     DOM.warningMessagePhoneEl.innerHTML = "Phone number required";
-    return false;
+    isValid = false;
   } else {
     DOM.warningMessagePhoneEl.innerHTML = "";
   }
-  return true;
+
+  return isValid;
 }
 
 async function addContact() {
   let name = DOM.contactNameEl.value.trim();
   let email = DOM.contactEmailEl.value.trim();
   let phone = DOM.contactPhoneEl.value.trim();
-  if (!checkInputFields()) return;
-  if (!validateInput()) return;
-  let nameArray = name.split(" ");
-  let firstName = nameArray.at(0);
-  let lastName = nameArray.at(-1);
+  if (!validateForm()) return;
+  let nameArray = name.split(/\s+/);
+  if (nameArray.length < 2) {
+    return;
+  }
+  let firstName = nameArray[0];
+  let lastName = nameArray[nameArray.length - 1];
   let newContact = {
     firstName: firstName,
     lastName: lastName,
@@ -182,7 +264,7 @@ function openEditContact(index) {
   DOM.headlineEl.innerHTML = editContactHeadlineTemplate();
   DOM.noButtonEl.innerHTML = "Delete";
   DOM.noButtonEl.onclick = () => deleteContact(index);
-  DOM.okButtonEl.innerHTML = "Save";
+  DOM.okButtonEl.innerHTML = `Save&nbsp;${checkIcon()}`;
   DOM.okButtonEl.onclick = () => saveEditedContact(index);
   DOM.personImageEl.innerHTML = contactBadgeTemplate(index);
   DOM.contactNameEl.value =
@@ -193,11 +275,11 @@ function openEditContact(index) {
 }
 
 async function saveEditedContact(index) {
-  const contactNameArray = DOM.contactNameEl.value.split(" ");
-  checkInputFields();
+  if (!validateForm()) return;
+  const contactName = splitName(DOM.contactNameEl.value);
   const contact = contacts[index];
-  contact.firstName = contactNameArray.at(0);
-  contact.lastName = contactNameArray.at(-1);
+  contact.firstName = contactName.firstName;
+  contact.lastName = contactName.lastName;
   contact.email = DOM.contactEmailEl.value;
   contact.phone = DOM.contactPhoneEl.value;
   const firebaseKey = contact.firebaseKey;
@@ -236,9 +318,19 @@ async function updateContact(contact) {
   await updateData("contacts", contact.firebaseKey, updatedContact);
 }
 
+function splitName(name) {
+  let nameArray = name.trim().split(/\s+/);
+
+  if (nameArray.length < 2) return null;
+
+  return {
+    firstName: nameArray[0],
+    lastName: nameArray.slice(1).join(" "),
+  };
+}
+
 function checkName(input) {
-  let check = input.split(" ");
-  return check.length > 1;
+  return input.trim().split(/\s+/).length > 1;
 }
 
 function checkEmail(input) {
@@ -248,7 +340,7 @@ function checkEmail(input) {
 }
 
 function checkPhone(input) {
-  return input.length > 0;
+  return /^[0-9+\-\s()]+$/.test(input);
 }
 
 function cancelAddContact() {
@@ -279,6 +371,7 @@ function openDialog() {
 function closeDialog() {
   DOM.dialogEl.close();
   clearInputs();
+  DOM.noButtonEl.classList.remove("cancel-button");
 }
 
 function getRandom(max) {
@@ -287,15 +380,4 @@ function getRandom(max) {
 
 function getRandomColor() {
   return DEFAULT_BADGE_COLORS[getRandom(DEFAULT_BADGE_COLORS.length)];
-}
-
-function getUserData() {
-  const userData = localStorage.getItem("joinUser");
-
-  if (userData) {
-    const data = JSON.parse(userData);
-    return data.firstName[0].toUpperCase() + data.lastName[0].toUpperCase();
-  } else {
-    return "G";
-  }
 }

@@ -204,7 +204,6 @@ body.dialog-open {
 .edit-dialog .prio-btn {
   flex: 1;
   background: #fff;
-  border: 1px solid #e6e8ee;
   border-radius: 10px;
   padding: 10px 20px;
   display: inline-flex;
@@ -215,7 +214,7 @@ body.dialog-open {
   font-size: 21px;
   font-weight: 500;
   cursor: pointer;
-  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+  transition: 0.1s ease;
 }
 
 .edit-dialog .prio-icon {
@@ -240,7 +239,7 @@ body.dialog-open {
   background: var(--prio);
   color: #fff;
   border-color: transparent;
-  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {
