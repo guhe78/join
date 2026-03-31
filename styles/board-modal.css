@@ -195,53 +195,6 @@ body.dialog-open {
   border: none;
 }
 
-.edit-dialog .prio-row {
-  display: flex;
-  gap: 14px;
-  margin-bottom: 6px;
-}
-
-.edit-dialog .prio-btn {
-  flex: 1;
-  background: #fff;
-  border-radius: 10px;
-  padding: 10px 20px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  color: #2A3647;
-  font-size: 21px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: 0.1s ease;
-}
-
-.edit-dialog .prio-icon {
-  width: 32px;
-  height: 32px;
-  display: inline-block;
-}
-
-.edit-dialog .prio-icon path {
-  stroke: currentColor;
-  stroke-width: 2.6;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  fill: none;
-}
-
-.edit-dialog .prio-btn:not(.is-active) .prio-icon {
-  color: var(--prio);
-}
-
-.edit-dialog .prio-btn.is-active {
-  background: var(--prio);
-  color: #fff;
-  border-color: transparent;
-  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
-}
-
 input[type="date"]::-webkit-calendar-picker-indicator {
   opacity: 0;
   pointer-events: none;
