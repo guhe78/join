@@ -11,6 +11,7 @@ const TaskDialogCloseDuration = 200;
  */
 async function init() {
   checkAuth();
+  document.getElementById("profile-button").innerHTML = getUserData().initials;
 
   await getContacts();
   await getTasks();

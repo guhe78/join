@@ -302,6 +302,7 @@ function getTodayDateValue() {
 
 async function initAddTask(createHandler = createTaskClicked) {
   checkAuth();
+  document.getElementById("profile-button").innerHTML = getUserData().initials;
 
   await getContacts();
   renderAssignedContacts();
