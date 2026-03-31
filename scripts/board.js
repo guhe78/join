@@ -10,6 +10,8 @@ const TaskDialogCloseDuration = 200;
  * Updates the board with the loaded data afterwards.
  */
 async function init() {
+  checkAuth();
+
   await getContacts();
   await getTasks();
   currentTasks = tasks;
@@ -400,9 +402,11 @@ async function editTask(id, createHandler = createTaskClicked) {
   renderAssignedContacts();
   initPriorityButtons();
   initAssignedSelect();
-  subtasks = task.subtasks ? Object.values(task.subtasks).map(function (s) {
-    return s.title;
-  }) : [];
+  subtasks = task.subtasks
+    ? Object.values(task.subtasks).map(function (s) {
+        return s.title;
+      })
+    : [];
   editSubtaskIndex = -1;
   initSubtaskSection();
   document.onclick = closeAllSelects;
