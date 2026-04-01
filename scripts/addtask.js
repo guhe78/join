@@ -180,7 +180,7 @@ function getSelectedPriority() {
   for (let i = 0; i < buttons.length; i++) {
     if (buttons[i].classList.contains("is-active") === true) {
       if (buttons[i].classList.contains("prio-urgent") === true) {
-        return "high";
+        return "urgent";
       }
       if (buttons[i].classList.contains("prio-medium") === true) {
         return "medium";

@@ -21,7 +21,6 @@ async function editTask(id, createHandler = createTaskClicked) {
     : [];
   editSubtaskIndex = -1;
   initSubtaskSection();
-  document.onclick = closeAllSelects;
 }
 
 function setEditAssignedContacts(assignedContacts) {

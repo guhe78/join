@@ -1,9 +1,5 @@
-.check-img {
-  width: 24px;
-  height: 24px;
-}
-
 .edit-button {
+  font-family: "Inter Variable", sans-serif;
   padding: 16px;
   height: 57px;
   gap: 4px;
@@ -58,8 +54,7 @@
 }
 
 .edit-textarea {
-  font-family: "Inter Variable", sans-serif !important;
-  font-size: 21px !important;
+  color: black !important;
   font-family: "Inter Variable", sans-serif !important;
   font-size: 21px !important;
 }
@@ -222,51 +217,9 @@
   height: 16px;
 }
 
-.assigned-preview {
-  margin-top: 8px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.assigned-preview-avatar {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  color: white;
-  font-size: 16px;
-  font-weight: 400;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .priority-options {
   display: flex;
   gap: 8px;
-}
-
-.priority-options button:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.priority-options button:focus img {
-  filter: brightness(0) invert(1);
-}
-
-.urgent-btn:focus {
-  transform: scale(1.02);
-  background-color: var(--urgent-icon);
-}
-
-.medium-btn:focus {
-  transform: scale(1.02);
-  background-color: var(--medium-btn);
-}
-
-.low-btn:focus {
-  transform: scale(1.02);
-  background-color: var(--low-arrow);
 }
 
 .priority-label {
@@ -297,4 +250,11 @@
 
 .edit-subtasks-list li {
   margin-bottom: 16px;
+}
+
+.check-icon {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+  color: white;
 }

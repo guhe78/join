@@ -1,7 +1,7 @@
 function editTaskTemplate(task) {
   return `<div
           class="task-card-detail edit-dialog"
-          onclick="event.stopPropagation()"
+          onclick="closeAllSelects(); event.stopPropagation()"
         >
           <div class="detail-header edit-header">
             <button class="close-btn" onclick="closeTaskDialog()">
@@ -142,11 +142,7 @@ function editTaskTemplate(task) {
               class="primary-btn edit-button"
             >
               Ok
-              <img
-                class="check-img"
-                src="../assets/imgs/check-white.svg
-              "
-              />
+              ${editCheckIcon()}
             </button>
           </div>
         </div>`;
