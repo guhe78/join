@@ -33,7 +33,7 @@ function buildAssignedContactOptionHTML(index) {
   let initials = getContactInitials(contacts[index]);
   let fullName = contacts[index].firstName + " " + contacts[index].lastName;
   let badgeColor = contacts[index].badgeColor;
-  let contactId = contacts[index].firebaseKey;
+  let contactId = contacts[index].id;
   return `
     <div class="select-option" data-id="${contactId}">
         <div class="contact-info">
@@ -159,7 +159,7 @@ function addTaskTemplate() {
                     <img
                       class="trigger-arrow"
                       src="../assets/imgs/arrow_drop_downaa.png"
-                      alt="Open assigned contacts dropdown"
+                      alt=""
                     />
                   </div>
 
@@ -180,7 +180,7 @@ function addTaskTemplate() {
                     <img
                       class="trigger-arrow"
                       src="../assets/imgs/arrow_drop_downaa.png"
-                      alt="Open category dropdown"
+                      alt=""
                     />
                   </div>
 

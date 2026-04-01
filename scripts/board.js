@@ -10,9 +10,6 @@ const TaskDialogCloseDuration = 200;
  * Updates the board with the loaded data afterwards.
  */
 async function init() {
-  checkAuth();
-  document.getElementById("profile-button").innerHTML = getUserData().initials;
-
   await getContacts();
   await getTasks();
   currentTasks = tasks;
@@ -86,8 +83,7 @@ function prepareTaskData(element) {
   const categoryClass = element.category.toLowerCase().replace(/\s+/g, "-");
   const badges = generateBadgeHtml(element.assigned_to);
   return {
-    firebaseKey: element.firebaseKey,
-    status: element.status,
+    id: element.id,
     title: element.title,
     description: element.description,
     category: element.category,
@@ -124,11 +120,11 @@ function getSubtaskStats(subtasks) {
 
 /**
  * Sets the current dragged element ID.
- * @param {string} firebaseKey - The ID of the task being dragged.
+ * @param {string} id - The ID of the task being dragged.
  */
-function startdragging(firebaseKey) {
-  currentDraggedElement = firebaseKey;
-  const card = document.querySelector(`.card[data-id="${firebaseKey}"]`);
+function startdragging(id) {
+  currentDraggedElement = id;
+  const card = document.querySelector(`.card[data-id="${id}"]`);
   if (card) {
     card.classList.add("is-dragging");
   }
@@ -137,8 +133,8 @@ function startdragging(firebaseKey) {
 /**
  * Removes drag styling from the currently dragged task card.
  */
-function stopDragging(firebaseKey) {
-  const draggedCard = document.querySelector(`.card[data-id="${firebaseKey}"]`);
+function stopDragging(id) {
+  const draggedCard = document.querySelector(`.card[data-id="${id}"]`);
   if (draggedCard) {
     draggedCard.classList.remove("is-dragging");
   }
@@ -154,11 +150,11 @@ function dragover(ev) {
 
 /**
  * Shows or removes the drag placeholder in a board column.
- * @param {string} firebaseKey - The ID of the target column element.
+ * @param {string} id - The ID of the target column element.
  * @param {boolean} show - Whether the placeholder should be visible.
  */
-function highlight(firebaseKey, show) {
-  const container = document.getElementById(firebaseKey);
+function highlight(id, show) {
+  const container = document.getElementById(id);
   if (!container) return;
   if (show) {
     addDragPlaceholder(container);
@@ -201,65 +197,14 @@ function removeDragPlaceholder(container) {
  * @param {string} newStatus - The new status to assign to the task.
  */
 async function moveTo(newStatus) {
-  const index = currentTasks.findIndex(
-    (t) => t.firebaseKey === currentDraggedElement,
-  );
+  const index = currentTasks.findIndex((t) => t.id === currentDraggedElement);
   if (index !== -1) {
     const movedTask = currentTasks.splice(index, 1)[0];
     movedTask.status = newStatus;
     currentTasks.push(movedTask);
-    await updateData("tasks", movedTask.firebaseKey, { status: newStatus });
+    await updateData("tasks", movedTask.id, { status: newStatus });
     updateBoard();
   }
-}
-
-/**
- * Opens or closes the move menu for a task card on mobile.
- * @param {Event} event - The click event from the move button.
- * @param {string} firebaseKey - The task ID.
- */
-function toggleTaskMoveMenu(event, firebaseKey) {
-  event.stopPropagation();
-  const card = document.querySelector(`.card[data-id="${firebaseKey}"]`);
-  if (!card) return;
-  const menu = card.querySelector(".task-move-menu");
-  if (!menu) return;
-  const isOpen = menu.classList.contains("open");
-  closeTaskMoveMenus();
-  if (!isOpen) {
-    menu.classList.add("open");
-  }
-}
-
-/**
- * Closes all currently open task move menus.
- */
-function closeTaskMoveMenus() {
-  const menus = document.querySelectorAll(".task-move-menu.open");
-  if (menus.length === 0) return;
-  menus.forEach((menu) => menu.classList.remove("open"));
-}
-
-/**
- * Moves a task to a selected status from the mobile move menu.
- * @param {Event} event - The click event from the menu item.
- * @param {string} firebaseKey - The task ID.
- * @param {string} newStatus - The target status.
- */
-async function moveTaskFromMenu(event, firebaseKey, newStatus) {
-  event.stopPropagation();
-  const task = currentTasks.find((item) => item.firebaseKey === firebaseKey);
-  if (!task || task.status === newStatus) {
-    closeTaskMoveMenus();
-    return;
-  }
-  currentDraggedElement = firebaseKey;
-  await moveTo(newStatus);
-  closeTaskMoveMenus();
-}
-
-function checkIsCurrentStatus(task, newStatus, returnContent) {
-  return task.status === newStatus ? returnContent : "";
 }
 
 /**
@@ -273,8 +218,8 @@ function generateBadgeHtml(assignedTo) {
   const contactIds = Object.values(assignedTo);
   const limit = 3;
   const displayIds = contactIds.slice(0, limit);
-  for (const firebaseKey of displayIds) {
-    const contact = contacts.find((c) => c.firebaseKey === firebaseKey);
+  for (const id of displayIds) {
+    const contact = contacts.find((c) => c.id === id);
     if (contact) {
       const initials = (
         contact.firstName[0] + contact.lastName[0]
@@ -304,11 +249,11 @@ function addBadgeCount(html, contactIds, limit) {
 /**
  * Finds a task by ID in a given task list.
  * @param {Array} taskList - The source list of tasks.
- * @param {string} firebaseKey - The ID of the task to find.
+ * @param {string} id - The ID of the task to find.
  * @returns {Object|undefined} The matched task or undefined.
  */
-function findTaskById(taskList, firebaseKey) {
-  return taskList.find((task) => task.firebaseKey === firebaseKey);
+function findTaskById(taskList, id) {
+  return taskList.find((task) => task.id === id);
 }
 
 /**
@@ -330,8 +275,8 @@ function generateDetailedContactsHtml(assignedTo) {
   if (!assignedTo) return "";
   let html = "";
   const contactIds = Object.values(assignedTo);
-  for (const firebaseKey of contactIds) {
-    const contact = contacts.find((c) => c.firebaseKey === firebaseKey);
+  for (const id of contactIds) {
+    const contact = contacts.find((c) => c.id === id);
     if (contact) {
       const initials = (
         contact.firstName[0] + contact.lastName[0]
@@ -344,11 +289,11 @@ function generateDetailedContactsHtml(assignedTo) {
 
 /**
  * Generates the HTML for subtasks in the task detail view.
- * @param {string} firebaseKey - The ID of the parent task.
+ * @param {string} id - The ID of the parent task.
  * @param {Object} subtasks - The subtasks object.
  * @returns {string} Combined HTML string for the subtask list.
  */
-function generateDetailedSubtasksHtml(firebaseKey, subtasks) {
+function generateDetailedSubtasksHtml(id, subtasks) {
   const subtaskArray = subtasks ? Object.entries(subtasks) : [];
   if (subtaskArray.length === 0) {
     return noSubtasksTemplate();
@@ -358,7 +303,7 @@ function generateDetailedSubtasksHtml(firebaseKey, subtasks) {
     const checkImg = sub.is_done
       ? "../assets/imgs/checkbox-checked.png"
       : "../assets/imgs/checkbox-empty.png";
-    html += subtaskItemTemplate(firebaseKey, subId, checkImg, sub);
+    html += subtaskItemTemplate(id, subId, checkImg, sub);
   }
   return html;
 }
@@ -384,12 +329,12 @@ function reformatDate(task) {
 /**
  * Deletes a task from the currentTasks array by its ID and updates the board.
  * @param {string} path - The collection path in Firebase.
- * @param {string} firebaseKey - The ID of the task to be deleted.
+ * @param {string} id - The ID of the task to be deleted.
  */
-async function deleteTask(path, firebaseKey) {
-  const index = currentTasks.findIndex((t) => t.firebaseKey === firebaseKey);
+async function deleteTask(path, id) {
+  const index = currentTasks.findIndex((t) => t.id === id);
   if (index !== -1) {
-    await deleteData(path, firebaseKey);
+    await deleteData(path, id);
     currentTasks.splice(index, 1);
     closeTaskDialog();
     updateBoard();
@@ -398,29 +343,27 @@ async function deleteTask(path, firebaseKey) {
 
 /**
  * Toggles the completion status of a subtask and updates the UI.
- * @param {string} firebaseKey - The ID of the parent task.
+ * @param {string} id - The ID of the parent task.
  * @param {string} subId - The ID of the subtask to toggle.
  */
-async function toggleSubtask(firebaseKey, subId) {
-  const task = currentTasks.find((t) => t.firebaseKey === firebaseKey);
+async function toggleSubtask(id, subId) {
+  const task = currentTasks.find((t) => t.id === id);
   if (task && task.subtasks && task.subtasks[subId]) {
     task.subtasks[subId].is_done = !task.subtasks[subId].is_done;
-    updateSubtaskCheckboxIcon(firebaseKey, subId, task.subtasks[subId].is_done);
-    await updateData("tasks", task.firebaseKey, { subtasks: task.subtasks });
+    updateSubtaskCheckboxIcon(id, subId, task.subtasks[subId].is_done);
+    await updateData("tasks", task.id, { subtasks: task.subtasks });
     updateBoard();
   }
 }
 
 /**
  * Updates only the subtask checkbox icon in the open detail dialog.
- * @param {string} firebaseKey - The ID of the parent task.
+ * @param {string} id - The ID of the parent task.
  * @param {string} subId - The ID of the subtask.
  * @param {boolean} isDone - The completion status of the subtask.
  */
-function updateSubtaskCheckboxIcon(firebaseKey, subId, isDone) {
-  const icon = document.getElementById(
-    `subtask-checkbox-icon-${firebaseKey}-${subId}`,
-  );
+function updateSubtaskCheckboxIcon(id, subId, isDone) {
+  const icon = document.getElementById(`subtask-checkbox-icon-${id}-${subId}`);
   if (!icon) return;
   icon.src = isDone
     ? "../assets/imgs/checkbox-checked.png"
@@ -429,10 +372,10 @@ function updateSubtaskCheckboxIcon(firebaseKey, subId, isDone) {
 
 /**
  * Helper function to re-render the detail view content without closing the dialog.
- * @param {string} firebaseKey - The ID of the task.
+ * @param {string} id - The ID of the task.
  */
-function refreshTaskDetail(firebaseKey) {
-  const task = findTaskById(currentTasks, firebaseKey);
+function refreshTaskDetail(id) {
+  const task = findTaskById(currentTasks, id);
   if (task) {
     const content = document.getElementById("dialogContent");
     if (!content) return;
@@ -481,14 +424,8 @@ function transformDate(task) {
  */
 function getSearchQuery() {
   const input = document.getElementById("searchInput");
-  const mobileInput = document.getElementById("searchInputMobile");
-  if (input && input.offsetParent !== null) {
-    return input.value.toLowerCase();
-  }
-  if (mobileInput && mobileInput.offsetParent !== null) {
-    return mobileInput.value.toLowerCase();
-  }
-  return "";
+  if (!input) return "";
+  return input.value.toLowerCase();
 }
 
 /**

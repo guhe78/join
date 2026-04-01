@@ -113,8 +113,8 @@ function handleAddTaskModalKey(event) {
     }
 }
 
-function openTaskDetail(firebaseKey) {
-    let task = findTaskById(tasks, firebaseKey);
+function openTaskDetail(id) {
+    let task = findTaskById(tasks, id);
     let dialog = document.getElementById("dialog");
     let content = document.getElementById("dialogContent");
     if (!task || !dialog || !content) {

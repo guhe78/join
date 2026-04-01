@@ -10,7 +10,6 @@ const DOM = {
 DOM.formLoginEl.addEventListener("submit", userLogin);
 DOM.loginGuestButtonEl.onclick = () => {
   window.location.href = "./link/summary.html";
-  persistUser("Guest");
 };
 
 function startSplash() {

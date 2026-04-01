@@ -55,11 +55,7 @@ function editTaskTemplate(task) {
     <button
       type="button"
       id="urgent-btn"
-<<<<<<< HEAD
       class="prio-btn high-btn ${getEditPriorityActiveClass(task.priority, 'urgent')}"
-=======
-      class="prio-btn high-btn ${getEditPriorityActiveClass(task.priority, "urgent")}"
->>>>>>> upstream/tester
     >
       Urgent
       <svg class="prio-icon" viewBox="0 0 24 24" aria-hidden="true">
@@ -71,11 +67,7 @@ function editTaskTemplate(task) {
     <button
       type="button"
       id="medium-btn"
-<<<<<<< HEAD
       class="prio-btn medium-btn ${getEditPriorityActiveClass(task.priority, 'medium')}"
-=======
-      class="prio-btn medium-btn ${getEditPriorityActiveClass(task.priority, "medium")}"
->>>>>>> upstream/tester
     >
       Medium
       <img src="../assets/imgs/prio-medium.png" alt="Medium icon" />
@@ -84,11 +76,7 @@ function editTaskTemplate(task) {
     <button
       type="button"
       id="low-btn"
-<<<<<<< HEAD
       class="prio-btn low-btn ${getEditPriorityActiveClass(task.priority, 'low')}"
-=======
-      class="prio-btn low-btn ${getEditPriorityActiveClass(task.priority, "low")}"
->>>>>>> upstream/tester
     >
       Low
       <svg class="prio-icon" viewBox="0 0 24 24" aria-hidden="true">
@@ -103,11 +91,7 @@ function editTaskTemplate(task) {
             <div class="custom-select" id="assignedSelect">
                 <div class="select-trigger">
                   <span class="trigger-text">Select contacts to assign</span>
-<<<<<<< HEAD
                   <img class="trigger-arrow" src="../assets/imgs/arrow_drop_downaa.png" alt="">
-=======
-                  <img class="trigger-arrow" src="../assets/imgs/arrow_drop_downaa.png" alt="Open assigned contacts dropdown">
->>>>>>> upstream/tester
                 </div>
 
                 <div class="select-dropdown" id="assignedDropdown"></div>
@@ -145,11 +129,7 @@ function editTaskTemplate(task) {
 
           <div class="detail-footer">
             <button
-<<<<<<< HEAD
               onclick="saveEditedTask('${task.id}')"
-=======
-              onclick="saveEditedTask('${task.firebaseKey}')"
->>>>>>> upstream/tester
               class="primary-btn edit-button"
             >
               Ok
@@ -168,8 +148,4 @@ function getEditPriorityActiveClass(taskPriority, buttonPriority) {
     return "is-active";
   }
   return "";
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> upstream/tester
