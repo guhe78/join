@@ -17,8 +17,10 @@
 }
 
 .add-task-modal {
-  width: 980px;
-  height: 760px;
+  width: min(980px, calc(100vw - 32px));
+  max-width: calc(100vw - 32px);
+  max-height: calc(100vh - 32px);
+  min-height: 0;
   border-radius: 24px;
   background: #ffffff;
   position: fixed;

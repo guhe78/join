@@ -1,6 +1,14 @@
 body { margin: 0; }
 
-.addtask-page { display: flex; }
+.addtask-page { 
+  display: flex;
+  width: 100%; 
+  overflow-x: hidden;
+}
+
+.addtask-page aside {
+  flex-shrink: 0;
+}
 
 .addtask-page main {
   flex: 1;
@@ -44,16 +52,16 @@ body { margin: 0; }
 }
 
 .addtask-col {
-  gap: 6px;
+  gap: 18px;
   min-width: 0;
 }
 
 .field {
-  gap: 12px;
+  gap: 6px;
 }
 
 .field + .field {
-  margin-top: 6px;
+  margin-top: 0;
 }
 
 .addtask-divider,
@@ -99,8 +107,12 @@ body { margin: 0; }
   position: relative;
 }
 
-.date-input-wrapper,
+.date-input-wrapper {
+  width: 100%;
+}
+
 .custom-select {
+  position: relative;
   width: 100%;
 }
 
@@ -165,12 +177,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   display: flex;
   gap: 14px;
   width: 100%;
-  margin-bottom: 6px;
+  margin-bottom: 0;
 }
 
-.prio-row {
-  margin-bottom: 6px;
-}
 
 .addtask .prio-btn {
   flex: 1 1 0;
@@ -220,6 +229,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   color: #fff;
   border-color: transparent;
   box-shadow: none;
+  transform: none;
   transform: none;
 }
 
@@ -501,6 +511,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   left: 50%;
   transform: translate(-50%, -50%) translateX(400px);
   width: 326px;
+  max-width: calc(100% - 32px);
   height: 76px;
   display: flex;
   align-items: center;

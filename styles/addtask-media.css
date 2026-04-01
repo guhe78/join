@@ -1,4 +1,10 @@
 @media (min-width: 1001px) {
+    body.addtask-page {
+        max-width: none !important;
+        margin: 0 !important;
+        width: 100% !important;
+    }
+
     .addtask-page {
         display: flex;
         flex-direction: row !important;
@@ -353,5 +359,10 @@
     .addtask .secondary-btn,
     .addtask .primary-btn {
         font-size: 15px;
+    }
+
+    .task-toast {
+        font-size: 14px;
+        gap: 10px;
     }
 }
