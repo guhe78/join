@@ -227,3 +227,39 @@ body.logo-early .login-logo {
     transition: none !important;
   }
 }
+
+@media (max-width: 1024px) {
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  .login-wrapper {
+    padding: 20px;
+    gap: 20px;
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .login-card {
+    padding: 30px 20px;
+  }
+
+  .top-bar {
+    position: static; /* raus aus absolute */
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .login-logo {
+    position: static;
+    width: 80px;
+  }
+
+  .footer-links {
+    position: static;
+    margin-top: 40px;
+  }
+}

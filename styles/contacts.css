@@ -1,6 +1,5 @@
 html,
 body {
-  margin: 0;
   height: 100%;
   overflow: hidden;
 }
@@ -565,6 +564,7 @@ dialog::backdrop {
     top: 120px;
     right: 20px;
   }
+
   .contacts-section {
     flex-direction: column;
     align-items: center;
@@ -748,12 +748,12 @@ dialog::backdrop {
   }
 
   .contact {
-    width: 100%;
+    width: 90%;
     gap: 20px;
   }
 
   .contacts-list {
-    max-width: 350px;
+    max-width: 100%;
   }
 
   .contact-letter {
@@ -817,5 +817,31 @@ dialog::backdrop {
 
   .input-field {
     width: 350px;
+  }
+}
+
+@media (max-width: 374px) {
+  .left-content h1 {
+    font-size: 36px;
+  }
+
+  .left-content p {
+    font-size: 18px;
+  }
+
+  .input-field {
+    width: 100%;
+  }
+
+  .fullscreen-mobile {
+    max-width: 100%;
+  }
+
+  .contact {
+    padding: 8px 8px;
+  }
+
+  .primary-btn {
+    font-size: 18px;
   }
 }
