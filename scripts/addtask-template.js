@@ -45,18 +45,6 @@ function buildAssignedContactOptionHTML(index) {
     `;
 }
 
-function getContactInitials(contact) {
-  let firstLetter = "";
-  let lastLetter = "";
-  if (contact.firstName.length > 0) {
-    firstLetter = contact.firstName.charAt(0);
-  }
-  if (contact.lastName.length > 0) {
-    lastLetter = contact.lastName.charAt(0);
-  }
-  return firstLetter + lastLetter;
-}
-
 function addTaskTemplate() {
   return `
       <div class="add-task-modal" onclick="event.stopPropagation()">

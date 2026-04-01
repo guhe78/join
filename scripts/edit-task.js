@@ -11,7 +11,7 @@ async function editTask(id, createHandler = createTaskClicked) {
   setEditAssignedContacts(task.assigned_to);
   selectFocus(task);
   await getContacts();
-  renderAssignedContacts();
+  renderAssignedContacts(buildEditAssignedContactOptionHTML);
   initPriorityButtons();
   initAssignedSelect();
   subtasks = task.subtasks
@@ -29,7 +29,8 @@ function setEditAssignedContacts(assignedContacts) {
   if (assignedSelect === null) {
     return;
   }
-  assignedSelect.dataset.selectedContacts = getAssignedContactIds(assignedContacts).join(",");
+  assignedSelect.dataset.selectedContacts =
+    getAssignedContactIds(assignedContacts).join(",");
 }
 
 function getAssignedContactIds(assignedContacts) {
@@ -38,7 +39,6 @@ function getAssignedContactIds(assignedContacts) {
   }
   return Object.values(assignedContacts);
 }
-
 
 function isAssignedContactSelected(contactId) {
   let selectedContacts = getAssignedSelectionValues();
@@ -65,18 +65,6 @@ function getAssignedCheckboxState(isSelected) {
     return " checked";
   }
   return "";
-}
-
-function getContactInitials(contact) {
-  let firstLetter = "";
-  let lastLetter = "";
-  if (contact.firstName.length > 0) {
-    firstLetter = contact.firstName.charAt(0);
-  }
-  if (contact.lastName.length > 0) {
-    lastLetter = contact.lastName.charAt(0);
-  }
-  return firstLetter + lastLetter;
 }
 
 async function saveEditedTask(taskId) {
@@ -248,7 +236,11 @@ function getEditDateParts(value) {
   if (match === null) {
     return null;
   }
-  return { day: match[1].padStart(2, "0"), month: match[2].padStart(2, "0"), year: match[3] };
+  return {
+    day: match[1].padStart(2, "0"),
+    month: match[2].padStart(2, "0"),
+    year: match[3],
+  };
 }
 
 function getEditSelectedPriority() {

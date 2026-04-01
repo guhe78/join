@@ -152,7 +152,7 @@ function editTaskTemplate(task) {
         </div>`;
 }
 
-function buildAssignedContactOptionHTML(index) {
+function buildEditAssignedContactOptionHTML(index) {
   let contact = contacts[index];
   let fullName = contact.firstName + " " + contact.lastName;
   let contactId = contact.firebaseKey;

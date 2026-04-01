@@ -441,33 +441,6 @@ function refreshTaskDetail(firebaseKey) {
 }
 
 /**
- * Opens the edit view for a task within the existing dialog. --->von renato geändert
- */
-async function editTask(firebaseKey, createHandler = createTaskClicked) {
-  const task = findTaskById(currentTasks, firebaseKey);
-  if (!task) return;
-  const content = document.getElementById("dialogContent");
-  if (!content) return;
-  content.innerHTML = editTaskTemplate(task);
-  setEditTodayDate();
-  setEditMinDueDate();
-  selectFocus(task);
-  setEditMinDueDate();
-  await getContacts();
-  renderAssignedContacts();
-  initPriorityButtons();
-  initAssignedSelect();
-  subtasks = task.subtasks
-    ? Object.values(task.subtasks).map(function (s) {
-        return s.title;
-      })
-    : [];
-  editSubtaskIndex = -1;
-  initSubtaskSection();
-  document.onclick = closeAllSelects;
-}
-
-/**
  * Moves focus to the priority button that matches the task priority.
  * @param {Object} task - The task currently being edited.
  */
@@ -486,20 +459,6 @@ function selectFocus(task) {
     return;
   }
   targetButton.focus();
-}
-
-/**
- * Converts a task due date to DD/MM/YYYY for display in edit mode.
- * @param {Object} task - The task object.
- * @returns {string} The formatted date string or an empty string.
- */
-function transformDate(task) {
-  const rawDate = task.due_date;
-  if (!rawDate) return "";
-  if (rawDate.includes("/")) return rawDate;
-  const [year, month, day] = rawDate.split("-");
-  if (!year || !month || !day) return "";
-  return `${day}/${month}/${year}`;
 }
 
 /**
