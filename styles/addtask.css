@@ -1,3 +1,21 @@
+body { margin: 0; }
+
+.addtask-page { 
+  display: flex;
+  width: 100%; 
+  overflow-x: hidden;
+}
+
+.addtask-page aside {
+  flex-shrink: 0;
+}
+
+.addtask-page main {
+  flex: 1;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
 .addtask {
   padding: 24px 48px;
 }
@@ -15,16 +33,28 @@
   gap: 18px; 
 }
 
-.addtask-divider {
-  background: #e6e9ef;
-  width: 1px;
+.addtask-col {
+  gap: 18px;
+  min-width: 0;
 }
 
 .field {
-  display: flex;
-  flex-direction: column;
-  gap: 6px; 
+  gap: 6px;
 }
+
+.field + .field {
+  margin-top: 0;
+}
+
+.addtask-divider,
+.subtask-item-divider,
+.divider {
+  width: 1px;
+}
+
+.addtask-divider { background: #e6e9ef; }
+.subtask-item-divider { height: 18px; background: #d1d1d1; }
+.divider { height: 18px; background: #e6e8ee; }
 
 .label {
   font-size: 14px;
@@ -53,6 +83,14 @@
 }
 
 .date-input-wrapper {
+  position: relative;
+}
+
+.date-input-wrapper {
+  width: 100%;
+}
+
+.custom-select {
   position: relative;
   width: 100%;
 }
@@ -110,8 +148,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .addtask .prio-row {
   display: flex;
   gap: 14px;
-  margin-bottom: 6px;
+  width: 100%;
+  margin-bottom: 0;
 }
+
 
 .addtask .prio-btn {
   flex: 1;
@@ -159,6 +199,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   color: #fff;
   border-color: transparent;
   box-shadow: none;
+  transform: none;
   transform: none;
 }
 
@@ -504,6 +545,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   left: 50%;
   transform: translate(-50%, -50%) translateX(400px);
   width: 326px;
+  max-width: calc(100% - 32px);
   height: 76px;
   background: #2A3647;
   color: white;

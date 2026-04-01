@@ -1,0 +1,368 @@
+@media (min-width: 1001px) {
+    body.addtask-page {
+        max-width: none !important;
+        margin: 0 !important;
+        width: 100% !important;
+    }
+
+    .addtask-page {
+        display: flex;
+        flex-direction: row !important;
+        height: auto !important;
+        min-height: 100vh;
+        max-width: 1440px;
+        margin: 0 auto;
+        align-items: stretch;
+    }
+
+    .addtask-page main {
+        flex-grow: 1 !important;
+        width: auto !important;
+        height: auto !important;
+        min-height: 100vh;
+        display: flex !important;
+        flex-direction: column !important;
+        min-width: 0;
+        box-sizing: border-box;
+        padding-bottom: 0 !important;
+        overflow: visible;
+    }
+
+    .addtask-page aside {
+        position: static !important;
+        width: 232px !important;
+        height: auto !important;
+        min-height: 100vh;
+        flex-shrink: 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        align-self: stretch;
+    }
+
+    .addtask-page header {
+        height: 96px !important;
+        width: 100% !important;
+    }
+
+    .addtask-page .logo {
+        display: block !important;
+        width: 100px !important;
+        padding-top: 64px !important;
+        padding-bottom: 64px !important;
+    }
+
+    .addtask-page .logo-mobile {
+        display: none !important;
+    }
+
+    .addtask-page .headline {
+        display: block !important;
+    }
+
+    .addtask-page .help-button {
+        display: flex !important;
+    }
+
+    .addtask-page .side-nav {
+        width: 100% !important;
+        flex-grow: 1 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        align-items: stretch !important;
+        height: 100% !important;
+        padding-top: 64px !important;
+        gap: 0 !important;
+    }
+
+    .addtask-page .page-links {
+        width: 100% !important;
+        display: block !important;
+    }
+
+    .addtask-page .side-nav a {
+        display: flex !important;
+        align-items: center !important;
+        padding: 8px 56px !important;
+        gap: 8px !important;
+        font-size: inherit !important;
+        flex-direction: row !important;
+    }
+
+    .addtask-page .page-link-button {
+        width: auto !important;
+        height: auto !important;
+        border-radius: 0 !important;
+        display: flex !important;
+        justify-content: flex-start !important;
+        flex-direction: row !important;
+    }
+
+    .addtask-page .page-link-button img {
+        width: auto !important;
+        height: auto !important;
+    }
+
+    .addtask-page .police-links-container {
+        width: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 8px !important;
+        margin-top: auto !important;
+        margin-bottom: 64px !important;
+    }
+
+    .addtask-page .police-links-container a {
+        padding: 8px 56px !important;
+    }
+}
+
+@media (max-width: 1200px) {
+    .addtask {
+        padding: 24px 32px;
+    }
+
+    .addtask-form {
+        gap: 24px;
+        max-width: 100%;
+    }
+
+    .addtask-title {
+        font-size: 54px;
+        margin-bottom: 24px;
+    }
+
+    .addtask .prio-btn {
+        font-size: 18px;
+        padding: 10px 18px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .addtask-page {
+        flex-direction: column !important;
+    }
+
+    .addtask-page main {
+        width: 100%;
+        min-width: 0;
+        padding-bottom: 0 !important;
+    }
+
+    .addtask-page aside {
+        position: fixed !important;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100% !important;
+        height: 80px !important;
+        z-index: 1000;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+    }
+
+    .addtask-page .logo {
+        display: none !important;
+    }
+
+    .addtask-page .police-links-container {
+        display: none !important;
+    }
+
+    .addtask-page .side-nav {
+        flex-direction: row !important;
+        justify-content: center !important;
+        align-items: center !important;
+        padding-top: 0 !important;
+        gap: 16px !important;
+        width: 100%;
+    }
+
+    .addtask-page .page-links {
+        width: 100% !important;
+        display: flex !important;
+        justify-content: space-around !important;
+        align-items: center !important;
+    }
+
+    .addtask-page .page-link-button {
+        height: 76px !important;
+        width: 80px !important;
+        border-radius: 16px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        flex-direction: column !important;
+    }
+
+    .addtask-page .page-link-button img {
+        width: 24px !important;
+        height: 24px !important;
+    }
+
+    .addtask {
+        padding: 24px 24px 180px;
+    }
+
+    .addtask-form {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .addtask-divider {
+        display: none;
+    }
+
+    .addtask-foot {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 14px;
+    }
+
+    .addtask-actions {
+        width: 100%;
+        justify-content: flex-end;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .textarea {
+        height: 140px;
+        min-height: 120px;
+    }
+}
+
+@media (max-width: 768px) {
+    .addtask {
+        padding: 20px 16px 180px;
+    }
+
+    .addtask-title {
+        font-size: 48px;
+        line-height: 1.1;
+        margin-bottom: 12px;
+    }
+
+    .field {
+        gap: 8px;
+    }
+
+    .input,
+    .textarea,
+    .select-trigger {
+        font-size: 16px;
+    }
+
+    .textarea {
+        height: 120px;
+        min-height: 120px;
+    }
+
+    .addtask .prio-row {
+        gap: 10px;
+    }
+
+    .addtask .prio-btn {
+        font-size: 16px;
+        padding: 10px 12px;
+        min-height: 48px;
+        min-width: 0;
+    }
+
+    .addtask .prio-icon {
+        width: 24px;
+        height: 24px;
+    }
+
+    .addtask-foot {
+        margin-top: 8px;
+        padding-top: 0;
+    }
+
+    .addtask .secondary-btn,
+    .addtask .primary-btn {
+        flex: 1;
+        justify-content: center;
+        font-size: 18px;
+        min-height: 48px;
+    }
+}
+
+@media (max-width: 480px) {
+    .addtask {
+        padding: 16px 12px 170px;
+    }
+
+    .addtask-title {
+        font-size: 40px;
+        line-height: 1.1;
+    }
+
+    .label {
+        font-size: 13px;
+    }
+
+    .addtask .prio-row {
+        gap: 8px;
+    }
+
+    .addtask .prio-btn {
+        font-size: 15px;
+        padding: 10px 8px;
+        gap: 6px;
+    }
+
+    .addtask .prio-icon {
+        width: 20px;
+        height: 20px;
+    }
+
+    .assigned-badge,
+    .avatar {
+        width: 28px;
+        height: 28px;
+        font-size: 12px;
+    }
+
+    .addtask-actions {
+        gap: 8px;
+    }
+
+    .addtask .secondary-btn,
+    .addtask .primary-btn {
+        font-size: 16px;
+        padding: 0 14px;
+    }
+
+    .task-toast {
+        width: calc(100% - 24px);
+        max-width: 320px;
+        height: auto;
+        min-height: 64px;
+        padding: 16px 20px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 360px) {
+    .addtask-title {
+        font-size: 36px;
+    }
+
+    .addtask .prio-btn {
+        font-size: 14px;
+        gap: 4px;
+    }
+
+    .addtask .secondary-btn,
+    .addtask .primary-btn {
+        font-size: 15px;
+    }
+
+    .task-toast {
+        font-size: 14px;
+        gap: 10px;
+    }
+}
