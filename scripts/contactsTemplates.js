@@ -62,6 +62,12 @@ function contactMobileButton(index) {
   `;
 }
 
+function contactCloseDetailViewButton() {
+  return `
+    <button class="back-button" id="close-contact-detail">${arrowLeftIcon()}</button>
+  `;
+}
+
 function contactButtons(index) {
   return `
     <button onclick="openEditContact(${index})">
@@ -95,11 +101,5 @@ function contactMainTemplate() {
     <section class="toast-section" id="toast-section">
       <p id="toast-message"></p>
     </section>
-  `;
-}
-
-function mobileContactButton(index) {
-  return `
-
   `;
 }

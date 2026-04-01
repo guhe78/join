@@ -1,11 +1,12 @@
 html,
 body {
+  margin: 0;
   height: 100%;
   overflow: hidden;
 }
 
 main {
-  height: 100%;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
 }
@@ -435,6 +436,10 @@ dialog::backdrop {
   display: none;
 }
 
+.back-button {
+  display: none;
+}
+
 @media (max-width: 1200px) {
   h1 {
     font-size: 56px;
@@ -545,10 +550,24 @@ dialog::backdrop {
 }
 
 @media (max-width: 850px) {
+  dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+
+  .back-button {
+    display: flex;
+    width: 24px;
+    height: 23px;
+
+    color: #29abe2;
+
+    position: absolute;
+    top: 120px;
+    right: 20px;
+  }
   .contacts-section {
     flex-direction: column;
     align-items: center;
-
     height: 100%;
   }
 
@@ -559,6 +578,20 @@ dialog::backdrop {
     flex-direction: column;
     overflow-y: auto;
     overflow-x: hidden;
+    flex: 1;
+    padding: 24px;
+  }
+
+  .contact-detail-badge {
+    width: 80px;
+    height: 80px;
+    font-size: 27px;
+  }
+
+  .person-img-container .contact-detail-badge {
+    width: 114px;
+    height: 114px;
+    font-size: 47px;
   }
 
   .contact-detail-buttons {
@@ -682,13 +715,30 @@ dialog::backdrop {
   }
 
   .contacts {
-    width: 100%;
+    max-width: 100%;
   }
 }
 
 @media (max-width: 450px) {
   .contacts-list {
-    max-width: 400px;
+    max-width: 100%;
+  }
+
+  .add-edit-contact-section {
+    max-width: 100%;
+    width: 390px;
+  }
+
+  .left-content {
+    padding: 32;
+  }
+
+  .right-content {
+    max-width: 100%;
+  }
+
+  .input-field {
+    max-width: 100%;
   }
 }
 
@@ -698,32 +748,74 @@ dialog::backdrop {
   }
 
   .contact {
+    width: 100%;
     gap: 20px;
   }
 
   .contacts-list {
     max-width: 350px;
   }
-}
 
-@media (max-width: 350px) {
   .contact-letter {
-    width: 300px;
+    width: 100%;
+  }
+
+  .fullscreen-mobile {
+    max-width: 375px;
+  }
+
+  .contact-overview {
+    max-width: 100vw;
+  }
+
+  .contact-headline {
+    padding: 15px 0;
+  }
+
+  .contact-detail-view {
+    padding-left: 0;
+  }
+
+  .contact-detail-data {
+    gap: 12px;
+  }
+
+  .contact-letter {
+    max-width: 100%;
   }
   .contact-seperator {
     width: 250px;
   }
   .contact {
-    width: 275px;
     gap: 10px;
   }
 
   .contact .name,
   .contact .email {
-    width: 175px;
+    max-width: 100%;
   }
 
-  .contacts-list {
-    max-width: 300px;
+  .toast-section {
+    margin-top: 0;
+    margin-left: 0;
+  }
+
+  .add-edit-contact-section {
+    height: 600px;
+  }
+
+  .left-content {
+    width: 100%;
+    padding: 16px;
+    height: 270px;
+  }
+
+  .right-content {
+    max-height: 330px;
+    gap: 8px;
+  }
+
+  .input-field {
+    width: 350px;
   }
 }

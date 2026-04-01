@@ -105,9 +105,16 @@ function renderContact(index) {
 
 function renderContactMobile(index) {
   DOM.fullscreenMobileEl.innerHTML =
-    contactMainTemplate() + contactMobileButton(index);
+    contactMainTemplate() +
+    contactMobileButton(index) +
+    contactCloseDetailViewButton();
 
   DOM.mobileMenuEl = document.getElementById("mobile-menu");
+  const closeButton = document.getElementById("close-contact-detail");
+  closeButton.onclick = (event) => {
+    event.stopPropagation();
+    closeContactDetailView();
+  };
   const mobileContactMenuButtonEl = document.getElementById(
     "mobile-contact-menu-button",
   );
@@ -155,18 +162,33 @@ function handleOutsideClick(event) {
 }
 
 function renderToastMessage(type) {
-  DOM.toastMessageEl.innerHTML = `Contact succesfully ${type}`;
-  DOM.toastSectionEl.classList.add("fade-in");
+  const toastMessageEl = document.getElementById("toast-message");
+  const toastSectionEl = document.getElementById("toast-section");
+
+  if (!toastMessageEl || !toastSectionEl) return;
+
+  toastMessageEl.innerHTML = `Contact succesfully ${type}`;
+  toastSectionEl.classList.add("fade-in");
+
   setTimeout(() => {
-    DOM.toastSectionEl.classList.remove("fade-in");
+    toastSectionEl.classList.remove("fade-in");
   }, 2000);
 }
 
 function toggleActiveContact(index) {
   const currentActiveElement = document.querySelector(".active-contact");
   const newActiveElement = document.getElementById("contact" + index);
+  const isMobile = window.innerWidth <= 850;
   if (DOM.contactOverviewEl) {
     DOM.contactOverviewEl.classList.remove("fade-in");
+  }
+  if (isMobile) {
+    if (currentActiveElement) {
+      currentActiveElement.classList.remove("active-contact");
+    }
+    newActiveElement.classList.add("active-contact");
+    renderContact(index);
+    return;
   }
   if (currentActiveElement) {
     currentActiveElement.classList.remove("active-contact");
@@ -237,9 +259,7 @@ async function addContact() {
   let phone = DOM.contactPhoneEl.value.trim();
   if (!validateForm()) return;
   let nameArray = name.split(/\s+/);
-  if (nameArray.length < 2) {
-    return;
-  }
+  if (nameArray.length < 2) return;
   let firstName = nameArray[0];
   let lastName = nameArray[nameArray.length - 1];
   let newContact = {
@@ -316,6 +336,13 @@ async function updateContact(contact) {
     phone: phone,
   };
   await updateData("contacts", contact.firebaseKey, updatedContact);
+}
+
+function closeContactDetailView() {
+  DOM.fullscreenMobileEl.classList.add("hide-mobile");
+  DOM.contactsListEl.classList.remove("hide-mobile");
+  DOM.screenDesktopEl.classList.remove("hide-mobile");
+  DOM.fullscreenMobileEl.innerHTML = "";
 }
 
 function splitName(name) {
