@@ -58,50 +58,6 @@ async function getTasks() {
 }
 
 /**
- * Loads contacts from Firebase and stores them in the global contacts array.
- * @returns {Promise<void>} Resolves when contacts have been loaded and mapped.
- */
-async function getContacts() {
-  const contactsResponse = await getData("contacts");
-  if (contactsResponse) {
-    contacts = makeArray(contactsResponse);
-  }
-}
-
-/**
- * Loads tasks from Firebase and stores them in the global tasks array.
- * @returns {Promise<void>} Resolves when tasks have been loaded and mapped.
- */
-async function getTasks() {
-  const tasksResponse = await getData("tasks");
-  if (tasksResponse) {
-    tasks = makeArray(tasksResponse);
-  }
-}
-
-/**
- * Loads contacts from Firebase and stores them in the global contacts array.
- * @returns {Promise<void>} Resolves when contacts have been loaded and mapped.
- */
-async function getContacts() {
-  const contactsResponse = await getData("contacts");
-  if (contactsResponse) {
-    contacts = makeArray(contactsResponse);
-  }
-}
-
-/**
- * Loads tasks from Firebase and stores them in the global tasks array.
- * @returns {Promise<void>} Resolves when tasks have been loaded and mapped.
- */
-async function getTasks() {
-  const tasksResponse = await getData("tasks");
-  if (tasksResponse) {
-    tasks = makeArray(tasksResponse);
-  }
-}
-
-/**
  * Updates data in the Firebase database using a PATCH request.
  * @param {string} path - The path to the resource to be updated.
  * @param {string} id - The ID of the resource to update.
