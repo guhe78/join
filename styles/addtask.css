@@ -268,7 +268,7 @@ textarea::placeholder {
 .select-trigger {
   border: 1px solid #e6e8ee;
   border-radius: 10px;
-  padding: 9.5px 14px;
+  padding: 11px 14px;
   background: #fff;
   display: flex;
   justify-content: space-between;
@@ -385,12 +385,12 @@ textarea::placeholder {
 }
 
 .assigned-badge {
-  width: 32px;
-  height: 32px;
+  width: 42px;
+  height: 42px;
+  border: solid 2px white;
   border-radius: 50%;
   color: #ffffff;
-  font-size: 13px;
-  font-weight: 600;
+  font-size: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
