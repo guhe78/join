@@ -13,12 +13,15 @@
 
 .edit-dialog {
   overflow: hidden;
-  padding: 32px 40px;
+  padding-top: 32px;
+  padding-bottom: 32px;
+  padding-left: 40px;
+  padding-right: 22px;
 }
 
 .edit-header {
   justify-content: flex-end;
-  padding-right: 0;
+  padding-right: 24px;
 }
 
 .edit-first-description {
@@ -41,26 +44,36 @@
 .feedback-message {
   color: rgb(255, 0, 0);
   font-size: 12px;
-  display: none;
+  visibility: hidden;
 }
 
 .edit-scroll-content {
   min-height: 0;
   overflow-y: auto;
-  padding-right: 4px;
+  padding-right: 10px;
   display: flex;
   flex-direction: column;
   gap: 24px;
 }
 
 .edit-textarea {
-  color: black !important;
-  font-family: "Inter Variable", sans-serif !important;
-  font-size: 21px !important;
+  font-family: "Inter Variable", sans-serif;
+  font-size: 21px;
+  width: 100%;
+  min-height: 120px;
+  height: 120px;
+  max-height: 180px;
+  max-width: 100%;
+  resize: vertical;
+  border: 1px solid #d1d1d1;
+  padding: 16px 18px;
+  border-radius: 10px;
+  color: black;
 }
 
 .edit-textarea:focus {
-  border-color: var(--greeting-name-and-hover);
+  outline: none;
+  border: 1px solid #29abe2;
 }
 
 .input-wrapper {
@@ -80,39 +93,40 @@
   pointer-events: none;
 }
 
-.input-wrapper button {
+.date-picker-btn {
   position: absolute;
-  right: 12px;
+  right: 0px;
+  margin-right: 16px;
   top: 50%;
   transform: translateY(-50%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.priority-label {
-  font-size: 19px;
-  font-weight: bold;
+  width: 24px;
+  height: 24px;
 }
 
 .priority-options {
   display: flex;
-  gap: 8px;
+  gap: 16px;
 }
 
 .priority-options .prio-btn {
-  font-size: 20px;
+  font-family: "Inter Variable", sans-serif;
+  font-size: 21px;
   display: flex;
   flex: 1;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 16px 10px;
+  gap: 2px;
+  padding: 12px 6px;
   border-radius: 10px;
   background: #ffffff;
   color: #2a3647;
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
   transition: 0.1s ease;
+}
+
+.priority-options .prio-btn.is-active .prio-icon {
+  color: white;
+  fill: currentColor;
 }
 
 .priority-options .prio-btn:not(.is-active):hover {
@@ -135,40 +149,12 @@
   color: #ffffff;
 }
 
-.priority-options .prio-icon {
-  width: 24px;
-  height: 24px;
-  display: inline-block;
-}
-
-.priority-options .prio-icon path {
-  stroke: currentColor;
-  stroke-width: 2.6;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  fill: none;
-}
-
 #urgent-btn:not(.is-active) .prio-icon {
   color: #ff3d00;
 }
 
 #low-btn:not(.is-active) .prio-icon {
   color: #7ae229;
-}
-
-#urgent-btn.is-active .prio-icon,
-#low-btn.is-active .prio-icon {
-  color: #ffffff;
-}
-
-#medium-btn img {
-  width: 20px;
-  height: 10px;
-}
-
-#medium-btn.is-active img {
-  filter: brightness(0) saturate(100%) invert(100%);
 }
 
 .d-none {
@@ -217,16 +203,6 @@
   height: 16px;
 }
 
-.priority-options {
-  display: flex;
-  gap: 8px;
-}
-
-.priority-label {
-  font-size: 19px;
-  font-weight: bold;
-}
-
 .edit-subtask-input {
   height: 48px;
   border-radius: 10px;
@@ -257,4 +233,51 @@
   height: 24px;
   fill: currentColor;
   color: white;
+}
+
+@media (max-width: 600px) {
+  .edit-dialog {
+    overflow: hidden;
+    padding: 32px 24px;
+  }
+
+  .edit-scroll-content {
+    gap: 16px;
+  }
+
+  .edit-input {
+    height: 40px;
+    font-size: 16px;
+    padding: 18px 21px;
+  }
+
+  .edit-first-description {
+    gap: 8px;
+  }
+
+  .feedback-message {
+    font-size: 16px;
+  }
+
+  .edit-textarea {
+    font-size: 16px;
+    min-height: 88px;
+    height: 88px;
+    padding: 18px 21px;
+  }
+
+  .date-picker-btn {
+    margin-right: 21px;
+  }
+
+  .priority-options .prio-btn {
+    font-size: 16px;
+    padding: 4px 6px;
+  }
+}
+
+@media (max-width: 450px) {
+  .priority-options .prio-btn span {
+    display: none;
+  }
 }

@@ -128,21 +128,21 @@ function validateEditForm() {
   if (titleInput !== null && titleFeedback !== null) {
     if (titleInput.value.trim() === "") {
       titleInput.classList.add("input-error");
-      titleFeedback.style.display = "block";
+      titleFeedback.style.visibility = "visible";
       isValid = false;
     } else {
       titleInput.classList.remove("input-error");
-      titleFeedback.style.display = "none";
+      titleFeedback.style.visibility = "hidden";
     }
   }
   if (descInput !== null && descriptionFeedback !== null) {
     if (descInput.value.trim() === "") {
       descInput.classList.add("input-error");
-      descriptionFeedback.style.display = "block";
+      descriptionFeedback.style.visibility = "visible";
       isValid = false;
     } else {
       descInput.classList.remove("input-error");
-      descriptionFeedback.style.display = "none";
+      descriptionFeedback.style.visibility = "hidden";
     }
   }
   if (!validateEditDueDateField()) {
@@ -159,12 +159,12 @@ function validateEditDueDateField() {
   }
   if (isEditDueDateValid()) {
     input.classList.remove("input-error");
-    feedback.style.display = "none";
+    feedback.style.visibility = "hidden";
     return true;
   }
   input.classList.add("input-error");
   feedback.textContent = getEditDueDateFeedback(input.value.trim());
-  feedback.style.display = "block";
+  feedback.style.visibility = "visible";
   return false;
 }
 
