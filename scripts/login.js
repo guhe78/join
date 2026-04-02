@@ -7,11 +7,13 @@ const DOM = {
   passwordLoginEl: document.getElementById("password-login"),
 };
 
-DOM.formLoginEl.addEventListener("submit", userLogin);
-DOM.loginGuestButtonEl.onclick = () => {
+DOM.formLoginEl.addEventListener("submit", async (event) => {
+  await userLogin(event);
+});
+DOM.loginGuestButtonEl.addEventListener("click", () => {
   window.location.href = "./link/summary.html";
-  persistUser("Guest");
-};
+  loginGuest();
+});
 
 function startSplash() {
   let splash = document.getElementById("splash");

@@ -12,8 +12,15 @@ body {
   display: flex;
   align-items: center;
   gap: 20px;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.top-bar .primary-btn {
   font-size: 16px;
-  font-weight: 600;
+  padding: 0;
+  width: 91px;
+  justify-content: center;
 }
 
 .login-wrapper {
@@ -38,6 +45,7 @@ body {
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
   text-align: center;
   width: 590px;
+  position: relative;
 }
 
 .login-card h1 {
@@ -55,9 +63,9 @@ body {
 }
 
 .back-btn {
-  position: relative;
-  right: 230px;
-  top: 60px;
+  position: absolute;
+  left: 48px;
+  top: 80px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -75,6 +83,7 @@ body {
 
 .input-group {
   width: 100%;
+  max-width: 422px;
 }
 
 .link-blue {
@@ -116,10 +125,13 @@ form {
   margin-top: 30px;
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 35px;
+  width: 100%;
+  max-width: 322px;
 }
 
 .toast-section {
+  z-index: 999;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -148,18 +160,10 @@ form {
 }
 
 .footer-links {
-  position: fixed;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
   display: flex;
   gap: 30px;
   font-size: 14px;
   color: #888;
-}
-
-.footer-links a {
-  transition: 0.2s ease;
 }
 
 .footer-links a:hover {
@@ -235,14 +239,11 @@ body.logo-early .login-logo {
 @media (max-width: 1024px) {
   body {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
+    align-items: center;
 
     min-height: 100vh;
     overflow-y: auto;
-  }
-
-  .top-bar {
-    max-width: 100%;
   }
 
   .login-logo {
@@ -260,26 +261,51 @@ body.logo-early .login-logo {
     justify-content: center;
     padding: 20px;
     gap: 20px;
-    max-width: 100%;
+    width: 100%;
   }
 
   .login-card {
+    order: 1;
+    display: flex;
+    flex-direction: column;
     width: 100%;
     max-width: 590px;
-    max-height: 475px;
     box-sizing: border-box;
     padding: 30px 20px;
   }
 
+  .login-card h1 {
+    font-size: 47px;
+  }
+
+  .back-btn {
+    top: 40px;
+    left: 32px;
+  }
+
   .top-bar {
+    order: 2;
+    max-width: 100%;
+
     position: static;
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+
+    padding-top: 80px;
+  }
+
+  .top-bar .primary-btn {
+    width: 104px;
+  }
+
+  .input-group {
+    max-width: 396px;
   }
 
   .button-group {
     flex-direction: column;
+    max-width: 180px;
+    gap: 21px;
   }
 
   .button-group button {
@@ -289,12 +315,40 @@ body.logo-early .login-logo {
   }
 
   .footer-links {
+    order: 3;
     position: absolute;
     width: 246px;
     height: 35px;
-    bottom: 0;
+    bottom: 10px;
     margin-top: 10px;
     display: flex;
     justify-content: center;
+  }
+}
+
+@media (max-width: 400px) {
+  .login-logo {
+    width: 48px;
+    height: 52px;
+    top: 16px;
+    left: 16px;
+  }
+
+  .login-card h1 {
+    margin: 0;
+    font-size: 47px;
+  }
+  .login-card h1::after {
+    margin: 8px auto;
+  }
+
+  .top-bar {
+    padding-top: 0;
+  }
+}
+
+@media (max-width: 350px) {
+  .back-btn {
+    left: 24px;
   }
 }

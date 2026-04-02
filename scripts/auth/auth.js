@@ -1,6 +1,6 @@
 async function saveUserLogin(data) {
   const user = await findUser(data);
-  persistUser(data, false);
+  persistUser(user, false);
 }
 
 function loginGuest() {
@@ -36,7 +36,7 @@ function persistUser(user, isGuest = false) {
       firstName: user.firstName || "Guest",
       lastName: user.lastName || "",
       userEmail: user.userEmail || "",
-      isGuest: isGuest || true,
+      isGuest: isGuest,
     }),
   );
 }
