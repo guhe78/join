@@ -189,6 +189,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: 0.1s ease;
+}
+
+.close-btn:hover {
+  background-color: var(--secondary-color);
+  border-radius: 50%;
 }
 
 .detail-assigned-section,

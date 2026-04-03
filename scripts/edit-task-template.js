@@ -116,15 +116,14 @@ function editTaskTemplate(task) {
                   />
 
                   <div class="subtask-actions">
-                    <svg class="subtask-icon" viewBox="0 0 24 24">
-                      <path d="M6 6L18 18M6 18L18 6" />
-                    </svg>
+                    <button type="button" class="subtask-btn">
+                    ${cancelIcon()}
+                    </button>
 
                     <div class="divider"></div>
-
-                    <svg class="subtask-icon" viewBox="0 0 24 24">
-                      <path d="M5 13l4 4L19 7" />
-                    </svg>
+                    <button type="button" class="subtask-btn">
+                    ${checkIcon()}
+                    </button>
                   </div>
                 </div>
                 <div class="subtasks-list" id="subtasksList"></div>

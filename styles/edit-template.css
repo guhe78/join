@@ -235,6 +235,17 @@
   color: white;
 }
 
+.edit-dialog .subtask-actions .subtask-btn {
+  padding: 0;
+  line-height: 1;
+}
+
+.edit-dialog .subtask-actions .icon {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+
 @media (max-width: 600px) {
   .edit-dialog {
     overflow: hidden;

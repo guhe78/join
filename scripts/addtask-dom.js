@@ -286,11 +286,16 @@ function initSubtaskSection() {
   if (subtaskActions === undefined) {
     return;
   }
-
   let actionIcons = subtaskActions.getElementsByClassName("subtask-icon");
   if (actionIcons.length >= 2) {
     actionIcons[0].onclick = clearSubtaskInput;
     actionIcons[1].onclick = saveSubtaskFromInput;
+  } else {
+    let actionBtns = subtaskActions.getElementsByClassName("subtask-btn");
+    if (actionBtns.length >= 2) {
+      actionBtns[0].onclick = clearSubtaskInput;
+      actionBtns[1].onclick = saveSubtaskFromInput;
+    }
   }
   renderSubtasks();
 }
@@ -338,6 +343,26 @@ function bindSubtaskButtons() {
   bindDeleteButtons();
   bindEditDeleteButtons();
   bindSaveButtons();
+  bindSubtaskItemDblClick();
+}
+
+function bindSubtaskItemDblClick() {
+  let items = document.getElementsByClassName("subtask-item");
+  for (let i = 0; i < items.length; i++) {
+    if (items[i].classList.contains("edit-mode") === false) {
+      items[i].ondblclick = subtaskItemDblClicked;
+    }
+  }
+}
+
+function subtaskItemDblClicked(event) {
+  let items = document.getElementsByClassName("subtask-item");
+  for (let i = 0; i < items.length; i++) {
+    if (items[i] === event.currentTarget) {
+      editSubtaskIndex = i;
+    }
+  }
+  renderSubtasks();
 }
 
 function bindEditButtons() {

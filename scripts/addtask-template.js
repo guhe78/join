@@ -6,9 +6,13 @@ function buildNormalSubtaskHTML(index) {
             <span class="subtask-text">${subtasks[index]}</span>
         </div>
         <div class="subtask-item-actions">
+            <button class="subtask-btn">
             <img class="subtask-action-icon subtask-edit-btn" src="../assets/imgs/edit-black.svg" alt="edit">
+            </button>
             <div class="subtask-item-divider"></div>
+            <button class="subtask-btn">
             <img class="subtask-action-icon subtask-delete-btn" src="../assets/imgs/delete-black.svg" alt="delete">
+            </button>
         </div>
     </div>
     `;
@@ -21,9 +25,13 @@ function buildEditSubtaskHTML(index) {
             <input class="subtask-edit-input" id="editSubtaskInput" type="text" value="${subtasks[index]}">
         </div>
         <div class="subtask-item-actions">
+            <button class="subtask-btn">
             <img class="subtask-action-icon subtask-delete-edit-btn" src="../assets/imgs/delete-black.svg" alt="delete">
+            </button>
             <div class="subtask-item-divider"></div>
+            <button class="subtask-btn">
             <img class="subtask-action-icon subtask-save-btn" src="../assets/imgs/check.png" alt="save">
+            </button>
         </div>
     </div>
     `;
