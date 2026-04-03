@@ -26,14 +26,12 @@ h3 {
   flex: 1;
   overflow: hidden;
   display: flex;
-  flex: 1;
-  overflow: hidden;
-  display: flex;
 }
 
 .contacts {
   background-color: #f6f7f8;
-  width: 456px;
+  width: 100%;
+  max-width: 456px;
   box-shadow: 4px 0px 4px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
@@ -41,6 +39,8 @@ h3 {
 }
 
 .add-contact {
+  width: 100%;
+  max-width: 352px;
   height: 101px;
   background-color: #f6f7f8;
   display: flex;
@@ -51,13 +51,13 @@ h3 {
 .add-contact-button {
   font-weight: bold;
   font-size: 21px;
-  width: 352px;
   height: 56px;
   border-radius: 10px;
 
   padding: 12px 0;
   display: flex;
   justify-content: center;
+  flex: 1;
 
   gap: 16px;
 }
@@ -77,7 +77,8 @@ h3 {
 }
 
 .contact {
-  width: 352px;
+  width: 100%;
+  max-width: 352px;
   padding: 15px 24px;
   display: flex;
   align-items: center;
@@ -114,7 +115,8 @@ h3 {
 .contact .email {
   font-size: 16px;
   color: #007cee;
-  width: 200px;
+  width: 100%;
+  max-width: 200px;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -122,7 +124,8 @@ h3 {
 
 .contact-letter {
   font-size: 20px;
-  width: 352px;
+  width: 100%;
+  max-width: 352px;
   height: 58px;
   padding: 17px 36px;
   display: flex;
@@ -130,16 +133,14 @@ h3 {
 }
 
 .contact-seperator {
-  width: 352px;
+  width: 100%;
+  max-width: 352px;
   height: 1px;
   border-top: 1px solid #d1d1d1;
   margin: 8px 0;
 }
 
 .contact-headline {
-  padding-top: 110px;
-  padding-left: 55px;
-
   display: flex;
   align-items: center;
   gap: 30px;
@@ -176,6 +177,10 @@ dialog {
   border-radius: 30px;
   border: none;
 
+  width: 100%;
+  max-width: 1200px;
+  padding: 0;
+
   align-self: center;
   justify-self: center;
 }
@@ -185,7 +190,6 @@ dialog::backdrop {
 }
 
 .add-edit-contact-section {
-  width: 1212px;
   height: 592px;
   border-radius: 30px;
   display: flex;
@@ -194,7 +198,8 @@ dialog::backdrop {
 .left-content {
   background-color: var(--primary-color);
   color: white;
-  width: 467px;
+  width: 100%;
+  max-width: 467px;
   height: 592px;
   gap: 12px;
   padding: 68px 48px;
@@ -277,7 +282,8 @@ dialog::backdrop {
 }
 
 .input-field {
-  width: 422px;
+  width: 100%;
+  max-width: 422px;
   height: 50px;
 }
 
@@ -312,6 +318,10 @@ dialog::backdrop {
   width: 32px;
 }
 
+.contact-overview-container {
+  padding: 55px;
+}
+
 .contact-detail-view {
   display: flex;
   flex-direction: column;
@@ -319,7 +329,6 @@ dialog::backdrop {
 
   gap: 59px;
   padding-top: 30px;
-  padding-left: 55px;
 }
 
 .contact-detail-header {
@@ -448,9 +457,10 @@ dialog::backdrop {
     font-size: 43px;
   }
 
-  .contacts {
-    width: 428px;
+  dialog {
+    max-width: 396px;
   }
+
   .contact-headline {
     flex-direction: column;
     align-items: flex-start;
@@ -489,12 +499,11 @@ dialog::backdrop {
   .add-edit-contact-section {
     flex-direction: column;
     height: 760px;
-    width: 396px;
   }
 
   .left-content {
     height: 352px;
-    width: auto;
+    max-width: 396px;
   }
 
   .left-content h1 {
@@ -516,6 +525,9 @@ dialog::backdrop {
   }
 
   .right-content form {
+    width: 100%;
+    max-width: 364px;
+    padding: 0 12px;
     gap: 24px;
   }
 
@@ -524,7 +536,6 @@ dialog::backdrop {
   }
 
   .input-field {
-    max-width: 100%;
     height: 41px;
   }
 
@@ -546,6 +557,20 @@ dialog::backdrop {
   .cancel-button {
     display: none;
   }
+}
+
+.toast-section {
+  transform: translateY(100vh);
+  opacity: 0;
+  transition:
+    transform 0.5s ease-out,
+    opacity 0.5s ease-out;
+  margin-left: 0;
+}
+
+.fade-in {
+  transform: translateY(0);
+  opacity: 1;
 }
 
 @media (max-width: 850px) {
@@ -573,13 +598,13 @@ dialog::backdrop {
 
   .fullscreen-mobile {
     height: 100%;
-    max-width: 450px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     overflow-y: auto;
     overflow-x: hidden;
     flex: 1;
-    padding: 24px;
+    padding: 24px 96px;
   }
 
   .contact-detail-badge {
@@ -680,7 +705,7 @@ dialog::backdrop {
     display: none;
   }
 
-  .contact-main {
+  .contact-overview-container {
     display: none;
   }
 
@@ -689,10 +714,7 @@ dialog::backdrop {
   }
 
   .contacts-list {
-    padding-top: 24px;
-    padding-bottom: 86px;
-
-    width: 450px;
+    padding: 24px 8px 86px 8px;
   }
 
   .add-contact-button {
@@ -713,61 +735,47 @@ dialog::backdrop {
   .add-contact-button::before {
     content: "";
   }
+}
+
+@media (max-width: 650px) {
+  .fullscreen-mobile {
+    padding: 24px 48px;
+  }
 
   .contacts {
-    max-width: 100%;
+    max-width: 650px;
   }
 }
 
 @media (max-width: 450px) {
-  .contacts-list {
-    max-width: 100%;
+  dialog {
+    max-width: 390px;
+  }
+
+  .fullscreen-mobile {
+    padding: 24px 32px;
+  }
+
+  .right-content form {
+    gap: 20px;
+  }
+
+  .required-warning {
+    margin-top: 55px;
+    font-size: 12px;
   }
 
   .add-edit-contact-section {
-    max-width: 100%;
-    width: 390px;
+    width: 100%;
+    max-width: 390px;
   }
 
   .left-content {
-    padding: 32;
-  }
-
-  .right-content {
-    max-width: 100%;
-  }
-
-  .input-field {
-    max-width: 100%;
+    padding: 32px;
   }
 }
 
 @media (max-width: 400px) {
-  .contact-seperator {
-    width: 300px;
-  }
-
-  .contact {
-    width: 90%;
-    gap: 20px;
-  }
-
-  .contacts-list {
-    max-width: 100%;
-  }
-
-  .contact-letter {
-    width: 100%;
-  }
-
-  .fullscreen-mobile {
-    max-width: 375px;
-  }
-
-  .contact-overview {
-    max-width: 100vw;
-  }
-
   .contact-headline {
     padding: 15px 0;
   }
@@ -780,19 +788,8 @@ dialog::backdrop {
     gap: 12px;
   }
 
-  .contact-letter {
-    max-width: 100%;
-  }
-  .contact-seperator {
-    width: 250px;
-  }
   .contact {
     gap: 10px;
-  }
-
-  .contact .name,
-  .contact .email {
-    max-width: 100%;
   }
 
   .toast-section {
@@ -805,36 +802,24 @@ dialog::backdrop {
   }
 
   .left-content {
-    width: 100%;
-    padding: 16px;
     height: 270px;
   }
 
   .right-content {
-    max-height: 330px;
     gap: 8px;
-  }
-
-  .input-field {
-    width: 350px;
   }
 }
 
 @media (max-width: 374px) {
+  .fullscreen-mobile {
+    padding: 8px;
+  }
   .left-content h1 {
     font-size: 36px;
   }
 
   .left-content p {
     font-size: 18px;
-  }
-
-  .input-field {
-    width: 100%;
-  }
-
-  .fullscreen-mobile {
-    max-width: 100%;
   }
 
   .contact {

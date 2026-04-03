@@ -5,7 +5,9 @@ const DOM = {
   noButtonEl: document.getElementById("no-button"),
   okButtonEl: document.getElementById("ok-button"),
   badgeColorEl: document.getElementById("contact-badge"),
-  contactMainEl: document.getElementById("contact-main"),
+  contactOverviewContainerEl: document.getElementById(
+    "contact-overview-container",
+  ),
   contactOverviewEl: document.getElementById("contact-overview"),
   contactNameEl: document.getElementById("contact-name-input"),
   contactEmailEl: document.getElementById("contact-email-input"),
@@ -93,7 +95,7 @@ function renderContactsList() {
 }
 
 function renderContactMain() {
-  DOM.contactMainEl.innerHTML = contactMainTemplate();
+  DOM.contactOverviewContainerEl.innerHTML = contactMainTemplate();
   DOM.contactOverviewEl = document.getElementById("contact-overview");
 }
 
