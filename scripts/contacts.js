@@ -23,8 +23,11 @@ const DOM = {
     "mobile-contact-menu-button",
   ),
   mobileMenuEl: document.getElementById("mobile-menu"),
+  toastMessageEl: document.getElementById("toast-message"),
+  toastSectionEl: document.getElementById("toast-section"),
 };
 
+const MOBILE_BREAKPOINT = 850;
 const DEFAULT_BADGE_COLORS = [
   "#ff7a00",
   "#9327ff",
@@ -79,16 +82,18 @@ async function getContacts() {
 function renderContactsList() {
   contacts.sort((a, b) => a.firstName.localeCompare(b.firstName, "de"));
   DOM.contactsListEl.innerHTML = "";
+  let contactListString = "";
   let lastLetter = "";
   for (let i = 0; i < contacts.length; i++) {
     let contact = contacts[i];
     let letter = contact.firstName[0].toUpperCase();
     if (lastLetter != letter) {
       lastLetter = letter;
-      DOM.contactsListEl.innerHTML += contactLetterTemplate(letter);
+      contactListString += contactLetterTemplate(letter);
     }
-    DOM.contactsListEl.innerHTML += contactTemplate(i);
+    contactListString += contactTemplate(i);
   }
+  DOM.contactsListEl.innerHTML = contactListString;
 }
 
 function renderContactMain() {
@@ -97,9 +102,16 @@ function renderContactMain() {
 }
 
 function renderContact(index) {
+  if (isMobileView()) {
+    renderContactMobile(index);
+  } else {
+    renderContactDesktop(index);
+  }
+}
+
+function renderContactDesktop(index) {
   DOM.contactOverviewEl.innerHTML = contactDetailTemplate(index);
   DOM.contactOverviewEl.classList.add("fade-in");
-  renderContactMobile(index);
 }
 
 function renderContactMobile(index) {
@@ -166,27 +178,23 @@ function handleOutsideClick(event) {
 }
 
 function renderToastMessage(type) {
-  const toastMessageEl = document.getElementById("toast-message");
-  const toastSectionEl = document.getElementById("toast-section");
+  if (!DOM.toastMessageEl || !DOM.toastSectionEl) return;
 
-  if (!toastMessageEl || !toastSectionEl) return;
-
-  toastMessageEl.textContent = `Contact successfully ${type}`;
-  toastSectionEl.classList.add("fade-in");
+  DOM.toastMessageEl.textContent = `Contact successfully ${type}`;
+  DOM.toastSectionEl.classList.add("fade-in");
 
   setTimeout(() => {
-    toastSectionEl.classList.remove("fade-in");
+    DOM.toastSectionEl.classList.remove("fade-in");
   }, 2000);
 }
 
 function toggleActiveContact(index) {
   const currentActiveElement = document.querySelector(".active-contact");
   const newActiveElement = document.getElementById("contact" + index);
-  const isMobile = window.innerWidth <= 850;
   if (DOM.contactOverviewEl) {
     DOM.contactOverviewEl.classList.remove("fade-in");
   }
-  if (isMobile) {
+  if (isMobileView()) {
     if (currentActiveElement) {
       currentActiveElement.classList.remove("active-contact");
     }
@@ -369,8 +377,7 @@ function checkName(input) {
 }
 
 function checkEmail(input) {
-  const pattern =
-    /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
   return pattern.test(input);
 }
 
@@ -397,6 +404,10 @@ function findContactIndex(firebaseKey) {
     (contact) => contact.firebaseKey === firebaseKey,
   );
   return index;
+}
+
+function isMobileView() {
+  return window.innerWidth <= MOBILE_BREAKPOINT;
 }
 
 function openDialog() {
