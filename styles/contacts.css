@@ -176,6 +176,10 @@ h3 {
   padding: 55px;
 }
 
+.contact-overview-container {
+  padding: 55px;
+}
+
 .contact-detail-view {
   display: flex;
   flex-direction: column;
