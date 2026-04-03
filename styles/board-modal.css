@@ -16,6 +16,10 @@
   opacity: 1;
 }
 
+body.dialog-open {
+  overflow: hidden;
+}
+
 .add-task-modal {
   width: min(980px, calc(100vw - 32px));
   max-width: calc(100vw - 32px);
@@ -52,7 +56,7 @@
   border-radius: 50%;
   border: none;
   background: transparent;
-  color: #2A3647;
+  color: #2a3647;
   font-size: 24px;
   line-height: 1;
   cursor: pointer;
@@ -66,8 +70,16 @@
   background: rgba(0, 0, 0, 0.06);
 }
 
-body.dialog-open {
-  overflow: hidden;
+/* ===== Modal Add Task Base ===== */
+
+#addTaskDialog .addtask,
+#addTaskDialog .addtask-form,
+#addTaskDialog .addtask-col,
+#addTaskDialog .field,
+#addTaskDialog .prio-row,
+#addTaskDialog .custom-select,
+#addTaskDialog .subtask-input {
+  min-width: 0;
 }
 
 #addTaskDialog .addtask {
@@ -76,16 +88,17 @@ body.dialog-open {
 }
 
 #addTaskDialog .addtask-title {
+  margin: 0 0 24px;
+  color: #000;
   font-size: 48px;
   font-weight: 700;
   line-height: 1.1;
-  margin: 0 0 24px 0;
-  color: #000000;
 }
 
 #addTaskDialog .addtask-form {
   width: 100%;
   max-width: 100%;
+  grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr);
   gap: 32px;
 }
 
@@ -102,7 +115,12 @@ body.dialog-open {
 }
 
 #addTaskDialog .input,
-#addTaskDialog .textarea {
+#addTaskDialog .textarea,
+#addTaskDialog .select-trigger,
+#addTaskDialog .subtask-input .input {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
   font-size: 18px;
 }
 
@@ -116,19 +134,9 @@ body.dialog-open {
   padding: 10px 14px;
 }
 
-#addTaskDialog .prio-row {
-  gap: 12px;
-}
-
-#addTaskDialog .prio-btn {
-  min-height: 48px;
-  padding: 8px 14px;
-  font-size: 18px;
-}
-
-#addTaskDialog .prio-icon {
-  width: 22px;
-  height: 22px;
+#addTaskDialog .custom-select {
+  position: relative;
+  width: 100%;
 }
 
 #addTaskDialog .select-trigger {
@@ -138,6 +146,36 @@ body.dialog-open {
 
 #addTaskDialog .trigger-text {
   font-size: 18px;
+}
+
+#addTaskDialog .select-dropdown {
+  left: 0;
+  width: 100%;
+  max-width: 100%;
+}
+
+#addTaskDialog .prio-row {
+  display: flex;
+  width: 100%;
+  gap: 12px;
+  flex-wrap: nowrap;
+}
+
+#addTaskDialog .prio-btn {
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 48px;
+  padding: 8px 14px;
+  font-size: 18px;
+  gap: 8px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+#addTaskDialog .prio-icon {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
 }
 
 #addTaskDialog .subtask-input .input {
@@ -164,12 +202,14 @@ body.dialog-open {
   padding: 0 20px;
 }
 
-.date-input-wrapper {
+/* ===== Scoped date styles ===== */
+
+#addTaskDialog .date-input-wrapper {
   position: relative;
   width: 100%;
 }
 
-.date-picker-trigger {
+#addTaskDialog .date-picker-trigger {
   position: absolute;
   right: 12px;
   top: 50%;
@@ -178,7 +218,7 @@ body.dialog-open {
   height: 20px;
 }
 
-.date-icon-right {
+#addTaskDialog .date-icon-right {
   position: absolute;
   inset: 0;
   width: 20px;
@@ -187,7 +227,7 @@ body.dialog-open {
   pointer-events: none;
 }
 
-.icon-date-picker {
+#addTaskDialog .icon-date-picker {
   position: absolute;
   inset: 0;
   width: 20px;
@@ -197,19 +237,221 @@ body.dialog-open {
   border: none;
 }
 
-input[type="date"]::-webkit-calendar-picker-indicator {
+#addTaskDialog input[type="date"]::-webkit-calendar-picker-indicator {
   opacity: 0;
   pointer-events: none;
 }
 
-.date-input-wrapper {
-  position: relative;
-}
-
-.date-input-wrapper img {
+#addTaskDialog .date-input-wrapper img {
   position: absolute;
   right: 12px;
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
+}
+
+/* ===== Responsive ===== */
+
+@media (max-width: 1000px) {
+  .add-task-modal {
+    width: calc(100vw - 24px) !important;
+    max-width: calc(100vw - 24px) !important;
+    max-height: calc(100vh - 24px) !important;
+    padding: 24px !important;
+    border-radius: 20px !important;
+  }
+
+  #addTaskDialog .addtask {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  #addTaskDialog .addtask-form {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  #addTaskDialog .addtask-divider {
+    display: none !important;
+  }
+
+  #addTaskDialog .addtask-col,
+  #addTaskDialog .field,
+  #addTaskDialog .custom-select,
+  #addTaskDialog .subtask-input,
+  #addTaskDialog .input,
+  #addTaskDialog .textarea,
+  #addTaskDialog .select-trigger {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  #addTaskDialog .addtask-foot {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 14px !important;
+  }
+
+  #addTaskDialog .addtask-actions {
+    width: 100% !important;
+    gap: 10px !important;
+    align-items: stretch !important;
+  }
+
+  #addTaskDialog .secondary-btn,
+  #addTaskDialog .primary-btn {
+    flex: 1 !important;
+    justify-content: center !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .add-task-modal {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    top: 0 !important;
+    left: 0 !important;
+    transform: translateX(100%) !important;
+    border-radius: 0 !important;
+    padding: 96px 16px 110px !important;
+  }
+
+  .add-task-modal.show {
+    transform: translateX(0) !important;
+  }
+
+  .add-task-modal.hide {
+    transform: translateX(100%) !important;
+  }
+
+  .add-task-close-btn {
+    top: 24px !important;
+    right: 16px !important;
+  }
+
+  #addTaskDialog .addtask-title {
+    font-size: 48px !important;
+    line-height: 1.1 !important;
+    margin-bottom: 20px !important;
+  }
+
+  #addTaskDialog .field {
+    gap: 8px !important;
+  }
+
+  #addTaskDialog .label {
+    font-size: 14px !important;
+  }
+
+  #addTaskDialog .input,
+  #addTaskDialog .textarea,
+  #addTaskDialog .select-trigger,
+  #addTaskDialog .trigger-text {
+    font-size: 16px !important;
+  }
+
+  #addTaskDialog .input,
+  #addTaskDialog .select-trigger,
+  #addTaskDialog .subtask-input .input {
+    min-height: 48px !important;
+  }
+
+  #addTaskDialog .textarea {
+    min-height: 120px !important;
+    height: 120px !important;
+  }
+
+  #addTaskDialog .prio-row {
+    display: flex !important;
+    width: 100% !important;
+    gap: 10px !important;
+    flex-wrap: nowrap !important;
+    min-width: 0 !important;
+  }
+
+  #addTaskDialog .prio-btn {
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+    min-height: 48px !important;
+    font-size: 16px !important;
+    padding: 10px 10px !important;
+    gap: 6px !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+  }
+
+  #addTaskDialog .prio-icon {
+    width: 24px !important;
+    height: 24px !important;
+    flex-shrink: 0 !important;
+  }
+
+  #addTaskDialog .secondary-btn,
+  #addTaskDialog .primary-btn {
+    min-height: 48px !important;
+    font-size: 18px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .add-task-modal {
+    padding: 88px 12px 104px !important;
+  }
+
+  #addTaskDialog .addtask-title {
+    font-size: 40px !important;
+  }
+
+  #addTaskDialog .label {
+    font-size: 13px !important;
+  }
+
+  #addTaskDialog .prio-row {
+    gap: 8px !important;
+  }
+
+  #addTaskDialog .prio-btn {
+    font-size: 15px !important;
+    padding: 10px 8px !important;
+    gap: 4px !important;
+  }
+
+  #addTaskDialog .prio-icon {
+    width: 20px !important;
+    height: 20px !important;
+  }
+
+  #addTaskDialog .assigned-badge,
+  #addTaskDialog .avatar {
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 12px !important;
+  }
+
+  #addTaskDialog .secondary-btn,
+  #addTaskDialog .primary-btn {
+    font-size: 16px !important;
+    padding: 0 14px !important;
+  }
+}
+
+@media (max-width: 360px) {
+  #addTaskDialog .addtask-title {
+    font-size: 36px !important;
+  }
+
+  #addTaskDialog .prio-btn {
+    font-size: 14px !important;
+  }
+
+  #addTaskDialog .secondary-btn,
+  #addTaskDialog .primary-btn {
+    font-size: 15px !important;
+  }
 }

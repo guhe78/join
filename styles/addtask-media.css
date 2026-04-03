@@ -140,6 +140,26 @@
     }
 }
 
+@media (max-width: 1100px) {
+    .addtask-form {
+        grid-template-columns: 1fr;
+    }
+
+    .addtask-divider {
+        display: none;
+    }
+
+    .addtask-foot {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 14px;
+    }
+
+    .addtask-actions {
+        justify-content: flex-end;
+    }
+}
+
 @media (max-width: 1000px) {
     .addtask-page {
         flex-direction: column !important;
@@ -230,6 +250,13 @@
 
     .textarea {
         height: 140px;
+        min-height: 120px;
+    }
+}
+
+@media (max-width: 850px) {
+    .textarea {
+        height: 160px;
         min-height: 120px;
     }
 }
