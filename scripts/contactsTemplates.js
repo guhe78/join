@@ -98,8 +98,5 @@ function contactMainTemplate() {
       <div class="headline-seperator-mobile"></div>
     </div>
     <div class="contact-overview" id="contact-overview"></div>
-    <section class="toast-section" id="toast-section">
-      <p id="toast-message"></p>
-    </section>
   `;
 }

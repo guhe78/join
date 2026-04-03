@@ -4,7 +4,6 @@ const DOM = {
   headlineEl: document.getElementById("dialog-headline"),
   noButtonEl: document.getElementById("no-button"),
   okButtonEl: document.getElementById("ok-button"),
-  badgeColorEl: document.getElementById("contact-badge"),
   contactOverviewContainerEl: document.getElementById(
     "contact-overview-container",
   ),
@@ -14,8 +13,6 @@ const DOM = {
   contactPhoneEl: document.getElementById("contact-phone-input"),
   closeButtonEl: document.getElementById("close-button"),
   personImageEl: document.getElementById("person-image"),
-  toastSectionEl: document.getElementById("toast-section"),
-  toastMessageEl: document.getElementById("toast-message"),
   warningMessageNameEl: document.getElementById("warning-name"),
   warningMessageEmailEl: document.getElementById("warning-email"),
   warningMessagePhoneEl: document.getElementById("warning-phone"),
@@ -141,7 +138,7 @@ function openMobileContactMenu() {
   const menu = document.getElementById("mobile-menu");
   const button = document.querySelector(".mobile-button-container");
 
-  if (!menu) return;
+  if (!menu || !button) return;
 
   const isOpen = menu.classList.toggle("fade-in");
 
@@ -154,6 +151,11 @@ function openMobileContactMenu() {
 function handleOutsideClick(event) {
   const menu = document.getElementById("mobile-menu");
   const button = document.querySelector(".mobile-button-container");
+
+  if (!menu || !button) {
+    document.removeEventListener("click", handleOutsideClick);
+    return;
+  }
 
   if (!menu.contains(event.target)) {
     menu.classList.remove("fade-in");
@@ -169,7 +171,7 @@ function renderToastMessage(type) {
 
   if (!toastMessageEl || !toastSectionEl) return;
 
-  toastMessageEl.innerHTML = `Contact succesfully ${type}`;
+  toastMessageEl.textContent = `Contact successfully ${type}`;
   toastSectionEl.classList.add("fade-in");
 
   setTimeout(() => {
@@ -260,13 +262,11 @@ async function addContact() {
   let email = DOM.contactEmailEl.value.trim();
   let phone = DOM.contactPhoneEl.value.trim();
   if (!validateForm()) return;
-  let nameArray = name.split(/\s+/);
-  if (nameArray.length < 2) return;
-  let firstName = nameArray[0];
-  let lastName = nameArray[nameArray.length - 1];
+  const contactName = splitName(name);
+  if (!contactName) return;
   let newContact = {
-    firstName: firstName,
-    lastName: lastName,
+    firstName: contactName.firstName,
+    lastName: contactName.lastName,
     email: email,
     phone: phone,
     badgeColor: getRandomColor(),
@@ -299,6 +299,7 @@ function openEditContact(index) {
 async function saveEditedContact(index) {
   if (!validateForm()) return;
   const contactName = splitName(DOM.contactNameEl.value);
+  if (!contactName) return;
   const contact = contacts[index];
   contact.firstName = contactName.firstName;
   contact.lastName = contactName.lastName;
@@ -320,6 +321,7 @@ async function deleteContact(index) {
   DOM.contactOverviewEl.classList.remove("fade-in");
   renderContactsList();
   closeDialog();
+  closeContactDetailView();
   renderToastMessage("deleted");
 }
 
@@ -341,6 +343,10 @@ async function updateContact(contact) {
 }
 
 function closeContactDetailView() {
+  document.removeEventListener("click", handleOutsideClick);
+  const button = document.querySelector(".mobile-button-container");
+  if (button) button.style.display = "flex";
+
   DOM.fullscreenMobileEl.classList.add("hide-mobile");
   DOM.contactsListEl.classList.remove("hide-mobile");
   DOM.screenDesktopEl.classList.remove("hide-mobile");
