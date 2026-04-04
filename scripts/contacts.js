@@ -64,6 +64,7 @@ async function saveEditedContact(firebaseKey) {
   const contact = findContact(firebaseKey);
   if (!validateForm()) return;
   const contactName = splitName(DOM.contactNameEl.value);
+  console.log(contactName);
   if (!contactName) return;
   contact.firstName = contactName.firstName;
   contact.lastName = contactName.lastName;
