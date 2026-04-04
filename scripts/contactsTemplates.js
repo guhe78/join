@@ -1,14 +1,16 @@
-function contactTemplate(index) {
-  const contact = contacts[index];
+function contactTemplate(contact) {
   return `
-        <div class="contact" id="contact${index}" onclick="toggleActiveContact(${index})" >
-          <div class="contact-badge" style="background-color: ${contact.badgeColor}">${contact.firstName[0].toUpperCase()}${contact.lastName[0].toUpperCase()}</div>
-          <div class="contact-data">
-            <p class="name">${contact.firstName} ${contact.lastName}</p>
-            <p class="email">${contact.email}</p>
-          </div>
-        </div>
-    `;
+    <div class="contact" id="contact${contact.firebaseKey}" 
+        onclick="toggleActiveContact('${contact.firebaseKey}')" >
+      <div class="contact-badge" style="background-color: ${contact.badgeColor}">
+        ${contact.firstName[0].toUpperCase()}${contact.lastName[0].toUpperCase()}
+      </div>
+      <div class="contact-data">
+        <p class="name">${contact.firstName} ${contact.lastName}</p>
+        <p class="email">${contact.email}</p>
+      </div>
+    </div>
+`;
 }
 
 function contactLetterTemplate(letter) {
@@ -32,32 +34,34 @@ function editContactHeadlineTemplate() {
     `;
 }
 
-function contactDetailTemplate(index) {
+function contactDetailTemplate(contact) {
   return `
     <div class="contact-detail-view">
       <div class="contact-detail-header">
-        <div class="badge">${contactBadgeTemplate(index)}</div>
+        ${contactBadgeTemplate(contact)}
         <div class="contact-detail-headline">
-          <h2 class="name">${contacts[index].firstName} ${contacts[index].lastName}</h2>
-          <div class="contact-detail-buttons" id="contact-detail-buttons">${contactButtons(index)}</div>
+          <h2 class="name">${contact.firstName} ${contact.lastName}</h2>
+          <div class="contact-detail-buttons" id="contact-detail-buttons">
+            ${contactButtons(contact)}
+          </div>
         </div>
       </div>
       <p class="font-size-20">Contact Information</p>
       <div class="contact-detail-data">
         <p class="bold">Email</p>
-        <a href="mailto:${contacts[index].email}" class="email">${contacts[index].email}</a>
+        <a href="mailto:${contact.email}" class="email">${contact.email}</a>
         <p class="bold">Phone</p>
-        <p>${contacts[index].phone}</p>
+        <p>${contact.phone}</p>
       </div>
     </div>
   `;
 }
 
-function contactMobileButton(index) {
+function contactMobileButton(contact) {
   return `
     <div class="mobile-contact-menu">
       <div class="mobile-button-container" id="mobile-contact-menu-button">${moreVerticalIcon()}</div>
-      <div class="mobile-menu" id="mobile-menu">${contactButtons(index)}</div>
+      <div class="mobile-menu" id="mobile-menu">${contactButtons(contact)}</div>
     </div>
   `;
 }
@@ -68,24 +72,30 @@ function contactCloseDetailViewButton() {
   `;
 }
 
-function contactButtons(index) {
+function contactButtons(contact) {
   return `
-    <button onclick="openEditContact(${index})">
+    <button onclick="openEditContact('${contact.firebaseKey}')">
       ${editIcon()}<span>Edit</span>
     </button>
-    <button onclick="deleteContact(${index})">${deleteIcon()}<span>Delete</span></button>
+    <button onclick="deleteContact('${contact.firebaseKey}')">
+      ${deleteIcon()}<span>Delete</span>
+    </button>
   `;
 }
 
-function contactBadgeTemplate(index) {
+function contactBadgeTemplate(contact) {
   return `
-    <div class="contact-detail-badge" style="background-color: ${contacts[index].badgeColor}">${contacts[index].firstName[0].toUpperCase()}${contacts[index].lastName[0].toUpperCase()}</div>
+    <div class="contact-detail-badge" style="background-color: ${contact.badgeColor}">
+      ${contact.firstName[0].toUpperCase()}${contact.lastName[0].toUpperCase()}
+    </div>
   `;
 }
 
 function contactBadgeDummyTemplate() {
   return `
-    <img src="../assets/imgs/person.svg" alt="" />
+    <div class="contact-detail-badge">
+      <img src="../assets/imgs/person.svg" alt="" />
+    </div>
   `;
 }
 

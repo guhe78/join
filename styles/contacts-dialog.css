@@ -85,20 +85,15 @@ dialog::backdrop {
 }
 
 .person-img-container {
-  width: 120px;
-  height: 120px;
-  background-color: #d1d1d1;
   border-radius: 50%;
-  border: 3px solid white;
-
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .person-img-container img {
-  width: 64px;
-  height: 64px;
+  width: 43px;
+  height: 43px;
 }
 
 .right-content form {
