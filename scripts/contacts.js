@@ -52,15 +52,15 @@ DOM.dialogEl.onclick = (event) => {
   }
 };
 DOM.contactNameEl.addEventListener("input", () => {
-  DOM.warningMessageNameEl.innerHTML = "";
+  DOM.warningMessageNameEl.textContent = "";
 });
 
 DOM.contactEmailEl.addEventListener("input", () => {
-  DOM.warningMessageEmailEl.innerHTML = "";
+  DOM.warningMessageEmailEl.textContent = "";
 });
 
 DOM.contactPhoneEl.addEventListener("input", () => {
-  DOM.warningMessagePhoneEl.innerHTML = "";
+  DOM.warningMessagePhoneEl.textContent = "";
 });
 
 /**
@@ -237,6 +237,7 @@ function renderToastMessage(type) {
 function toggleActiveContact(firebaseKey) {
   const currentActiveElement = document.querySelector(".active-contact");
   const newActiveElement = document.getElementById("contact" + firebaseKey);
+  if (!newActiveElement) return;
   if (DOM.contactOverviewEl) {
     DOM.contactOverviewEl.classList.remove("fade-in");
   }
@@ -353,11 +354,17 @@ async function addContact() {
     phone: phone,
     badgeColor: getRandomColor(),
   };
-  const result = await postData("contacts", newContact);
+  let result;
+  try {
+    result = await postData("contacts", newContact);
+  } catch (error) {
+    console.error("Error adding contact:", error);
+    return;
+  }
   newContact.firebaseKey = result.name;
   contacts.push(newContact);
   renderContactsList();
-  renderContact(findContact(newContact.firebaseKey));
+  renderContact(newContact.firebaseKey);
   clearInputs();
   closeDialog();
   renderToastMessage("created");
@@ -370,6 +377,7 @@ async function addContact() {
  */
 function openEditContact(firebaseKey) {
   const contact = findContact(firebaseKey);
+  if (!contact) return;
   clearInputs();
   DOM.headlineEl.innerHTML = editContactHeadlineTemplate();
   DOM.noButtonEl.innerHTML = "Delete";
@@ -392,27 +400,36 @@ async function saveEditedContact(firebaseKey) {
   const contact = findContact(firebaseKey);
   if (!validateForm()) return;
   const contactName = splitName(DOM.contactNameEl.value);
-  console.log(contactName);
   if (!contactName) return;
   contact.firstName = contactName.firstName;
   contact.lastName = contactName.lastName;
   contact.email = DOM.contactEmailEl.value;
   contact.phone = DOM.contactPhoneEl.value;
-  await updateContact(contact);
+  try {
+    await updateContact(firebaseKey);
+  } catch (error) {
+    console.error("Error updating contact:", error);
+    return;
+  }
   renderContactsList();
-  renderContact(findContact(firebaseKey));
+  renderContact(firebaseKey);
   closeDialog();
   renderToastMessage("edited");
 }
 
 /**
  * Deletes a contact by removing it from the backend and updating the contacts list and overview. It also provides feedback to the user through a toast message and closes the dialog after the operation is completed.
- * @param {number} index - The index of the contact to delete.
+ * @param {number} firebaseKey - The firebaseKey of the contact to delete.
  * @returns {Promise<void>}
  */
 async function deleteContact(firebaseKey) {
   const contact = findContact(firebaseKey);
-  await deleteData("contacts", contact.firebaseKey);
+  try {
+    await deleteData("contacts", contact.firebaseKey);
+  } catch (error) {
+    console.error("Error deleting contact:", error);
+    return;
+  }
   contacts.splice(findContactIndex(contact.firebaseKey), 1);
   DOM.contactOverviewEl.innerHTML = "";
   DOM.contactOverviewEl.classList.remove("fade-in");
