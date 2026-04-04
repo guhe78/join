@@ -151,3 +151,10 @@ function updateEditedTaskInBoard(taskId, updatedTask) {
   task.priority = updatedTask.priority;
   task.subtasks = updatedTask.subtasks;
 }
+
+function getEditPriorityActiveClass(taskPriority, buttonPriority) {
+  if (taskPriority === buttonPriority) {
+    return "is-active";
+  }
+  return "";
+}

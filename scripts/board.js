@@ -72,7 +72,7 @@ function fillContainer(subset, container) {
   }
   for (let i = 0; i < subset.length; i++) {
     const taskData = prepareTaskData(subset[i]);
-    container.innerHTML += toDoTaskTemplate(taskData);
+    container.innerHTML += TaskBoardTemplate(taskData);
   }
 }
 
@@ -136,6 +136,7 @@ function startdragging(firebaseKey) {
 
 /**
  * Removes drag styling from the currently dragged task card.
+ * @param {string} firebaseKey - The ID of the task card that should lose drag styling.
  */
 function stopDragging(firebaseKey) {
   const draggedCard = document.querySelector(`.card[data-id="${firebaseKey}"]`);
@@ -258,6 +259,13 @@ async function moveTaskFromMenu(event, firebaseKey, newStatus) {
   closeTaskMoveMenus();
 }
 
+/**
+ * Returns fallback content when a task is already in the target status.
+ * @param {Object} task - The task to evaluate.
+ * @param {string} newStatus - The target status to compare against.
+ * @param {string} returnContent - The content to return when statuses match.
+ * @returns {string} The fallback content or an empty string.
+ */
 function checkIsCurrentStatus(task, newStatus, returnContent) {
   return task.status === newStatus ? returnContent : "";
 }
@@ -523,6 +531,7 @@ function scheduleSearchFilter() {
 /**
  * Handles keyboard interaction for board search.
  * @param {KeyboardEvent} event - The keyboard event from the input.
+ * @param {string} _inputId - Legacy input identifier (currently unused).
  */
 function checkEnter(event, _inputId) {
   scheduleSearchFilter();

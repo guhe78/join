@@ -142,10 +142,3 @@ function editTaskTemplate(task) {
           </div>
         </div>`;
 }
-
-function getEditPriorityActiveClass(taskPriority, buttonPriority) {
-  if (taskPriority === buttonPriority) {
-    return "is-active";
-  }
-  return "";
-}
