@@ -1,3 +1,16 @@
+/**
+ * Generates the HTML markup for the task detail dialog.
+ * @param {Object} task - The task shown in the detail view.
+ * @param {string} task.firebaseKey - Unique task ID.
+ * @param {string} task.category - Task category label.
+ * @param {string} task.title - Task title.
+ * @param {string} task.description - Task description.
+ * @param {string} task.priority - Task priority key.
+ * @param {Object} [task.assigned_to] - Assigned contact IDs.
+ * @param {Object} [task.subtasks] - Subtask object map.
+ * @param {string} categoryClass - CSS class derived from the task category.
+ * @returns {string} The detail dialog HTML string.
+ */
 function dialogTemplate(task, categoryClass) {
   return `<div class="task-card-detail detail-dialog" onclick="event.stopPropagation()">
           <div class="detail-header">

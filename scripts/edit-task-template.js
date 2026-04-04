@@ -1,3 +1,13 @@
+/**
+ * Generates the HTML markup for the task edit dialog.
+ * @param {Object} task - The task being edited.
+ * @param {string} task.firebaseKey - Unique task ID.
+ * @param {string} task.title - Task title.
+ * @param {string} task.description - Task description.
+ * @param {string} task.due_date - Task due date in YYYY-MM-DD format.
+ * @param {string} task.priority - Task priority key.
+ * @returns {string} The edit dialog HTML string.
+ */
 function editTaskTemplate(task) {
   return `<div
           class="task-card-detail edit-dialog"

@@ -1,3 +1,19 @@
+/**
+ * Generates the HTML markup for a task card on the board.
+ * @param {Object} task - The prepared task data used by the board template.
+ * @param {string} task.firebaseKey - Unique task ID.
+ * @param {string} task.categoryClass - CSS class derived from category.
+ * @param {string} task.category - Display name of the task category.
+ * @param {string} task.status - Current board status of the task.
+ * @param {string} task.title - Task title.
+ * @param {string} task.description - Task description.
+ * @param {boolean} task.hasSubtasks - Whether subtask progress should be shown.
+ * @param {string} task.subtaskInfo - Subtask progress text.
+ * @param {number} task.progressWidth - Subtask completion percentage.
+ * @param {string} task.badgesHtml - Pre-rendered assignee badge HTML.
+ * @param {string} task.priority - Task priority key.
+ * @returns {string} The task card HTML string.
+ */
 function TaskBoardTemplate(task) {
   return `
         <div class="card" onclick="openTaskDetail('${task.firebaseKey}')" draggable="true" ondragstart="startdragging('${task.firebaseKey}')" ondragend="stopDragging('${task.firebaseKey}')" data-id="${task.firebaseKey}">
