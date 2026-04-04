@@ -143,22 +143,6 @@ function editTaskTemplate(task) {
         </div>`;
 }
 
-function buildEditAssignedContactOptionHTML(index) {
-  let contact = contacts[index];
-  let fullName = contact.firstName + " " + contact.lastName;
-  let contactId = contact.firebaseKey;
-  let isSelected = isAssignedContactSelected(contactId);
-  return `
-    <div class="select-option${getAssignedOptionClass(isSelected)}" data-id="${contactId}">
-        <div class="contact-info">
-            <div class="avatar" style="background:${contact.badgeColor}">${getContactInitials(contact)}</div>
-            <span>${fullName}</span>
-        </div>
-        <input type="checkbox"${getAssignedCheckboxState(isSelected)}>
-    </div>
-    `;
-}
-
 function getEditPriorityActiveClass(taskPriority, buttonPriority) {
   if (taskPriority === buttonPriority) {
     return "is-active";

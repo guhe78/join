@@ -23,49 +23,6 @@ async function editTask(id, createHandler = createTaskClicked) {
   initSubtaskSection();
 }
 
-function setEditAssignedContacts(assignedContacts) {
-  let assignedSelect = document.getElementById("assignedSelect");
-  if (assignedSelect === null) {
-    return;
-  }
-  assignedSelect.dataset.selectedContacts =
-    getAssignedContactIds(assignedContacts).join(",");
-}
-
-function getAssignedContactIds(assignedContacts) {
-  if (!assignedContacts) {
-    return [];
-  }
-  return Object.values(assignedContacts);
-}
-
-function isAssignedContactSelected(contactId) {
-  let selectedContacts = getAssignedSelectionValues();
-  return selectedContacts.includes(contactId);
-}
-
-function getAssignedSelectionValues() {
-  let assignedSelect = document.getElementById("assignedSelect");
-  if (assignedSelect === null || !assignedSelect.dataset.selectedContacts) {
-    return [];
-  }
-  return assignedSelect.dataset.selectedContacts.split(",").filter(Boolean);
-}
-
-function getAssignedOptionClass(isSelected) {
-  if (isSelected) {
-    return " active";
-  }
-  return "";
-}
-
-function getAssignedCheckboxState(isSelected) {
-  if (isSelected) {
-    return " checked";
-  }
-  return "";
-}
-
 async function saveEditedTask(taskId) {
   let task;
   let updatedTask;
@@ -120,21 +77,21 @@ function validateEditForm() {
   if (titleInput !== null && titleFeedback !== null) {
     if (titleInput.value.trim() === "") {
       titleInput.classList.add("input-error");
-      titleFeedback.style.visibility = "visible";
+      titleFeedback.classList.add("visibillity-visible");
       isValid = false;
     } else {
       titleInput.classList.remove("input-error");
-      titleFeedback.style.visibility = "hidden";
+      titleFeedback.classList.remove("visibillity-visible");
     }
   }
   if (descInput !== null && descriptionFeedback !== null) {
     if (descInput.value.trim() === "") {
       descInput.classList.add("input-error");
-      descriptionFeedback.style.visibility = "visible";
+      descriptionFeedback.classList.add("visibillity-visible");
       isValid = false;
     } else {
       descInput.classList.remove("input-error");
-      descriptionFeedback.style.visibility = "hidden";
+      descriptionFeedback.classList.remove("visibillity-visible");
     }
   }
   if (!validateDueDateField()) {

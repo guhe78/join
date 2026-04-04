@@ -191,24 +191,6 @@ function getSelectedPriority() {
   }
 }
 
-function getAssignedContacts() {
-  let assignedSelect = document.getElementById("assignedSelect");
-  if (assignedSelect === null) {
-    return [];
-  }
-  let dropdown = assignedSelect.getElementsByClassName("select-dropdown")[0];
-  let options = dropdown.getElementsByClassName("select-option");
-  let assignedContacts = [];
-  for (let i = 0; i < options.length; i++) {
-    let checkbox = options[i].getElementsByTagName("input")[0];
-    if (checkbox.checked === true) {
-      let contactId = options[i].getAttribute("data-id");
-      assignedContacts.push(contactId);
-    }
-  }
-  return assignedContacts;
-}
-
 function getSubtasksForFirebase() {
   let subtasksForFirebase = [];
   for (let i = 0; i < subtasks.length; i++) {
