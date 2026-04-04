@@ -152,11 +152,15 @@ function clearDescriptionField() {
 }
 
 function clearDueDateField() {
-  let dueInput = document.getElementById("due");
-  if (dueInput === null) {
-    return;
+  let dueInput = document.getElementById("due-date");
+  let duePicker = document.getElementById("due-date-picker");
+  if (dueInput !== null) {
+    dueInput.value = "";
+    dueInput.classList.remove("input-error");
   }
-  dueInput.value = getTodayDateValue();
+  if (duePicker !== null) {
+    duePicker.value = "";
+  }
 }
 
 function clearPriorityButtons() {
@@ -190,10 +194,10 @@ function clearCategorySelect() {
 
 function clearValidationState() {
   let titleInput = document.getElementById("title");
-  let dueInput = document.getElementById("due");
+  let dueInput = document.getElementById("due-date");
   let catSelect = document.getElementById("catSelect");
   let titleError = document.getElementById("titleError");
-  let dueError = document.getElementById("dueError");
+  let dueError = document.getElementById("dueDateFeedback");
   let categoryError = document.getElementById("categoryError");
   if (titleInput !== null) {
     titleInput.classList.remove("input-error");

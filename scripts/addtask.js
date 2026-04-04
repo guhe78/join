@@ -146,7 +146,6 @@ function redirectToBoard() {
 function createTaskObject(status = "todo") {
   let titleInput = document.getElementById("title");
   let descInput = document.getElementById("desc");
-  let dueInput = document.getElementById("due");
   let catHidden = document.getElementById("catHidden");
   let categoryValue = catHidden.value;
   let categoryLabel = getCategoryLabel(categoryValue);
@@ -156,7 +155,7 @@ function createTaskObject(status = "todo") {
     category: categoryLabel,
     created_at: new Date().toISOString(),
     description: descInput.value,
-    due_date: dueInput.value,
+    due_date: getDueDateValue(),
     priority: getSelectedPriority(),
     status: status,
     subtasks: getSubtasksForFirebase(),
@@ -234,72 +233,6 @@ async function createTaskClicked() {
   }
 }
 
-function openDatePicker(inputId) {
-  let input = document.getElementById(inputId);
-  if (input === null) {
-    return;
-  }
-  if (input.showPicker) {
-    input.showPicker();
-    return;
-  }
-  input.focus();
-}
-
-function applyPickedDate() {
-  let dueInput = document.getElementById("due");
-  let datePicker = document.getElementById("duePicker");
-  if (dueInput === null || datePicker === null) {
-    return;
-  }
-  if (datePicker.value === "") {
-    return;
-  }
-  dueInput.value = formatDateToGerman(datePicker.value);
-}
-
-function formatDateToGerman(dateString) {
-  let parts = dateString.split("-");
-  if (parts.length !== 3) {
-    return "";
-  }
-  let year = parts[0];
-  let month = parts[1];
-  let day = parts[2];
-  return day + "/" + month + "/" + year;
-}
-
-function setMinDueDate() {
-  let dueInput = document.getElementById("due");
-  if (dueInput === null) {
-    return;
-  }
-  let today = new Date();
-  let day = today.getDate();
-  let month = today.getMonth() + 1;
-  let year = today.getFullYear();
-  if (day < 10) {
-    day = "0" + day;
-  }
-  if (month < 10) {
-    month = "0" + month;
-  }
-  dueInput.min = year + "-" + month + "-" + day;
-}
-
-function setTodayDate() {
-  let dueInput = document.getElementById("due");
-  if (dueInput === null) {
-    return;
-  }
-  dueInput.value = getTodayDateValue();
-}
-
-function getTodayDateValue() {
-  let today = new Date();
-  return today.toISOString().split("T")[0];
-}
-
 async function initAddTask(createHandler = createTaskClicked) {
   checkAuth();
   document.getElementById("profile-button").innerHTML = getUserData().initials;
@@ -312,7 +245,6 @@ async function initAddTask(createHandler = createTaskClicked) {
   initSubtaskSection();
   initActionButtons(createHandler);
   setMinDueDate();
-  setTodayDate();
   document.onclick = closeAllSelects;
 }
 

@@ -39,17 +39,17 @@ function editTaskTemplate(task) {
       <input
         type="text"
         id="due-date"
-        value="${formatEditDateForDisplay(task.due_date)}"
+        value="${formatDateForDisplay(task.due_date)}"
         class="input edit-input"
         placeholder="dd/mm/yyyy"
-        oninput="syncEditPickerFromInput()"
+        oninput="syncPickerFromInput()"
       />
       <input
         type="date"
         id="due-date-picker"
         class="edit-date-picker"
         value="${task.due_date}"
-        onchange="syncEditDateFromPicker()"
+        onchange="syncDateFromPicker()"
         tabindex="-1"
       />
       <button type="button" class="date-picker-btn" onclick="openEditDatePicker()">

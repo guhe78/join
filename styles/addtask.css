@@ -94,29 +94,53 @@ body {
   border-color: #ff3d3d;
 }
 
-.date-input-wrapper {
+.addtask-due-feedback {
+  color: rgb(255, 0, 0);
+  font-size: 12px;
+  visibility: hidden;
+}
+
+.addtask-due-input {
+  font-size: 20px;
+  height: 48px;
+}
+
+.addtask-due-date-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.addtask-due-input-wrapper {
   position: relative;
 }
 
-.date-input-wrapper {
+.addtask-due-input-wrapper input {
   width: 100%;
+  box-sizing: border-box;
+  padding-right: 44px;
+}
+
+.addtask-due-picker {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.addtask-due-picker-btn {
+  position: absolute;
+  right: 0px;
+  margin-right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
 }
 
 .custom-select {
   position: relative;
   width: 100%;
-}
-
-.date-input-wrapper .input {
-  padding-right: 42px;
-}
-
-.date-input-wrapper img {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {
