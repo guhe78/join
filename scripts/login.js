@@ -15,6 +15,10 @@ DOM.loginGuestButtonEl.addEventListener("click", () => {
   loginGuest();
 });
 
+/**
+ * Starts the splash screen animation by adding the appropriate CSS classes and setting timeouts for the animation sequence.
+ * @returns {void}
+ */
 function startSplash() {
   let splash = document.getElementById("splash");
   if (!splash) return;
@@ -32,6 +36,11 @@ function startSplash() {
   }, splashDelay);
 }
 
+/**
+ * Handles the user login process by validating the input, checking the user credentials, and redirecting to the summary page if successful.
+ * @param {Event} event - The form submission event.
+ * @returns {Promise<void>}
+ */
 async function userLogin(event) {
   event.preventDefault();
   const loginData = getLoginInput();
@@ -47,6 +56,10 @@ async function userLogin(event) {
   window.location.href = "./link/summary.html";
 }
 
+/**
+ * Retrieves the login input values from the form.
+ * @returns {Object} - An object containing the user's email and password.
+ */
 function getLoginInput() {
   return {
     userEmail: DOM.emailLoginEl.value,
@@ -54,6 +67,10 @@ function getLoginInput() {
   };
 }
 
+/**
+ * Clears the input fields and warning messages in the login form. This function is called after a successful login or when the user cancels the login operation to reset the form to its initial state.
+ * @returns {void}
+ */
 function clearInputs() {
   DOM.emailLoginEl.value = "";
   DOM.passwordLoginEl.value = "";

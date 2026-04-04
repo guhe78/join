@@ -63,6 +63,11 @@ DOM.contactPhoneEl.addEventListener("input", () => {
   DOM.warningMessagePhoneEl.innerHTML = "";
 });
 
+/**
+ * Initializes the contacts application by checking user authentication, fetching contacts data, and rendering the contacts list and main view. Also sets up event listeners for user interactions.
+ * @param {void}
+ * @returns {Promise<void>}
+ */
 async function init() {
   checkAuth();
   await getContacts();
@@ -74,11 +79,21 @@ async function init() {
   DOM.closeButtonEl.innerHTML = closeIcon();
 }
 
+/**
+ * Fetches the contacts data from the backend and populates the contacts array. Then calls the function to render the contacts list.
+ * @param {void}
+ * @returns {Promise<void>}
+ */
 async function getContacts() {
   let data = await fetchData("contacts");
   makeArray(data);
 }
 
+/**
+ * Renders the contacts list by sorting the contacts alphabetically, grouping them by the first letter of their first name, and generating the HTML for each contact using templates. The generated HTML is then inserted into the DOM to display the contacts list.
+ * @param {void}
+ * @returns {void}
+ */
 function renderContactsList() {
   contacts.sort((a, b) => a.firstName.localeCompare(b.firstName, "de"));
   DOM.contactsListEl.innerHTML = "";
@@ -96,11 +111,22 @@ function renderContactsList() {
   DOM.contactsListEl.innerHTML = contactListString;
 }
 
+/**
+ * Renders the main contact view by inserting the appropriate HTML template into the DOM. This function is called when the application is initialized to set up the initial state of the contact overview section.
+ * @param {void}
+ * @returns {void}
+
+ */
 function renderContactMain() {
   DOM.contactOverviewContainerEl.innerHTML = contactMainTemplate();
   DOM.contactOverviewEl = document.getElementById("contact-overview");
 }
 
+/**
+ * Renders the contact details view based on the provided index. It determines whether to render the view for mobile or desktop and calls the appropriate function.
+ * @param {number} index - The index of the contact to render.
+ * @returns {void}
+ */
 function renderContact(index) {
   if (isMobileView()) {
     renderContactMobile(index);
@@ -109,11 +135,21 @@ function renderContact(index) {
   }
 }
 
+/**
+ * Renders the contact details view for desktop by inserting the appropriate HTML template into the DOM. This function is called when a contact is selected in the desktop view to display the contact's details in the overview section.
+ * @param {number} index - The index of the contact to render.
+ * @returns {void}
+ */
 function renderContactDesktop(index) {
   DOM.contactOverviewEl.innerHTML = contactDetailTemplate(index);
   DOM.contactOverviewEl.classList.add("fade-in");
 }
 
+/**
+ * Renders the contact details view for mobile by inserting the appropriate HTML template into the DOM and setting up event listeners for user interactions. This function is called when a contact is selected in the mobile view to display the contact's details in a fullscreen overlay.
+ * @param {number} index - The index of the contact to render.
+ * @returns {void}
+ */
 function renderContactMobile(index) {
   DOM.fullscreenMobileEl.innerHTML =
     contactMainTemplate() +
@@ -146,6 +182,10 @@ function renderContactMobile(index) {
   DOM.fullscreenMobileEl.classList.remove("hide-mobile");
 }
 
+/**
+ * Opens the mobile contact menu by toggling the visibility of the menu and setting up event listeners for user interactions.
+ * @returns {void}
+ */
 function openMobileContactMenu() {
   const menu = document.getElementById("mobile-menu");
   const button = document.querySelector(".mobile-button-container");
@@ -160,6 +200,11 @@ function openMobileContactMenu() {
   }
 }
 
+/**
+ * Handles clicks outside the mobile contact menu to close it when the user clicks outside the menu area.
+ * @param {MouseEvent} event - The click event.
+ * @returns {void}
+ */
 function handleOutsideClick(event) {
   const menu = document.getElementById("mobile-menu");
   const button = document.querySelector(".mobile-button-container");
@@ -177,6 +222,10 @@ function handleOutsideClick(event) {
   }
 }
 
+/** Renders a toast message to provide feedback to the user after performing an action such as creating, editing, or deleting a contact. The message is displayed for a short duration and then fades out.
+ * @param {string} type - The type of action performed (e.g., "created", "edited", "deleted").
+ * @returns {void}
+ */
 function renderToastMessage(type) {
   if (!DOM.toastMessageEl || !DOM.toastSectionEl) return;
 
@@ -188,6 +237,11 @@ function renderToastMessage(type) {
   }, 2000);
 }
 
+/**
+ * Toggles the active contact in the desktop view by updating the CSS classes of the contact elements and rendering the contact details in the overview section. If the same contact is clicked again, it will be deselected and the overview will be cleared.
+ * @param {number} index - The index of the contact to toggle.
+ * @returns {void}
+ */
 function toggleActiveContact(index) {
   const currentActiveElement = document.querySelector(".active-contact");
   const newActiveElement = document.getElementById("contact" + index);
@@ -214,6 +268,10 @@ function toggleActiveContact(index) {
   }
 }
 
+/**
+ * Opens the dialog for adding a new contact by setting up the dialog elements and event listeners.
+ * @returns {void}
+ */
 function openAddNewContact() {
   DOM.headlineEl.innerHTML = addContactHeadlineTemplate();
   DOM.noButtonEl.innerHTML = `Cancel&nbsp;${cancelIcon()}`;
@@ -225,46 +283,70 @@ function openAddNewContact() {
   openDialog();
 }
 
+/**
+ * Validates the contact form by checking the input values for the name, email, and phone fields. It uses helper functions to validate each field and displays appropriate warning messages if the validation fails. The function returns true if all fields are valid, otherwise it returns false.
+ * @returns {boolean} - Returns true if the form is valid, false otherwise.
+ */
 function validateForm() {
-  let isValid = true;
-
   const name = DOM.contactNameEl.value.trim();
   const email = DOM.contactEmailEl.value.trim();
   const phone = DOM.contactPhoneEl.value.trim();
 
-  if (!name) {
-    DOM.warningMessageNameEl.innerHTML = "This field is required";
-    isValid = false;
-  } else if (!checkName(name)) {
-    DOM.warningMessageNameEl.innerHTML = "Firstname and Lastname required";
-    isValid = false;
-  } else {
-    DOM.warningMessageNameEl.innerHTML = "";
-  }
+  const isNameValid = validateField(
+    name,
+    checkName,
+    DOM.warningMessageNameEl,
+    "This field is required",
+    "Firstname and Lastname required",
+  );
 
-  if (!email) {
-    DOM.warningMessageEmailEl.innerHTML = "This field is required";
-    isValid = false;
-  } else if (!checkEmail(email)) {
-    DOM.warningMessageEmailEl.innerHTML = "Correct Email required";
-    isValid = false;
-  } else {
-    DOM.warningMessageEmailEl.innerHTML = "";
-  }
+  const isEmailValid = validateField(
+    email,
+    checkEmail,
+    DOM.warningMessageEmailEl,
+    "This field is required",
+    "Correct Email required",
+  );
 
-  if (!phone) {
-    DOM.warningMessagePhoneEl.innerHTML = "This field is required";
-    isValid = false;
-  } else if (!checkPhone(phone)) {
-    DOM.warningMessagePhoneEl.innerHTML = "Phone number required";
-    isValid = false;
-  } else {
-    DOM.warningMessagePhoneEl.innerHTML = "";
-  }
+  const isPhoneValid = validateField(
+    phone,
+    checkPhone,
+    DOM.warningMessagePhoneEl,
+    "This field is required",
+    "Phone number required",
+  );
 
-  return isValid;
+  return isNameValid && isEmailValid && isPhoneValid;
 }
 
+/**
+ * Validates a single form field by checking its value against a validation function and updating the error message element accordingly.
+ * @param {string} value - The value of the form field to validate.
+ * @param {Function} checkFn - The validation function to apply to the field value.
+ * @param {HTMLElement} errorEl - The DOM element to display the error message.
+ * @param {string} emptyMsg - The error message to display if the field is empty.
+ * @param {string} invalidMsg - The error message to display if the field value is invalid.
+ * @returns {boolean} - Returns true if the field is valid, false otherwise.
+ */
+function validateField(value, checkFn, errorEl, emptyMsg, invalidMsg) {
+  if (!value) {
+    errorEl.textContent = emptyMsg;
+    return false;
+  }
+
+  if (!checkFn(value)) {
+    errorEl.textContent = invalidMsg;
+    return false;
+  }
+
+  errorEl.textContent = "";
+  return true;
+}
+
+/**
+ * Adds a new contact by collecting the input values from the form, validating the form, creating a new contact object, sending it to the backend, and updating the contacts list and overview. It also provides feedback to the user through a toast message and closes the dialog after the operation is completed.
+ * @returns {Promise<void>}
+ */
 async function addContact() {
   let name = DOM.contactNameEl.value.trim();
   let email = DOM.contactEmailEl.value.trim();
@@ -289,6 +371,11 @@ async function addContact() {
   renderToastMessage("created");
 }
 
+/**
+ * Opens the dialog for editing an existing contact by setting up the dialog elements and event listeners.
+ * @param {number} index - The index of the contact to edit.
+ * @returns {void}
+ */
 function openEditContact(index) {
   clearInputs();
   DOM.headlineEl.innerHTML = editContactHeadlineTemplate();
@@ -304,6 +391,11 @@ function openEditContact(index) {
   openDialog();
 }
 
+/**
+ * Saves the edited contact by collecting the input values from the form, validating the form, updating the contact object, sending the updated contact to the backend, and updating the contacts list and overview. It also provides feedback to the user through a toast message and closes the dialog after the operation is completed.
+ * @param {number} index - The index of the contact to save.
+ * @returns {Promise<void>}
+ */
 async function saveEditedContact(index) {
   if (!validateForm()) return;
   const contactName = splitName(DOM.contactNameEl.value);
@@ -321,6 +413,11 @@ async function saveEditedContact(index) {
   renderToastMessage("edited");
 }
 
+/**
+ * Deletes a contact by removing it from the backend and updating the contacts list and overview. It also provides feedback to the user through a toast message and closes the dialog after the operation is completed.
+ * @param {number} index - The index of the contact to delete.
+ * @returns {Promise<void>}
+ */
 async function deleteContact(index) {
   const contact = contacts[index];
   await deleteData("contacts", contact.firebaseKey);
@@ -333,6 +430,11 @@ async function deleteContact(index) {
   renderToastMessage("deleted");
 }
 
+/**
+ * Updates a contact by sending the updated contact data to the backend. It takes a contact object as a parameter and updates the corresponding contact in the backend using its firebaseKey.
+ * @param {Object} contact - The contact object containing the updated contact information.
+ * @returns {Promise<void>}
+ */
 async function updateContact(contact) {
   const firstName = contact.firstName;
   const lastName = contact.lastName;
@@ -350,6 +452,10 @@ async function updateContact(contact) {
   await updateData("contacts", contact.firebaseKey, updatedContact);
 }
 
+/**
+ * Closes the contact detail view in the mobile layout by removing event listeners, updating the visibility of elements, and clearing the content of the fullscreen mobile element. This function is called when the user clicks the close button in the mobile contact detail view.
+ * @returns {void}
+ */
 function closeContactDetailView() {
   document.removeEventListener("click", handleOutsideClick);
   const button = document.querySelector(".mobile-button-container");
@@ -361,6 +467,11 @@ function closeContactDetailView() {
   DOM.fullscreenMobileEl.innerHTML = "";
 }
 
+/**
+ * Splits a full name into first name and last name by trimming the input, splitting it by whitespace, and returning an object containing the first name and last name. If the input does not contain at least two parts, it returns null.
+ * @param {string} name - The full name to split.
+ * @returns {Object|null} - An object containing the first name and last name, or null if the input is invalid.
+ */
 function splitName(name) {
   let nameArray = name.trim().split(/\s+/);
 
@@ -372,6 +483,11 @@ function splitName(name) {
   };
 }
 
+/**
+ * Checks if the input name is valid by ensuring that it contains at least two parts (first name and last name) after trimming and splitting the input by whitespace. It returns true if the name is valid, otherwise it returns false.
+ * @param {string} input - The name input to check.
+ * @returns {boolean} - Returns true if the name is valid, false otherwise.
+ */
 function checkName(input) {
   return input.trim().split(/\s+/).length > 1;
 }
@@ -381,15 +497,28 @@ function checkEmail(input) {
   return pattern.test(input);
 }
 
+/**
+ * Checks if the input phone number is valid by ensuring that it contains only digits, spaces, parentheses, plus signs, or hyphens. It returns true if the phone number is valid, otherwise it returns false.
+ * @param {string} input - The phone number input to check.
+ * @returns {boolean} - Returns true if the phone number is valid, false otherwise.
+ */
 function checkPhone(input) {
   return /^[0-9+\-\s()]+$/.test(input);
 }
 
+/**
+ * Cancels the add contact operation by clearing the input fields and closing the dialog. This function is called when the user clicks the cancel button in the add contact dialog.
+ * @returns {void}
+ */
 function cancelAddContact() {
   clearInputs();
   closeDialog();
 }
 
+/**
+ * Clears the input fields and warning messages in the contact form. This function is called after adding a new contact or when canceling the add/edit contact operation to reset the form to its initial state.
+ * @returns {void}
+ */
 function clearInputs() {
   DOM.contactNameEl.value = "";
   DOM.warningMessageNameEl.innerHTML = "";
@@ -399,6 +528,11 @@ function clearInputs() {
   DOM.warningMessagePhoneEl.innerHTML = "";
 }
 
+/**
+ * Finds the index of a contact in the contacts array by its Firebase key.
+ * @param {string} firebaseKey - The Firebase key of the contact to find.
+ * @returns {number} - The index of the contact in the contacts array, or -1 if not found.
+ */
 function findContactIndex(firebaseKey) {
   let index = contacts.findIndex(
     (contact) => contact.firebaseKey === firebaseKey,
@@ -406,24 +540,45 @@ function findContactIndex(firebaseKey) {
   return index;
 }
 
+/**
+ * Checks if the current view is a mobile view based on the window width and the defined mobile breakpoint.
+ * @returns {boolean} - Returns true if the current view is a mobile view, false otherwise.
+ */
 function isMobileView() {
   return window.innerWidth <= MOBILE_BREAKPOINT;
 }
 
+/**
+ * Opens the dialog for adding or editing a contact by displaying the dialog element. This function is called when the user clicks the button to add a new contact or edit an existing contact.
+ * @returns {void}
+ */
 function openDialog() {
   DOM.dialogEl.showModal();
 }
 
+/**
+ * Closes the dialog for adding or editing a contact by hiding the dialog element, clearing the input fields, and resetting the state of the cancel button. This function is called when the user clicks outside the dialog or clicks the close button in the dialog.
+ * @returns {void}
+ */
 function closeDialog() {
   DOM.dialogEl.close();
   clearInputs();
   DOM.noButtonEl.classList.remove("cancel-button");
 }
 
+/**
+ * Generates a random integer between 0 (inclusive) and the specified maximum (exclusive).
+ * @param {number} max - The maximum value (exclusive) for the random integer.
+ * @returns {number} - A random integer between 0 and max - 1.
+ */
 function getRandom(max) {
   return Math.floor(Math.random() * max);
 }
 
+/**
+ * Generates a random color from the default badge colors.
+ * @returns {string} - A random color from the default badge colors.
+ */
 function getRandomColor() {
   return DEFAULT_BADGE_COLORS[getRandom(DEFAULT_BADGE_COLORS.length)];
 }
