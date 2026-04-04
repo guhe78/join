@@ -1,3 +1,8 @@
+/**
+ * Builds the HTML for a normal subtask item.
+ * @param {number} index The index of the subtask in the subtasks array.
+ * @returns {string} The HTML string for a normal subtask item.
+ */
 function buildNormalSubtaskHTML(index) {
   return `
     <div class="subtask-item">
@@ -18,6 +23,11 @@ function buildNormalSubtaskHTML(index) {
     `;
 }
 
+/**
+ * Builds the HTML for a subtask item in edit mode.
+ * @param {number} index The index of the subtask in the subtasks array.
+ * @returns {string} The HTML string for a subtask item in edit mode.
+ */
 function buildEditSubtaskHTML(index) {
   return `
     <div class="subtask-item edit-mode">
@@ -37,6 +47,10 @@ function buildEditSubtaskHTML(index) {
     `;
 }
 
+/**
+ * Builds the HTML template for the add task modal.
+ * @returns {string} The complete HTML string for the add task modal.
+ */
 function addTaskTemplate() {
   return `
       <div class="add-task-modal" onclick="event.stopPropagation()">

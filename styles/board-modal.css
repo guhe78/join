@@ -70,8 +70,6 @@ body.dialog-open {
   background: rgba(0, 0, 0, 0.06);
 }
 
-/* ===== Modal Add Task Base ===== */
-
 #addTaskDialog .addtask,
 #addTaskDialog .addtask-form,
 #addTaskDialog .addtask-col,
@@ -202,8 +200,6 @@ body.dialog-open {
   padding: 0 20px;
 }
 
-/* ===== Scoped date styles ===== */
-
 #addTaskDialog .date-input-wrapper {
   position: relative;
   width: 100%;
@@ -249,8 +245,6 @@ body.dialog-open {
   transform: translateY(-50%);
   cursor: pointer;
 }
-
-/* ===== Responsive ===== */
 
 @media (max-width: 1000px) {
   .add-task-modal {

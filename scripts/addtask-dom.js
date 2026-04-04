@@ -1,3 +1,6 @@
+/**
+ * Initializes all priority buttons and assigns the click handler.
+ */
 function initPriorityButtons() {
   let buttons = document.getElementsByClassName("prio-btn");
   for (let i = 0; i < buttons.length; i++) {
@@ -5,6 +8,9 @@ function initPriorityButtons() {
   }
 }
 
+/**
+ * Initializes the category select dropdown and binds all related click events.
+ */
 function initCategorySelect() {
   let catSelect = document.getElementById("catSelect");
   if (catSelect === null) {
@@ -20,6 +26,10 @@ function initCategorySelect() {
   }
 }
 
+/**
+ * Opens or closes the category dropdown.
+ * @param {Event} event The click event triggered on the category select.
+ */
 function toggleCategoryDropdown(event) {
   let catSelect = document.getElementById("catSelect");
   if (catSelect.classList.contains("open") === true) {
@@ -31,6 +41,10 @@ function toggleCategoryDropdown(event) {
   event.stopPropagation();
 }
 
+/**
+ * Handles the selection of a category option and updates the trigger text and hidden input.
+ * @param {Event} event The click event triggered on a category option.
+ */
 function categoryOptionClicked(event) {
   let option = event.currentTarget;
   let catSelect = document.getElementById("catSelect");
@@ -48,6 +62,9 @@ function categoryOptionClicked(event) {
   event.stopPropagation();
 }
 
+/**
+ * Closes all open custom select dropdowns.
+ */
 function closeAllSelects() {
   let selects = document.getElementsByClassName("custom-select");
   for (let i = 0; i < selects.length; i++) {
@@ -55,6 +72,10 @@ function closeAllSelects() {
   }
 }
 
+/**
+ * Initializes the clear and create task action buttons.
+ * @param {Function} [createHandler=createTaskClicked] Function called when the create button is clicked.
+ */
 function initActionButtons(createHandler = createTaskClicked) {
   let actionArea = document.getElementsByClassName("addtask-actions")[0];
   if (actionArea === undefined) {
@@ -67,6 +88,9 @@ function initActionButtons(createHandler = createTaskClicked) {
   }
 }
 
+/**
+ * Clears the title input field.
+ */
 function clearTitleField() {
   let titleInput = document.getElementById("title");
   if (titleInput !== null) {
@@ -74,6 +98,9 @@ function clearTitleField() {
   }
 }
 
+/**
+ * Clears the description textarea field.
+ */
 function clearDescriptionField() {
   let descInput = document.getElementById("desc");
   if (descInput !== null) {
@@ -81,6 +108,9 @@ function clearDescriptionField() {
   }
 }
 
+/**
+ * Clears the due date input and hidden date picker values.
+ */
 function clearDueDateField() {
   let dueInput = document.getElementById("due-date");
   let duePicker = document.getElementById("due-date-picker");
@@ -93,6 +123,9 @@ function clearDueDateField() {
   }
 }
 
+/**
+ * Resets all priority buttons and activates the medium priority by default.
+ */
 function clearPriorityButtons() {
   let buttons = document.getElementsByClassName("prio-btn");
   for (let i = 0; i < buttons.length; i++) {
@@ -105,6 +138,9 @@ function clearPriorityButtons() {
   }
 }
 
+/**
+ * Clears the selected category and resets the category dropdown to its default state.
+ */
 function clearCategorySelect() {
   let catSelect = document.getElementById("catSelect");
   let hidden = document.getElementById("catHidden");
@@ -122,6 +158,9 @@ function clearCategorySelect() {
   catSelect.classList.remove("open");
 }
 
+/**
+ * Removes all validation error styles and hides all validation messages.
+ */
 function clearValidationState() {
   let titleInput = document.getElementById("title");
   let dueInput = document.getElementById("due-date");
@@ -149,6 +188,9 @@ function clearValidationState() {
   }
 }
 
+/**
+ * Initializes the subtask input section and binds the action buttons for clearing and saving subtasks.
+ */
 function initSubtaskSection() {
   let subtaskInput = document.getElementById("subtask");
   if (subtaskInput === null) {
@@ -172,6 +214,9 @@ function initSubtaskSection() {
   renderSubtasks();
 }
 
+/**
+ * Clears the subtask input field and resets the current edit mode.
+ */
 function clearSubtaskInput() {
   let subtaskInput = document.getElementById("subtask");
   if (subtaskInput !== null) {
@@ -180,6 +225,9 @@ function clearSubtaskInput() {
   editSubtaskIndex = -1;
 }
 
+/**
+ * Clears all subtasks, resets edit mode, clears the subtask input field and re renders the subtask list.
+ */
 function clearSubtasks() {
   subtasks = [];
   editSubtaskIndex = -1;
@@ -188,6 +236,9 @@ function clearSubtasks() {
   renderSubtasks();
 }
 
+/**
+ * Renders the complete subtask list into the DOM and binds all subtask action buttons.
+ */
 function renderSubtasks() {
   let subtasksList = document.getElementById("subtasksList");
   if (subtasksList === null) {
@@ -198,6 +249,10 @@ function renderSubtasks() {
   bindSubtaskButtons();
 }
 
+/**
+ * Builds the HTML string for the current subtask list.
+ * @returns {string} The generated HTML string for all subtasks.
+ */
 function buildSubtasksHTML() {
   let html = "";
   for (let i = 0; i < subtasks.length; i++) {
@@ -210,6 +265,9 @@ function buildSubtasksHTML() {
   return html;
 }
 
+/**
+ * Binds all edit, delete, save and double click events for rendered subtasks.
+ */
 function bindSubtaskButtons() {
   bindEditButtons();
   bindDeleteButtons();
@@ -218,6 +276,9 @@ function bindSubtaskButtons() {
   bindSubtaskItemDblClick();
 }
 
+/**
+ * Binds the double click event to all non edit mode subtask items.
+ */
 function bindSubtaskItemDblClick() {
   let items = document.getElementsByClassName("subtask-item");
   for (let i = 0; i < items.length; i++) {
@@ -227,6 +288,10 @@ function bindSubtaskItemDblClick() {
   }
 }
 
+/**
+ * Activates edit mode for the double clicked subtask item.
+ * @param {Event} event The double click event triggered on a subtask item.
+ */
 function subtaskItemDblClicked(event) {
   let items = document.getElementsByClassName("subtask-item");
   for (let i = 0; i < items.length; i++) {
@@ -237,6 +302,9 @@ function subtaskItemDblClicked(event) {
   renderSubtasks();
 }
 
+/**
+ * Binds click events to all subtask edit buttons.
+ */
 function bindEditButtons() {
   let editButtons = document.getElementsByClassName("subtask-edit-btn");
   for (let i = 0; i < editButtons.length; i++) {
@@ -244,6 +312,9 @@ function bindEditButtons() {
   }
 }
 
+/**
+ * Binds click events to all subtask delete buttons.
+ */
 function bindDeleteButtons() {
   let deleteButtons = document.getElementsByClassName("subtask-delete-btn");
   for (let i = 0; i < deleteButtons.length; i++) {
@@ -251,6 +322,9 @@ function bindDeleteButtons() {
   }
 }
 
+/**
+ * Binds click events to all delete buttons shown in subtask edit mode.
+ */
 function bindEditDeleteButtons() {
   let deleteButtons = document.getElementsByClassName(
     "subtask-delete-edit-btn",
@@ -260,6 +334,9 @@ function bindEditDeleteButtons() {
   }
 }
 
+/**
+ * Binds click events to all subtask save buttons.
+ */
 function bindSaveButtons() {
   let saveButtons = document.getElementsByClassName("subtask-save-btn");
   for (let i = 0; i < saveButtons.length; i++) {
@@ -267,6 +344,10 @@ function bindSaveButtons() {
   }
 }
 
+/**
+ * Activates edit mode for the clicked subtask edit button.
+ * @param {Event} event The click event triggered on a subtask edit button.
+ */
 function editSubtaskClicked(event) {
   let editButtons = document.getElementsByClassName("subtask-edit-btn");
   for (let i = 0; i < editButtons.length; i++) {
@@ -277,6 +358,10 @@ function editSubtaskClicked(event) {
   renderSubtasks();
 }
 
+/**
+ * Deletes the subtask that belongs to the clicked delete button and re renders the list.
+ * @param {Event} event The click event triggered on a subtask delete button.
+ */
 function deleteSubtaskClicked(event) {
   let deleteButtons = document.getElementsByClassName("subtask-delete-btn");
   for (let i = 0; i < deleteButtons.length; i++) {
@@ -287,6 +372,9 @@ function deleteSubtaskClicked(event) {
   renderSubtasks();
 }
 
+/**
+ * Saves the edited subtask text and exits edit mode.
+ */
 function saveEditedSubtask() {
   let editInput = document.getElementById("editSubtaskInput");
   if (editInput === null) {
@@ -303,6 +391,9 @@ function saveEditedSubtask() {
   renderSubtasks();
 }
 
+/**
+ * Shows the success toast after creating a task and redirects to the board page.
+ */
 function showTaskAddedToast() {
   let toast = document.getElementById("taskAddedToast");
   if (toast === null) {
@@ -312,6 +403,10 @@ function showTaskAddedToast() {
   setTimeout(redirectToBoard, 1000);
 }
 
+/**
+ * Renders all available contacts into the assigned contacts dropdown.
+ * @param {Function} [optionBuilder=buildAssignedContactOptionHTML] Function used to build the HTML for a single contact option.
+ */
 function renderAssignedContacts(
   optionBuilder = buildAssignedContactOptionHTML,
 ) {
