@@ -521,10 +521,18 @@ function clearInputs() {
   DOM.warningMessagePhoneEl.innerHTML = "";
 }
 
+/** Finds a contact by its firebaseKey by searching through the contacts array and returning the contact object that matches the provided firebaseKey. If no contact is found, it returns undefined.
+ * @param {string} firebaseKey - The firebaseKey of the contact to find.
+ * @returns {Object|undefined} - The contact object that matches the firebaseKey, or undefined if no contact is found.
+ */
 function findContact(firebaseKey) {
   return contacts.find((contact) => contact.firebaseKey === firebaseKey);
 }
 
+/** Finds the index of a contact in the contacts array by its firebaseKey. It searches through the contacts array and returns the index of the contact that matches the provided firebaseKey. If no contact is found, it returns -1.
+ * @param {string} firebaseKey - The firebaseKey of the contact to find.
+ * @returns {number} - The index of the contact that matches the firebaseKey, or -1 if no contact is found.
+ */
 function findContactIndex(firebaseKey) {
   return contacts.findIndex((contact) => contact.firebaseKey === firebaseKey);
 }

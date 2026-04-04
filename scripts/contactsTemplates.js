@@ -94,7 +94,7 @@ function contactBadgeTemplate(contact) {
 function contactBadgeDummyTemplate() {
   return `
     <div class="contact-detail-badge">
-      <img src="../assets/imgs/person.svg" alt="" />
+      <img src="../assets/imgs/person.svg" alt="Dummy of a person" />
     </div>
   `;
 }
