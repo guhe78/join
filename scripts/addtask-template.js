@@ -32,7 +32,7 @@ function buildEditSubtaskHTML(index) {
   return `
     <div class="subtask-item edit-mode">
         <div class="subtask-left">
-            <input class="subtask-edit-input" id="editSubtaskInput" type="text" value="${subtasks[index]}">
+            <input class="subtask-edit-input" id="editSubtaskInput" type="text" value="${subtasks[index]}" maxlength="60">
         </div>
         <div class="subtask-item-actions">
             <button class="subtask-btn">
@@ -77,7 +77,7 @@ function addTaskTemplate() {
                   class="input"
                   type="text"
                   placeholder="Enter a title"
-                  maxlength="20"
+                  maxlength="40"
                 />
                 <p class="error-msg" id="titleError">This field is required</p>
               </div>
@@ -105,6 +105,7 @@ function addTaskTemplate() {
                       id="due-date"
                       class="input addtask-due-input"
                       placeholder="dd/mm/yyyy"
+                      maxlength="10"
                       oninput="syncPickerFromInput()"
                     />
                     <input
@@ -214,6 +215,7 @@ function addTaskTemplate() {
                     type="text"
                     placeholder="Add new subtask"
                     class="input"
+                    maxlength="60"
                   />
 
                   <div class="subtask-actions">

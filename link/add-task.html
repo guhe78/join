@@ -127,7 +127,7 @@
                 class="input"
                 type="text"
                 placeholder="Enter a title"
-                maxlength="20"
+                maxlength="40"
               />
               <p class="error-msg" id="titleError">This field is required</p>
             </div>
@@ -154,6 +154,7 @@
                     id="due-date"
                     class="input addtask-due-input"
                     placeholder="dd/mm/yyyy"
+                    maxlength="10"
                     oninput="syncPickerFromInput()"
                   />
                   <input
@@ -269,6 +270,8 @@
                   type="text"
                   placeholder="Add new subtask"
                   class="input"
+                  text
+                  maxlength="60"
                 />
 
                 <div class="subtask-actions">

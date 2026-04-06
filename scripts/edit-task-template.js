@@ -23,7 +23,7 @@ function editTaskTemplate(task) {
           <div class="edit-container title">
             <label class="detail-label" for="task-title">Title</label>
             <div class="input-wrapper-title">
-            <input value="${task.title}" id="task-title" class="edit-input" type="text" required />
+            <input value="${task.title}" id="task-title" class="edit-input" type="text" maxlength="40" required />
             <p class="feedback-message" id="titleFeedback">this field is required</p>
             </div>
           </div>
@@ -52,6 +52,7 @@ function editTaskTemplate(task) {
         value="${formatDateForDisplay(task.due_date)}"
         class="input edit-input"
         placeholder="dd/mm/yyyy"
+        maxlength="10"
         oninput="syncPickerFromInput()"
       />
       <input
@@ -123,6 +124,7 @@ function editTaskTemplate(task) {
                     type="text"
                     placeholder="Add new subtask"
                     class="input"
+                    maxlength="60"
                   />
 
                   <div class="subtask-actions">
