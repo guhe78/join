@@ -129,7 +129,7 @@
 
               <input
                 id="title"
-                class="input"
+                class="input addtask-input"
                 type="text"
                 placeholder="Enter a title"
                 maxlength="20"
@@ -157,7 +157,7 @@
                   <input
                     type="text"
                     id="due-date"
-                    class="input addtask-due-input"
+                    class="input addtask-due-input addtask-input"
                     placeholder="dd/mm/yyyy"
                     oninput="syncPickerFromInput()"
                   />
@@ -189,31 +189,33 @@
           <div class="addtask-divider"></div>
 
           <div class="addtask-col">
-            <label class="label" for="assignedSelect">Priority</label>
             <div class="prio-row">
-              <button type="button" class="prio-btn prio-urgent">
-                Urgent
-                <svg class="prio-icon" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M7 14l5-5 5 5" />
-                  <path d="M7 19l5-5 5 5" />
-                </svg>
-              </button>
+              <label class="label" for="assignedSelect">Priority</label>
+              <div class="prio-buttons">
+                <button type="button" class="prio-btn prio-urgent">
+                  Urgent
+                  <svg class="prio-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M7 14l5-5 5 5" />
+                    <path d="M7 19l5-5 5 5" />
+                  </svg>
+                </button>
 
-              <button type="button" class="prio-btn prio-medium is-active">
-                Medium
-                <svg class="prio-icon" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M7 10h10" />
-                  <path d="M7 14h10" />
-                </svg>
-              </button>
+                <button type="button" class="prio-btn prio-medium is-active">
+                  Medium
+                  <svg class="prio-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M7 10h10" />
+                    <path d="M7 14h10" />
+                  </svg>
+                </button>
 
-              <button type="button" class="prio-btn prio-low">
-                Low
-                <svg class="prio-icon" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M7 10l5 5 5-5" />
-                  <path d="M7 5l5 5 5-5" />
-                </svg>
-              </button>
+                <button type="button" class="prio-btn prio-low">
+                  Low
+                  <svg class="prio-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M7 10l5 5 5-5" />
+                    <path d="M7 5l5 5 5-5" />
+                  </svg>
+                </button>
+              </div>
             </div>
 
             <div class="field">
@@ -292,40 +294,40 @@
 
             <div class="subtasks-list" id="subtasksList"></div>
           </div>
-
-          <div class="addtask-foot">
-            <p class="required-hint">
-              <span class="req">*</span> This field is required
-            </p>
-
-            <div class="addtask-actions">
-              <button type="button" class="secondary-btn">
-                Clear
-                <svg
-                  class="icon icon-cancel"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M12.0011 11.9998L17.2441 17.2428M6.75806 17.2428L12.0011 11.9998L6.75806 17.2428ZM17.2441 6.75684L12.0001 11.9998L17.2441 6.75684ZM12.0001 11.9998L6.75806 6.75684L12.0001 11.9998Z"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </button>
-
-              <button type="button" class="primary-btn">
-                Create Task
-                <img src="../assets/imgs/check.svg" alt="create" />
-              </button>
-            </div>
-          </div>
         </form>
+
+        <div class="addtask-foot">
+          <p class="required-hint">
+            <span class="req">*</span> This field is required
+          </p>
+
+          <div class="addtask-actions">
+            <button type="button" class="secondary-btn">
+              Clear
+              <svg
+                class="icon icon-cancel"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <path
+                  d="M12.0011 11.9998L17.2441 17.2428M6.75806 17.2428L12.0011 11.9998L6.75806 17.2428ZM17.2441 6.75684L12.0001 11.9998L17.2441 6.75684ZM12.0001 11.9998L6.75806 6.75684L12.0001 11.9998Z"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+
+            <button type="button" class="primary-btn">
+              Create Task
+              <img src="../assets/imgs/check.svg" alt="create" />
+            </button>
+          </div>
+        </div>
       </section>
     </main>
     <div id="taskAddedToast" class="task-toast">

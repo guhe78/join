@@ -48,8 +48,10 @@ function getUserData() {
         data.firstName[0].toUpperCase() + data.lastName[0].toUpperCase(),
       name: data.firstName + " " + data.lastName,
     };
-  } else {
+  } else if (data.isGuest === true) {
     return { initials: "G", name: "Guest" };
+  } else {
+    return { initials: "", name: "" };
   }
 }
 
