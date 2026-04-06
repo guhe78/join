@@ -217,16 +217,21 @@ function addTaskTemplate() {
                   />
 
                   <div class="subtask-actions">
-                    <svg class="subtask-icon" viewBox="0 0 24 24">
-                      <path d="M6 6L18 18M6 18L18 6" />
-                    </svg>
+                  <button type="button" class="subtask-btn">
+                    <img
+                      src="../assets/imgs/close-subtask.svg"
+                      alt="Close Subtask"
+                    />
+                  </button>
 
-                    <div class="divider"></div>
-
-                    <svg class="subtask-icon" viewBox="0 0 24 24">
-                      <path d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
+                  <div class="divider"></div>
+                  <button type="button" class="subtask-btn">
+                    <img
+                      src="../assets/imgs/check-subtask.svg"
+                      alt="Check Subtask"
+                    />
+                  </button>
+                </div>
                 </div>
               </div>
 

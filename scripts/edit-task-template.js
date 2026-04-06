@@ -126,15 +126,21 @@ function editTaskTemplate(task) {
                   />
 
                   <div class="subtask-actions">
-                    <button type="button" class="subtask-btn">
-                    ${cancelIcon()}
-                    </button>
+                  <button type="button" class="subtask-btn">
+                    <img
+                      src="../assets/imgs/close-subtask.svg"
+                      alt="Close Subtask"
+                    />
+                  </button>
 
-                    <div class="divider"></div>
-                    <button type="button" class="subtask-btn">
-                    ${checkIcon()}
-                    </button>
-                  </div>
+                  <div class="divider"></div>
+                  <button type="button" class="subtask-btn">
+                    <img
+                      src="../assets/imgs/check-subtask.svg"
+                      alt="Check Subtask"
+                    />
+                  </button>
+                </div>
                 </div>
                 <div class="subtasks-list" id="subtasksList"></div>
           </div>
