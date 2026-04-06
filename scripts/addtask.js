@@ -220,7 +220,7 @@ function getSubtasksForFirebase() {
   for (let i = 0; i < subtasks.length; i++) {
     subtasksForFirebase.push({
       title: subtasks[i],
-      done: false,
+      is_done: false,
     });
   }
   return subtasksForFirebase;
