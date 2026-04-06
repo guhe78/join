@@ -161,6 +161,8 @@
   color: var(--side-bar-privacy-legal);
   font-size: 14px;
   margin: 0;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .card-footer {
@@ -174,6 +176,8 @@
   color: var(--primary-color);
   font-size: 16px;
   margin: 0;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .category-badge {
@@ -349,6 +353,8 @@
   max-height: 90vh;
   font-size: 20px;
   gap: 24px;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .task-modal {

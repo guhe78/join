@@ -541,6 +541,9 @@ function checkEnter(event, _inputId) {
   }
 }
 
+/**
+ * Scrolls smoothly to the element referenced by the current URL hash.
+ */
 function scrollToHash() {
   const hash = window.location.hash;
   if (!hash) return;
@@ -549,7 +552,7 @@ function scrollToHash() {
   if (el) {
     el.scrollIntoView({
       behavior: "smooth",
-      block: "start"
+      block: "start",
     });
   }
 }
