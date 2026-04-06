@@ -64,3 +64,36 @@ function checkAuth() {
     window.location.href = "../index.html";
   }
 }
+
+/**
+ * Generates a random integer between 0 (inclusive) and the specified maximum (exclusive).
+ * @param {number} max - The maximum value (exclusive) for the random integer.
+ * @returns {number} - A random integer between 0 and max - 1.
+ */
+function getRandom(max) {
+  return Math.floor(Math.random() * max);
+}
+
+/**
+ * Generates a random color from the default badge colors.
+ * @returns {string} - A random color from the default badge colors.
+ */
+function getRandomColor() {
+  return DEFAULT_BADGE_COLORS[getRandom(DEFAULT_BADGE_COLORS.length)];
+}
+
+/**
+ * Splits a full name into first name and last name by trimming the input, splitting it by whitespace, and returning an object containing the first name and last name. If the input does not contain at least two parts, it returns null.
+ * @param {string} name - The full name to split.
+ * @returns {Object|null} - An object containing the first name and last name, or null if the input is invalid.
+ */
+function splitName(name) {
+  let nameArray = name.trim().split(/\s+/);
+
+  if (nameArray.length < 2) return null;
+
+  return {
+    firstName: nameArray[0],
+    lastName: nameArray.slice(1).join(" "),
+  };
+}
