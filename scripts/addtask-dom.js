@@ -196,6 +196,12 @@ function initSubtaskSection() {
   if (subtaskInput === null) {
     return;
   }
+  subtaskInput.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      saveSubtaskFromInput();
+    }
+  });
   let subtaskActions = document.getElementsByClassName("subtask-actions")[0];
   if (subtaskActions === undefined) {
     return;
