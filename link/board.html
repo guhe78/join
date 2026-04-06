@@ -72,6 +72,7 @@
 
     <script src="../scripts/board.js" defer></script>
     <script src="../scripts/board-modal.js" defer></script>
+    <script src="../scripts/dropdown-template.js" defer></script>
     <script src="../scripts/dropdown-menu.js" defer></script>
     <script src="../scripts/auth/auth.js" defer></script>
   </head>
@@ -118,13 +119,8 @@
             <button id="profile-button" class="button profile-button">
               SM
             </button>
-            <div id="profile-dropdown" class="profile-dropdown">
-              <a href="./legal-notice.html">Profile</a>
-              <a href="./privacy-policy.html">Settings</a>
-              <button onclick="logoutUser()">
-                <a href="../index.html">Log out</a>
-              </button>
-            </div>
+
+            <div id="dropdown-container"></div>
           </div>
         </nav>
       </header>

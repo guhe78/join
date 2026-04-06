@@ -17,6 +17,7 @@ async function init() {
   await getTasks();
   currentTasks = tasks;
   updateBoard();
+  scrollToHash();
 }
 
 /**
@@ -537,5 +538,21 @@ function checkEnter(event, _inputId) {
   scheduleSearchFilter();
   if (event.key === "Enter") {
     searchFilter();
+  }
+}
+
+/**
+ * Scrolls smoothly to the element referenced by the current URL hash.
+ */
+function scrollToHash() {
+  const hash = window.location.hash;
+  if (!hash) return;
+
+  const el = document.querySelector(hash);
+  if (el) {
+    el.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
   }
 }

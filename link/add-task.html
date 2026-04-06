@@ -58,6 +58,7 @@
     <script src="../scripts/addtask-dom.js" defer></script>
     <script src="../scripts/addtask.js" defer></script>
     <script src="../scripts/due-date.js" defer></script>
+    <script src="../scripts/dropdown-template.js" defer></script>
     <script src="../scripts/dropdown-menu.js" defer></script>
     <script src="../scripts/helpers.js" defer></script>
     <script src="../scripts/auth/auth.js" defer></script>
@@ -107,13 +108,7 @@
               SM
             </button>
 
-            <div id="profile-dropdown" class="profile-dropdown">
-              <a href="./legal-notice.html">Profile</a>
-              <a href="./privacy-policy.html">Settings</a>
-              <button onclick="logoutUser()">
-                <a href="../index.html">Log out</a>
-              </button>
-            </div>
+            <div id="dropdown-container"></div>
           </div>
         </nav>
       </header>
@@ -132,7 +127,7 @@
                 class="input"
                 type="text"
                 placeholder="Enter a title"
-                maxlength="20"
+                maxlength="40"
               />
               <p class="error-msg" id="titleError">This field is required</p>
             </div>
@@ -159,6 +154,7 @@
                     id="due-date"
                     class="input addtask-due-input"
                     placeholder="dd/mm/yyyy"
+                    maxlength="10"
                     oninput="syncPickerFromInput()"
                   />
                   <input
@@ -274,6 +270,8 @@
                   type="text"
                   placeholder="Add new subtask"
                   class="input"
+                  text
+                  maxlength="60"
                 />
 
                 <div class="subtask-actions">
