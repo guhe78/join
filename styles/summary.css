@@ -192,6 +192,39 @@
     background: #ffffff;
     padding: 38px;
     border-radius: 30px;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    background-color: var(--primary-color);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+}
+
+.card:hover .numbers,
+.card:hover .card-font,
+.card:hover .task-text,
+.card:hover .date-prior,
+.card:hover .deadline-text {
+    color: white;
+}
+
+.card:hover .icon-wrapper {
+    background-color: white;
+}
+
+.priority:hover .icon-wrapper {
+    background-color: var(--urgent-icon);
+}
+
+.card:not(.priority):hover .img-card {
+    filter: brightness(0);
+}
+
+.priority:hover .img-card {
+    filter: brightness(10);
 }
 
 .welcome-section {

@@ -3,12 +3,19 @@ let splashRunning = false;
 
 async function initSummary() {
   checkAuth();
-
   await getTasks();
   updateSummary();
   initWelcome();
-  document.getElementById("profile-button").innerHTML = getUserData().initials;
-  document.getElementById("user-name").innerHTML = getUserData().name;
+  updateUserUI();
+  initCardLinks();
+}
+
+function updateUserUI() {
+  const user = getUserData();
+
+  document.getElementById("profile-button").innerHTML = user.initials;
+  document.getElementById("user-name").innerHTML = user.name;
+  document.querySelector(".welcome-section h2").textContent = getGreeting();
 }
 
 function updateDOM(summary) {
@@ -170,4 +177,34 @@ function handleResize() {
   }
 
   isMobile = nowMobile;
+}
+
+function getGreeting() {
+  const hour = new Date().getHours();
+
+  if (hour < 12) return "Good morning,";
+  if (hour < 18) return "Good afternoon,";
+  return "Good evening,";
+}
+
+function initCardLinks() {
+  document.querySelectorAll(".card").forEach(card => {
+    card.addEventListener("click", () => handleCardClick(card));
+  });
+}
+
+function handleCardClick(card) {
+  let url = "board.html";
+
+  if (card.classList.contains("todo")) {
+    url += "#todo";
+  } else if (card.classList.contains("done")) {
+    url += "#done";
+  } else if (card.classList.contains("progress")) {
+    url += "#inProgress";
+  } else if (card.classList.contains("feedback")) {
+    url += "#review";
+  }
+
+  window.location.href = url;
 }
