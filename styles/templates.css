@@ -353,6 +353,8 @@
   max-height: 90vh;
   font-size: 20px;
   gap: 24px;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .task-modal {
