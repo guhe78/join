@@ -91,6 +91,10 @@ header {
   color: white;
 }
 
+.page-link-button:hover img {
+  filter: brightness(0) invert(1);
+}
+
 .police-links-container a {
   color: var(--side-bar-privacy-legal);
   text-decoration: none;
@@ -155,7 +159,10 @@ header {
 .page-link-button.active {
   background-color: #091931;
   color: white;
-  border-radius: 16px;
+}
+
+.page-link-button.active img {
+  filter: brightness(0) invert(1);
 }
 
 @media (max-width: 1100px) {
@@ -219,6 +226,10 @@ header {
   .page-link-button:hover {
     background-color: #091930;
     color: white;
+  }
+
+  .page-link-button.active {
+    border-radius: 16px;
   }
 
   .side-nav {
