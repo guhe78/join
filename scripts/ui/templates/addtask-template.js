@@ -93,9 +93,9 @@ function addTaskTemplate() {
             </div>
 
             <div class="field">
-              <label class="label" for="due-date">
+              <p class="label" for="due-date">
                 Due date<span class="req">*</span>
-              </label>
+              </p>
               <div class="addtask-due-date-container">
                 <div class="addtask-due-input-wrapper">
                   <input
@@ -135,7 +135,7 @@ function addTaskTemplate() {
 
           <div class="addtask-col">
             <div class="prio-row">
-              <label class="label" for="assignedSelect">Priority</label>
+              <p class="label" for="assignedSelect">Priority</p>
               <div class="prio-buttons">
                 <button type="button" class="prio-btn prio-urgent">
                   Urgent
@@ -164,7 +164,7 @@ function addTaskTemplate() {
             </div>
 
             <div class="field">
-              <label class="label" for="assignedSelect">Assigned to</label>
+              <p class="label" for="assignedSelect">Assigned to</p>
 
               <div class="custom-select" id="assignedSelect">
                 <div class="select-trigger">
@@ -183,9 +183,9 @@ function addTaskTemplate() {
             </div>
 
             <div class="field">
-              <label class="label" for="catSelect">
+              <p class="label" for="catSelect">
                 Category<span class="req">*</span>
-              </label>
+              </p>
 
               <div class="custom-select custom-select--single" id="catSelect">
                 <div class="select-trigger">
