@@ -253,14 +253,13 @@ body.dialog-open {
 }
 
 @media (max-width: 851px) {
-  .template-container {
+  .add-task-modal {
     height: 90vh;
   }
 }
 
 @media (max-width: 600px) {
   .template-container {
-    height: 90vh;
     padding-top: 16px;
     padding-right: 8px;
     max-height: 85vh;

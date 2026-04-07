@@ -53,16 +53,16 @@ function buildEditSubtaskHTML(index) {
  */
 function addTaskTemplate() {
   return `
-      <div class="add-task-modal" onclick="event.stopPropagation()">
+      <div class="add-task-modal" onclick="closeAllSelects(); event.stopPropagation()">
         <button
           class="add-task-close-btn"
           type="button"
-          onclick="closeTaskDialog()"
+          onclick="closeAddTaskModalDirect()"
         >
-          ✕
+          <img src="../assets/imgs/close.png" alt="Close" />
         </button>
 
-        <section class="addtask">
+        <section class="addtask template-container">
         <h1 class="addtask-title">Add Task</h1>
         <form class="addtask-form">
           <div class="addtask-col">
@@ -253,7 +253,7 @@ function addTaskTemplate() {
             <span class="req">*</span> This field is required
           </p>
 
-          <div class="addtask-actions">
+          <div class="addtask-actions template-actions">
             <button type="button" class="secondary-btn">
               Clear
               <svg
