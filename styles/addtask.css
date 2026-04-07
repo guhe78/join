@@ -165,6 +165,8 @@ textarea::placeholder {
   font-weight: 500;
 
   transition: 0.1s ease;
+
+  transition: 0.1s ease;
 }
 
 .addtask .prio-btn:not(.is-active):hover {
@@ -211,7 +213,6 @@ textarea::placeholder {
   font-size: 21px;
   font-weight: bold;
   cursor: pointer;
-  transition: 0.1s ease;
   transition: 0.1s ease;
   background: transparent;
   border: 1.5px solid var(--primary-color);
@@ -264,7 +265,6 @@ textarea::placeholder {
   width: 24px;
   height: 24px;
   transition: transform 0.1s ease;
-  transition: transform 0.1s ease;
 }
 
 .custom-select .trigger-arrow {
@@ -308,6 +308,7 @@ textarea::placeholder {
   padding: 8px 10px;
   border-radius: 10px;
   cursor: pointer;
+  transition: 0.1s ease;
   transition: 0.1s ease;
 }
 
