@@ -212,6 +212,7 @@ textarea::placeholder {
   font-weight: bold;
   cursor: pointer;
   transition: 0.1s ease;
+  transition: 0.1s ease;
   background: transparent;
   border: 1.5px solid var(--primary-color);
   color: var(--primary-color);
@@ -262,6 +263,7 @@ textarea::placeholder {
 .trigger-arrow {
   width: 24px;
   height: 24px;
+  transition: transform 0.1s ease;
   transition: transform 0.1s ease;
 }
 
