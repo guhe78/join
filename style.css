@@ -83,7 +83,7 @@ header {
 }
 
 .page-link-button {
-  transition: 0.2s ease;
+  transition: 0.1s ease;
 }
 
 .page-link-button:hover {
@@ -96,7 +96,7 @@ header {
   text-decoration: none;
   font-size: 14px;
   padding: 8px 56px;
-  transition: transform 0.2s ease-in-out;
+  transition: transform 0.1s ease-in-out;
   transform-origin: center;
 }
 

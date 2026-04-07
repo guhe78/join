@@ -166,10 +166,10 @@ textarea::placeholder {
   font-weight: 500;
   cursor: pointer;
   transition:
-    background 0.15s ease,
-    color 0.15s ease,
-    border-color 0.15s ease,
-    box-shadow 0.15s ease,
+    background 0.1s ease,
+    color 0.1s ease,
+    border-color 0.1s ease,
+    box-shadow 0.1s ease,
     transform 0.1s ease;
 }
 
@@ -217,7 +217,7 @@ textarea::placeholder {
   font-size: 21px;
   font-weight: bold;
   cursor: pointer;
-  transition: 0.2s ease;
+  transition: 0.1s ease;
   background: transparent;
   border: 1.5px solid var(--primary-color);
   color: var(--primary-color);
@@ -268,7 +268,7 @@ textarea::placeholder {
 .trigger-arrow {
   width: 24px;
   height: 24px;
-  transition: transform 0.15s ease;
+  transition: transform 0.1s ease;
 }
 
 .custom-select .trigger-arrow {
@@ -312,7 +312,7 @@ textarea::placeholder {
   padding: 8px 10px;
   border-radius: 10px;
   cursor: pointer;
-  transition: background 0.15s ease;
+  transition: background 0.1s ease;
 }
 
 .select-option:hover {
@@ -460,7 +460,7 @@ textarea::placeholder {
   align-items: center;
   gap: 8px;
   opacity: 0;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.1s ease;
 }
 
 .subtask-input:focus-within .subtask-actions {

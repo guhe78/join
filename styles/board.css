@@ -85,7 +85,7 @@
   justify-content: center;
   margin: 0 16px;
   border-radius: 50%;
-  transition: transform 0.2s ease-in-out;
+  transition: transform 0.1s ease-in-out;
   transform-origin: center;
 }
 
@@ -177,7 +177,7 @@
   padding: 20px;
   height: 235px;
   border-radius: 30px;
-  transition: all 0.2s ease;
+  transition: all 0.1s ease;
   pointer-events: none;
 }
 
