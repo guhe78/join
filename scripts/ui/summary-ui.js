@@ -96,6 +96,18 @@ function showWelcome(welcome, summary) {
 }
 
 /**
+ * Initializes the welcome animation by checking if the current view is mobile and starting the splash animation if it is. It also adds an event listener for window resize events to handle changes between mobile and desktop views. This function ensures that the appropriate welcome animation is displayed based on the screen size and that the UI updates correctly when the window is resized.
+ * @returns {void}
+ */
+function initWelcome() {
+  if (isMobile) {
+    startSplash();
+  }
+
+  window.addEventListener("resize", handleResize);
+}
+
+/**
  * Hides the welcome section and shows the summary section. This function is called after the splash animation completes to transition from the welcome screen to the summary screen.
  * @param {HTMLElement} welcome - The welcome section element.
  * @param {HTMLElement} summary - The summary section element.
