@@ -27,7 +27,7 @@
   max-width: 980px;
   gap: 32px;
   margin-top: 48px;
-  margin-bottom: 138px;
+  margin-bottom: 64px;
 }
 
 .addtask-col {
@@ -448,6 +448,7 @@ textarea::placeholder {
 
 .subtask-input input {
   padding: 12px 16px;
+  font-size: 20px;
 }
 
 .subtask-actions {
@@ -624,7 +625,7 @@ textarea::placeholder {
 
 .task-toast {
   position: fixed;
-  top: 50%;
+  bottom: 35%;
   left: 50%;
   transform: translate(-50%, -50%) translateX(400px);
   width: 326px;
