@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Join</title>
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="../assets/favicon/favicon-16x16.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="../assets/favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="../assets/favicon/android-chrome-192x192.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="512x512"
+      href="../assets/favicon/android-chrome-512x512.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      size="180x180"
+      href="../assets/favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="shortcut icon"
+      sizes="any"
+      href="../assets/favicon/favicon.ico"
+      type="image/x-icon"
+    />
+    <link rel="manifest" href="../assets/favicon/site.webmanifest" />
+
+    <link rel="stylesheet" href="../styles/standard.css" />
+    <link rel="stylesheet" href="../styles/variables.css" />
+    <link rel="stylesheet" href="../styles/font.css" />
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="../styles/dropdown-menu.css" />
+
+    <link rel="stylesheet" href="../styles/summary.css" />
+
+    <script src="../scripts/config.js" defer></script>
+    <script src="../scripts/services.js" defer></script>
+    <script src="../scripts/summary.js" defer></script>
+    <script src="../scripts/templates/dropdown-template.js" defer></script>
+    <script src="../scripts/utils/dropdown-menu.js" defer></script>
+    <script src="../scripts/utils/helpers.js" defer></script>
+    <script src="../scripts/auth/auth.js" defer></script>
+  </head>
+
+  <body onload="initSummary()">
+    <aside>
+      <img src="../assets/imgs/join-logo-white.png" alt="logo" class="logo" />
+      <nav class="side-nav">
+        <div class="page-links">
+          <a href="summary.html" class="page-link-button"
+            ><img src="../assets/imgs/summary.png" alt="Summary" />Summary</a
+          >
+          <a href="add-task.html" class="page-link-button"
+            ><img src="../assets/imgs/add-task.png" alt="Add Task" />Add Task</a
+          >
+          <a href="board.html" class="page-link-button"
+            ><img src="../assets/imgs/board.png" alt="Board" />Board</a
+          >
+          <a href="contacts.html" class="page-link-button"
+            ><img src="../assets/imgs/contacts.png" alt="Contacts" />Contacts</a
+          >
+        </div>
+        <div class="police-links-container">
+          <a href="./privacy-policy.html">Privacy Policy</a>
+          <a href="./legal-notice.html">Legal notice</a>
+        </div>
+      </nav>
+    </aside>
+
+    <main>
+      <header>
+        <img
+          src="../assets/imgs/join-logo.png"
+          alt="logo"
+          class="logo-mobile"
+        />
+        <p class="headline">Kanban Project Management Tool</p>
+        <nav class="header-nav">
+          <button class="button help-button">
+            <a href="./help-desk.html"
+              ><img src="../assets/imgs/help.png" alt="search"
+            /></a>
+          </button>
+          <div class="profile-wrapper">
+            <button id="profile-button" class="button profile-button">
+              SM
+            </button>
+
+            <div id="dropdown-container"></div>
+          </div>
+        </nav>
+      </header>
+
+      <section class="summary-section">
+        <div class="summary-content">
+          <div class="summary-title">
+            <h1>Join 360</h1>
+            <div class="split-line"></div>
+            <span class="summary-subtitle">Key Metrics at a Glance</span>
+            <div class="bottom-line"></div>
+          </div>
+
+          <div class="summary-below-section">
+            <div class="summary-container">
+              <div class="card todo">
+                <div class="icon-wrapper">
+                  <img
+                    class="img-card"
+                    src="../assets/imgs/edit.png"
+                    alt="edit"
+                  />
+                </div>
+                <div class="text-wrapper">
+                  <span class="numbers" id="todo-count">0</span>
+                  <span class="card-font">To-do</span>
+                </div>
+              </div>
+
+              <div class="card done">
+                <div class="icon-wrapper">
+                  <img
+                    class="img-card"
+                    src="../assets/imgs/check-white.svg"
+                    alt="check"
+                  />
+                </div>
+                <div class="text-wrapper">
+                  <span class="numbers" id="done-count">0</span>
+                  <span class="card-font">Done</span>
+                </div>
+              </div>
+
+              <div class="card priority">
+                <div class="icon-wrapper bg-prio">
+                  <img
+                    class="img-card"
+                    src="../assets/imgs/prio-high-white.png"
+                    alt="priority high"
+                  />
+                </div>
+                <div class="text-wrapper">
+                  <span class="numbers" id="urgent-count">0</span>
+                  <span class="card-font">Urgent</span>
+                </div>
+                <div class="split-line-priority"></div>
+                <div>
+                  <p class="date-prior" id="urgent-date">No urgent tasks</p>
+                  <p class="deadline-text">Upcoming Deadline</p>
+                </div>
+              </div>
+
+              <div class="card board">
+                <span class="numbers" id="board-count">0</span>
+                <p class="task-text">Tasks in Board</p>
+              </div>
+
+              <div class="card progress">
+                <span class="numbers" id="progress-count">0</span>
+                <p class="task-text">Tasks in Progress</p>
+              </div>
+
+              <div class="card feedback">
+                <span class="numbers" id="feedback-count">0</span>
+                <p class="task-text">Awaiting Feedback</p>
+              </div>
+            </div>
+
+            <div class="welcome-section">
+              <h2>Good morning,</h2>
+              <p class="user-name" id="user-name"></p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

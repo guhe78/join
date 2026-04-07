@@ -11,7 +11,7 @@ DOM.formLoginEl.addEventListener("submit", async (event) => {
   await userLogin(event);
 });
 DOM.loginGuestButtonEl.addEventListener("click", () => {
-  window.location.href = "./link/summary.html";
+  window.location.href = "./pages/summary.html";
   loginGuest();
 });
 
