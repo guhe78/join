@@ -99,3 +99,18 @@ function splitName(name) {
     lastName: nameArray.slice(1).join(" "),
   };
 }
+
+function setActiveLink() {
+  const links = document.querySelectorAll(".page-link-button");
+  const currentPage = window.location.pathname.split("/").pop();
+
+  links.forEach((link) => {
+    const linkPage = link.getAttribute("href");
+
+    if (linkPage === currentPage) {
+      link.classList.add("active");
+    }
+  });
+}
+
+setActiveLink();
