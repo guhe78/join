@@ -85,6 +85,18 @@ function runSplashAnimation(welcome, summary) {
 }
 
 /**
+ * Initializes the welcome screen by hiding the welcome section and showing the summary section. This function is called on page load to ensure that the summary screen is displayed by default, and the welcome screen is only shown during the splash animation on mobile devices.
+ * @returns {void}
+ */
+function initWelcome() {
+  if (isMobile) {
+    startSplash();
+  }
+
+  window.addEventListener("resize", handleResize);
+}
+
+/**
  * Shows the welcome section and hides the summary section. This function is called at the start of the splash animation to display the welcome screen.
  * @param {HTMLElement} welcome - The welcome section element.
  * @param {HTMLElement} summary - The summary section element.
