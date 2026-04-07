@@ -47,36 +47,26 @@
     <link rel="stylesheet" href="../styles/variables.css" />
     <link rel="stylesheet" href="../styles/font.css" />
     <link rel="stylesheet" href="../style.css" />
-    <link rel="stylesheet" href="../styles/scrollbar.css" />
     <link rel="stylesheet" href="../styles/dropdown-menu.css" />
 
-    <script src="../scripts/ui/templates/dropdown-template.js" defer></script>
-    <script src="../scripts/utils/dropdown-menu.js" defer></script>
-    <script src="../scripts/utils/helpers.js" defer></script>
-    <script src="../scripts/auth/auth.js" defer></script>
+    <script src="../scripts/ui/not-registered.js" defer></script>
+    <script src="../scripts/icons/icons.js" defer></script>
   </head>
 
-  <body>
+  <body onload="initNotRegistered()">
     <aside>
       <img src="../assets/imgs/join-logo-white.png" alt="logo" class="logo" />
       <nav class="side-nav">
         <div class="page-links">
-          <a href="summary.html" class="page-link-button"
-            ><img src="../assets/imgs/summary.png" alt="Summary" />Summary</a
-          >
-          <a href="add-task.html" class="page-link-button"
-            ><img src="../assets/imgs/add-task.png" alt="Add Task" />Add Task</a
-          >
-          <a href="board.html" class="page-link-button"
-            ><img src="../assets/imgs/board.png" alt="Board" />Board</a
-          >
-          <a href="contacts.html" class="page-link-button"
-            ><img src="../assets/imgs/contacts.png" alt="Contacts" />Contacts</a
-          >
+          <a
+            href="../index.html"
+            class="icon login-btn-notregistered"
+            id="login-sidepages"
+          ></a>
         </div>
-        <div class="police-links-container">
-          <a href="./privacy-policy.html">Privacy Policy</a>
-          <a href="./legal-notice.html">Legal notice</a>
+        <div class="police-links-container not-registered">
+          <a href="./privacy-policy-not-registered.html">Privacy Policy</a>
+          <a href="./legal-notice-not-registered.html">Legal notice</a>
         </div>
       </nav>
     </aside>
@@ -89,22 +79,7 @@
           class="logo-mobile"
         />
         <p class="headline">Kanban Project Management Tool</p>
-        <nav class="header-nav">
-          <button class="button help-button">
-            <a href="./help-desk.html"
-              ><img src="../assets/imgs/help.png" alt="search"
-            /></a>
-          </button>
-          <div class="profile-wrapper">
-            <button id="profile-button" class="button profile-button">
-              SM
-            </button>
-
-            <div id="dropdown-container"></div>
-          </div>
-        </nav>
       </header>
-
       <section class="main-section">
         <h1 class="pd-bottom24">Legal Notice</h1>
         <h3>Imprint</h3>

@@ -4,7 +4,6 @@ DOM.nameSignupEl.addEventListener("click", function () {
 });
 DOM.emailSignupEl.addEventListener("click", function () {
   DOM.warningMessageEmailSignupEl.innerHTML = "";
-  console.log();
 });
 DOM.passwordSignupEl.addEventListener("click", function () {
   DOM.warningMessagePasswordSignupEl.innerHTML = "";

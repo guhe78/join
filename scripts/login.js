@@ -52,7 +52,6 @@ async function userLogin(event) {
     return;
   }
   persistUser(user);
-  console.log("userLogin erfolgreich: ", user);
   window.location.href = "./pages/summary.html";
 }
 
