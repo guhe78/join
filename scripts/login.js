@@ -53,7 +53,7 @@ async function userLogin(event) {
   }
   persistUser(user);
   console.log("userLogin erfolgreich: ", user);
-  window.location.href = "./link/summary.html";
+  window.location.href = "./pages/summary.html";
 }
 
 /**
