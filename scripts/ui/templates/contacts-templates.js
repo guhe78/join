@@ -1,7 +1,7 @@
 function contactTemplate(contact) {
   return `
     <div class="contact" id="contact${contact.firebaseKey}" 
-        onclick="toggleActiveContact('${contact.firebaseKey}')" >
+        onclick="toggleActiveContact('${contact.firebaseKey}')" tabindex="0">
       <div class="contact-badge" style="background-color: ${contact.badgeColor}">
         ${contact.firstName[0].toUpperCase()}${contact.lastName[0].toUpperCase()}
       </div>

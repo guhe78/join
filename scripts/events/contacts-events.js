@@ -16,4 +16,14 @@ function initEvents() {
       closeDialog();
     }
   });
+
+  document.addEventListener("keydown", (event) => {
+    if (
+      event.target.classList.contains("contact") &&
+      (event.key === "Enter" || event.key === " ")
+    ) {
+      event.preventDefault();
+      event.target.click();
+    }
+  });
 }
