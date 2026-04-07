@@ -127,3 +127,69 @@ function addBadgeCount(html, contactIds, limit) {
   }
   return html;
 }
+
+/**
+ * Generates the HTML for contact badges assigned to a task.
+ * @param {Object} assignedTo - Object containing assigned contact IDs.
+ * @returns {string} Combined HTML string for all badges.
+ */
+function generateBadgeHtml(assignedTo) {
+  if (!assignedTo) return "";
+  let html = "";
+  const contactIds = Object.values(assignedTo);
+  const limit = 3;
+  const displayIds = contactIds.slice(0, limit);
+  for (const firebaseKey of displayIds) {
+    const contact = contacts.find((c) => c.firebaseKey === firebaseKey);
+    if (contact) {
+      const initials = (
+        contact.firstName[0] + contact.lastName[0]
+      ).toUpperCase();
+      html += badgeTemplate(contact.badgeColor, initials);
+    }
+  }
+  html = addBadgeCount(html, contactIds, limit);
+  return html;
+}
+
+/**
+ * Generates detailed contact list HTML for the task detail view.
+ * @param {Object} assignedTo - Object containing assigned contact IDs.
+ * @returns {string} Combined HTML string for detailed contacts.
+ */
+function generateDetailedContactsHtml(assignedTo) {
+  if (!assignedTo) return "";
+  let html = "";
+  const contactIds = Object.values(assignedTo);
+  for (const firebaseKey of contactIds) {
+    const contact = contacts.find((c) => c.firebaseKey === firebaseKey);
+    if (contact) {
+      const initials = (
+        contact.firstName[0] + contact.lastName[0]
+      ).toUpperCase();
+      html += contactTemplate(contact, initials);
+    }
+  }
+  return html;
+}
+
+/**
+ * Generates the HTML for subtasks in the task detail view.
+ * @param {string} firebaseKey - The ID of the parent task.
+ * @param {Object} subtasks - The subtasks object.
+ * @returns {string} Combined HTML string for the subtask list.
+ */
+function generateDetailedSubtasksHtml(firebaseKey, subtasks) {
+  const subtaskArray = subtasks ? Object.entries(subtasks) : [];
+  if (subtaskArray.length === 0) {
+    return noSubtasksTemplate();
+  }
+  let html = "";
+  for (const [subId, sub] of subtaskArray) {
+    const checkImg = sub.is_done
+      ? "../assets/imgs/checkbox-checked.png"
+      : "../assets/imgs/checkbox-empty.png";
+    html += subtaskItemTemplate(firebaseKey, subId, checkImg, sub);
+  }
+  return html;
+}
