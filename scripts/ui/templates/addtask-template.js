@@ -63,74 +63,80 @@ function addTaskTemplate() {
         </button>
 
         <section class="addtask">
-          <h1 class="addtask-title">Add Task</h1>
+        <h1 class="addtask-title">Add Task</h1>
+        <form class="addtask-form">
+          <div class="addtask-col">
+            <div class="field">
+              <label class="label" for="title">
+                Title<span class="req">*</span>
+              </label>
 
-          <form class="addtask-form">
-            <div class="addtask-col">
-              <div class="field">
-                <label class="label" for="title">
-                  Title<span class="req">*</span>
-                </label>
-
-                <input
-                  id="title"
-                  class="input"
-                  type="text"
-                  placeholder="Enter a title"
-                  maxlength="40"
-                />
-                <p class="error-msg" id="titleError">This field is required</p>
-              </div>
-
-              <div class="field">
-                <label class="label" for="desc">Description</label>
-                <textarea
-                  id="desc"
-                  class="textarea"
-                  rows="5"
-                  placeholder="Create a contact form and imprint page !"
-                  maxlength="250"
-                ></textarea>
-              </div>
-
-              <div class="field">
-                <label class="label" for="due-date">
-                  Due date<span class="req">*</span>
-                </label>
-
-                <div class="addtask-due-date-container">
-                  <div class="addtask-due-input-wrapper">
-                    <input
-                      type="text"
-                      id="due-date"
-                      class="input addtask-due-input"
-                      placeholder="dd/mm/yyyy"
-                      maxlength="10"
-                      oninput="syncPickerFromInput()"
-                    />
-                    <input
-                      type="date"
-                      id="due-date-picker"
-                      class="addtask-due-picker"
-                      onchange="syncDateFromPicker()"
-                      tabindex="-1"
-                    />
-                    <button type="button" class="addtask-due-picker-btn" onclick="openEditDatePicker()">
-                      <img src="../assets/imgs/event.png" alt="date picker icon" />
-                    </button>
-                  </div>
-
-                  <p class="addtask-due-feedback" id="dueDateFeedback">this field is required</p>
-                </div>
-              </div>
+              <input
+                id="title"
+                class="input addtask-input"
+                type="text"
+                placeholder="Enter a title"
+                maxlength="40"
+              />
+              <p class="error-msg" id="titleError">This field is required</p>
             </div>
 
-            <div class="addtask-divider"></div>
+            <div class="field">
+              <label class="label" for="desc">Description</label>
+              <textarea
+                id="desc"
+                class="textarea"
+                rows="5"
+                placeholder=" Enter a Description"
+                maxlength="250"
+              ></textarea>
+            </div>
 
-            <div class="addtask-col">
-              <label class="label">Priority</label>
+            <div class="field">
+              <label class="label" for="due-date">
+                Due date<span class="req">*</span>
+              </label>
+              <div class="addtask-due-date-container">
+                <div class="addtask-due-input-wrapper">
+                  <input
+                    type="text"
+                    id="due-date"
+                    class="input addtask-due-input addtask-input"
+                    placeholder="dd/mm/yyyy"
+                    maxlength="10"
+                    oninput="syncPickerFromInput()"
+                  />
+                  <input
+                    type="date"
+                    id="due-date-picker"
+                    class="addtask-due-picker"
+                    onchange="syncDateFromPicker()"
+                    tabindex="-1"
+                  />
+                  <button
+                    type="button"
+                    class="addtask-due-picker-btn"
+                    onclick="openEditDatePicker()"
+                  >
+                    <img
+                      src="../assets/imgs/event.png"
+                      alt="date picker icon"
+                    />
+                  </button>
+                </div>
+                <p class="addtask-due-feedback" id="dueDateFeedback">
+                  this field is required
+                </p>
+              </div>
+            </div>
+          </div>
 
-              <div class="prio-row">
+          <div class="addtask-divider"></div>
+
+          <div class="addtask-col">
+            <div class="prio-row">
+              <label class="label" for="assignedSelect">Priority</label>
+              <div class="prio-buttons">
                 <button type="button" class="prio-btn prio-urgent">
                   Urgent
                   <svg class="prio-icon" viewBox="0 0 24 24" aria-hidden="true">
@@ -155,70 +161,71 @@ function addTaskTemplate() {
                   </svg>
                 </button>
               </div>
+            </div>
 
-              <div class="field">
-                <label class="label" for="assignedSelect">Assigned to</label>
+            <div class="field">
+              <label class="label" for="assignedSelect">Assigned to</label>
 
-                <div class="custom-select" id="assignedSelect">
-                  <div class="select-trigger">
-                    <span class="trigger-text">Select contacts to assign</span>
-                    <img
-                      class="trigger-arrow"
-                      src="../assets/imgs/arrow_drop_downaa.png"
-                      alt="Open assigned contacts dropdown"
-                    />
-                  </div>
-
-                  <div class="select-dropdown" id="assignedDropdown"></div>
-                </div>
-
-                <div class="assigned-badges" id="assignedBadges"></div>
-              </div>
-
-              <div class="field">
-                <label class="label" for="catSelect">
-                  Category<span class="req">*</span>
-                </label>
-
-                <div class="custom-select custom-select--single" id="catSelect">
-                  <div class="select-trigger">
-                    <span class="trigger-text">Select task category</span>
-                    <img
-                      class="trigger-arrow"
-                      src="../assets/imgs/arrow_drop_downaa.png"
-                      alt="Open category dropdown"
-                    />
-                  </div>
-
-                  <div class="select-dropdown">
-                    <div class="select-option" data-value="technical">
-                      Technical Task
-                    </div>
-                    <div class="select-option" data-value="userstory">
-                      User Story
-                    </div>
-                  </div>
-                </div>
-
-                <input type="hidden" name="category" id="catHidden" value="" />
-                <p class="error-msg" id="categoryError">
-                  This field is required
-                </p>
-              </div>
-
-              <div class="field">
-                <label class="label" for="subtask">Subtasks</label>
-
-                <div class="subtask-input">
-                  <input
-                    id="subtask"
-                    type="text"
-                    placeholder="Add new subtask"
-                    class="input"
-                    maxlength="60"
+              <div class="custom-select" id="assignedSelect">
+                <div class="select-trigger">
+                  <span class="trigger-text">Select contacts to assign</span>
+                  <img
+                    class="trigger-arrow"
+                    src="../assets/imgs/arrow_drop_downaa.png"
+                    alt=""
                   />
+                </div>
 
-                  <div class="subtask-actions">
+                <div class="select-dropdown" id="assignedDropdown"></div>
+              </div>
+
+              <div class="assigned-badges" id="assignedBadges"></div>
+            </div>
+
+            <div class="field">
+              <label class="label" for="catSelect">
+                Category<span class="req">*</span>
+              </label>
+
+              <div class="custom-select custom-select--single" id="catSelect">
+                <div class="select-trigger">
+                  <span class="trigger-text">Select task category</span>
+                  <img
+                    class="trigger-arrow"
+                    src="../assets/imgs/arrow_drop_downaa.png"
+                    alt=""
+                  />
+                </div>
+
+                <div class="select-dropdown">
+                  <div class="select-option" data-value="technical">
+                    Technical Task
+                  </div>
+                  <div class="select-option" data-value="userstory">
+                    User Story
+                  </div>
+                </div>
+              </div>
+
+              <input type="hidden" name="category" id="catHidden" value="" />
+
+              <p class="error-msg" id="categoryError">This field is required</p>
+            </div>
+
+            <div class="field">
+              <label class="label" for="subtask">Subtasks</label>
+
+              <div class="subtask-input">
+                <input
+                  id="subtask"
+                  type="text"
+                  placeholder="Add new subtask"
+                  class="input"
+                  text
+                  maxlength="60"
+                />
+
+                <div class="subtask-actions">
                   <button type="button" class="subtask-btn">
                     <img
                       src="../assets/imgs/close-subtask.svg"
@@ -234,46 +241,46 @@ function addTaskTemplate() {
                     />
                   </button>
                 </div>
-                </div>
-              </div>
-
-              <div class="subtasks-list" id="subtasksList"></div>
-            </div>
-
-            <div class="addtask-foot">
-              <p class="required-hint">
-                <span class="req">*</span> This field is required
-              </p>
-
-              <div class="addtask-actions">
-                <button type="button" class="secondary-btn">
-                  Clear
-                  <svg
-                    class="icon icon-cancel"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                  >
-                    <path
-                      d="M12.0011 11.9998L17.2441 17.2428M6.75806 17.2428L12.0011 11.9998L6.75806 17.2428ZM17.2441 6.75684L12.0001 11.9998L17.2441 6.75684ZM12.0001 11.9998L6.75806 6.75684L12.0001 11.9998Z"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
-                </button>
-
-                <button type="button" class="primary-btn">
-                  Create Task
-                  <img src="../assets/imgs/check.svg" alt="create" />
-                </button>
               </div>
             </div>
-          </form>
-        </section>
+
+            <div class="subtasks-list" id="subtasksList"></div>
+          </div>
+        </form>
+
+        <div class="addtask-foot">
+          <p class="required-hint">
+            <span class="req">*</span> This field is required
+          </p>
+
+          <div class="addtask-actions">
+            <button type="button" class="secondary-btn">
+              Clear
+              <svg
+                class="icon icon-cancel"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <path
+                  d="M12.0011 11.9998L17.2441 17.2428M6.75806 17.2428L12.0011 11.9998L6.75806 17.2428ZM17.2441 6.75684L12.0001 11.9998L17.2441 6.75684ZM12.0001 11.9998L6.75806 6.75684L12.0001 11.9998Z"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+
+            <button type="button" class="primary-btn">
+              Create Task
+              <img src="../assets/imgs/check.svg" alt="create" />
+            </button>
+          </div>
+        </div>
+      </section>
 
         <div id="taskAddedToast" class="task-toast">
           <span>Task added to board</span>
