@@ -57,7 +57,7 @@ function addTaskTemplate() {
         <button
           class="add-task-close-btn"
           type="button"
-          onclick="closeTaskDialog()"
+          onclick="closeAddTaskModalDirect()"
         >
           ✕
         </button>

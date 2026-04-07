@@ -196,6 +196,11 @@ function closeTaskDialog() {
         return;
     }
 
+    if (dialog.classList.contains("add-task-dialog")) {
+        closeAddTaskModalDirect();
+        return;
+    }
+
     dialog.classList.add("is-closing");
 
     setTimeout(function () {
