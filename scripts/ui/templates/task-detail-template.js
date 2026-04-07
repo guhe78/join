@@ -48,7 +48,7 @@ function dialogTemplate(task, categoryClass) {
           </div>
           <div class="detail-footer">
             <button onclick="deleteTask('tasks', '${task.firebaseKey}'), closeTaskDialog()" class="action-btn">
-              <img src="../assets/imgs/delete.png" /> Delete
+              <img src="../assets/imgs/delete.png" alt="delete button icon" /> Delete
             </button>
             <div class="footer-divider"></div>
             <button onclick="editTask('${task.firebaseKey}')" class="action-btn">
