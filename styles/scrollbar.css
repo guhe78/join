@@ -1,0 +1,4 @@
+* {
+  scrollbar-width: auto;
+  scrollbar-color: var(--side-bar-privacy-legal) transparent;
+}
