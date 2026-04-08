@@ -62,6 +62,10 @@ function noSubtasksTemplate() {
   return `<p class="no-subtasks">No subtasks available</p>`;
 }
 
+/**
+ * Creates the sidebar login link used on side pages for non-registered users.
+ * @returns {string} Login link HTML markup.
+ */
 function logInLinkTemplate() {
   return `<a
             href="../index.html"
@@ -70,6 +74,10 @@ function logInLinkTemplate() {
           ><p class="login-btn-notregistered">${loginIcon()}&nbsp;Login</p></a>`;
 }
 
+/**
+ * Creates the sidebar navigation links shown for logged-in users.
+ * @returns {string} Sidebar navigation HTML markup.
+ */
 function logedInAsideTemplate() {
   return `<a href="summary.html" class="page-link-button"
             ><img src="../assets/imgs/summary.png" alt="Summary" />Summary</a
