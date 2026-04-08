@@ -45,6 +45,8 @@
     <link rel="stylesheet" href="../styles/font.css" />
     <link rel="stylesheet" href="../style.css" />
     <link rel="stylesheet" href="../styles/dropdown-menu.css" />
+    <link rel="stylesheet" href="../styles/scrollbar.css" />
+    <link rel="stylesheet" href="../styles/privacy-legal.css" />
     <script src="../scripts/ui/templates/dropdown-template.js" defer></script>
     <script src="../scripts/utils/dropdown-menu.js" defer></script>
     <script src="../scripts/utils/helpers.js" defer></script>
@@ -57,7 +59,7 @@
       <img src="../assets/imgs/join-logo-white.png" alt="logo" class="logo" />
       <nav class="side-nav">
         <div class="page-links" id="page-links"></div>
-        <div class="police-links-container">
+        <div class="police-links-container" id="links-container">
           <a href="./privacy-policy.html">Privacy Policy</a>
           <a href="./legal-notice.html">Legal notice</a>
         </div>
@@ -65,23 +67,28 @@
     </aside>
     <main>
       <header>
-        <img
-          src="../assets/imgs/join-logo.png"
-          alt="logo"
-          class="logo-mobile"
-        />
-        <p class="headline">Kanban Project Management Tool</p>
-        <nav class="header-nav" id="header-nav">
-          <a class="button help-button" href="./help-desk.html"
-            ><img src="../assets/imgs/help.png" alt="search"
-          /></a>
-          <div class="profile-wrapper">
-            <button id="profile-button" class="button profile-button"></button>
-            <div id="dropdown-container"></div>
-          </div>
-        </nav>
+        <div class="header-container">
+          <img
+            src="../assets/imgs/join-logo.png"
+            alt="logo"
+            class="logo-mobile"
+          />
+          <p class="headline">Kanban Project Management Tool</p>
+          <nav class="header-nav" id="header-nav">
+            <a class="button help-button" href="./help-desk.html"
+              ><img src="../assets/imgs/help.png" alt="search"
+            /></a>
+            <div class="profile-wrapper">
+              <button
+                id="profile-button"
+                class="button profile-button"
+              ></button>
+              <div id="dropdown-container"></div>
+            </div>
+          </nav>
+        </div>
       </header>
-      <section class="main-section">
+      <section class="main-section max-width-1208">
         <h1>Privacy Policy</h1>
         <h3 class="pd-top24">1. Data Controller</h3>
         <p class="pd-top8">

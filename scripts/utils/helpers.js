@@ -145,11 +145,14 @@ function renderLoginInitials() {
 function hideOrShowLogedInContent(user) {
   const headerNav = document.getElementById("header-nav");
   const pageLinks = document.getElementById("page-links");
+  const linksContainer = document.getElementById("links-container");
   if (user === null) {
     headerNav.classList.add("hidden");
     pageLinks.innerHTML = logInLinkTemplate();
+    linksContainer.classList.add("show");
   } else {
     headerNav.classList.remove("hidden");
     pageLinks.innerHTML = logedInAsideTemplate();
+    linksContainer.classList.remove("show");
   }
 }

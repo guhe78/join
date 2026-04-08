@@ -123,6 +123,18 @@ a {
   display: none !important;
 }
 
+.show {
+  display: flex !important;
+}
+
+.central-body {
+  margin: 0 auto;
+}
+
+.max-width-1208 {
+  max-width: 1208px;
+}
+
 @media (max-width: 600px) {
   .main-section {
     margin: 24px;
