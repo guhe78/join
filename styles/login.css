@@ -219,6 +219,7 @@ body.logo-early .login-logo {
 
 .required-warning {
   position: absolute;
+  left: 10px;
   color: red;
   font-size: 14px;
 }

@@ -25,6 +25,11 @@ async function getSignupData(event) {
     DOM.warningMessagePolicySignupEl.textContent = "Accept the privacy policy";
     return;
   }
+  if (await userExists(newUser.userEmail)) {
+    DOM.warningMessageEmailSignupEl.textContent =
+      "An account with this email already exists";
+    return;
+  }
   await setUser(newUser);
   DOM.toastSectionEl.classList.add("fade-in");
   setTimeout(() => {
@@ -116,6 +121,12 @@ function validatePassword(forceValidation = false) {
   }
 
   return isValid;
+}
+
+async function userExists(email) {
+  const users = await getData("users");
+  const userArray = makeArray(users);
+  return userArray.some((user) => user.userEmail === email);
 }
 
 /**
