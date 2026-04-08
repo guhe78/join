@@ -1,33 +1,36 @@
 /**
+ * This function is the initialization function for the signup page. It calls the initEvents function to set up event listeners for the signup form and input fields. The init function is called when the DOM content is fully loaded, ensuring that all elements are available for manipulation.
+ * @returns {void}
+ */
+function init() {
+  initEvents();
+}
+
+/**
  * Handles the signup form submission by validating the input, creating a new user, and displaying a toast message upon successful signup.
  * @param {Event} event - The form submission event.
  * @returns {Promise<void>}
  */
 async function getSignupData(event) {
   event.preventDefault();
-  if (!isEmptyInputs() || !validateInputs()) return;
-
-  let userNameArray = DOM.nameSignupEl.value.trim().split(" ");
-  if (userNameArray.length < 2) {
-    DOM.warningMessageNameSignupEl.innerHTML = "First- and lastname required";
-    return;
-  }
+  if (!validateInputs()) return;
+  const userNameArray = DOM.nameSignupEl.value.trim().split(/\s+/);
   const newUser = {
     firstName: userNameArray[0],
-    lastName: userNameArray[1],
-    userEmail: DOM.emailSignupEl.value,
+    lastName: userNameArray.at(-1),
+    userEmail: DOM.emailSignupEl.value.trim(),
     userPassword: DOM.passwordSignupEl.value,
   };
   if (!DOM.privacyAcceptEl.checked) {
-    DOM.warningMessagePolicySignupEl.innerHTML = "Accept the privacy policy";
-  } else {
-    await setUser(newUser);
-    DOM.toastSectionEl.classList.add("fade-in");
-    setTimeout(() => {
-      DOM.toastSectionEl.classList.remove("fade-in");
-      window.location.href = "../index.html";
-    }, 2000);
+    DOM.warningMessagePolicySignupEl.textContent = "Accept the privacy policy";
+    return;
   }
+  await setUser(newUser);
+  DOM.toastSectionEl.classList.add("fade-in");
+  setTimeout(() => {
+    DOM.toastSectionEl.classList.remove("fade-in");
+    window.location.href = "../index.html";
+  }, 2000);
 }
 
 /**
@@ -35,26 +38,84 @@ async function getSignupData(event) {
  * @returns {boolean} - Returns true if all inputs are valid, false otherwise.
  */
 function validateInputs() {
-  let isValidate = true;
-  if (!checkName(DOM.nameSignupEl.value.trim())) {
-    DOM.warningMessageNameSignupEl.innerHTML =
-      "Firstname and Lastname required";
-    isValidate = false;
+  const isNameValid = validateName();
+  const isEmailValid = validateEmail();
+  const isPasswordValid = validatePassword(true);
+  return isNameValid && isEmailValid && isPasswordValid;
+}
+
+function validateName() {
+  const name = DOM.nameSignupEl.value.trim();
+  const parts = name.split(/\s+/).filter(Boolean);
+
+  if (parts.length < 2) {
+    DOM.warningMessageNameSignupEl.textContent =
+      "Firstname and lastname required";
+    return false;
   }
-  if (!checkEmail(DOM.emailSignupEl.value)) {
-    DOM.warningMessageEmailSignupEl.innerHTML = "Email required";
-    isValidate = false;
+
+  const isValid = parts.every((part) => /^[A-Za-zÄÖÜäöüß-]{2,}$/.test(part));
+  DOM.warningMessageNameSignupEl.textContent = isValid
+    ? ""
+    : "Names with 2 letters";
+  return isValid;
+}
+
+function validateEmail() {
+  const email = DOM.emailSignupEl.value.trim();
+
+  if (email.length === 0) {
+    DOM.warningMessageEmailSignupEl.textContent = "Email required";
+    return false;
   }
-  if (
-    !checkPassword(
-      DOM.passwordSignupEl.value,
-      DOM.passwordConfirmSignupEl.value,
-    )
-  ) {
-    DOM.warningMessagePasswordSignupEl.innerHTML = "Password different";
-    isValidate = false;
+
+  if (!checkEmail(email)) {
+    DOM.warningMessageEmailSignupEl.textContent =
+      "Please enter a valid email address";
+    return false;
   }
-  return isValidate;
+
+  DOM.warningMessageEmailSignupEl.textContent = "";
+  return true;
+}
+
+/**
+ * Validates the password and password confirmation fields by checking if they are not empty and if they match. The validation is triggered on input and on form submission.
+ * @param {boolean} forceValidation - true on submit, false while typing
+ */
+function validatePassword(forceValidation = false) {
+  const password = DOM.passwordSignupEl.value;
+  const passwordConfirm = DOM.passwordConfirmSignupEl.value;
+
+  const hasStarted = password.length > 0 || passwordConfirm.length > 0;
+  if (!forceValidation && !hasStarted) {
+    DOM.warningMessagePasswordSignupEl.textContent = "";
+    DOM.warningMessagePasswordConfirmSignupEl.textContent = "";
+    return true;
+  }
+
+  let isValid = true;
+
+  if (password.length === 0) {
+    DOM.warningMessagePasswordSignupEl.textContent = "Password required";
+    isValid = false;
+  } else {
+    DOM.warningMessagePasswordSignupEl.textContent = "";
+  }
+
+  if (passwordConfirm.length === 0) {
+    DOM.warningMessagePasswordConfirmSignupEl.textContent =
+      "Please confirm your password";
+    isValid = false;
+  } else if (password !== passwordConfirm) {
+    DOM.warningMessagePasswordConfirmSignupEl.textContent =
+      "Passwords do not match";
+    isValid = false;
+  } else {
+    DOM.warningMessagePasswordConfirmSignupEl.textContent = "";
+  }
+
+  return isValid;
 }
 
 /**
@@ -67,16 +128,6 @@ async function setUser(user) {
 }
 
 /**
- * Checks if the name input contains at least a first name and a last name by splitting the input string and checking the length of the resulting array.
- * @param {string} input - The name input string to be checked.
- * @returns {boolean} - Returns true if the input contains at least a first name and a last name, false otherwise.
- */
-function checkName(input) {
-  let check = input.split(" ");
-  return check.length > 1;
-}
-
-/**
  * Checks if the email input is in a valid email format using a regular expression pattern.
  * @param {string} input - The email input string to be checked.
  * @returns {boolean} - Returns true if the input is in a valid email format, false otherwise.
@@ -84,52 +135,4 @@ function checkName(input) {
 function checkEmail(input) {
   const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
   return pattern.test(input);
-}
-
-/**
- * Checks if the password and password confirmation inputs match.
- * @param {string} password - The password input string to be checked.
- * @param {string} passwordConfirm - The password confirmation input string to be checked.
- * @returns {boolean} - Returns true if the password and confirmation match, false otherwise.
- */
-function checkPassword(password, passwordConfirm) {
-  if (password !== passwordConfirm) {
-    return false;
-  } else {
-    return true;
-  }
-}
-
-/**
- * Checks if any of the signup form input fields are empty and displays appropriate warning messages for each empty field. This function is called when the user submits the signup form to ensure that all required fields are filled out before proceeding with the signup process.
- * @returns {boolean} - Returns true if all input fields are filled, false if any field is empty.
- */
-function isEmptyInputs() {
-  let returnValue = true;
-  if (DOM.nameSignupEl.value.length === 0) {
-    DOM.warningMessageNameSignupEl.innerHTML = "Name required";
-    returnValue = false;
-  }
-  if (DOM.emailSignupEl.value.length === 0) {
-    DOM.warningMessageEmailSignupEl.innerHTML = "Email required";
-    returnValue = false;
-  }
-  if (DOM.passwordSignupEl.value.length === 0) {
-    DOM.warningMessagePasswordSignupEl.innerHTML = "Password required";
-    returnValue = false;
-  }
-  if (DOM.passwordConfirmSignupEl.value.length === 0) {
-    DOM.warningMessagePasswordConfirmSignupEl.innerHTML = "Password required";
-    returnValue = false;
-  }
-  return returnValue;
-}
-
-/**
- * Clears the input fields in the signup form. This function is called after a successful signup or when the user cancels the signup operation to reset the form to its initial state.
- * @param {Event} event - The form submission event.
- * @returns {void}
- */
-function clearInput(event) {
-  event.value = "";
 }

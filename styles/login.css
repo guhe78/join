@@ -160,7 +160,10 @@ form {
 }
 
 .footer-links {
+  position: fixed;
+  bottom: 40px;
   display: flex;
+
   gap: 30px;
   font-size: 14px;
   color: #888;
