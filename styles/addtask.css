@@ -19,6 +19,7 @@
   flex-direction: column;
   padding: 110px 96px;
   overflow: auto;
+  scrollbar-width: none;
 }
 
 .addtask-form {

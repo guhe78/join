@@ -153,6 +153,8 @@ function hideOrShowLogedInContent(user) {
   } else {
     headerNav.classList.remove("hidden");
     pageLinks.innerHTML = logedInAsideTemplate();
-    linksContainer.classList.remove("show");
+    if (linksContainer) {
+      linksContainer.classList.remove("show");
+    }
   }
 }

@@ -448,7 +448,7 @@ h3 {
     z-index: 20;
 
     transform: translateX(150%);
-    transition: transform 180ms ease;
+    transition: 0.1s ease;
     visibility: hidden;
 
     pointer-events: none;

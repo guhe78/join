@@ -9,7 +9,7 @@
 .add-task-dialog::backdrop {
   background: rgba(0, 0, 0, 0.25);
   opacity: 0;
-  transition: opacity 250ms ease;
+  transition: 0.1s ease;
 }
 
 .add-task-dialog[open]::backdrop {

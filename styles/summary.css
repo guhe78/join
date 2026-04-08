@@ -3,8 +3,9 @@
   padding: 96px 48px;
   background-color: var(--background-color);
   opacity: 1;
-  transition: opacity 0.5s ease;
+  transition: 0.1s ease;
   overflow-y: auto;
+  scrollbar-width: none;
 }
 
 .summary-content {
@@ -80,8 +81,6 @@
 }
 
 .img-card {
-  width: 32px;
-  height: 32px;
   filter: brightness(10);
 }
 
@@ -246,7 +245,19 @@
   color: var(--greeting-name-and-hover);
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1100px) {
+  .card.todo img {
+    content: url("../assets/imgs/to-do-icon.svg");
+  }
+
+  .card.done img {
+    content: url("../assets/imgs/check-icon.svg");
+  }
+
+  .card.priority img {
+    content: url("../assets/imgs/prio-alta-icon.svg");
+  }
+
   .welcome-section {
     position: fixed;
     top: 80px;
@@ -278,7 +289,7 @@
   .summary-title {
     flex-direction: column;
     align-items: flex-start;
-    gap: 4px;
+    margin-bottom: 16px;
   }
 
   .split-line {
@@ -288,16 +299,35 @@
   .bottom-line {
     display: block;
   }
-}
 
-@media (max-width: 600px) {
+  h1 {
+    font-size: 47px;
+  }
+
+  .bottom-line {
+    width: 90px;
+  }
+
+  .summary-subtitle {
+    font-size: 20px;
+  }
+
   .summary-section {
-    padding: 0 8px;
-    margin: auto;
+    padding: 0 16px;
+    margin-top: 56px;
+  }
+
+  .priority {
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .split-line-priority {
+    height: 68px;
   }
 
   .summary-container {
-    gap: 12px;
+    gap: 24px;
     padding-top: 16px;
     padding-bottom: 16px;
     width: 100%;
@@ -305,13 +335,8 @@
   }
 
   .icon-wrapper {
-    width: 32px;
-    height: 32px;
-  }
-
-  .img-card {
-    width: 20px;
-    height: 20px;
+    width: 40px;
+    height: 40px;
   }
 
   .text-wrapper {
@@ -320,28 +345,45 @@
   }
 
   .numbers {
-    font-size: 32px;
+    font-size: 47px;
   }
 
   .card-font {
-    font-size: 12px;
+    font-size: 16px;
   }
 
   .task-text {
-    font-size: 12px;
+    font-size: 16px;
   }
 
   .card {
     padding: 16px;
-    border-radius: 30px;
+    border-radius: 20px;
   }
 
   .deadline-text {
-    margin-top: 4px;
-    font-size: 12px;
+    font-size: 16px;
   }
 
   .date-prior {
-    font-size: 14px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 428px) {
+  .card {
+    padding: 8px;
+  }
+
+  .split-line-priority {
+    margin: 0 0;
+  }
+
+  .priority {
+    gap: 12px;
+  }
+
+  .summary-container {
+    gap: 8px;
   }
 }
