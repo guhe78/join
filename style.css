@@ -152,11 +152,6 @@ header {
   fill: currentColor;
 }
 
-.login-btn-notregistered {
-  display: flex;
-  align-items: center;
-}
-
 .page-link-button.active {
   background-color: #091931;
   color: white;
@@ -247,16 +242,21 @@ header {
   }
 
   .police-links-container {
-    display: none;
-  }
-
-  .not-registered {
-    display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     margin-top: 0;
     margin-bottom: 0;
     gap: 16px;
+  }
+
+  .police-links-container a {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    height: 76px;
+    width: 100px;
+    border-radius: 16px;
+    padding: 0;
   }
 }
