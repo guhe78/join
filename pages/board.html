@@ -75,7 +75,6 @@
     ></script>
     <script src="../scripts/ui/templates/task-board-template.js" defer></script>
     <script src="../scripts/ui/templates/helper-templates.js" defer></script>
-
     <script src="../scripts/ui/board-ui.js" defer></script>
     <script src="../scripts/state/board-state.js" defer></script>
     <script src="../scripts/utils/board-utils.js" defer></script>
@@ -85,12 +84,11 @@
     <script src="../scripts/utils/dropdown-menu.js" defer></script>
     <script src="../scripts/auth/auth.js" defer></script>
   </head>
-
   <body onload="init()" onclick="closeTaskMoveMenus()">
     <aside>
       <img src="../assets/imgs/join-logo-white.png" alt="logo" class="logo" />
       <nav class="side-nav">
-        <div class="page-links">
+        <div class="page-links" id="page-links">
           <a href="summary.html" class="page-link-button"
             ><img src="../assets/imgs/summary.png" alt="Summary" />Summary</a
           >
@@ -118,15 +116,12 @@
           class="logo-mobile"
         />
         <p class="headline">Kanban Project Management Tool</p>
-        <nav class="header-nav">
+        <nav class="header-nav" id="header-nav">
           <a class="button help-button" href="./help-desk.html"
             ><img src="../assets/imgs/help.png" alt="search"
           /></a>
           <div class="profile-wrapper">
-            <button id="profile-button" class="button profile-button">
-              SM
-            </button>
-
+            <button id="profile-button" class="button profile-button"></button>
             <div id="dropdown-container"></div>
           </div>
         </nav>

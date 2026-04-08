@@ -106,10 +106,7 @@
             ><img src="../assets/imgs/help.png" alt="search"
           /></a>
           <div class="profile-wrapper">
-            <button id="profile-button" class="button profile-button">
-              SM
-            </button>
-
+            <button id="profile-button" class="button profile-button"></button>
             <div id="dropdown-container"></div>
           </div>
         </nav>
@@ -120,7 +117,6 @@
           <div class="addtask-col">
             <div class="field">
               <p class="label" for="title">Title<span class="req">*</span></p>
-
               <input
                 id="title"
                 class="input addtask-input"
@@ -130,7 +126,6 @@
               />
               <p class="error-msg" id="titleError">This field is required</p>
             </div>
-
             <div class="field">
               <p class="label" for="desc">Description</p>
               <textarea
@@ -141,7 +136,6 @@
                 maxlength="250"
               ></textarea>
             </div>
-
             <div class="field">
               <p class="label" for="due-date">
                 Due date<span class="req">*</span>
@@ -180,9 +174,7 @@
               </div>
             </div>
           </div>
-
           <div class="addtask-divider"></div>
-
           <div class="addtask-col">
             <div class="prio-row">
               <p class="label" for="assignedSelect">Priority</p>
@@ -194,7 +186,6 @@
                     <path d="M7 19l5-5 5 5" />
                   </svg>
                 </button>
-
                 <button type="button" class="prio-btn prio-medium is-active">
                   Medium
                   <svg class="prio-icon" viewBox="0 0 24 24" aria-hidden="true">
@@ -202,7 +193,6 @@
                     <path d="M7 14h10" />
                   </svg>
                 </button>
-
                 <button type="button" class="prio-btn prio-low">
                   Low
                   <svg class="prio-icon" viewBox="0 0 24 24" aria-hidden="true">
@@ -212,10 +202,8 @@
                 </button>
               </div>
             </div>
-
             <div class="field">
               <p class="label" for="assignedSelect">Assigned to</p>
-
               <div class="custom-select" id="assignedSelect">
                 <div class="select-trigger">
                   <span class="trigger-text">Select contacts to assign</span>
@@ -225,18 +213,14 @@
                     alt=""
                   />
                 </div>
-
                 <div class="select-dropdown" id="assignedDropdown"></div>
               </div>
-
               <div class="assigned-badges" id="assignedBadges"></div>
             </div>
-
             <div class="field">
               <p class="label" for="catSelect">
                 Category<span class="req">*</span>
               </p>
-
               <div class="custom-select custom-select--single" id="catSelect">
                 <div class="select-trigger">
                   <span class="trigger-text">Select task category</span>
@@ -246,7 +230,6 @@
                     alt=""
                   />
                 </div>
-
                 <div class="select-dropdown">
                   <div class="select-option" data-value="technical">
                     Technical Task
@@ -256,15 +239,11 @@
                   </div>
                 </div>
               </div>
-
               <input type="hidden" name="category" id="catHidden" value="" />
-
               <p class="error-msg" id="categoryError">This field is required</p>
             </div>
-
             <div class="field">
               <label class="label" for="subtask">Subtasks</label>
-
               <div class="subtask-input">
                 <input
                   id="subtask"
@@ -274,7 +253,6 @@
                   text
                   maxlength="60"
                 />
-
                 <div class="subtask-actions">
                   <button type="button" class="subtask-btn">
                     <img
@@ -282,7 +260,6 @@
                       alt="Close Subtask"
                     />
                   </button>
-
                   <div class="divider"></div>
                   <button type="button" class="subtask-btn">
                     <img
@@ -293,16 +270,13 @@
                 </div>
               </div>
             </div>
-
             <div class="subtasks-list" id="subtasksList"></div>
           </div>
         </form>
-
         <div class="addtask-foot">
           <p class="required-hint">
             <span class="req">*</span> This field is required
           </p>
-
           <div class="addtask-actions">
             <button type="button" class="secondary-btn">
               Clear
@@ -323,7 +297,6 @@
                 />
               </svg>
             </button>
-
             <button type="button" class="primary-btn">
               Create Task
               <img src="../assets/imgs/check.svg" alt="create" />

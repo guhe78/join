@@ -61,3 +61,26 @@ function subtaskItemTemplate(firebaseKey, subId, checkImg, sub) {
 function noSubtasksTemplate() {
   return `<p class="no-subtasks">No subtasks available</p>`;
 }
+
+function logInLinkTemplate() {
+  return `<a
+            href="../index.html"
+            class="page-link-button icon login-btn-notregistered"
+            id="login-sidepages"
+          ><p class="login-btn-notregistered">${loginIcon()}&nbsp;Login</p></a>`;
+}
+
+function logedInAsideTemplate() {
+  return `<a href="summary.html" class="page-link-button"
+            ><img src="../assets/imgs/summary.png" alt="Summary" />Summary</a
+          >
+          <a href="add-task.html" class="page-link-button"
+            ><img src="../assets/imgs/add-task.png" alt="Add Task" />Add Task</a
+          >
+          <a href="board.html" class="page-link-button"
+            ><img src="../assets/imgs/board.png" alt="Board" />Board</a
+          >
+          <a href="contacts.html" class="page-link-button"
+            ><img src="../assets/imgs/contacts.png" alt="Contacts" />Contacts</a
+          >`;
+}

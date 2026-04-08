@@ -119,6 +119,10 @@ a {
   padding-top: 8px;
 }
 
+.hidden {
+  display: none !important;
+}
+
 @media (max-width: 600px) {
   .main-section {
     margin: 24px;

@@ -4,8 +4,7 @@
  */
 function updateUserUI() {
   const user = getUserData();
-
-  document.getElementById("profile-button").innerHTML = user.initials;
+  renderLoginInitials();
   document.getElementById("user-name").innerHTML = user.name;
   document.querySelector(".welcome-section h2").textContent = getGreeting();
 }
@@ -43,14 +42,11 @@ function updateSummary() {
 function updateUrgentDeadline() {
   const urgentDateEl = document.getElementById("urgent-date");
   if (!urgentDateEl) return;
-
   const mostUrgent = getMostUrgentTask(tasks);
-
   if (!mostUrgent) {
     urgentDateEl.textContent = "No urgent tasks";
     return;
   }
-
   urgentDateEl.textContent = formatDate(mostUrgent.due_date);
 }
 
@@ -60,14 +56,10 @@ function updateUrgentDeadline() {
  */
 function startSplash() {
   const { welcome, summary } = getWelcomeElements();
-
   if (!welcome || !summary) return;
   if (splashRunning) return;
-
   splashRunning = true;
-
   document.body.classList.add("mobile-welcome-active");
-
   runSplashAnimation(welcome, summary);
 }
 
@@ -78,7 +70,6 @@ function startSplash() {
  */
 function runSplashAnimation(welcome, summary) {
   showWelcome(welcome, summary);
-
   setTimeout(() => {
     hideWelcome(welcome, summary);
   }, 1500);
@@ -92,7 +83,6 @@ function initWelcome() {
   if (isMobile) {
     startSplash();
   }
-
   window.addEventListener("resize", handleResize);
 }
 
@@ -114,7 +104,6 @@ function showWelcome(welcome, summary) {
  */
 function hideWelcome(welcome, summary) {
   welcome.style.opacity = "0";
-
   setTimeout(() => {
     welcome.style.display = "none";
     summary.style.opacity = "1";
@@ -128,14 +117,10 @@ function hideWelcome(welcome, summary) {
  */
 function resetWelcome() {
   const { welcome, summary } = getWelcomeElements();
-
   if (!welcome || !summary) return;
-
   welcome.style.display = "";
   welcome.style.opacity = "";
-
   summary.style.opacity = "";
-
   document.body.classList.remove("mobile-welcome-active");
 }
 
@@ -145,15 +130,12 @@ function resetWelcome() {
  */
 function handleResize() {
   const nowMobile = window.innerWidth <= 1000;
-
   if (!isMobile && nowMobile) {
     startSplash();
   }
-
   if (isMobile && !nowMobile) {
     resetWelcome();
   }
-
   isMobile = nowMobile;
 }
 
@@ -163,7 +145,6 @@ function handleResize() {
  */
 function getGreeting() {
   const hour = new Date().getHours();
-
   if (hour < 12) return "Good morning,";
   if (hour < 18) return "Good afternoon,";
   return "Good evening,";
@@ -185,7 +166,6 @@ function initCardLinks() {
  */
 function handleCardClick(card) {
   let url = "board.html";
-
   if (card.classList.contains("todo")) {
     url += "#todo";
   } else if (card.classList.contains("done")) {
@@ -195,6 +175,5 @@ function handleCardClick(card) {
   } else if (card.classList.contains("feedback")) {
     url += "#review";
   }
-
   window.location.href = url;
 }

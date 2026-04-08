@@ -9,8 +9,7 @@ async function init() {
   await getContacts();
   renderContactsList();
   renderContactMain();
-
-  DOM.userButtonEl.innerHTML = getUserData().initials;
+  renderLoginInitials();
   DOM.closeButtonEl.onclick = closeDialog;
   DOM.closeButtonEl.innerHTML = closeIcon();
 }

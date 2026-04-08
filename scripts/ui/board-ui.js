@@ -4,8 +4,7 @@
  */
 async function init() {
   checkAuth();
-  document.getElementById("profile-button").innerHTML = getUserData().initials;
-
+  renderLoginInitials();
   await getContacts();
   await getTasks();
   currentTasks = tasks;
@@ -281,7 +280,6 @@ function checkEnter(event, _inputId) {
 function scrollToHash() {
   const hash = window.location.hash;
   if (!hash) return;
-
   const el = document.querySelector(hash);
   if (el) {
     el.scrollIntoView({

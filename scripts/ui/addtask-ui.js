@@ -42,7 +42,6 @@ function clearAssignedSelect() {
     let checkbox = options[i].getElementsByTagName("input")[0];
     checkbox.checked = false;
   }
-
   updateAssignedText();
   updateAssignedBadges();
   assignedSelect.classList.remove("open");
@@ -167,7 +166,6 @@ function createTaskObject(status = "todo") {
   let catHidden = document.getElementById("catHidden");
   let categoryValue = catHidden.value;
   let categoryLabel = getCategoryLabel(categoryValue);
-
   return {
     assigned_to: getAssignedContacts(),
     author_id: "user_1",
@@ -245,8 +243,7 @@ async function createTaskClicked() {
  */
 async function initAddTask(createHandler = createTaskClicked) {
   checkAuth();
-  document.getElementById("profile-button").innerHTML = getUserData().initials;
-
+  renderLoginInitials();
   await getContacts();
   renderAssignedContacts();
   initPriorityButtons();

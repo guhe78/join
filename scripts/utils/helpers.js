@@ -40,8 +40,10 @@ function getPriorityIcon(priority) {
  */
 function getUserData() {
   const userData = localStorage.getItem("joinUser");
+  if (!userData) {
+    return userData;
+  }
   const data = JSON.parse(userData);
-
   if (data.isGuest === false) {
     return {
       initials:
@@ -50,8 +52,6 @@ function getUserData() {
     };
   } else if (data.isGuest === true) {
     return { initials: "G", name: "Guest" };
-  } else {
-    return { initials: "", name: "" };
   }
 }
 
@@ -100,17 +100,56 @@ function splitName(name) {
   };
 }
 
+/**
+ * Marks the current page link in the sidebar navigation as active.
+ * The current page is determined from the pathname and compared with each link href.
+ * @returns {void}
+ */
 function setActiveLink() {
   const links = document.querySelectorAll(".page-link-button");
   const currentPage = window.location.pathname.split("/").pop();
-
   links.forEach((link) => {
     const linkPage = link.getAttribute("href");
-
     if (linkPage === currentPage) {
       link.classList.add("active");
     }
   });
 }
 
-setActiveLink();
+/**
+ * Renders user initials into the profile button and toggles logged-in UI elements.
+ * If no user data exists, login related links are shown instead.
+ * @returns {void}
+ */
+function renderLoginInitials() {
+  const pageLinks = document.getElementById("page-links");
+  if (!getUserData()) {
+    if (pageLinks) {
+      hideOrShowLogedInContent(null);
+    }
+    return;
+  } else {
+    if (pageLinks) {
+      hideOrShowLogedInContent(getUserData().isGuest);
+    }
+    document.getElementById("profile-button").innerHTML =
+      getUserData().initials;
+  }
+}
+
+/**
+ * Shows or hides logged-in navigation content based on the current user state.
+ * @param {boolean|null} user - Null for logged-out state, otherwise logged-in state.
+ * @returns {void}
+ */
+function hideOrShowLogedInContent(user) {
+  const headerNav = document.getElementById("header-nav");
+  const pageLinks = document.getElementById("page-links");
+  if (user === null) {
+    headerNav.classList.add("hidden");
+    pageLinks.innerHTML = logInLinkTemplate();
+  } else {
+    headerNav.classList.remove("hidden");
+    pageLinks.innerHTML = logedInAsideTemplate();
+  }
+}
