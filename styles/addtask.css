@@ -540,6 +540,7 @@ textarea::placeholder {
   align-items: center;
   gap: 8px;
   flex: 1;
+  height: 24px;
 }
 
 .subtask-dot {
@@ -636,9 +637,9 @@ textarea::placeholder {
 
 .task-toast {
   position: fixed;
-  bottom: 35%;
+  bottom: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) translateX(400px);
+  transform: translateX(-50%);
   width: 326px;
   max-width: calc(100% - 32px);
   height: 76px;
@@ -652,6 +653,7 @@ textarea::placeholder {
   font-size: 20px;
   font-weight: 500;
   opacity: 0;
+  pointer-events: none;
   transition:
     transform 0.4s ease,
     opacity 0.4s ease;
@@ -659,7 +661,7 @@ textarea::placeholder {
 }
 
 .task-toast.show {
-  transform: translate(-50%, -50%) translateX(0);
+  transform: translateX(-50%);
   opacity: 1;
 }
 
