@@ -45,7 +45,7 @@ body.dialog-open {
 .add-task-close-btn {
   position: absolute;
   top: 64px;
-  right: 24px;
+  right: 32px;
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -243,6 +243,8 @@ body.dialog-open {
 
 .template-container {
   padding: 0px;
+  padding-bottom: 8px;
+  width: 100%;
 }
 
 @media (max-width: 1160px) {
