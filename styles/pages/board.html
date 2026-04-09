@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Join</title>
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="../assets/favicon/favicon-16x16.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="../assets/favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="../assets/favicon/android-chrome-192x192.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="512x512"
+      href="../assets/favicon/android-chrome-512x512.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      size="180x180"
+      href="../assets/favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="shortcut icon"
+      sizes="any"
+      href="../assets/favicon/favicon.ico"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="../styles/standard.css" />
+    <link rel="stylesheet" href="../styles/variables.css" />
+    <link rel="stylesheet" href="../styles/font.css" />
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="../styles/dropdown-menu.css" />
+    <link rel="stylesheet" href="../styles/board.css" />
+    <link rel="stylesheet" href="../styles/templates.css" />
+    <link rel="stylesheet" href="../styles/edit-template.css" />
+    <link rel="stylesheet" href="../styles/scrollbar.css" />
+    <link rel="stylesheet" href="../styles/addtask.css" />
+    <link rel="stylesheet" href="../styles/addtask-media.css" />
+    <link rel="stylesheet" href="../styles/board-modal.css" />
+    <script src="../scripts/config.js" defer></script>
+    <script src="../scripts/services.js" defer></script>
+    <script src="../scripts/utils/helpers.js" defer></script>
+    <script src="../scripts/icons/icons.js" defer></script>
+    <script src="../scripts/ui/templates/addtask-template.js" defer></script>
+    <script src="../scripts/utils/assigned-to.js" defer></script>
+    <script
+      src="../scripts/ui/templates/assigned-to-template.js"
+      defer
+    ></script>
+    <script src="../scripts/dom/addtask-dom.js" defer></script>
+    <script src="../scripts/ui/addtask-ui.js" defer></script>
+    <script src="../scripts/utils/addtask-utils.js" defer></script>
+    <script src="../scripts/state/addtask-state.js" defer></script>
+    <script src="../scripts/ui/templates/edit-task-template.js" defer></script>
+    <script src="../scripts/ui/edit-task-ui.js" defer></script>
+    <script src="../scripts/utils/edit-task-utils.js" defer></script>
+    <script src="../scripts/utils/due-date.js" defer></script>
+    <script
+      src="../scripts/ui/templates/task-detail-template.js"
+      defer
+    ></script>
+    <script src="../scripts/ui/templates/task-board-template.js" defer></script>
+    <script src="../scripts/ui/templates/helper-templates.js" defer></script>
+    <script src="../scripts/ui/board-ui.js" defer></script>
+    <script src="../scripts/state/board-state.js" defer></script>
+    <script src="../scripts/utils/board-utils.js" defer></script>
+    <script src="../scripts/services/board-service.js" defer></script>
+    <script src="../scripts/ui/board-modal.js" defer></script>
+    <script src="../scripts/ui/templates/dropdown-template.js" defer></script>
+    <script src="../scripts/utils/dropdown-menu.js" defer></script>
+    <script src="../scripts/auth/auth.js" defer></script>
+  </head>
+  <body onload="init()" onclick="closeTaskMoveMenus()">
+    <aside>
+      <img src="../assets/imgs/join-logo-white.png" alt="logo" class="logo" />
+      <nav class="side-nav">
+        <div class="page-links" id="page-links">
+          <a href="summary.html" class="page-link-button"
+            ><img src="../assets/imgs/summary.png" alt="Summary" />Summary</a
+          >
+          <a href="add-task.html" class="page-link-button"
+            ><img src="../assets/imgs/add-task.png" alt="Add Task" />Add Task</a
+          >
+          <a href="board.html" class="page-link-button"
+            ><img src="../assets/imgs/board.png" alt="Board" />Board</a
+          >
+          <a href="contacts.html" class="page-link-button"
+            ><img src="../assets/imgs/contacts.png" alt="Contacts" />Contacts</a
+          >
+        </div>
+        <div class="police-links-container">
+          <a href="./privacy-policy.html">Privacy Policy</a>
+          <a href="./legal-notice.html">Legal notice</a>
+        </div>
+      </nav>
+    </aside>
+    <main>
+      <header>
+        <div class="header-container">
+          <img
+            src="../assets/imgs/join-logo.png"
+            alt="logo"
+            class="logo-mobile"
+          />
+          <p class="headline">Kanban Project Management Tool</p>
+          <nav class="header-nav" id="header-nav">
+            <a class="button help-button" href="./help-desk.html"
+              ><img src="../assets/imgs/help.png" alt="search"
+            /></a>
+            <div class="profile-wrapper">
+              <button
+                id="profile-button"
+                class="button profile-button"
+              ></button>
+              <div id="dropdown-container"></div>
+            </div>
+          </nav>
+        </div>
+      </header>
+      <section class="board-section max-width-1208">
+        <div class="board-header">
+          <h1 class="headline-board">Board</h1>
+          <div class="board-header-right">
+            <div class="search-container">
+              <input
+                type="text"
+                placeholder="Find Task"
+                id="searchInput"
+                onkeyup="checkEnter(event, 'searchInput')"
+              />
+              <div class="divider"></div>
+              <button onclick="searchFilter()">
+                <img src="../assets/imgs/search.svg" alt="Search" />
+              </button>
+            </div>
+            <button
+              class="primary-btn add-task-button"
+              onclick="openAddTaskModal('todo')"
+            >
+              <span>Add task</span
+              ><img src="../assets/imgs/add.svg" alt="add new task" />
+            </button>
+          </div>
+        </div>
+        <div class="search-mobile-section">
+          <div class="search-container search-container-mobile">
+            <input
+              type="text"
+              placeholder="Find Task"
+              id="searchInputMobile"
+              onkeyup="checkEnter(event, 'searchInputMobile')"
+            />
+            <div class="divider"></div>
+            <button onclick="searchFilter()">
+              <img src="../assets/imgs/search.svg" alt="Search" />
+            </button>
+          </div>
+        </div>
+        <div class="board-content" id="boardContent">
+          <section class="to-do-column">
+            <div class="board-header column-header">
+              <h2 class="column-title">To Do</h2>
+              <button
+                class="add-new-task-button"
+                onclick="openAddTaskModal('todo')"
+              >
+                <img
+                  src="../assets/imgs/plus-symbol.svg"
+                  alt="add new task to To Do column"
+                />
+              </button>
+            </div>
+            <div
+              id="todo"
+              class="to-do-content"
+              ondrop="moveTo('todo')"
+              ondragleave="highlight('todo', false)"
+              ondragover="
+                dragover(event);
+                highlight('todo', true);
+              "
+            >
+              <div class="drag-placeholder"></div>
+            </div>
+          </section>
+          <section class="in-progress-column">
+            <div class="board-header column-header">
+              <h2 class="column-title">In Progress</h2>
+              <button
+                class="add-new-task-button"
+                onclick="openAddTaskModal('inProgress')"
+              >
+                <img
+                  src="../assets/imgs/plus-symbol.svg"
+                  alt="add new task to In Progress column"
+                />
+              </button>
+            </div>
+            <div
+              id="inProgress"
+              class="in-progress-content"
+              ondrop="moveTo('inProgress')"
+              ondragleave="highlight('inProgress', false)"
+              ondragover="
+                dragover(event);
+                highlight('inProgress', true);
+              "
+            ></div>
+          </section>
+          <section class="review-column">
+            <div class="board-header column-header">
+              <h2 class="column-title">Await feedback</h2>
+              <button
+                class="add-new-task-button"
+                onclick="openAddTaskModal('review')"
+              >
+                <img
+                  src="../assets/imgs/plus-symbol.svg"
+                  alt="add new task to Await feedback column"
+                />
+              </button>
+            </div>
+            <div
+              id="review"
+              class="review-content"
+              ondrop="moveTo('review')"
+              ondragleave="highlight('review', false)"
+              ondragover="
+                dragover(event);
+                highlight('review', true);
+              "
+            ></div>
+          </section>
+          <section class="done-column">
+            <div class="board-header column-header">
+              <h2 class="column-title">Done</h2>
+            </div>
+            <div
+              id="done"
+              class="done-content"
+              ondrop="moveTo('done')"
+              ondragleave="highlight('done', false)"
+              ondragover="
+                dragover(event);
+                highlight('done', true);
+              "
+            ></div>
+          </section>
+        </div>
+      </section>
+    </main>
+    <dialog
+      id="dialog"
+      onclick="closeTaskDialog()"
+      onkeydown="handleAddTaskModalKey(event)"
+    >
+      <div id="dialogContent" onclick="event.stopPropagation()"></div>
+    </dialog>
+  </body>
+</html>

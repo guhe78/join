@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Join</title>
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="../assets/favicon/favicon-16x16.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="../assets/favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="../assets/favicon/android-chrome-192x192.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="512x512"
+      href="../assets/favicon/android-chrome-512x512.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      size="180x180"
+      href="../assets/favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="shortcut icon"
+      sizes="any"
+      href="../assets/favicon/favicon.ico"
+      type="image/x-icon"
+    />
+    <link rel="manifest" href="../assets/favicon/site.webmanifest" />
+    <link rel="stylesheet" href="../styles/standard.css" />
+    <link rel="stylesheet" href="../styles/variables.css" />
+    <link rel="stylesheet" href="../styles/font.css" />
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="../styles/dropdown-menu.css" />
+    <link rel="stylesheet" href="../styles/scrollbar.css" />
+    <link rel="stylesheet" href="../styles/privacy-legal.css" />
+    <script src="../scripts/ui/templates/dropdown-template.js" defer></script>
+    <script src="../scripts/utils/dropdown-menu.js" defer></script>
+    <script src="../scripts/utils/helpers.js" defer></script>
+    <script src="../scripts/ui/templates/helper-templates.js" defer></script>
+    <script src="../scripts/auth/auth.js" defer></script>
+    <script src="../scripts/icons/icons.js" defer></script>
+  </head>
+  <body onload="renderLoginInitials()">
+    <aside>
+      <img src="../assets/imgs/join-logo-white.png" alt="logo" class="logo" />
+      <nav class="side-nav">
+        <div class="page-links" id="page-links"></div>
+        <div class="police-links-container" id="links-container">
+          <a href="./privacy-policy.html">Privacy Policy</a>
+          <a href="./legal-notice.html">Legal notice</a>
+        </div>
+      </nav>
+    </aside>
+    <main>
+      <header>
+        <div class="header-container">
+          <img
+            src="../assets/imgs/join-logo.png"
+            alt="logo"
+            class="logo-mobile"
+          />
+          <p class="headline">Kanban Project Management Tool</p>
+          <nav class="header-nav" id="header-nav">
+            <a class="button help-button" href="./help-desk.html"
+              ><img src="../assets/imgs/help.png" alt="search"
+            /></a>
+            <div class="profile-wrapper">
+              <button
+                id="profile-button"
+                class="button profile-button"
+              ></button>
+              <div id="dropdown-container"></div>
+            </div>
+          </nav>
+        </div>
+      </header>
+      <section class="main-section max-width-1208">
+        <h1>Privacy Policy</h1>
+        <h3 class="pd-top24">1. Data Controller</h3>
+        <p class="pd-top8">
+          The controller responsible for data processing on this website is the
+          operator of this project. This application was developed by the
+          following team:
+        </p>
+        <ul class="pd-top8 pd-bottom24">
+          <li>
+            <strong>Nil Vollhardt</strong> —
+            <a href="mailto:kontakt@nil-vollhardt.de"
+              >kontakt@nil-vollhardt.de</a
+            >
+          </li>
+          <li>
+            <strong>Günter Heldt</strong> —
+            <a href="mailto:g.heldt@web.de">g.heldt@web.de</a>
+          </li>
+          <li>
+            <strong>Firstname Lastname</strong> —
+            <a href="mailto:email@example.com">email@example.com</a>
+          </li>
+          <li>
+            <strong>Firstname Lastname</strong> —
+            <a href="mailto:email@example.com">email@example.com</a>
+          </li>
+        </ul>
+        <h3 class="pd-top24">2. What Data We Collect</h3>
+        <p class="pd-top8">
+          When you use Join, the following personal data may be collected and
+          stored:
+        </p>
+        <ul class="pd-top8 pd-bottom24">
+          <li>
+            <strong>Account data:</strong> Your name and email address when you
+            register or log in.
+          </li>
+          <li>
+            <strong>Contact data:</strong> Names, email addresses, and phone
+            numbers of contacts you add within the application.
+          </li>
+          <li>
+            <strong>Task data:</strong> Titles, descriptions, due dates,
+            priorities, and assignees of tasks you create on the board.
+          </li>
+          <li>
+            <strong>Usage data:</strong> Technical information such as your IP
+            address, browser type, and pages visited, collected automatically
+            when you access this service.
+          </li>
+        </ul>
+        <h3 class="pd-top24">3. Purpose of Data Processing</h3>
+        <p class="pd-top8 pd-bottom24">
+          Your data is processed exclusively to provide the functionality of the
+          Join Kanban application — including user authentication, task
+          management, and contact organization. No data is sold or shared with
+          third parties for marketing purposes.
+        </p>
+        <h3 class="pd-top24">4. Data Storage — Firebase (Google)</h3>
+        <p class="pd-top8 pd-bottom24">
+          This application uses <strong>Google Firebase</strong> (provided by
+          Google LLC, 1600 Amphitheatre Parkway, Mountain View, CA 94043, USA)
+          as its backend database and authentication service. Your data is
+          transmitted to and stored on Firebase servers. Google may process data
+          in the United States. For details, refer to
+          <a
+            href="https://firebase.google.com/support/privacy"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Google's Firebase Privacy Policy</a
+          >.
+        </p>
+        <h3 class="pd-top24">5. Local Storage</h3>
+        <p class="pd-top8 pd-bottom24">
+          Join stores session-related information (such as your login state and
+          display name) in your browser's <strong>localStorage</strong>. This
+          data remains on your device and is not transmitted to third parties.
+          All data stored in localStorage is
+          <strong>automatically deleted when you log out</strong> of the
+          application. You can also clear it manually at any time through your
+          browser settings.
+        </p>
+        <h3 class="pd-top24">6. Your Rights (GDPR)</h3>
+        <p class="pd-top8">
+          Under the General Data Protection Regulation (GDPR), you have the
+          following rights regarding your personal data:
+        </p>
+        <ul class="pd-top8 pd-bottom24">
+          <li><strong>Right of access</strong> (Art. 15 GDPR)</li>
+          <li><strong>Right to rectification</strong> (Art. 16 GDPR)</li>
+          <li>
+            <strong>Right to erasure ("right to be forgotten")</strong> (Art. 17
+            GDPR)
+          </li>
+          <li>
+            <strong>Right to restriction of processing</strong> (Art. 18 GDPR)
+          </li>
+          <li><strong>Right to data portability</strong> (Art. 20 GDPR)</li>
+          <li><strong>Right to object</strong> (Art. 21 GDPR)</li>
+        </ul>
+        <p class="pd-top8 pd-bottom24">
+          To exercise any of these rights, please contact the project owner. You
+          also have the right to lodge a complaint with a supervisory authority.
+        </p>
+        <h3 class="pd-top24">7. Data Retention</h3>
+        <p class="pd-top8 pd-bottom24">
+          Data is retained only as long as necessary for the purposes described
+          above or as required by applicable law. You may request deletion of
+          your account and associated data at any time.
+        </p>
+        <h3 class="pd-top24">8. Changes to This Policy</h3>
+        <p class="pd-top8">
+          We reserve the right to update this Privacy Policy to reflect changes
+          in the application or applicable law. The current version is always
+          available on this page. Last updated: April 2026.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>

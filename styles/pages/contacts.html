@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Join</title>
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="../assets/favicon/favicon-16x16.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="../assets/favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="../assets/favicon/android-chrome-192x192.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="512x512"
+      href="../assets/favicon/android-chrome-512x512.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="../assets/favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="shortcut icon"
+      sizes="any"
+      href="../assets/favicon/favicon.ico"
+      type="image/x-icon"
+    />
+    <link rel="manifest" href="../assets/favicon/site.webmanifest" />
+    <link rel="stylesheet" href="../styles/standard.css" />
+    <link rel="stylesheet" href="../styles/variables.css" />
+    <link rel="stylesheet" href="../styles/font.css" />
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="../styles/dropdown-menu.css" />
+    <link rel="stylesheet" href="../styles/contacts.css" />
+    <link rel="stylesheet" href="../styles/contacts-dialog.css" />
+    <script src="../scripts/contacts.js" defer></script>
+    <script src="../scripts/icons/icons.js" defer></script>
+    <script src="../scripts/config.js" defer></script>
+    <script src="../scripts/services.js" defer></script>
+    <script src="../scripts/utils/database-operations.js" defer></script>
+    <script src="../scripts/utils/helpers.js" defer></script>
+    <script src="../scripts/utils/dropdown-menu.js" defer></script>
+    <script src="../scripts/auth/auth.js" defer></script>
+    <script src="../scripts/const/contacts-const.js" defer></script>
+    <script src="../scripts/events/contacts-events.js" defer></script>
+    <script src="../scripts/dom/contacts-dom.js" defer></script>
+    <script src="../scripts/services/contacts-service.js" defer></script>
+    <script src="../scripts/ui/contacts-dialog.js" defer></script>
+    <script src="../scripts/ui/contacts-ui.js" defer></script>
+    <script src="../scripts/utils/contacts-validation.js" defer></script>
+    <script src="../scripts/ui/templates/contacts-templates.js" defer></script>
+    <script src="../scripts/ui/templates/dropdown-template.js"></script>
+  </head>
+  <body onload="init()">
+    <aside>
+      <img src="../assets/imgs/join-logo-white.png" alt="logo" class="logo" />
+      <nav class="side-nav">
+        <div class="page-links">
+          <a href="summary.html" class="page-link-button"
+            ><img src="../assets/imgs/summary.png" alt="Summary" />Summary</a
+          >
+          <a href="add-task.html" class="page-link-button"
+            ><img src="../assets/imgs/add-task.png" alt="Add Task" />Add Task</a
+          >
+          <a href="board.html" class="page-link-button"
+            ><img src="../assets/imgs/board.png" alt="Board" />Board</a
+          >
+          <a href="contacts.html" class="page-link-button"
+            ><img src="../assets/imgs/contacts.png" alt="Contacts" />Contacts</a
+          >
+        </div>
+        <div class="police-links-container">
+          <a href="./privacy-policy.html">Privacy Policy</a>
+          <a href="./legal-notice.html">Legal notice</a>
+        </div>
+      </nav>
+    </aside>
+    <main>
+      <header>
+        <div class="header-container">
+          <img
+            src="../assets/imgs/join-logo.png"
+            alt="logo"
+            class="logo-mobile"
+          />
+          <p class="headline">Kanban Project Management Tool</p>
+          <nav class="header-nav">
+            <a class="button help-button" href="./help-desk.html"
+              ><img src="../assets/imgs/help.png" alt="search"
+            /></a>
+            <div class="profile-wrapper">
+              <button
+                id="profile-button"
+                class="button profile-button"
+              ></button>
+              <div id="dropdown-container"></div>
+            </div>
+          </nav>
+        </div>
+      </header>
+      <section class="contacts-section max-width-1208">
+        <div class="fullscreen-mobile hide-mobile" id="fullscreen-mobile"></div>
+        <aside class="contacts" id="screen-desktop">
+          <div class="add-contact">
+            <button
+              class="primary-btn add-contact-button"
+              onclick="openAddNewContact()"
+            >
+              <img
+                src="../assets/imgs/person-add.png"
+                alt="Add new contact symbol"
+              />
+            </button>
+          </div>
+          <div class="contacts-list" id="contacts-list"></div>
+        </aside>
+        <div
+          class="contact-overview-container"
+          id="contact-overview-container"
+        ></div>
+      </section>
+      <section class="toast-section" id="toast-section">
+        <p id="toast-message"></p>
+      </section>
+      <dialog id="dialog">
+        <section class="add-edit-contact-section" id="add-edit-contact-section">
+          <div class="left-content">
+            <img
+              src="../assets/imgs/join-logo-white.png"
+              alt="Join logo white"
+            />
+            <div id="dialog-headline" class="dialog-headline"></div>
+          </div>
+          <div class="right-content">
+            <button class="close-button" id="close-button"></button>
+            <div id="person-image" class="person-img-container"></div>
+            <form>
+              <div class="textfield-container">
+                <input
+                  type="text"
+                  name="name"
+                  id="contact-name-input"
+                  placeholder="Name"
+                  class="input-field"
+                  required
+                />
+                <img src="../assets/imgs/person.png" alt="Person icon" />
+                <p class="required-warning" id="warning-name"></p>
+              </div>
+              <div class="textfield-container">
+                <input
+                  type="email"
+                  name="email"
+                  id="contact-email-input"
+                  placeholder="Email"
+                  class="input-field"
+                  required
+                />
+                <img src="../assets/imgs/mail.png" alt="Email icon" />
+                <p class="required-warning" id="warning-email"></p>
+              </div>
+              <div class="textfield-container">
+                <input
+                  type="tel"
+                  name="telephone"
+                  id="contact-phone-input"
+                  placeholder="Phone"
+                  class="input-field"
+                  required
+                />
+                <img src="../assets/imgs/call.png" alt="Phone icon" />
+                <p class="required-warning" id="warning-phone"></p>
+              </div>
+              <div class="input-buttons">
+                <button
+                  type="button"
+                  class="secondary-btn"
+                  id="no-button"
+                ></button>
+                <button
+                  type="button"
+                  class="primary-btn"
+                  id="ok-button"
+                ></button>
+              </div>
+            </form>
+          </div>
+        </section>
+      </dialog>
+    </main>
+  </body>
+</html>
