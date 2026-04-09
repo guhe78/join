@@ -1,5 +1,7 @@
 /**
- * This function is the initialization function for the signup page. It calls the initEvents function to set up event listeners for the signup form and input fields. The init function is called when the DOM content is fully loaded, ensuring that all elements are available for manipulation.
+ * This function is the initialization function for the signup page.
+ * It calls the initEvents function to set up event listeners for the signup form and input fields.
+ * The init function is called when the DOM content is fully loaded, ensuring that all elements are available for manipulation.
  * @returns {void}
  */
 function init() {
@@ -123,6 +125,11 @@ function validatePassword(forceValidation = false) {
   return isValid;
 }
 
+/**
+ * Checks if a user with the given email already exists in the database.
+ * @param {string} email - The email address to check.
+ * @returns {Promise<boolean>} - Returns true if the user exists, false otherwise.
+ */
 async function userExists(email) {
   const users = await getData("users");
   const userArray = makeArray(users);

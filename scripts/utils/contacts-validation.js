@@ -1,82 +1,96 @@
 /**
- * Validates the contact form by checking the input values for the name, email, and phone fields. It uses helper functions to validate each field and displays appropriate warning messages if the validation fails. The function returns true if all fields are valid, otherwise it returns false.
- * @returns {boolean} - Returns true if the form is valid, false otherwise.
+ * Validates the contact inputs by checking the name, email, and phone fields.
+ * It ensures that the name contains at least a first name and a last name, the email is in a valid format, and the phone number contains only valid characters.
+ * If any of the validations fail, it displays appropriate warning messages to the user.
+ * @returns {boolean} - Returns true if all inputs are valid, otherwise false.
  */
-function validateForm() {
-  const name = DOM.contactNameEl.value.trim();
-  const email = DOM.contactEmailEl.value.trim();
-  const phone = DOM.contactPhoneEl.value.trim();
-
-  const isNameValid = validateField(
-    name,
-    checkName,
-    DOM.warningMessageNameEl,
-    "This field is required",
-    "Firstname and Lastname required",
-  );
-
-  const isEmailValid = validateField(
-    email,
-    checkEmail,
-    DOM.warningMessageEmailEl,
-    "This field is required",
-    "Correct Email required",
-  );
-
-  const isPhoneValid = validateField(
-    phone,
-    checkPhone,
-    DOM.warningMessagePhoneEl,
-    "This field is required",
-    "Phone number required",
-  );
-
+function validateContactInputs() {
+  const isNameValid = validateName();
+  const isEmailValid = validateEmail();
+  const isPhoneValid = validatePhone();
   return isNameValid && isEmailValid && isPhoneValid;
 }
 
 /**
- * Validates a single form field by checking its value against a validation function and updating the error message element accordingly.
- * @param {string} value - The value of the form field to validate.
- * @param {Function} checkFn - The validation function to apply to the field value.
- * @param {HTMLElement} errorEl - The DOM element to display the error message.
- * @param {string} emptyMsg - The error message to display if the field is empty.
- * @param {string} invalidMsg - The error message to display if the field value is invalid.
- * @returns {boolean} - Returns true if the field is valid, false otherwise.
+ * Validates the name input by checking if it contains at least a first name and a last name, and if each part of the name has at least 2 letters.
+ * It displays a warning message if the validation fails.
+ * @returns {boolean} - Returns true if the name is valid, otherwise false.
  */
-function validateField(value, checkFn, errorEl, emptyMsg, invalidMsg) {
-  if (!value) {
-    errorEl.textContent = emptyMsg;
+function validateName() {
+  const name = DOM.contactNameEl.value.trim();
+  const parts = name.split(/\s+/).filter(Boolean);
+
+  if (parts.length < 2) {
+    DOM.warningMessageNameEl.textContent = "Firstname and lastname required";
     return false;
   }
 
-  if (!checkFn(value)) {
-    errorEl.textContent = invalidMsg;
+  const isValid = parts.every((part) => /^[A-Za-zÄÖÜäöüß-]{2,}$/.test(part));
+  DOM.warningMessageNameEl.textContent = isValid
+    ? ""
+    : "Each name part must have at least 2 letters";
+  return isValid;
+}
+
+/**
+ * Validates the email input by checking if it is not empty and if it matches a valid email format. It displays appropriate warning messages if the validation fails.
+ * @returns {boolean} - Returns true if the email is valid, otherwise false.
+ */
+function validateEmail() {
+  const email = DOM.contactEmailEl.value.trim();
+
+  if (email.length === 0) {
+    DOM.warningMessageEmailEl.textContent = "Email required";
     return false;
   }
 
-  errorEl.textContent = "";
+  if (!checkEmail(email)) {
+    DOM.warningMessageEmailEl.textContent =
+      "Please enter a valid email address";
+    return false;
+  }
+
+  DOM.warningMessageEmailEl.textContent = "";
   return true;
 }
 
 /**
- * Checks if the input name is valid by ensuring that it contains at least two parts (first name and last name) after trimming and splitting the input by whitespace. It returns true if the name is valid, otherwise it returns false.
- * @param {string} input - The name input to check.
- * @returns {boolean} - Returns true if the name is valid, false otherwise.
+ * Validates the phone input by checking if it is not empty and if it matches a valid phone format. It displays appropriate warning messages if the validation fails.
+ * @returns {boolean} - Returns true if the phone number is valid, otherwise false.
  */
-function checkName(input) {
-  return input.trim().split(/\s+/).length > 1;
+function validatePhone() {
+  const phone = DOM.contactPhoneEl.value.trim();
+
+  if (phone.length === 0) {
+    DOM.warningMessagePhoneEl.textContent = "Phone number required";
+    return false;
+  }
+
+  if (!checkPhone(phone)) {
+    DOM.warningMessagePhoneEl.textContent = "Please enter a valid phone number";
+    return false;
+  }
+
+  DOM.warningMessagePhoneEl.textContent = "";
+  return true;
 }
 
+/**
+ * Checks if the given input is a valid email address.
+ * @param {string} input - The email address to check.
+ * @returns {boolean} - Returns true if the email is valid, otherwise false.
+ */
 function checkEmail(input) {
   const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
   return pattern.test(input);
 }
 
 /**
- * Checks if the input phone number is valid by ensuring that it contains only digits, spaces, parentheses, plus signs, or hyphens. It returns true if the phone number is valid, otherwise it returns false.
- * @param {string} input - The phone number input to check.
- * @returns {boolean} - Returns true if the phone number is valid, false otherwise.
+ * Checks if the given input is a valid phone number.
+ * @param {string} input - The phone number to check.
+ * @returns {boolean} - Returns true if the phone number is valid, otherwise false.
  */
 function checkPhone(input) {
-  return /^[0-9+\-\s()]+$/.test(input);
+  const pattern = /^[0-9+\-\s()]+$/;
+  return pattern.test(input);
 }

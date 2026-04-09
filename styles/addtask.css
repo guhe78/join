@@ -584,6 +584,7 @@ textarea::placeholder {
   max-width: 980px;
   margin-top: 16px;
   padding-top: 10px;
+  margin-bottom: 96px;
 }
 
 .required-hint {

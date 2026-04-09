@@ -74,11 +74,18 @@ body {
 }
 
 .back-btn img {
-  width: 32px;
+  width: 21px;
+  height: 21px;
+  margin: 6px;
+  border-radius: 50%;
 }
 
 .back-btn:hover {
   background: rgba(0, 0, 0, 0.05);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  transform: scale(1.2);
 }
 
 .input-group {
@@ -221,17 +228,13 @@ body.logo-early .login-logo {
   position: absolute;
   left: 10px;
   color: red;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .checkbox-warning {
   margin-top: 35px;
-  margin-right: 25px;
+  margin-left: 200px;
 }
-
-/* * {
-  outline: 1px solid red;
-} */
 
 @media (prefers-reduced-motion: reduce) {
   .splash,
