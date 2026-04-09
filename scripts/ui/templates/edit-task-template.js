@@ -27,7 +27,6 @@ function editTaskTemplate(task) {
             <p class="feedback-message" id="titleFeedback">this field is required</p>
             </div>
           </div>
-
           <div class="edit-container description">
             <label class="detail-label" for="task-desc">Description</label>
             <div class="textarea-container">
@@ -38,7 +37,6 @@ function editTaskTemplate(task) {
                   placeholder="Enter description..."
                   maxlength="250"
                 >${task.description}</textarea>
-              <p class="feedback-message" id="descriptionFeedback">this field is required</p>
             </div>
           </div>
 

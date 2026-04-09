@@ -288,11 +288,27 @@ function getSelectedAssignedContacts() {
  */
 function buildAssignedBadgesHTML(contactsData) {
   let html = "";
-
-  for (let i = 0; i < contactsData.length; i++) {
-    html = html + buildSingleAssignedBadgeHTML(contactsData[i]);
+  const limit = 3;
+  const visibleContacts = contactsData.slice(0, limit);
+  for (let i = 0; i < visibleContacts.length; i++) {
+    html = html + buildSingleAssignedBadgeHTML(visibleContacts[i]);
   }
+  html = addBadgeCount(html, contactsData, limit);
+  return html;
+}
 
+/**
+ * Appends a counter badge when more contacts exist than are displayed.
+ * @param {string} html - The existing badge HTML.
+ * @param {Array} contactsData - All selected contacts.
+ * @param {number} limit - The number of visible badges.
+ * @returns {string} Updated badge HTML with optional overflow count.
+ */
+function addBadgeCount(html, contactsData, limit) {
+  if (contactsData.length > limit) {
+    const remaining = contactsData.length - limit;
+    html += `<div class="badge-count">+${remaining}</div>`;
+  }
   return html;
 }
 

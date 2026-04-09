@@ -199,6 +199,7 @@
   }
 
   .assigned-badge,
+  .assigned-badges .badge-count,
   .avatar {
     width: 28px;
     height: 28px;

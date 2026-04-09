@@ -70,11 +70,11 @@ function validateTitleField() {
   }
   if (titleInput.value.trim() === "") {
     titleInput.classList.add("input-error");
-    titleError.style.display = "block";
+    titleError.classList.add("visibility-visible");
     return false;
   }
   titleInput.classList.remove("input-error");
-  titleError.style.display = "none";
+  titleError.classList.remove("visibility-visible");
   return true;
 }
 
@@ -90,11 +90,11 @@ function validateDueDateField() {
   }
   if (dueInput.value.trim() === "") {
     dueInput.classList.add("input-error");
-    dueError.style.display = "block";
+    dueError.classList.add("visibility-visible");
     return false;
   }
   dueInput.classList.remove("input-error");
-  dueError.style.display = "none";
+  dueError.classList.remove("visibility-visible");
   return true;
 }
 
@@ -111,11 +111,11 @@ function validateCategoryField() {
   }
   if (catHidden.value.trim() === "") {
     catSelect.classList.add("input-error");
-    categoryError.style.display = "block";
+    categoryError.classList.add("visibility-visible");
     return false;
   }
   catSelect.classList.remove("input-error");
-  categoryError.style.display = "none";
+  categoryError.classList.remove("visibility-visible");
   return true;
 }
 

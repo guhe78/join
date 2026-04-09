@@ -196,12 +196,6 @@ function initSubtaskSection() {
   if (subtaskInput === null) {
     return;
   }
-  subtaskInput.addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      saveSubtaskFromInput();
-    }
-  });
   let subtaskActions = document.getElementsByClassName("subtask-actions")[0];
   if (subtaskActions === undefined) {
     return;
@@ -280,6 +274,23 @@ function bindSubtaskButtons() {
   bindEditDeleteButtons();
   bindSaveButtons();
   bindSubtaskItemDblClick();
+  bindEditSubtaskInputEvents();
+}
+
+/**
+ * Binds keydown event to the edit subtask input field to handle Enter key.
+ */
+function bindEditSubtaskInputEvents() {
+  let editInput = document.getElementById("editSubtaskInput");
+  if (editInput !== null) {
+    editInput.addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        saveEditedSubtask();
+      }
+    });
+    editInput.focus();
+  }
 }
 
 /**
@@ -388,6 +399,11 @@ function saveEditedSubtask() {
   }
   let newText = editInput.value.trim();
   if (newText === "") {
+    if (editSubtaskIndex >= 0) {
+      subtasks.splice(editSubtaskIndex, 1);
+    }
+    editSubtaskIndex = -1;
+    renderSubtasks();
     return;
   }
   if (editSubtaskIndex >= 0) {
