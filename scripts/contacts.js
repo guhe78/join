@@ -61,10 +61,9 @@ function handleOutsideClick(event) {
  * @returns {Promise<void>}
  */
 async function saveEditedContact(firebaseKey) {
-  const contact = findContact(firebaseKey);
   if (!validateContactInputs()) return;
+  const contact = findContact(firebaseKey);
   const contactName = splitName(DOM.contactNameEl.value);
-  if (!contactName) return;
   contact.firstName = contactName.firstName;
   contact.lastName = contactName.lastName;
   contact.email = DOM.contactEmailEl.value;
