@@ -130,6 +130,7 @@ async function editTask(id, createHandler = createTaskClicked) {
   loadEditTaskForm(task);
   await initializeEditForm(task);
 }
+
 /**
  * Updates the task in memory with the edited values.
  * @param {string} taskId - The Firebase key of the task.

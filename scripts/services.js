@@ -121,11 +121,9 @@ async function deleteData(path, id) {
     const response = await fetch(BASE_URL + path + "/" + id + ".json", {
       method: "DELETE",
     });
-
     if (!response.ok) {
       throw new Error(`Delete failed! Status: ${response.status}`);
     }
-
     return true;
   } catch (error) {
     console.error(`Error deleting ${path}:`, error);
@@ -141,14 +139,11 @@ async function deleteData(path, id) {
  */
 async function postarrayData(url, data) {
   if (!Array.isArray(data)) return [];
-
   for (let i = 0; i < data.length; i++) {
     const item = data[i];
     if (!item || typeof item !== "object") continue;
-
     const { id, ...payloadWithoutId } = item;
     await postData(url, payloadWithoutId);
   }
-
   return data;
 }

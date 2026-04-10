@@ -38,7 +38,6 @@ function clearAssignedSelect() {
   let options = dropdown.getElementsByClassName("select-option");
   for (let i = 0; i < options.length; i++) {
     options[i].classList.remove("active");
-
     let checkbox = options[i].getElementsByTagName("input")[0];
     checkbox.checked = false;
   }
@@ -167,6 +166,18 @@ function createTaskObject(status = "todo") {
   let catHidden = document.getElementById("catHidden");
   let categoryValue = catHidden.value;
   let categoryLabel = getCategoryLabel(categoryValue);
+  return returnTaskObject(titleInput, descInput, categoryLabel, status);
+}
+
+/**
+ * Constructs the complete task object with all required properties.
+ * @param {HTMLInputElement} titleInput The title input element.
+ * @param {HTMLInputElement} descInput The description input element.
+ * @param {string} categoryLabel The formatted category label.
+ * @param {string} status The status of the task.
+ * @returns {Object} The complete task object with all properties.
+ */
+function returnTaskObject(titleInput, descInput, categoryLabel, status) {
   return {
     assigned_to: getAssignedContacts(),
     author_id: "user_1",

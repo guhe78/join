@@ -16,7 +16,6 @@ function initCategorySelect() {
   if (catSelect === null) {
     return;
   }
-
   let trigger = catSelect.getElementsByClassName("select-trigger")[0];
   let dropdown = catSelect.getElementsByClassName("select-dropdown")[0];
   let options = dropdown.getElementsByClassName("select-option");
@@ -47,20 +46,53 @@ function toggleCategoryDropdown(event) {
  */
 function categoryOptionClicked(event) {
   let option = event.currentTarget;
+  let categoryElements = getCategorySelectionElements();
+  clearActiveCategoryOptions(categoryElements.options);
+  applyCategorySelection(
+    option,
+    categoryElements.text,
+    categoryElements.hidden,
+  );
+  categoryElements.catSelect.classList.remove("open");
+  validateCategoryField();
+  event.stopPropagation();
+}
+
+/**
+ * Collects the DOM elements required to update the category selection.
+ * @returns {{catSelect: HTMLElement, text: HTMLElement, hidden: HTMLInputElement, options: HTMLCollectionOf<Element>}} The relevant category selection elements.
+ */
+function getCategorySelectionElements() {
   let catSelect = document.getElementById("catSelect");
   let dropdown = catSelect.getElementsByClassName("select-dropdown")[0];
-  let text = catSelect.getElementsByClassName("trigger-text")[0];
-  let hidden = document.getElementById("catHidden");
-  let options = dropdown.getElementsByClassName("select-option");
+  return {
+    catSelect: catSelect,
+    text: catSelect.getElementsByClassName("trigger-text")[0],
+    hidden: document.getElementById("catHidden"),
+    options: dropdown.getElementsByClassName("select-option"),
+  };
+}
+
+/**
+ * Removes the active state from all category options.
+ * @param {HTMLCollectionOf<Element>} options The category options to reset.
+ */
+function clearActiveCategoryOptions(options) {
   for (let i = 0; i < options.length; i++) {
     options[i].classList.remove("active");
   }
+}
+
+/**
+ * Applies the selected category option to the visible and hidden inputs.
+ * @param {HTMLElement} option The selected category option.
+ * @param {HTMLElement} text The element that displays the selected category label.
+ * @param {HTMLInputElement} hidden The hidden input that stores the selected category value.
+ */
+function applyCategorySelection(option, text, hidden) {
   option.classList.add("active");
   text.textContent = option.textContent.trim();
   hidden.value = option.getAttribute("data-value");
-  catSelect.classList.remove("open");
-  validateCategoryField();
-  event.stopPropagation();
 }
 
 /**
@@ -160,36 +192,6 @@ function clearCategorySelect() {
 }
 
 /**
- * Removes all validation error styles and hides all validation messages.
- */
-function clearValidationState() {
-  let titleInput = document.getElementById("title");
-  let dueInput = document.getElementById("due-date");
-  let catSelect = document.getElementById("catSelect");
-  let titleError = document.getElementById("titleError");
-  let dueError = document.getElementById("dueDateFeedback");
-  let categoryError = document.getElementById("categoryError");
-  if (titleInput !== null) {
-    titleInput.classList.remove("input-error");
-  }
-  if (dueInput !== null) {
-    dueInput.classList.remove("input-error");
-  }
-  if (catSelect !== null) {
-    catSelect.classList.remove("input-error");
-  }
-  if (titleError !== null) {
-    titleError.style.display = "none";
-  }
-  if (dueError !== null) {
-    dueError.style.display = "none";
-  }
-  if (categoryError !== null) {
-    categoryError.style.display = "none";
-  }
-}
-
-/**
  * Initializes the subtask input section and binds the action buttons for clearing and saving subtasks.
  */
 function initSubtaskSection() {
@@ -201,7 +203,6 @@ function initSubtaskSection() {
   if (subtaskActions === undefined) {
     return;
   }
-
   let actionBtns = subtaskActions.getElementsByClassName("subtask-btn");
   if (actionBtns.length >= 2) {
     actionBtns[0].onclick = clearSubtaskInput;
@@ -395,16 +396,37 @@ function saveEditedSubtask() {
   }
   let newText = editInput.value.trim();
   if (newText === "") {
-    if (editSubtaskIndex >= 0) {
-      subtasks.splice(editSubtaskIndex, 1);
-    }
-    editSubtaskIndex = -1;
-    renderSubtasks();
+    deleteEditedSubtaskIfEmpty();
     return;
   }
+  updateEditedSubtaskText(newText);
+  finishSubtaskEdit();
+}
+
+/**
+ * Removes the current subtask if the edited text is empty.
+ */
+function deleteEditedSubtaskIfEmpty() {
+  if (editSubtaskIndex >= 0) {
+    subtasks.splice(editSubtaskIndex, 1);
+  }
+  finishSubtaskEdit();
+}
+
+/**
+ * Updates the current subtask with the edited text.
+ * @param {string} newText The trimmed subtask text.
+ */
+function updateEditedSubtaskText(newText) {
   if (editSubtaskIndex >= 0) {
     subtasks[editSubtaskIndex] = newText;
   }
+}
+
+/**
+ * Resets edit mode and rerenders the subtask list.
+ */
+function finishSubtaskEdit() {
   editSubtaskIndex = -1;
   renderSubtasks();
 }
