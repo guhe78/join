@@ -250,7 +250,7 @@ function addTaskTemplate() {
           </div>
         </form>
 
-        <div class="addtask-foot">
+        <div class="addtask-foot template-foot">
           <p class="required-hint">
             <span class="req">*</span> This field is required
           </p>

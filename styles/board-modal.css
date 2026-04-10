@@ -21,6 +21,8 @@ body.dialog-open {
 }
 
 .add-task-modal {
+  height: 90vh;
+  max-height: 900px;
   width: 1161px;
   border-radius: 30px;
   background: #ffffff;
@@ -247,8 +249,13 @@ body.dialog-open {
   width: 100%;
 }
 
+.template-foot {
+  margin-bottom: 16px;
+}
+
 @media (max-width: 1160px) {
   .add-task-modal {
+    max-height: 820px;
     width: 100%;
     padding: 32px;
   }
