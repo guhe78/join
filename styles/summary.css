@@ -3,7 +3,7 @@
   padding: 96px 48px;
   background-color: var(--background-color);
   opacity: 1;
-  transition: 0.1s ease;
+  transition: opacity 0.5s ease;
   overflow-y: auto;
   scrollbar-width: none;
 }
@@ -273,13 +273,9 @@
     align-items: center;
     flex-direction: column;
 
-    opacity: 1;
-    transition: opacity 0.5s ease;
-  }
-
-  .mobile-welcome-active .welcome-section {
     opacity: 0;
     pointer-events: none;
+    transition: opacity 0.5s ease;
   }
 
   .summary-below-section {

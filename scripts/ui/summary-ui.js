@@ -55,12 +55,12 @@ function updateUrgentDeadline() {
  * @returns {void}
  */
 function startSplash() {
+  if (splashRunning) return;
   const { welcome, summary } = getWelcomeElements();
   if (!welcome || !summary) return;
-  if (splashRunning) return;
   splashRunning = true;
-  document.body.classList.add("mobile-welcome-active");
   runSplashAnimation(welcome, summary);
+  console.log("Splash gestartet");
 }
 
 /**
@@ -72,7 +72,7 @@ function runSplashAnimation(welcome, summary) {
   showWelcome(welcome, summary);
   setTimeout(() => {
     hideWelcome(welcome, summary);
-  }, 1500);
+  }, 1600);
 }
 
 /**
@@ -80,10 +80,10 @@ function runSplashAnimation(welcome, summary) {
  * @returns {void}
  */
 function initWelcome() {
-  if (isMobile) {
-    startSplash();
-  }
-  window.addEventListener("resize", handleResize);
+  startSplash();
+  setTimeout(() => {
+    window.addEventListener("resize", handleResize);
+  }, 100);
 }
 
 /**
@@ -104,9 +104,9 @@ function showWelcome(welcome, summary) {
  */
 function hideWelcome(welcome, summary) {
   welcome.style.opacity = "0";
+  summary.style.opacity = "1";
   setTimeout(() => {
     welcome.style.display = "none";
-    summary.style.opacity = "1";
     splashRunning = false;
   }, 500);
 }
@@ -121,7 +121,6 @@ function resetWelcome() {
   welcome.style.display = "";
   welcome.style.opacity = "";
   summary.style.opacity = "";
-  document.body.classList.remove("mobile-welcome-active");
 }
 
 /**
@@ -129,14 +128,12 @@ function resetWelcome() {
  * @returns {void}
  */
 function handleResize() {
-  const nowMobile = window.innerWidth <= 1000;
-  if (!isMobile && nowMobile) {
-    startSplash();
-  }
-  if (isMobile && !nowMobile) {
-    resetWelcome();
-  }
+  const nowMobile = window.innerWidth <= 1100;
+  if (nowMobile === isMobile) return;
+
+  resetWelcome();
   isMobile = nowMobile;
+  startSplash();
 }
 
 /**

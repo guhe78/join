@@ -12,11 +12,11 @@ function buildNormalSubtaskHTML(index) {
         </div>
         <div class="subtask-item-actions">
       <button type="button" class="subtask-btn subtask-edit-btn">
-            <img class="subtask-action-icon subtask-edit-btn" src="../assets/imgs/edit-black.svg" alt="edit">
+            <img class="subtask-action-icon" src="../assets/imgs/edit-black.svg" alt="edit">
             </button>
             <div class="subtask-item-divider"></div>
       <button type="button" class="subtask-btn subtask-delete-btn">
-            <img class="subtask-action-icon subtask-delete-btn" src="../assets/imgs/delete-black.svg" alt="delete">
+            <img class="subtask-action-icon" src="../assets/imgs/delete-black.svg" alt="delete">
             </button>
         </div>
     </div>
@@ -36,11 +36,11 @@ function buildEditSubtaskHTML(index) {
         </div>
         <div class="subtask-item-actions">
       <button type="button" class="subtask-btn subtask-delete-edit-btn">
-            <img class="subtask-action-icon subtask-delete-edit-btn" src="../assets/imgs/delete-black.svg" alt="delete">
+            <img class="subtask-action-icon" src="../assets/imgs/delete-black.svg" alt="delete">
             </button>
             <div class="subtask-item-divider"></div>
       <button type="button" class="subtask-btn subtask-save-btn">
-            <img class="subtask-action-icon subtask-save-btn" src="../assets/imgs/check.png" alt="save">
+            <img class="subtask-action-icon" src="../assets/imgs/check.png" alt="save">
             </button>
         </div>
     </div>
@@ -94,9 +94,9 @@ function addTaskTemplate() {
             </div>
 
             <div class="field">
-              <p class="label" for="due-date">
+              <label class="label" for="due-date">
                 Due date<span class="req">*</span>
-              </p>
+              </label>
               <div class="addtask-due-date-container">
                 <div class="addtask-due-input-wrapper">
                   <input
@@ -137,7 +137,7 @@ function addTaskTemplate() {
 
           <div class="addtask-col">
             <div class="prio-row">
-              <p class="label" for="assignedSelect">Priority</p>
+              <label class="label" for="assignedSelect">Priority</label>
               <div class="prio-buttons">
                 <button type="button" class="prio-btn prio-urgent">
                   Urgent
@@ -166,7 +166,7 @@ function addTaskTemplate() {
             </div>
 
             <div class="field">
-              <p class="label" for="assignedSelect">Assigned to</p>
+              <label class="label" for="assignedSelect">Assigned to</label>
 
               <div class="custom-select" id="assignedSelect">
                 <div class="select-trigger">
@@ -185,9 +185,9 @@ function addTaskTemplate() {
             </div>
 
             <div class="field">
-              <p class="label" for="catSelect">
+              <label class="label" for="catSelect">
                 Category<span class="req">*</span>
-              </p>
+              </label>
 
               <div class="custom-select custom-select--single" id="catSelect">
                 <div class="select-trigger">

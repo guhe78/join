@@ -29,7 +29,7 @@
   max-width: 980px;
   gap: 32px;
   margin-top: 48px;
-  margin-bottom: 64px;
+  padding-bottom: 16px;
 }
 
 .addtask-col {
@@ -473,6 +473,10 @@ textarea::placeholder {
   transition: opacity 0.1s ease;
 }
 
+.subtask-action-icon {
+  pointer-events: none;
+}
+
 .subtask-input:focus-within .subtask-actions {
   opacity: 1;
 }
@@ -510,7 +514,10 @@ textarea::placeholder {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  margin-top: 8px;
+  margin-top: -16px;
+  height: 100%;
+  max-height: 110px;
+  overflow-y: auto;
 }
 
 .subtask-item {

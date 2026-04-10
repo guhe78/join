@@ -23,14 +23,15 @@ body.dialog-open {
 .add-task-modal {
   height: 90vh;
   max-height: 900px;
-  width: 1161px;
+  width: 100%;
+  max-width: 1161px;
   border-radius: 30px;
   background: #ffffff;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) translateX(150%);
-  padding: 64px;
+  padding: 24px 64px;
   overflow-y: auto;
   overflow-x: hidden;
   transition: 0.1s ease;
@@ -255,7 +256,7 @@ body.dialog-open {
 
 @media (max-width: 1160px) {
   .add-task-modal {
-    max-height: 820px;
+    max-height: 855px;
     width: 100%;
     padding: 32px;
   }

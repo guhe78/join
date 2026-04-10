@@ -125,7 +125,9 @@
         <form class="addtask-form">
           <div class="addtask-col">
             <div class="field">
-              <p class="label" for="title">Title<span class="req">*</span></p>
+              <label class="label" for="title"
+                >Title<span class="req">*</span></label
+              >
               <input
                 id="title"
                 class="input addtask-input"
@@ -137,7 +139,7 @@
               <p class="error-msg" id="titleError">This field is required</p>
             </div>
             <div class="field">
-              <p class="label" for="desc">Description</p>
+              <label class="label" for="desc">Description</label>
               <textarea
                 id="desc"
                 class="textarea"
@@ -147,9 +149,9 @@
               ></textarea>
             </div>
             <div class="field">
-              <p class="label" for="due-date">
+              <label class="label" for="due-date">
                 Due date<span class="req">*</span>
-              </p>
+              </label>
               <div class="addtask-due-date-container">
                 <div class="addtask-due-input-wrapper">
                   <input
@@ -188,7 +190,7 @@
           <div class="addtask-divider"></div>
           <div class="addtask-col">
             <div class="prio-row">
-              <p class="label" for="assignedSelect">Priority</p>
+              <label class="label" for="assignedSelect">Priority</label>
               <div class="prio-buttons">
                 <button type="button" class="prio-btn prio-urgent">
                   Urgent
@@ -214,7 +216,7 @@
               </div>
             </div>
             <div class="field">
-              <p class="label" for="assignedSelect">Assigned to</p>
+              <label class="label" for="assignedSelect">Assigned to</label>
               <div class="custom-select" id="assignedSelect">
                 <div class="select-trigger">
                   <span class="trigger-text">Select contacts to assign</span>
@@ -229,9 +231,9 @@
               <div class="assigned-badges" id="assignedBadges"></div>
             </div>
             <div class="field">
-              <p class="label" for="catSelect">
+              <label class="label" for="catSelect">
                 Category<span class="req">*</span>
-              </p>
+              </label>
               <div class="custom-select custom-select--single" id="catSelect">
                 <div class="select-trigger">
                   <span class="trigger-text">Select task category</span>

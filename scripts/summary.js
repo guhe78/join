@@ -1,4 +1,4 @@
-let isMobile = window.innerWidth <= 1000;
+let isMobile = window.innerWidth <= 1100;
 let splashRunning = false;
 
 /**
@@ -19,13 +19,11 @@ async function initSummary() {
  * This function retrieves the summary elements from the DOM, calculates the summary statistics using the `calculateSummary` function, and updates the corresponding elements with the calculated values. It also determines the most urgent task and displays its due date in a human-readable format. If there are no urgent tasks, it displays a message indicating that there are no urgent tasks.
  */
 function updateSummary() {
-  function initWelcome() {
-    if (isMobile) {
-      startSplash();
-    }
+  if (!tasks || tasks.length === 0) return;
 
-    window.addEventListener("resize", handleResize);
-  }
+  const summary = calculateSummary(tasks);
+  updateDOM(summary);
+  updateUrgentDeadline();
 }
 
 /**
@@ -35,6 +33,17 @@ function updateSummary() {
 function getWelcomeElements() {
   return {
     welcome: document.querySelector(".welcome-section"),
-    summary: document.querySelector(".summary-section"),
+    summary: document.querySelector(".summary-container"),
   };
+}
+
+/**
+ * Initializes the welcome animation by showing the welcome section and then hiding it after a delay.
+ * This function checks if the device is mobile and if the splash animation is not already running before starting the animation.
+ * It adds a class to the body to activate the mobile welcome styles and then removes the class after a set timeout to hide the welcome section.
+ * @returns {void}
+ */
+function initWelcome() {
+  startSplash();
+  window.addEventListener("resize", handleResize);
 }
