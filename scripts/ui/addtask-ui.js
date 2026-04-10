@@ -244,6 +244,7 @@ async function createTaskClicked() {
  */
 async function initAddTask(createHandler = createTaskClicked) {
   checkAuth();
+  setActiveLink();
   renderLoginInitials();
   await getContacts();
   renderAssignedContacts();

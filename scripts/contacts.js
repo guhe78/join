@@ -5,6 +5,7 @@
  */
 async function init() {
   initEvents();
+  setActiveLink();
   checkAuth();
   await getContacts();
   renderContactsList();

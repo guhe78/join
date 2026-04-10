@@ -11,11 +11,11 @@ function buildNormalSubtaskHTML(index) {
             <span class="subtask-text">${subtasks[index]}</span>
         </div>
         <div class="subtask-item-actions">
-      <button type="button" class="subtask-btn">
+      <button type="button" class="subtask-btn subtask-edit-btn">
             <img class="subtask-action-icon subtask-edit-btn" src="../assets/imgs/edit-black.svg" alt="edit">
             </button>
             <div class="subtask-item-divider"></div>
-      <button type="button" class="subtask-btn">
+      <button type="button" class="subtask-btn subtask-delete-btn">
             <img class="subtask-action-icon subtask-delete-btn" src="../assets/imgs/delete-black.svg" alt="delete">
             </button>
         </div>
@@ -35,11 +35,11 @@ function buildEditSubtaskHTML(index) {
             <input class="subtask-edit-input" id="editSubtaskInput" type="text" value="${subtasks[index]}" maxlength="60">
         </div>
         <div class="subtask-item-actions">
-      <button type="button" class="subtask-btn">
+      <button type="button" class="subtask-btn subtask-delete-edit-btn">
             <img class="subtask-action-icon subtask-delete-edit-btn" src="../assets/imgs/delete-black.svg" alt="delete">
             </button>
             <div class="subtask-item-divider"></div>
-      <button type="button" class="subtask-btn">
+      <button type="button" class="subtask-btn subtask-save-btn">
             <img class="subtask-action-icon subtask-save-btn" src="../assets/imgs/check.png" alt="save">
             </button>
         </div>

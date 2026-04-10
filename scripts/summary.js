@@ -11,6 +11,7 @@ async function initSummary() {
   initWelcome();
   updateUserUI();
   initCardLinks();
+  setActiveLink();
 }
 
 /**

@@ -53,15 +53,18 @@
     <script src="../scripts/ui/templates/helper-templates.js" defer></script>
     <script src="../scripts/auth/auth.js" defer></script>
     <script src="../scripts/icons/icons.js" defer></script>
+    <script src="../scripts/legal-privacy.js" defer></script>
   </head>
-  <body onload="renderLoginInitials()">
+  <body onload="legalPrivacyInit()">
     <aside>
       <img src="../assets/imgs/join-logo-white.svg" alt="logo" class="logo" />
       <nav class="side-nav">
         <div class="page-links" id="page-links"></div>
         <div class="police-links-container" id="links-container">
-          <a href="./privacy-policy.html">Privacy Policy</a>
-          <a href="./legal-notice.html">Legal notice</a>
+          <a href="privacy-policy.html" class="page-link-button"
+            >Privacy Policy</a
+          >
+          <a href="legal-notice.html" class="page-link-button">Legal notice</a>
         </div>
       </nav>
     </aside>

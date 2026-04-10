@@ -521,7 +521,7 @@ textarea::placeholder {
 }
 
 .subtask-item:hover {
-  background: var(--secondary-color);
+  background: #eeeeee;
   border-radius: 10px;
 }
 
