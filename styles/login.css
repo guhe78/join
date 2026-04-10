@@ -3,6 +3,8 @@ body {
   align-items: center;
   position: relative;
   overflow-y: hidden;
+  width: 100%;
+  max-width: 1440px;
 }
 
 .top-bar {
