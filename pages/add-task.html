@@ -128,6 +128,7 @@
                 type="text"
                 placeholder="Enter a title"
                 maxlength="40"
+                onkeyup="validateTitleField()"
               />
               <p class="error-msg" id="titleError">This field is required</p>
             </div>
@@ -154,6 +155,7 @@
                     placeholder="dd/mm/yyyy"
                     maxlength="10"
                     oninput="syncPickerFromInput()"
+                    onkeyup="validateDueDateField()"
                   />
                   <input
                     type="date"

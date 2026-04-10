@@ -59,6 +59,7 @@ function categoryOptionClicked(event) {
   text.textContent = option.textContent.trim();
   hidden.value = option.getAttribute("data-value");
   catSelect.classList.remove("open");
+  validateCategoryField();
   event.stopPropagation();
 }
 
@@ -200,16 +201,11 @@ function initSubtaskSection() {
   if (subtaskActions === undefined) {
     return;
   }
-  let actionIcons = subtaskActions.getElementsByClassName("subtask-icon");
-  if (actionIcons.length >= 2) {
-    actionIcons[0].onclick = clearSubtaskInput;
-    actionIcons[1].onclick = saveSubtaskFromInput;
-  } else {
-    let actionBtns = subtaskActions.getElementsByClassName("subtask-btn");
-    if (actionBtns.length >= 2) {
-      actionBtns[0].onclick = clearSubtaskInput;
-      actionBtns[1].onclick = saveSubtaskFromInput;
-    }
+
+  let actionBtns = subtaskActions.getElementsByClassName("subtask-btn");
+  if (actionBtns.length >= 2) {
+    actionBtns[0].onclick = clearSubtaskInput;
+    actionBtns[1].onclick = saveSubtaskFromInput;
   }
   renderSubtasks();
 }

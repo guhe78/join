@@ -72,10 +72,11 @@ function validateTitleField() {
     titleInput.classList.add("input-error");
     titleError.classList.add("visibility-visible");
     return false;
+  } else {
+    titleInput.classList.remove("input-error");
+    titleError.classList.remove("visibility-visible");
+    return true;
   }
-  titleInput.classList.remove("input-error");
-  titleError.classList.remove("visibility-visible");
-  return true;
 }
 
 /**
