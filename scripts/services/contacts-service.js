@@ -5,19 +5,8 @@
  * @returns {Promise<void>}
  */
 async function addContact() {
-  let name = DOM.contactNameEl.value.trim();
-  let email = DOM.contactEmailEl.value.trim();
-  let phone = DOM.contactPhoneEl.value.trim();
   if (!validateContactInputs()) return;
-  const contactName = splitName(name);
-  if (!contactName) return;
-  let newContact = {
-    firstName: contactName.firstName,
-    lastName: contactName.lastName,
-    email: email,
-    phone: phone,
-    badgeColor: getRandomColor(),
-  };
+  let newContact = createNewContactObject();
   let result;
   try {
     result = await postData("contacts", newContact);
@@ -32,6 +21,26 @@ async function addContact() {
   clearInputs();
   closeDialog();
   renderToastMessage("created");
+}
+
+/**
+ * Creates a new contact object by collecting the input values from the form and splitting the name into first and last names.
+ * @returns {Object} - The new contact object.
+ */
+function createNewContactObject() {
+  let name = DOM.contactNameEl.value.trim();
+  let email = DOM.contactEmailEl.value.trim();
+  let phone = DOM.contactPhoneEl.value.trim();
+
+  const contactName = splitName(name);
+
+  return {
+    firstName: contactName.firstName,
+    lastName: contactName.lastName,
+    email: email,
+    phone: phone,
+    badgeColor: getRandomColor(),
+  };
 }
 
 /**

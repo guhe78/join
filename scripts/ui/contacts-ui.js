@@ -62,33 +62,54 @@ function renderContactDesktop(contact) {
  * @returns {void}
  */
 function renderContactMobile(contact) {
+  renderMobileView(contact);
+  bindMobileEvents();
+  toggleMobileView(contact);
+}
+
+/**
+ * Renders the mobile view for a contact by inserting the appropriate HTML template into the DOM.
+ * @param {*} contact - The contact object to render.
+ */
+function renderMobileView(contact) {
   DOM.fullscreenMobileEl.innerHTML =
     contactMainTemplate() +
     contactMobileButton(contact) +
     contactCloseDetailViewButton();
 
-  DOM.mobileMenuEl = document.getElementById("mobile-menu");
-  const closeButton = document.getElementById("close-contact-detail");
-  closeButton.onclick = (event) => {
-    event.stopPropagation();
-    closeContactDetailView();
+  const overview = DOM.fullscreenMobileEl.querySelector("#contact-overview");
+  overview.innerHTML = contactDetailTemplate(contact);
+  overview.classList.add("fade-in");
+}
+
+/**
+ * Binds event listeners for the mobile view, including the close button for the contact detail view and the button to open the mobile contact menu. It also stores a reference to the mobile menu element in the DOM object for later use.
+ * @returns {void}
+ */
+function bindMobileEvents() {
+  const stop = (fn) => (e) => {
+    e.stopPropagation();
+    fn();
   };
-  const mobileContactMenuButtonEl = document.getElementById(
-    "mobile-contact-menu-button",
+
+  document.getElementById("close-contact-detail").onclick = stop(
+    closeContactDetailView,
   );
-  mobileContactMenuButtonEl.onclick = (event) => {
-    event.stopPropagation();
-    openMobileContactMenu();
-  };
 
+  document.getElementById("mobile-contact-menu-button").onclick = stop(
+    openMobileContactMenu,
+  );
+
+  DOM.mobileMenuEl = document.getElementById("mobile-menu");
+}
+
+/**
+ * Toggles the mobile view by updating the CSS classes of the relevant elements to show the fullscreen contact detail view and hide the desktop view. This function is called when a contact is selected in the mobile view to display the contact's details in a fullscreen overlay.
+ * @param {*} contact - The contact object to render.
+ * @returns {void}
+ */
+function toggleMobileView() {
   DOM.screenDesktopEl.classList.add("hide-mobile");
-
-  const mobileOverviewEl =
-    DOM.fullscreenMobileEl.querySelector("#contact-overview");
-
-  mobileOverviewEl.innerHTML = contactDetailTemplate(contact);
-  mobileOverviewEl.classList.add("fade-in");
-
   DOM.contactsListEl.classList.add("hide-mobile");
   DOM.fullscreenMobileEl.classList.remove("hide-mobile");
 }
@@ -114,28 +135,25 @@ function renderToastMessage(type) {
  * @returns {void}
  */
 function toggleActiveContact(firebaseKey) {
-  const currentActiveElement = document.querySelector(".active-contact");
-  const newActiveElement = document.getElementById("contact" + firebaseKey);
-  if (!newActiveElement) return;
-  if (DOM.contactOverviewEl) {
-    DOM.contactOverviewEl.classList.remove("fade-in");
-  }
+  const current = document.querySelector(".active-contact");
+  const next = document.getElementById(`contact${firebaseKey}`);
+  if (!next) return;
+
+  DOM.contactOverviewEl?.classList.remove("fade-in");
+  const isSame = current === next;
+  current?.classList.remove("active-contact");
+
   if (isMobileView()) {
-    if (currentActiveElement) {
-      currentActiveElement.classList.remove("active-contact");
-    }
-    newActiveElement.classList.add("active-contact");
+    next.classList.add("active-contact");
     renderContact(firebaseKey);
     return;
   }
-  if (currentActiveElement) {
-    currentActiveElement.classList.remove("active-contact");
+
+  if (isSame) {
     DOM.contactOverviewEl.innerHTML = "";
+    return;
   }
-  if (currentActiveElement === newActiveElement) {
-    newActiveElement.classList.remove("active-contact");
-  } else {
-    newActiveElement.classList.add("active-contact");
-    renderContact(firebaseKey);
-  }
+
+  next.classList.add("active-contact");
+  renderContact(firebaseKey);
 }
