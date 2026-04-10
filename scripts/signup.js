@@ -33,6 +33,14 @@ async function getSignupData(event) {
     return;
   }
   await setUser(newUser);
+  forwardToIndex();
+}
+
+/**
+ * Forwards the user to the index page after a successful signup by displaying a toast message and then redirecting to the index page after a short delay.
+ * @returns {void}
+ */
+function forwardToIndex() {
   DOM.toastSectionEl.classList.add("fade-in");
   setTimeout(() => {
     DOM.toastSectionEl.classList.remove("fade-in");
@@ -51,6 +59,10 @@ function validateInputs() {
   return isNameValid && isEmailValid && isPasswordValid;
 }
 
+/**
+ * Validates the name input by checking if it contains at least a first name and a last name, and if each part meets the required format.
+ * @returns {boolean} - Returns true if the name is valid, false otherwise.
+ */
 function validateName() {
   const name = DOM.nameSignupEl.value.trim();
   const parts = name.split(/\s+/).filter(Boolean);
@@ -68,6 +80,10 @@ function validateName() {
   return isValid;
 }
 
+/**
+ * Validates the email input by checking if it is not empty and if it matches a valid email format. The validation is triggered on input and on form submission.
+ * @returns {boolean} - Returns true if the email is valid, false otherwise.
+ */
 function validateEmail() {
   const email = DOM.emailSignupEl.value.trim();
 
@@ -103,26 +119,47 @@ function validatePassword(forceValidation = false) {
 
   let isValid = true;
 
+  isValid = checkPasswordLength(password);
+
+  isValid = checkConfirmPasswordLength(password, passwordConfirm);
+
+  return isValid;
+}
+
+/**
+ * Checks if the password meets the required length and updates the warning message accordingly.
+ * @param {string} password - The password to check.
+ * @returns {boolean} - Returns true if the password meets the required length, false otherwise.
+ */
+function checkPasswordLength(password) {
   if (password.length === 0) {
     DOM.warningMessagePasswordSignupEl.textContent = "Password required";
-    isValid = false;
+    return false;
   } else {
     DOM.warningMessagePasswordSignupEl.textContent = "";
+    return true;
   }
+}
 
+/**
+ * Checks if the password confirmation meets the required length and matches the password, updating the warning message accordingly.
+ * @param {string} password - The password to check against.
+ * @param {string} passwordConfirm - The password confirmation to check.
+ * @returns {boolean} - Returns true if the password confirmation meets the required length and matches the password, false otherwise.
+ */
+function checkConfirmPasswordLength(password, passwordConfirm) {
   if (passwordConfirm.length === 0) {
     DOM.warningMessagePasswordConfirmSignupEl.textContent =
       "Please confirm your password";
-    isValid = false;
+    return false;
   } else if (password !== passwordConfirm) {
     DOM.warningMessagePasswordConfirmSignupEl.textContent =
       "Passwords do not match";
-    isValid = false;
+    return false;
   } else {
     DOM.warningMessagePasswordConfirmSignupEl.textContent = "";
+    return true;
   }
-
-  return isValid;
 }
 
 /**
