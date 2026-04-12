@@ -175,15 +175,43 @@ function openTaskDetail(firebaseKey) {
  * Closes any open task dialog with animation and cleanup.
  */
 function closeTaskDialog() {
-  let dialog = document.getElementById("dialog");
-  let dialogContent = document.getElementById("dialogContent");
-  if (!dialog || !dialog.open || dialog.classList.contains("is-closing")) {
+  let elements = getDialogElements();
+  if (!isDialogClosable(elements.dialog)) {
     return;
   }
-  if (dialog.classList.contains("add-task-dialog")) {
+  if (elements.dialog.classList.contains("add-task-dialog")) {
     closeAddTaskModalDirect();
     return;
   }
+  performDialogCloseAnimation(elements.dialog, elements.dialogContent);
+}
+
+/**
+ * Retrieves the dialog and dialog content elements.
+ * @returns {Object} Object containing dialog and dialogContent properties.
+ */
+function getDialogElements() {
+  return {
+    dialog: document.getElementById("dialog"),
+    dialogContent: document.getElementById("dialogContent"),
+  };
+}
+
+/**
+ * Checks if the dialog can be closed.
+ * @param {HTMLDialogElement} dialog The dialog element.
+ * @returns {boolean} True if the dialog can be closed.
+ */
+function isDialogClosable(dialog) {
+  return dialog && dialog.open && !dialog.classList.contains("is-closing");
+}
+
+/**
+ * Performs the dialog close animation and cleanup.
+ * @param {HTMLDialogElement} dialog The dialog element.
+ * @param {HTMLElement} dialogContent The dialog content element.
+ */
+function performDialogCloseAnimation(dialog, dialogContent) {
   dialog.classList.add("is-closing");
   setTimeout(function () {
     if (dialog.open) {

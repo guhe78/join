@@ -38,7 +38,6 @@ function clearAssignedSelect() {
   let options = dropdown.getElementsByClassName("select-option");
   for (let i = 0; i < options.length; i++) {
     options[i].classList.remove("active");
-
     let checkbox = options[i].getElementsByTagName("input")[0];
     checkbox.checked = false;
   }
@@ -70,12 +69,13 @@ function validateTitleField() {
   }
   if (titleInput.value.trim() === "") {
     titleInput.classList.add("input-error");
-    titleError.style.display = "block";
+    titleError.classList.add("visibility-visible");
     return false;
+  } else {
+    titleInput.classList.remove("input-error");
+    titleError.classList.remove("visibility-visible");
+    return true;
   }
-  titleInput.classList.remove("input-error");
-  titleError.style.display = "none";
-  return true;
 }
 
 /**
@@ -90,11 +90,11 @@ function validateDueDateField() {
   }
   if (dueInput.value.trim() === "") {
     dueInput.classList.add("input-error");
-    dueError.style.display = "block";
+    dueError.classList.add("visibility-visible");
     return false;
   }
   dueInput.classList.remove("input-error");
-  dueError.style.display = "none";
+  dueError.classList.remove("visibility-visible");
   return true;
 }
 
@@ -111,11 +111,11 @@ function validateCategoryField() {
   }
   if (catHidden.value.trim() === "") {
     catSelect.classList.add("input-error");
-    categoryError.style.display = "block";
+    categoryError.classList.add("visibility-visible");
     return false;
   }
   catSelect.classList.remove("input-error");
-  categoryError.style.display = "none";
+  categoryError.classList.remove("visibility-visible");
   return true;
 }
 
@@ -166,6 +166,18 @@ function createTaskObject(status = "todo") {
   let catHidden = document.getElementById("catHidden");
   let categoryValue = catHidden.value;
   let categoryLabel = getCategoryLabel(categoryValue);
+  return returnTaskObject(titleInput, descInput, categoryLabel, status);
+}
+
+/**
+ * Constructs the complete task object with all required properties.
+ * @param {HTMLInputElement} titleInput The title input element.
+ * @param {HTMLInputElement} descInput The description input element.
+ * @param {string} categoryLabel The formatted category label.
+ * @param {string} status The status of the task.
+ * @returns {Object} The complete task object with all properties.
+ */
+function returnTaskObject(titleInput, descInput, categoryLabel, status) {
   return {
     assigned_to: getAssignedContacts(),
     author_id: "user_1",
@@ -243,6 +255,7 @@ async function createTaskClicked() {
  */
 async function initAddTask(createHandler = createTaskClicked) {
   checkAuth();
+  setActiveLink();
   renderLoginInitials();
   await getContacts();
   renderAssignedContacts();

@@ -71,7 +71,7 @@
 
   <body class="addtask-page" onload="initAddTask()">
     <aside>
-      <img src="../assets/imgs/join-logo-white.png" alt="logo" class="logo" />
+      <img src="../assets/imgs/join-logo-white.svg" alt="logo" class="logo" />
       <nav class="side-nav">
         <div class="page-links">
           <a href="summary.html" class="page-link-button"
@@ -88,8 +88,12 @@
           >
         </div>
         <div class="police-links-container">
-          <a href="./privacy-policy.html">Privacy Policy</a>
-          <a href="./legal-notice.html">Legal notice</a>
+          <a href="./privacy-policy.html" class="page-link-button"
+            >Privacy Policy</a
+          >
+          <a href="./legal-notice.html" class="page-link-button"
+            >Legal notice</a
+          >
         </div>
       </nav>
     </aside>
@@ -97,7 +101,7 @@
       <header>
         <div class="header-container">
           <img
-            src="../assets/imgs/join-logo.png"
+            src="../assets/imgs/join-logo.svg"
             alt="logo"
             class="logo-mobile"
           />
@@ -121,18 +125,21 @@
         <form class="addtask-form">
           <div class="addtask-col">
             <div class="field">
-              <p class="label" for="title">Title<span class="req">*</span></p>
+              <label class="label" for="title"
+                >Title<span class="req">*</span></label
+              >
               <input
                 id="title"
                 class="input addtask-input"
                 type="text"
                 placeholder="Enter a title"
                 maxlength="40"
+                onkeyup="validateTitleField()"
               />
               <p class="error-msg" id="titleError">This field is required</p>
             </div>
             <div class="field">
-              <p class="label" for="desc">Description</p>
+              <label class="label" for="desc">Description</label>
               <textarea
                 id="desc"
                 class="textarea"
@@ -142,9 +149,9 @@
               ></textarea>
             </div>
             <div class="field">
-              <p class="label" for="due-date">
+              <label class="label" for="due-date">
                 Due date<span class="req">*</span>
-              </p>
+              </label>
               <div class="addtask-due-date-container">
                 <div class="addtask-due-input-wrapper">
                   <input
@@ -154,6 +161,7 @@
                     placeholder="dd/mm/yyyy"
                     maxlength="10"
                     oninput="syncPickerFromInput()"
+                    onkeyup="validateDueDateField()"
                   />
                   <input
                     type="date"
@@ -182,33 +190,33 @@
           <div class="addtask-divider"></div>
           <div class="addtask-col">
             <div class="prio-row">
-              <p class="label" for="assignedSelect">Priority</p>
+              <label class="label" for="assignedSelect">Priority</label>
               <div class="prio-buttons">
                 <button type="button" class="prio-btn prio-urgent">
                   Urgent
-                  <svg class="prio-icon" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M7 14l5-5 5 5" />
-                    <path d="M7 19l5-5 5 5" />
-                  </svg>
+                  <img
+                    src="../assets/imgs/prio-urgent-addtask.svg"
+                    alt="priority urgent icon"
+                  />
                 </button>
                 <button type="button" class="prio-btn prio-medium is-active">
                   Medium
-                  <svg class="prio-icon" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M7 10h10" />
-                    <path d="M7 14h10" />
-                  </svg>
+                  <img
+                    src="../assets/imgs/prio-medium-addtask.svg"
+                    alt="priority medium icon"
+                  />
                 </button>
                 <button type="button" class="prio-btn prio-low">
                   Low
-                  <svg class="prio-icon" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M7 10l5 5 5-5" />
-                    <path d="M7 5l5 5 5-5" />
-                  </svg>
+                  <img
+                    src="../assets/imgs/prio-low-addtask.svg"
+                    alt="priority low icon"
+                  />
                 </button>
               </div>
             </div>
             <div class="field">
-              <p class="label" for="assignedSelect">Assigned to</p>
+              <label class="label" for="assignedSelect">Assigned to</label>
               <div class="custom-select" id="assignedSelect">
                 <div class="select-trigger">
                   <span class="trigger-text">Select contacts to assign</span>
@@ -223,9 +231,9 @@
               <div class="assigned-badges" id="assignedBadges"></div>
             </div>
             <div class="field">
-              <p class="label" for="catSelect">
+              <label class="label" for="catSelect">
                 Category<span class="req">*</span>
-              </p>
+              </label>
               <div class="custom-select custom-select--single" id="catSelect">
                 <div class="select-trigger">
                   <span class="trigger-text">Select task category</span>

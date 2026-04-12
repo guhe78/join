@@ -1,3 +1,8 @@
+/**
+ * Loads contacts from a JSON file and uploads them to the database.
+ * @async
+ * @returns {Promise<void>}
+ */
 async function uploadContactsJSON() {
   const response = await fetch("../scripts/contacts.json");
   const contacts = await response.json();
@@ -7,6 +12,11 @@ async function uploadContactsJSON() {
   }
 }
 
+/**
+ * Loads tasks from a JSON file and uploads them to the database.
+ * @async
+ * @returns {Promise<void>}
+ */
 async function uploadTasksJSON() {
   const response = await fetch("../scripts/tasks.json");
   const tasks = await response.json();

@@ -122,8 +122,9 @@ dialog::backdrop {
 .required-warning {
   position: absolute;
   margin-top: 70px;
+  margin-left: 15px;
   color: red;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .input-buttons {
@@ -199,10 +200,15 @@ dialog::backdrop {
 
   .input-buttons {
     justify-content: center;
+    padding-top: 16px;
   }
 
   .cancel-button {
     display: none;
+  }
+
+  .required-warning {
+    margin-top: 58px;
   }
 }
 
@@ -231,6 +237,10 @@ dialog::backdrop {
 
   .right-content {
     gap: 8px;
+  }
+
+  .input-buttons {
+    padding-top: 4px;
   }
 }
 

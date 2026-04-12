@@ -63,34 +63,13 @@ function validateEditTitleField() {
 }
 
 /**
- * Validates the edit form description field and updates DOM error state.
- * @returns {boolean} True if description is valid, otherwise false.
- */
-function validateEditDescriptionField() {
-  let descInput = document.getElementById("task-desc");
-  let descriptionFeedback = document.getElementById("descriptionFeedback");
-  if (descInput === null || descriptionFeedback === null) {
-    return false;
-  }
-  if (descInput.value.trim() === "") {
-    descInput.classList.add("input-error");
-    descriptionFeedback.classList.add("visibillity-visible");
-    return false;
-  }
-  descInput.classList.remove("input-error");
-  descriptionFeedback.classList.remove("visibillity-visible");
-  return true;
-}
-
-/**
  * Validates the entire edit form including title, description, and due date.
  * @returns {boolean} True if all fields are valid, otherwise false.
  */
 function validateEditForm() {
   let titleValid = validateEditTitleField();
-  let descValid = validateEditDescriptionField();
   let dateValid = validateDueDateField();
-  return titleValid && descValid && dateValid;
+  return titleValid && dateValid;
 }
 
 /**
@@ -151,6 +130,7 @@ async function editTask(id, createHandler = createTaskClicked) {
   loadEditTaskForm(task);
   await initializeEditForm(task);
 }
+
 /**
  * Updates the task in memory with the edited values.
  * @param {string} taskId - The Firebase key of the task.

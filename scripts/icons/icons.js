@@ -1,3 +1,7 @@
+/**
+ * Returns the SVG markup for a cancel icon.
+ * @returns {string} The SVG string for the cancel icon.
+ */
 function cancelIcon() {
   return `
     <svg viewBox="0 0 13 13" class="icon">
@@ -6,6 +10,10 @@ function cancelIcon() {
   `;
 }
 
+/**
+ * Returns the SVG markup for a check icon.
+ * @returns {string} The SVG string for the check icon.
+ */
 function checkIcon() {
   return `
     <svg viewBox="0 0 16 12" class="icon">
@@ -14,6 +22,10 @@ function checkIcon() {
   `;
 }
 
+/**
+ * Returns the SVG markup for an edit check icon.
+ * @returns {string} The SVG string for the edit check icon.
+ */
 function editCheckIcon() {
   return `
     <svg viewBox="0 0 24 24" class="check-icon">
@@ -22,6 +34,10 @@ function editCheckIcon() {
   `;
 }
 
+/**
+ * Returns the SVG markup for an edit icon.
+ * @returns {string} The SVG string for the edit icon.
+ */
 function editIcon() {
   return `
     <svg viewBox="0 0 19 19" class="icon">
@@ -30,6 +46,10 @@ function editIcon() {
   `;
 }
 
+/**
+ * Returns the SVG markup for a delete icon.
+ * @returns {string} The SVG string for the delete icon.
+ */
 function deleteIcon() {
   return `
     <svg viewBox="0 0 16 18" class="icon">
@@ -38,6 +58,10 @@ function deleteIcon() {
   `;
 }
 
+/**
+ * Returns the SVG markup for a search icon.
+ * @returns {string} The SVG string for the search icon.
+ */
 function searchIcon() {
   return `
     <svg viewBox="0 0 32 32" class="icon">
@@ -46,6 +70,10 @@ function searchIcon() {
   `;
 }
 
+/**
+ * Returns the SVG markup for a person icon.
+ * @returns {string} The SVG string for the person icon.
+ */
 function personIcon() {
   return `
     <svg viewBox="0 0 43 43" class="icon">
@@ -55,6 +83,10 @@ function personIcon() {
   `;
 }
 
+/**
+ * Returns the SVG markup for a low priority icon.
+ * @returns {string} The SVG string for the low priority icon.
+ */
 function priorityLowIcon() {
   return `
     <svg viewBox="0 0 32 32" class="prio-icon color-low">
@@ -64,6 +96,10 @@ function priorityLowIcon() {
   `;
 }
 
+/**
+ * Returns the SVG markup for a medium priority icon.
+ * @returns {string} The SVG string for the medium priority icon.
+ */
 function priorityMediumIcon() {
   return `
     <svg viewBox="0 0 32 32" class="prio-icon color-medium">
@@ -73,6 +109,10 @@ function priorityMediumIcon() {
   `;
 }
 
+/**
+ * Returns the SVG markup for an urgent priority icon.
+ * @returns {string} The SVG string for the urgent priority icon.
+ */
 function priorityUrgentIcon() {
   return `
     <svg viewBox="0 0 32 32" class="prio-icon color-urgent">
@@ -82,6 +122,10 @@ function priorityUrgentIcon() {
   `;
 }
 
+/**
+ * Returns the SVG markup for a close icon.
+ * @returns {string} The SVG string for the close icon.
+ */
 function closeIcon() {
   return `
     <svg viewBox="0 0 14 14" class="icon">
@@ -90,6 +134,10 @@ function closeIcon() {
   `;
 }
 
+/**
+ * Returns the SVG markup for a more vertical options icon.
+ * @returns {string} The SVG string for the more vertical options icon.
+ */
 function moreVerticalIcon() {
   return `
     <svg viewBox="0 0 6 22">
@@ -98,6 +146,10 @@ function moreVerticalIcon() {
   `;
 }
 
+/**
+ * Returns the SVG markup for an arrow left icon.
+ * @returns {string} The SVG string for the arrow left icon.
+ */
 function arrowLeftIcon() {
   return `
     <svg viewBox="0 0 24 23">
@@ -106,6 +158,10 @@ function arrowLeftIcon() {
   `;
 }
 
+/**
+ * Returns the SVG markup for a login icon.
+ * @returns {string} The SVG string for the login icon.
+ */
 function loginIcon() {
   return `
     <svg viewBox="0 0 26 26">

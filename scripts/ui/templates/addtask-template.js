@@ -11,12 +11,12 @@ function buildNormalSubtaskHTML(index) {
             <span class="subtask-text">${subtasks[index]}</span>
         </div>
         <div class="subtask-item-actions">
-            <button class="subtask-btn">
-            <img class="subtask-action-icon subtask-edit-btn" src="../assets/imgs/edit-black.svg" alt="edit">
+      <button type="button" class="subtask-btn subtask-edit-btn">
+            <img class="subtask-action-icon" src="../assets/imgs/edit-black.svg" alt="edit">
             </button>
             <div class="subtask-item-divider"></div>
-            <button class="subtask-btn">
-            <img class="subtask-action-icon subtask-delete-btn" src="../assets/imgs/delete-black.svg" alt="delete">
+      <button type="button" class="subtask-btn subtask-delete-btn">
+            <img class="subtask-action-icon" src="../assets/imgs/delete-black.svg" alt="delete">
             </button>
         </div>
     </div>
@@ -35,12 +35,12 @@ function buildEditSubtaskHTML(index) {
             <input class="subtask-edit-input" id="editSubtaskInput" type="text" value="${subtasks[index]}" maxlength="60">
         </div>
         <div class="subtask-item-actions">
-            <button class="subtask-btn">
-            <img class="subtask-action-icon subtask-delete-edit-btn" src="../assets/imgs/delete-black.svg" alt="delete">
+      <button type="button" class="subtask-btn subtask-delete-edit-btn">
+            <img class="subtask-action-icon" src="../assets/imgs/delete-black.svg" alt="delete">
             </button>
             <div class="subtask-item-divider"></div>
-            <button class="subtask-btn">
-            <img class="subtask-action-icon subtask-save-btn" src="../assets/imgs/check.png" alt="save">
+      <button type="button" class="subtask-btn subtask-save-btn">
+            <img class="subtask-action-icon" src="../assets/imgs/check.png" alt="save">
             </button>
         </div>
     </div>
@@ -77,6 +77,7 @@ function addTaskTemplate() {
                 type="text"
                 placeholder="Enter a title"
                 maxlength="40"
+                onkeyup="validateTitleField()"
               />
               <p class="error-msg" id="titleError">This field is required</p>
             </div>
@@ -93,9 +94,9 @@ function addTaskTemplate() {
             </div>
 
             <div class="field">
-              <p class="label" for="due-date">
+              <label class="label" for="due-date">
                 Due date<span class="req">*</span>
-              </p>
+              </label>
               <div class="addtask-due-date-container">
                 <div class="addtask-due-input-wrapper">
                   <input
@@ -105,6 +106,7 @@ function addTaskTemplate() {
                     placeholder="dd/mm/yyyy"
                     maxlength="10"
                     oninput="syncPickerFromInput()"
+                    onkeyup="validateDueDateField()"
                   />
                   <input
                     type="date"
@@ -135,7 +137,7 @@ function addTaskTemplate() {
 
           <div class="addtask-col">
             <div class="prio-row">
-              <p class="label" for="assignedSelect">Priority</p>
+              <label class="label" for="assignedSelect">Priority</label>
               <div class="prio-buttons">
                 <button type="button" class="prio-btn prio-urgent">
                   Urgent
@@ -164,7 +166,7 @@ function addTaskTemplate() {
             </div>
 
             <div class="field">
-              <p class="label" for="assignedSelect">Assigned to</p>
+              <label class="label" for="assignedSelect">Assigned to</label>
 
               <div class="custom-select" id="assignedSelect">
                 <div class="select-trigger">
@@ -183,9 +185,9 @@ function addTaskTemplate() {
             </div>
 
             <div class="field">
-              <p class="label" for="catSelect">
+              <label class="label" for="catSelect">
                 Category<span class="req">*</span>
-              </p>
+              </label>
 
               <div class="custom-select custom-select--single" id="catSelect">
                 <div class="select-trigger">
@@ -248,7 +250,7 @@ function addTaskTemplate() {
           </div>
         </form>
 
-        <div class="addtask-foot">
+        <div class="addtask-foot template-foot">
           <p class="required-hint">
             <span class="req">*</span> This field is required
           </p>

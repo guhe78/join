@@ -23,11 +23,10 @@ function editTaskTemplate(task) {
           <div class="edit-container title">
             <label class="detail-label" for="task-title">Title</label>
             <div class="input-wrapper-title">
-            <input value="${task.title}" id="task-title" class="edit-input" type="text" maxlength="40" required />
+            <input onkeyup="validateEditTitleField()" value="${task.title}" id="task-title" class="edit-input" type="text" maxlength="40" required />
             <p class="feedback-message" id="titleFeedback">this field is required</p>
             </div>
           </div>
-
           <div class="edit-container description">
             <label class="detail-label" for="task-desc">Description</label>
             <div class="textarea-container">
@@ -38,7 +37,6 @@ function editTaskTemplate(task) {
                   placeholder="Enter description..."
                   maxlength="250"
                 >${task.description}</textarea>
-              <p class="feedback-message" id="descriptionFeedback">this field is required</p>
             </div>
           </div>
 
@@ -54,6 +52,7 @@ function editTaskTemplate(task) {
         placeholder="dd/mm/yyyy"
         maxlength="10"
         oninput="syncPickerFromInput()"
+        onkeyup="validateDueDateField()"
       />
       <input
         type="date"

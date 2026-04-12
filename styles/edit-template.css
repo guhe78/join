@@ -11,6 +11,10 @@
   gap: 8px;
 }
 
+.edit-container.description {
+  padding-bottom: 15px;
+}
+
 .edit-dialog {
   overflow: hidden;
   padding-top: 32px;

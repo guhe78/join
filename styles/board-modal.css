@@ -21,14 +21,17 @@ body.dialog-open {
 }
 
 .add-task-modal {
-  width: 1161px;
+  height: 90vh;
+  max-height: 900px;
+  width: 100%;
+  max-width: 1161px;
   border-radius: 30px;
   background: #ffffff;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) translateX(150%);
-  padding: 64px;
+  padding: 24px 64px;
   overflow-y: auto;
   overflow-x: hidden;
   transition: 0.1s ease;
@@ -45,7 +48,7 @@ body.dialog-open {
 .add-task-close-btn {
   position: absolute;
   top: 64px;
-  right: 24px;
+  right: 32px;
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -243,10 +246,17 @@ body.dialog-open {
 
 .template-container {
   padding: 0px;
+  padding-bottom: 8px;
+  width: 100%;
+}
+
+.template-foot {
+  margin-bottom: 16px;
 }
 
 @media (max-width: 1160px) {
   .add-task-modal {
+    max-height: 855px;
     width: 100%;
     padding: 32px;
   }

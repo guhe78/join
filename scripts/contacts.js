@@ -5,6 +5,7 @@
  */
 async function init() {
   initEvents();
+  setActiveLink();
   checkAuth();
   await getContacts();
   renderContactsList();
@@ -56,14 +57,13 @@ function handleOutsideClick(event) {
 
 /**
  * Saves the edited contact by collecting the input values from the form, validating the form, updating the contact object, sending the updated contact to the backend, and updating the contacts list and overview. It also provides feedback to the user through a toast message and closes the dialog after the operation is completed.
- * @param {number} index - The index of the contact to save.
+ * @param {string} firebaseKey - The Firebase key of the contact to save.
  * @returns {Promise<void>}
  */
 async function saveEditedContact(firebaseKey) {
+  if (!validateContactInputs()) return;
   const contact = findContact(firebaseKey);
-  if (!validateForm()) return;
   const contactName = splitName(DOM.contactNameEl.value);
-  if (!contactName) return;
   contact.firstName = contactName.firstName;
   contact.lastName = contactName.lastName;
   contact.email = DOM.contactEmailEl.value;

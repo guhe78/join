@@ -10,6 +10,7 @@ async function init() {
   currentTasks = tasks;
   updateBoard();
   scrollToHash();
+  setActiveLink();
 }
 
 /**

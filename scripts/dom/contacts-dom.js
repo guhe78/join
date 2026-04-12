@@ -1,3 +1,30 @@
+/**
+ * DOM element references for the contacts page.
+ * Centralizes access to all contact-related HTML elements used throughout the contacts module.
+ * @type {Object}
+ * @property {HTMLElement} contactsListEl - The container for the contacts list.
+ * @property {HTMLElement} dialogEl - The dialog modal element.
+ * @property {HTMLElement} headlineEl - The headline text in the dialog.
+ * @property {HTMLElement} noButtonEl - The "No" button in the dialog.
+ * @property {HTMLElement} okButtonEl - The "OK" button in the dialog.
+ * @property {HTMLElement} contactOverviewContainerEl - The container for the contact overview.
+ * @property {HTMLElement} contactOverviewEl - The contact overview display element.
+ * @property {HTMLInputElement} contactNameEl - The contact name input field.
+ * @property {HTMLInputElement} contactEmailEl - The contact email input field.
+ * @property {HTMLInputElement} contactPhoneEl - The contact phone input field.
+ * @property {HTMLElement} closeButtonEl - The close button for the contact panel.
+ * @property {HTMLElement} personImageEl - The person profile image element.
+ * @property {HTMLElement} warningMessageNameEl - Warning message for name validation.
+ * @property {HTMLElement} warningMessageEmailEl - Warning message for email validation.
+ * @property {HTMLElement} warningMessagePhoneEl - Warning message for phone validation.
+ * @property {HTMLElement} userButtonEl - The user profile button.
+ * @property {HTMLElement} screenDesktopEl - The desktop screen container.
+ * @property {HTMLElement} fullscreenMobileEl - The mobile fullscreen container.
+ * @property {HTMLElement} mobileContactMenuButtonEl - The mobile contact menu button.
+ * @property {HTMLElement} mobileMenuEl - The mobile menu container.
+ * @property {HTMLElement} toastMessageEl - The toast message display element.
+ * @property {HTMLElement} toastSectionEl - The toast notification section.
+ */
 const DOM = {
   contactsListEl: document.getElementById("contacts-list"),
   dialogEl: document.getElementById("dialog"),

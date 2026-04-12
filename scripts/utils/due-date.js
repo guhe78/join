@@ -154,6 +154,7 @@ function syncDateFromPicker() {
     return;
   }
   input.value = formatDateForDisplay(picker.value);
+  validateDueDateField();
 }
 
 /**
